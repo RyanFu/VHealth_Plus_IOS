@@ -183,7 +183,7 @@
         cell.headerUrl = @"icon_jifen_";
         cell.scoreContent = @"积分";
         cell.scoreNumberContent = [NSString stringWithFormat:@"%@", self.userScore.score ? self.userScore.score : @(0)];
-        cell.rateGoldContent = @"折合金币";
+        cell.rateGoldContent = @"折合健康豆";
         cell.rateGoldNumberContent = [NSString stringWithFormat:@"%@", self.userScore.gold ? self.userScore.gold : @(0)];
         return cell;
     }

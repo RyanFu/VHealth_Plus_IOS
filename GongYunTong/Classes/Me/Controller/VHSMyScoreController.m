@@ -190,12 +190,12 @@
         }
         else if (indexPath.row == 1) {
             cell.tagImageView.hidden = YES;
-            cell.title.text = @"折合金币";
+            cell.title.text = @"折合健康豆";
             cell.detail.text = [NSString stringWithFormat:@"%@", self.scoreModel.gold ? self.scoreModel.gold : @(0)];
         }
         else if (indexPath.row == 2) {
             cell.tagImageView.hidden = YES;
-            cell.title.text = @"积分转换金币比例";
+            cell.title.text = @"积分转换健康豆比例";
             cell.detail.text = self.goldRate;
         }
         return cell;
