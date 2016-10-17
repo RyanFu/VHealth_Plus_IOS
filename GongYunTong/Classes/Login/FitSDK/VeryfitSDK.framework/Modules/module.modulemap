@@ -1,0 +1,6 @@
+framework module VeryfitSDK {
+  umbrella header "VeryfitSDK.h"
+
+  export *
+  module * { export * }
+}

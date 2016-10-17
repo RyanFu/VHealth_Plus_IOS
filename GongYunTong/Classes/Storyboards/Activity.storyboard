@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--活动-->
+        <scene sceneID="tXL-Vw-0G5">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M2R-SG-nA1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="VHSActivityController" title="活动" id="Z0O-Zi-e6j" customClass="VHSActivityController" sceneMemberID="viewController"/>
+            </objects>
+            <point key="canvasLocation" x="186" y="390"/>
+        </scene>
+    </scenes>
+</document>

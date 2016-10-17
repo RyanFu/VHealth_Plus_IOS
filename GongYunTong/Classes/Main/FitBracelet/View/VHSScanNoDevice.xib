@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="VHSScanNoDevice">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="171"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bmL-cw-s6v">
+                    <rect key="frame" x="0.0" y="0.0" width="200" height="125"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_cry" translatesAutoresizingMaskIntoConstraints="NO" id="ZxP-9y-bSD">
+                            <rect key="frame" x="58" y="0.0" width="85" height="85"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="85" id="OZi-zP-MPc"/>
+                                <constraint firstAttribute="height" constant="85" id="jm6-Pl-a4f"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击屏幕，重新搜索" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3tN-oX-9jB">
+                            <rect key="frame" x="33" y="105" width="135" height="18"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="ZxP-9y-bSD" firstAttribute="top" secondItem="bmL-cw-s6v" secondAttribute="top" id="6PH-1Y-PXu"/>
+                        <constraint firstItem="3tN-oX-9jB" firstAttribute="centerX" secondItem="bmL-cw-s6v" secondAttribute="centerX" id="Eix-gS-nko"/>
+                        <constraint firstItem="3tN-oX-9jB" firstAttribute="top" secondItem="ZxP-9y-bSD" secondAttribute="bottom" constant="20" id="gsT-uq-e1Z"/>
+                        <constraint firstItem="ZxP-9y-bSD" firstAttribute="centerX" secondItem="bmL-cw-s6v" secondAttribute="centerX" id="lrA-SL-EN0"/>
+                        <constraint firstAttribute="height" constant="125" id="wuS-qO-RHO"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kqe-0c-Ke1">
+                    <rect key="frame" x="55" y="133" width="90" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="Jyu-jr-izf"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="点击获取帮助">
+                        <color key="titleColor" red="0.11764705882352941" green="0.35686274509803922" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="helpClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="dA0-aT-RB9"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="kqe-0c-Ke1" firstAttribute="top" secondItem="bmL-cw-s6v" secondAttribute="bottom" constant="8" id="6EY-GJ-D6g"/>
+                <constraint firstItem="kqe-0c-Ke1" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Tgj-kk-6RE"/>
+                <constraint firstAttribute="trailing" secondItem="bmL-cw-s6v" secondAttribute="trailing" id="VrB-H3-4Yx"/>
+                <constraint firstItem="bmL-cw-s6v" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="aii-7O-VUw"/>
+                <constraint firstItem="bmL-cw-s6v" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="d5n-J8-0kP"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="crayHeightSpace" destination="jm6-Pl-a4f" id="W4f-tn-x1s"/>
+                <outlet property="crayWidthSpace" destination="OZi-zP-MPc" id="gg3-ag-7gP"/>
+                <outlet property="tapView" destination="bmL-cw-s6v" id="BJ4-5b-I0e"/>
+            </connections>
+            <point key="canvasLocation" x="340" y="123.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon_cry" width="85" height="85"/>
+    </resources>
+</document>
