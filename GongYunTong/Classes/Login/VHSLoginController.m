@@ -65,7 +65,6 @@
         // 输入时画面上移
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.30];
-//        self.igvTopSpace.constant = 5;
         [self.view layoutIfNeeded];
         [UIView commitAnimations];
     }
@@ -77,7 +76,6 @@
         // 结束输入时画面还原
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.30];
-//        self.igvTopSpace.constant = 50;
         [self.view layoutIfNeeded];
         [UIView commitAnimations];
     }

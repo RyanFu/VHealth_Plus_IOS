@@ -10,12 +10,15 @@
 #import "VHSTestController.h"
 #import "VHSStepAlgorithm.h"
 #import "VHSLocatServicer.h"
+#import "PublicWKWebViewController.h"
 
 
 @interface VHSTestController ()
 
 @property (nonatomic, strong) UITextField *beginF;
 @property (nonatomic, strong) UITextField *endF;
+
+@property (nonatomic, strong) UIWebView *webView;
 
 @end
 
@@ -43,26 +46,12 @@
     [cancelBtn addTarget:self action:@selector(cancelBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:cancelBtn];
     
-//    UITextField *f2 = [[UITextField alloc] initWithFrame:CGRectMake(50, 300, 300, 50)];
-//    [f2 setBackgroundColor:[UIColor blueColor]];
-//    _endF = f2;
-//    [self.view addSubview:f2];
 }
 
 
 - (void)confirmBtn:(UIButton *)btn {
     
-    [[VHSLocatServicer shareLocater] startUpdatingLocation]; // 开启定位服务
-    
-//    NSString *start = [NSString stringWithFormat:@"%@ 00:00:01", _beginF.text];
-//    NSString *end = [NSString stringWithFormat:@"%@ 23:59:59", _beginF.text];
-//    
-//    VHSStepAlgorithm *algo = [VHSStepAlgorithm shareAlgorithm];
-//    [algo stepsFromMobileWithBeginTime:start endTime:end stepsBlock:^(NSInteger numberOfSteps) {
-//        NSLog(@"numbersOfSteps = %ld", (long)numberOfSteps);
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"steps" message:[NSString stringWithFormat:@"%ld", numberOfSteps] delegate:nil cancelButtonTitle:@"cancle" otherButtonTitles:nil, nil];
-//        [alert show];
-//    }];
+//    [[VHSLocatServicer shareLocater] startUpdatingLocation]; // 开启定位服务
 }
 
 - (void)cancelBtn:(UIButton *)btn {

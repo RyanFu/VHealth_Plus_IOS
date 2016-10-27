@@ -31,12 +31,12 @@
 
 #ifdef GYT_BUILD_FOR_TEST
 #define kServerURL @"http://118.242.18.199:10000/oauth2"
-//#define kServerURL @"http://192.168.2.24:8000/oauth2"
+//#define kServerURL @"http://192.168.2.30:8080/oauth2"
 #endif
 
 #ifdef GYT_BUILD_FOR_BATE
 #define kServerURL @"http://118.242.18.199:10000/oauth2"
-//#define kServerUrl @"http://192.168.2.24:8000/oauth2"
+//#define kServerUrl @"http://192.168.2.30:8080/oauth2"
 #endif
 
 #ifdef GYT_BUILD_FOR_RELEASE

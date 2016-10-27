@@ -68,7 +68,6 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
 + (void)toAppStoreForUpgrade {
     // 应用ID信息可以直接从AppStore拿到
     NSURL *url = [NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1084589981"];
-//    NSURL *url = [NSURL URLWithString:@"itms-apps://itunes.apple.com/gb/app/yi-dong-cai-bian/id391945719?mt=8"];
     if ([[UIApplication sharedApplication] canOpenURL:url]) {
         [[UIApplication sharedApplication] openURL:url];
     }
@@ -178,7 +177,6 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
             return YES;
         }
     }
-    
     return NO;
 }
 
