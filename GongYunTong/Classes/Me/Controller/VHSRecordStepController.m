@@ -316,6 +316,8 @@
         NSInteger lastSyncSteps = [VHSCommon getShouHuanLastStepsSync];
         
         self.sumSteps = dbSteps + realtimeSteps - lastSyncSteps;
+        // 手环跨天时候，可能在获取实时手环数据未获取，但是上次同步数据有，导致了负数
+        self.sumSteps = self.sumSteps ? self.sumSteps : 0;
         
         NSLog(@"--real-%ld--db-%ld--last-%ld--sum-%ld", realtimeSteps, dbSteps, lastSyncSteps, self.sumSteps);
         
@@ -361,6 +363,11 @@
 
 - (void)syncByManual:(UIGestureRecognizer *)tap {
     
+    if (![VHSCommon isNetworkAvailable]) {
+        [VHSToast toast:TOAST_NO_NETWORK];
+        return;
+    }
+    
     // 只能点击一次
     self.syncTimeLabel.userInteractionEnabled = NO;
     self.syncRotate.userInteractionEnabled = NO;
@@ -370,6 +377,9 @@
         tapView = (UIImageView *)tap.view;
     }
     else if ([tapView isKindOfClass:[UILabel class]]) {
+        tapView = self.syncRotate;
+    }
+    else {
         tapView = self.syncRotate;
     }
     [tapView startRotateAnimation];

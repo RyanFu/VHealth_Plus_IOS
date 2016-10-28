@@ -171,7 +171,7 @@
 }
 
 -(void)netWorkJudgeIsBindBLE:(CBPeripheral *)peri {
-    if (![VHSCommon connectedToNetwork]) {
+    if (![VHSCommon isNetworkAvailable]) {
         [VHSToast toast:TOAST_BLE_BIND_NO_NOTWORK];
         [[SharePeripheral sharePeripheral].bleMolue ASDKSendDisConnectDevice:[ShareDataSdk shareInstance].peripheral];
         return;
@@ -186,26 +186,23 @@
                     [weakSelf bindBracelet];
                 } else {
                     [VHSToast toast:result[@"info"]];
-                    [weakSelf.bindCell.bingButton setTitle:@"点击绑定" forState:UIControlStateNormal];
-                    weakSelf.bindCell.waitingIgv.hidden = YES;
-                    weakSelf.bindCell.bingButton.hidden = NO;
-                    weakSelf.tableView.userInteractionEnabled = YES;
+                    [weakSelf recoverCell];
                 }
             }];
         } else {
             [[SharePeripheral sharePeripheral].bleMolue ASDKSendDisConnectDevice:peri];
             [MBProgressHUD hiddenHUD];
             [VHSToast toast:result[@"info"]];
-            [weakSelf.bindCell.bingButton setTitle:@"点击绑定" forState:UIControlStateNormal];
-            weakSelf.bindCell.waitingIgv.hidden = YES;
-            weakSelf.bindCell.bingButton.hidden = NO;
-            weakSelf.tableView.userInteractionEnabled = YES;
+            [weakSelf recoverCell];
         }
     }];
 }
 // 绑定手环
 - (void)bindBracelet {
     NSLog(@"准备震动－－－开始绑定");
+    
+    [self recoverCell];
+    
     __weak VHSScanBraceletController *weakSelf = self;
     // 已经连接成功,开始绑定
     [self.setting ASDKSendDeviceBindingWithCMDType:ASDKDeviceBinding withUpdateBlock:^(int errorCode) {
@@ -236,7 +233,6 @@
                 [k_UserDefaults removeObjectForKey:k_SHOUHUAN_UUID];
                 [weakSelf.bindCell.bingButton setTitle:@"点击绑定" forState:UIControlStateNormal];
             }
-            weakSelf.tableView.userInteractionEnabled = YES;
             weakSelf.bindCell.waitingIgv.hidden = YES;
             weakSelf.bindCell.bingButton.hidden = NO;
             weakSelf.tableView.userInteractionEnabled = YES;
@@ -313,6 +309,14 @@
     NSIndexPath *index = [self.tableView indexPathForCell:cell];
     PeripheralModel *model = self.peripheralArray[index.row];
     [[SharePeripheral sharePeripheral].bleMolue ASDKSendConnectDevice:model.UUID];
+}
+
+/// 还原Cell的状态
+- (void)recoverCell {
+    [self.bindCell.bingButton setTitle:@"点击绑定" forState:UIControlStateNormal];
+    self.bindCell.waitingIgv.hidden = YES;
+    self.bindCell.bingButton.hidden = NO;
+    self.tableView.userInteractionEnabled = YES;
 }
 
 @end

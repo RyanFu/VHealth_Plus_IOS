@@ -542,7 +542,7 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
 - (void)applicationWillResignActive:(UIApplication *)application {
     // 取消定时器
 //    dispatch_cancel(self.bleTimer);
-    dispatch_cancel(self.mobileTimer);
+//    dispatch_cancel(self.mobileTimer);
     
     NSLog(@"%@", [ShareDataSdk shareInstance].peripheral);
     
@@ -564,10 +564,13 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
         }];
     } else if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindConnected) {
         // 同步手环数据
-        [[VHSStepAlgorithm shareAlgorithm] asynDataFromBraceletToMobileDB:nil];
+        [[VHSStepAlgorithm shareAlgorithm] asynDataFromBraceletToMobileDB:^{
+            [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
+            [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
+        }];
     }
     // 开启定时器
-    [self runloopLocalMobileToNetwork];
+//    [self runloopLocalMobileToNetwork];
 //    [self runloopBleToMobile]
 }
 
@@ -585,7 +588,10 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
         NSInteger changeValue = [[change objectForKey:@"new"] integerValue];
         if (changeValue == CBPeripheralStateConnected) {
             // 同步手环数据
-            [[VHSStepAlgorithm shareAlgorithm] asynDataFromBraceletToMobileDB:nil];
+            [[VHSStepAlgorithm shareAlgorithm] asynDataFromBraceletToMobileDB:^{
+                [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
+                [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
+            }];
         }
         
     }

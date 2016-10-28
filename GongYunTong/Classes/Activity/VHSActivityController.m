@@ -99,7 +99,7 @@ static NSString *ACTIVITY_MAIN_URL = @"http://118.242.18.199:10000/client/activi
     self.progress.backgroundColor = [UIColor whiteColor];
     [self.navigationController.navigationBar addSubview:self.progress];
     
-    if (![VHSCommon connectedToNetwork]) {
+    if (![VHSCommon isNetworkAvailable]) {
         self.noContentView.hidden = NO;
         [self.view bringSubviewToFront:self.noContentView];
         
@@ -273,7 +273,7 @@ static NSString *ACTIVITY_MAIN_URL = @"http://118.242.18.199:10000/client/activi
 #pragma mark - no content view tap
 
 - (void)noContentViewTaped:(UIGestureRecognizer *)tap {
-    if ([VHSCommon connectedToNetwork]) {
+    if ([VHSCommon isNetworkAvailable]) {
         if (iOS8) {
             _noContentView.hidden = YES;
             self.contentWKWebView.hidden = NO;

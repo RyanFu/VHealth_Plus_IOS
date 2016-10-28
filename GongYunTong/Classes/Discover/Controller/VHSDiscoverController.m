@@ -76,7 +76,7 @@ NSInteger const ROWCOUNT = 3;
 
 - (void)getIconFromServer{
     
-    if (![VHSCommon connectedToNetwork]) {
+    if (![VHSCommon isNetworkAvailable]) {
         return;
     }
     

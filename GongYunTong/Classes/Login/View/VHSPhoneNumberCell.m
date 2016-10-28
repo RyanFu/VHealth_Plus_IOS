@@ -40,8 +40,8 @@
 }
 - (IBAction)obtainVCode:(UIButton *)sender {
     
-    if (![VHSCommon connectedToNetwork]) {
-        [MBProgressHUD showError:@"暂无网络"];
+    if (![VHSCommon isNetworkAvailable]) {
+        [VHSToast toast:TOAST_NO_NETWORK];
         return;
     }
     

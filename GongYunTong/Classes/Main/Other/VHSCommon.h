@@ -32,11 +32,13 @@
 #ifdef GYT_BUILD_FOR_TEST
 #define kServerURL @"http://118.242.18.199:10000/oauth2"
 //#define kServerURL @"http://192.168.2.30:8080/oauth2"
+//#define kServerURL @"https://kldf.dfzq.com.cn/oauth2"
 #endif
 
 #ifdef GYT_BUILD_FOR_BATE
 #define kServerURL @"http://118.242.18.199:10000/oauth2"
 //#define kServerUrl @"http://192.168.2.30:8080/oauth2"
+//#define kServerURL @"https://kldf.dfzq.com.cn/oauth2"
 #endif
 
 #ifdef GYT_BUILD_FOR_RELEASE
@@ -107,8 +109,8 @@ extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环�
 /// 是否允许开启通知
 + (BOOL)isAllowedNotification;
 
-/// 判断网络连接状况处理
-+ (BOOL)connectedToNetwork;
+/// 判断网络状态是否可用
++ (BOOL)isNetworkAvailable;
 
 /// 判断字符串是否为null
 +(BOOL)isNullString:(NSString *)string;

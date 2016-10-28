@@ -126,7 +126,7 @@
 }
 
 - (void)refreshData {
-    if (![VHSCommon connectedToNetwork]) {
+    if (![VHSCommon isNetworkAvailable]) {
         [VHSToast toast:TOAST_NO_NETWORK];
         [self.dynamicHomeTable.mj_header endRefreshing];
         [self.dynamicHomeTable.mj_footer endRefreshing];
@@ -161,7 +161,7 @@
 }
 
 -(void)loadMoreDataIsRefresh:(BOOL)isRefresh {
-    if (![VHSCommon connectedToNetwork]) {
+    if (![VHSCommon isNetworkAvailable]) {
         [VHSToast toast:TOAST_NO_NETWORK];
         [self.dynamicHomeTable.mj_header endRefreshing];
         [self.dynamicHomeTable.mj_footer endRefreshing];

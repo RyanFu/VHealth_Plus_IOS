@@ -62,7 +62,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -82,7 +81,7 @@
 #pragma mark - download data 
 
 - (void)getMemberScore {
-    if (![VHSCommon connectedToNetwork]) {
+    if (![VHSCommon isNetworkAvailable]) {
         return;
     }
     
@@ -103,7 +102,7 @@
 
 // 用户详细信息
 - (void)downloadUserInfo {
-    if (![VHSCommon connectedToNetwork]) {
+    if (![VHSCommon isNetworkAvailable]) {
         return;
     }
     

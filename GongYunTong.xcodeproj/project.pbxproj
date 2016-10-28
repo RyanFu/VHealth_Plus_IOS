@@ -81,6 +81,7 @@
 		33CBF32D1D73C9B500D39452 /* UIButton+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF32C1D73C9B500D39452 /* UIButton+extension.m */; };
 		33CBF3301D73D81400D39452 /* PublicWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF32F1D73D81400D39452 /* PublicWKWebViewController.m */; };
 		33CBF3351D755A5E00D39452 /* UILabel+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF3341D755A5E00D39452 /* UILabel+extension.m */; };
+		33E374AE1DC1F86700DC069D /* app_security.cer in Resources */ = {isa = PBXBuildFile; fileRef = 33E374AD1DC1F86700DC069D /* app_security.cer */; };
 		33ED430E1D4F296F007B0F30 /* VHSSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33ED430D1D4F296F007B0F30 /* VHSSettingController.m */; };
 		33ED43111D4F3075007B0F30 /* StoryboardHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 33ED43101D4F3075007B0F30 /* StoryboardHelper.m */; };
 		33ED43141D4F33B5007B0F30 /* VHSSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 33ED43131D4F33B5007B0F30 /* VHSSettingCell.m */; };
@@ -337,6 +338,7 @@
 		33CBF32F1D73D81400D39452 /* PublicWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicWKWebViewController.m; sourceTree = "<group>"; };
 		33CBF3331D755A5E00D39452 /* UILabel+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+extension.h"; sourceTree = "<group>"; };
 		33CBF3341D755A5E00D39452 /* UILabel+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+extension.m"; sourceTree = "<group>"; };
+		33E374AD1DC1F86700DC069D /* app_security.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = app_security.cer; sourceTree = "<group>"; };
 		33ED430C1D4F296F007B0F30 /* VHSSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSSettingController.h; sourceTree = "<group>"; };
 		33ED430D1D4F296F007B0F30 /* VHSSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSSettingController.m; sourceTree = "<group>"; };
 		33ED430F1D4F3075007B0F30 /* StoryboardHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryboardHelper.h; sourceTree = "<group>"; };
@@ -1157,6 +1159,7 @@
 				67C7AE121D38AB2A0091F669 /* Info.plist */,
 				67B4F8C81D3CA4B200F933F0 /* VHS_Header.h */,
 				67C7AE371D38D41D0091F669 /* PrefixHeader.pch */,
+				33E374AD1DC1F86700DC069D /* app_security.cer */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1459,6 +1462,7 @@
 				338C61C11D59D2BE004CFE18 /* VHSScanNoDevice.xib in Resources */,
 				CA4C0A991D5034140039765C /* SimplePassword.txt in Resources */,
 				671217EE1D3F4C53004CFD14 /* Dynamic.storyboard in Resources */,
+				33E374AE1DC1F86700DC069D /* app_security.cer in Resources */,
 				CAD91A4C1D5DB69B00AEF2FB /* AlipaySDK.bundle in Resources */,
 				338C61C81D59D2BE004CFE18 /* VHSUnBindCell.xib in Resources */,
 				671217F41D3F4C81004CFD14 /* Discover.storyboard in Resources */,

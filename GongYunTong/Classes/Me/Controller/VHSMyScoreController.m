@@ -51,7 +51,7 @@
 }
 
 - (void)getMemberScore {
-    if (![VHSCommon connectedToNetwork]) {
+    if (![VHSCommon isNetworkAvailable]) {
         return;
     }
     
@@ -92,7 +92,7 @@
 }
 
 - (void)refreshData {
-    if (![VHSCommon connectedToNetwork]) {
+    if (![VHSCommon isNetworkAvailable]) {
         [self.tableView.mj_header endRefreshing];
         return;
     }

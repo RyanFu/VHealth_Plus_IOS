@@ -198,7 +198,7 @@
     self.progress.backgroundColor = [UIColor whiteColor];
     [self.navigationController.navigationBar addSubview:self.progress];
     
-    if (![VHSCommon connectedToNetwork]) {
+    if (![VHSCommon isNetworkAvailable]) {
         self.noContentView.hidden = NO;
         [self.view bringSubviewToFront:self.noContentView];
         
@@ -377,7 +377,7 @@
 #pragma mark - no content view tap
 
 - (void)noContentViewTaped:(UIGestureRecognizer *)tap {
-    if ([VHSCommon connectedToNetwork]) {
+    if ([VHSCommon isNetworkAvailable]) {
         if (iOS8) {
             _noContentView.hidden = YES;
             self.contentWKWebView.hidden = NO;

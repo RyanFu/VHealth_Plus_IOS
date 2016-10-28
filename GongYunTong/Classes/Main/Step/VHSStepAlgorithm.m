@@ -303,54 +303,6 @@
                 [k_UserDefaults synchronize];
             }
         }];
-        
-        /**************************/
-        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self asynDataMySelfTable:^(int errorCode) {
-//                NSString *bindTime = [VHSCommon getShouHuanBoundTime];
-//                NSInteger pastday = [NSDate pastOfNowWithPastDateStr:bindTime];
-//                
-//                for (NSInteger i = pastday; i >= 0; i--) {
-//                    NSString *pastTime = [NSDate yyyymmddByPastDays:i];
-//                    NSString *pastYMD = [NSDate ymdByPastDay:i];
-//                    [self sportDayWithDate:pastTime sportBlock:^(ProtocolSportDataModel *sportData) {
-//                        NSLog(@"时间：%@ 一天的总步数--------> %ld", pastTime, (long)sportData.total_step);
-//                        NSInteger syncSteps = [VHSCommon getShouHuanLastStepsSync];
-//                        
-//                        VHSActionData *action = [[VHSActionData alloc] init];
-//                        action.memberId = [[VHSCommon userInfo].memberId stringValue];
-//                        action.actionId = [VHSCommon getTimeStamp];
-//                        action.step = sportData.total_step - syncSteps;
-//                        action.actionType = @"1";
-//                        action.recordTime = pastYMD;
-//                        [self insertOrUpdateBleAction:action];
-//                        
-//                        [VHSCommon setShouHuanLastStepsSync:sportData.total_step];
-//                        [VHSCommon setShouHuanLastTimeSync:[VHSCommon getDate:[NSDate date]]];
-//                        if (pastday > 0 && i > 0) {
-//                            [VHSCommon setShouHuanLastStepsSync:0];
-//                        }
-//                
-//                        // 同步到自己表中成功后的回调
-//                        if (syncSuccess) {
-//                            syncSuccess();
-//                        }
-//                    }];
-//                }
-//                // 隔天数据
-//                if (pastday > 0) {
-//                    NSCalendar *calendar = [NSCalendar currentCalendar];
-//                    NSDateComponents *cmps = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:[NSDate date]];
-//                    cmps.hour = 0;
-//                    cmps.minute = 0;
-//                    cmps.second = 1;
-//                    NSDate *currentStart = [calendar dateFromComponents:cmps];
-//                    
-//                    [k_UserDefaults setObject:[VHSCommon getDate:currentStart] forKey:k_SHOUHUAN_BOUND_TIME];
-//                }
-//            }];
-//        });
     }
 }
 

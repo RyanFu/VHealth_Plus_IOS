@@ -27,8 +27,8 @@
 @end
 
 static NSString *MAIN_SHOP_URL = @"http://118.242.18.199:10000/index.php";
+//static NSString *MAIN_SHOP_URL = @"https://kldf.dfzq.com.cn/ecshop/index.php";
 //static NSString *MAIN_SHOP_URL = @"http://192.168.2.30/index.php";
-
 
 @implementation VHSShopController
 
@@ -148,7 +148,7 @@ static NSString *MAIN_SHOP_URL = @"http://118.242.18.199:10000/index.php";
 }
 
 - (void)refreshData {
-    if (![VHSCommon connectedToNetwork]) {
+    if (![VHSCommon isNetworkAvailable]) {
         [self.contentWKWebView.scrollView.mj_header endRefreshing];
         [VHSToast toast:TOAST_NO_NETWORK];
         return;
@@ -179,7 +179,7 @@ static NSString *MAIN_SHOP_URL = @"http://118.242.18.199:10000/index.php";
     self.progress.backgroundColor = [UIColor whiteColor];
     [self.navigationController.navigationBar addSubview:self.progress];
     
-    if (![VHSCommon connectedToNetwork]) {
+    if (![VHSCommon isNetworkAvailable]) {
         self.noContentView.hidden = NO;
         [self.view bringSubviewToFront:self.noContentView];
         
@@ -339,7 +339,7 @@ static NSString *MAIN_SHOP_URL = @"http://118.242.18.199:10000/index.php";
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    if ([VHSCommon connectedToNetwork]) {
+    if ([VHSCommon isNetworkAvailable]) {
         decisionHandler(WKNavigationActionPolicyAllow);
         [[BaiduMobStat defaultStat] webviewStartLoadWithRequest:navigationAction.request];
     } else {
@@ -411,7 +411,7 @@ static NSString *MAIN_SHOP_URL = @"http://118.242.18.199:10000/index.php";
 #pragma mark - no content view tap
 
 - (void)noContentViewTaped:(UIGestureRecognizer *)tap {
-    if ([VHSCommon connectedToNetwork]) {
+    if ([VHSCommon isNetworkAvailable]) {
         if (iOS8) {
             self.noContentView.hidden = YES;
             self.contentWKWebView.hidden = NO;

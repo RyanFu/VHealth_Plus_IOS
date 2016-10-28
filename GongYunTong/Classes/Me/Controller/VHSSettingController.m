@@ -90,7 +90,7 @@
         void(^logOut)()=^{
             
             [MBProgressHUD showMessage:@"注销中..."];
-            if (![VHSCommon connectedToNetwork]) {
+            if (![VHSCommon isNetworkAvailable]) {
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [MBProgressHUD hiddenHUD];
                     [VHSToast toast:TOAST_NETWORK_SUSPEND];
@@ -132,7 +132,7 @@
 
 - (void)unBindingBLE:(void (^)(BOOL isSuccess))unbindSuccessBlock {
     
-    if (![VHSCommon connectedToNetwork]) {
+    if (![VHSCommon isNetworkAvailable]) {
         if (unbindSuccessBlock) unbindSuccessBlock(NO);
         [VHSToast toast:TOAST_NO_NETWORK];
         return;

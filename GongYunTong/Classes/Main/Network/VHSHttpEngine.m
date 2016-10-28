@@ -37,13 +37,23 @@ static VHSHttpEngine *_instance = nil;
         
         _manager = [AFHTTPSessionManager manager];
         _manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        //                _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
         _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", nil];
         _manager.securityPolicy.allowInvalidCertificates = YES;
         [_manager.requestSerializer setValue:[VHSCommon vhstoken] forHTTPHeaderField:@"vhstoken"];
         [_manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
         _manager.requestSerializer.timeoutInterval = CONNECT_TIMEOUT;
         [_manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
+        
+        // 安全验证 - reference : http://www.jianshu.com/p/f732749ce786
+        AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode: AFSSLPinningModeCertificate];
+        NSString *certificatePath = [[NSBundle mainBundle] pathForResource:@"app_security" ofType:@"cer"];
+        NSData *certificateData = [NSData dataWithContentsOfFile:certificatePath];
+        
+        NSSet *certificateSet  = [[NSSet alloc] initWithObjects:certificateData, nil];
+        [securityPolicy setPinnedCertificates:certificateSet];
+        securityPolicy.allowInvalidCertificates = YES;
+        securityPolicy.validatesDomainName = NO;
+        _manager.securityPolicy = securityPolicy;
     }
     return self;
 }
@@ -208,7 +218,7 @@ static VHSHttpEngine *_instance = nil;
 
 - (void)sendMessage:(VHSRequestMessage*)message success:(RequestSuccess)successBlock fail:(RequestFailure)failBlock {
     
-    if (![VHSCommon connectedToNetwork]) {
+    if (![VHSCommon isNetworkAvailable]) {
         [VHSToast toast:TOAST_NO_NETWORK];
         return;
     }

@@ -181,9 +181,7 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
 }
 
 // 判断网络连接状况处理
-+ (BOOL)connectedToNetwork
-{
-    // Create zero addy
++ (BOOL)isNetworkAvailable {
     struct sockaddr_in zeroAddress;
     bzero(&zeroAddress, sizeof(zeroAddress));
     zeroAddress.sin_len = sizeof(zeroAddress);

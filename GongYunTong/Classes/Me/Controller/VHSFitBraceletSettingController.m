@@ -120,7 +120,7 @@ CGFloat const settingFooterHeight=106;
 
 - (void)bleUndingNotifyByNetwork {
     //网络未连接
-    if (![VHSCommon connectedToNetwork]) {
+    if (![VHSCommon isNetworkAvailable]) {
         [VHSToast toast:TOAST_NO_NETWORK];
         return;
     }

@@ -37,7 +37,7 @@
 
 - (void)downloadStartImage {
     
-    if (![VHSCommon connectedToNetwork]) {
+    if (![VHSCommon isNetworkAvailable]) {
         [self setupLanuchWithUrl:nil duration:0];
         return;
     }
