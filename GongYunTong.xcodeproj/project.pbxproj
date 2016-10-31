@@ -32,6 +32,8 @@
 		3353B9C61D782A8400335815 /* VHSMeScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3353B9C51D782A8400335815 /* VHSMeScoreCell.m */; };
 		3360B6641D894045005BDB77 /* VHSNoStypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3360B6631D894045005BDB77 /* VHSNoStypeCell.m */; };
 		33640B5E1D9224BC00B34C8B /* KeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 33640B5D1D9224BC00B34C8B /* KeyChainStore.m */; };
+		3364D1EC1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3364D1EA1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m */; };
+		3364D1ED1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3364D1EB1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib */; };
 		3381717C1DAC94E900ACB4A0 /* MBProgressHUD+VHS.m in Sources */ = {isa = PBXBuildFile; fileRef = 3381717B1DAC94E900ACB4A0 /* MBProgressHUD+VHS.m */; };
 		338171861DAC985A00ACB4A0 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3381717F1DAC985A00ACB4A0 /* TAAbstractDotView.m */; };
 		338171871DAC985A00ACB4A0 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 338171811DAC985A00ACB4A0 /* TAAnimatedDotView.m */; };
@@ -42,16 +44,6 @@
 		338C61411D586575004CFE18 /* VHSActionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61401D586575004CFE18 /* VHSActionData.m */; };
 		338C61511D58BD36004CFE18 /* VHSRecordStepController.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61501D58BD36004CFE18 /* VHSRecordStepController.m */; };
 		338C61571D59837F004CFE18 /* VHSDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61561D59837F004CFE18 /* VHSDataBaseManager.m */; };
-		338C617A1D59D0F8004CFE18 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61621D59D0F8004CFE18 /* MASCompositeConstraint.m */; };
-		338C617B1D59D0F8004CFE18 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61651D59D0F8004CFE18 /* MASConstraint.m */; };
-		338C617C1D59D0F8004CFE18 /* MASConstraintMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61671D59D0F8004CFE18 /* MASConstraintMaker.m */; };
-		338C617D1D59D0F8004CFE18 /* MASLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61691D59D0F8004CFE18 /* MASLayoutConstraint.m */; };
-		338C617E1D59D0F8004CFE18 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C616D1D59D0F8004CFE18 /* MASViewAttribute.m */; };
-		338C617F1D59D0F8004CFE18 /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C616F1D59D0F8004CFE18 /* MASViewConstraint.m */; };
-		338C61801D59D0F8004CFE18 /* NSArray+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61711D59D0F8004CFE18 /* NSArray+MASAdditions.m */; };
-		338C61811D59D0F8004CFE18 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61741D59D0F8004CFE18 /* NSLayoutConstraint+MASDebugAdditions.m */; };
-		338C61821D59D0F8004CFE18 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61761D59D0F8004CFE18 /* View+MASAdditions.m */; };
-		338C61831D59D0F8004CFE18 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61791D59D0F8004CFE18 /* ViewController+MASAdditions.m */; };
 		338C61B71D59D2BE004CFE18 /* NSDate+VHSExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C618F1D59D2BE004CFE18 /* NSDate+VHSExtension.m */; };
 		338C61B81D59D2BE004CFE18 /* UIView+VHSExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61911D59D2BE004CFE18 /* UIView+VHSExtension.m */; };
 		338C61B91D59D2BE004CFE18 /* VHSFitBraceletSettingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61941D59D2BE004CFE18 /* VHSFitBraceletSettingModel.m */; };
@@ -70,8 +62,6 @@
 		338C61C61D59D2BE004CFE18 /* VHSTimeToast.xib in Resources */ = {isa = PBXBuildFile; fileRef = 338C61AB1D59D2BE004CFE18 /* VHSTimeToast.xib */; };
 		338C61C71D59D2BE004CFE18 /* VHSUnBindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61AD1D59D2BE004CFE18 /* VHSUnBindCell.m */; };
 		338C61C81D59D2BE004CFE18 /* VHSUnBindCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 338C61AE1D59D2BE004CFE18 /* VHSUnBindCell.xib */; };
-		338C61C91D59D2BE004CFE18 /* VHSFitBraceletHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61B11D59D2BE004CFE18 /* VHSFitBraceletHelpController.m */; };
-		338C61CA1D59D2BE004CFE18 /* VHSFitBraceletHelpController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 338C61B21D59D2BE004CFE18 /* VHSFitBraceletHelpController.xib */; };
 		338C61CE1D59D5AE004CFE18 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 338C61CD1D59D5AE004CFE18 /* SystemConfiguration.framework */; };
 		338C61D11D59E06C004CFE18 /* VHSScanBraceletController.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61D01D59E06C004CFE18 /* VHSScanBraceletController.m */; };
 		338C61D31D59FB47004CFE18 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 338C61D21D59FB47004CFE18 /* CoreBluetooth.framework */; };
@@ -82,6 +72,8 @@
 		33CBF3301D73D81400D39452 /* PublicWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF32F1D73D81400D39452 /* PublicWKWebViewController.m */; };
 		33CBF3351D755A5E00D39452 /* UILabel+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF3341D755A5E00D39452 /* UILabel+extension.m */; };
 		33E374AE1DC1F86700DC069D /* app_security.cer in Resources */ = {isa = PBXBuildFile; fileRef = 33E374AD1DC1F86700DC069D /* app_security.cer */; };
+		33E7F55B1DC7270C00642D5D /* ScanNoDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E7F55A1DC7270C00642D5D /* ScanNoDevice.m */; };
+		33E7F55D1DC7272700642D5D /* ScanNoDevice.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33E7F55C1DC7272700642D5D /* ScanNoDevice.xib */; };
 		33ED430E1D4F296F007B0F30 /* VHSSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33ED430D1D4F296F007B0F30 /* VHSSettingController.m */; };
 		33ED43111D4F3075007B0F30 /* StoryboardHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 33ED43101D4F3075007B0F30 /* StoryboardHelper.m */; };
 		33ED43141D4F33B5007B0F30 /* VHSSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 33ED43131D4F33B5007B0F30 /* VHSSettingCell.m */; };
@@ -243,6 +235,9 @@
 		3360B6631D894045005BDB77 /* VHSNoStypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSNoStypeCell.m; sourceTree = "<group>"; };
 		33640B5C1D9224BC00B34C8B /* KeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyChainStore.h; sourceTree = "<group>"; };
 		33640B5D1D9224BC00B34C8B /* KeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainStore.m; sourceTree = "<group>"; };
+		3364D1E91DC7668D00E8A3FF /* VHSFitBraceletHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSFitBraceletHelpController.h; sourceTree = "<group>"; };
+		3364D1EA1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSFitBraceletHelpController.m; sourceTree = "<group>"; };
+		3364D1EB1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VHSFitBraceletHelpController.xib; sourceTree = "<group>"; };
 		3381717A1DAC94E900ACB4A0 /* MBProgressHUD+VHS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+VHS.h"; sourceTree = "<group>"; };
 		3381717B1DAC94E900ACB4A0 /* MBProgressHUD+VHS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+VHS.m"; sourceTree = "<group>"; };
 		3381717E1DAC985A00ACB4A0 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
@@ -264,31 +259,6 @@
 		338C61551D59837F004CFE18 /* VHSDataBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSDataBaseManager.h; sourceTree = "<group>"; };
 		338C61561D59837F004CFE18 /* VHSDataBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSDataBaseManager.m; sourceTree = "<group>"; };
 		338C615B1D59CE9A004CFE18 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
-		338C61611D59D0F8004CFE18 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
-		338C61621D59D0F8004CFE18 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
-		338C61631D59D0F8004CFE18 /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
-		338C61641D59D0F8004CFE18 /* MASConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraint.h; sourceTree = "<group>"; };
-		338C61651D59D0F8004CFE18 /* MASConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraint.m; sourceTree = "<group>"; };
-		338C61661D59D0F8004CFE18 /* MASConstraintMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASConstraintMaker.h; sourceTree = "<group>"; };
-		338C61671D59D0F8004CFE18 /* MASConstraintMaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASConstraintMaker.m; sourceTree = "<group>"; };
-		338C61681D59D0F8004CFE18 /* MASLayoutConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASLayoutConstraint.h; sourceTree = "<group>"; };
-		338C61691D59D0F8004CFE18 /* MASLayoutConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASLayoutConstraint.m; sourceTree = "<group>"; };
-		338C616A1D59D0F8004CFE18 /* Masonry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Masonry.h; sourceTree = "<group>"; };
-		338C616B1D59D0F8004CFE18 /* MASUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASUtilities.h; sourceTree = "<group>"; };
-		338C616C1D59D0F8004CFE18 /* MASViewAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewAttribute.h; sourceTree = "<group>"; };
-		338C616D1D59D0F8004CFE18 /* MASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewAttribute.m; sourceTree = "<group>"; };
-		338C616E1D59D0F8004CFE18 /* MASViewConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASViewConstraint.h; sourceTree = "<group>"; };
-		338C616F1D59D0F8004CFE18 /* MASViewConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewConstraint.m; sourceTree = "<group>"; };
-		338C61701D59D0F8004CFE18 /* NSArray+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASAdditions.h"; sourceTree = "<group>"; };
-		338C61711D59D0F8004CFE18 /* NSArray+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+MASAdditions.m"; sourceTree = "<group>"; };
-		338C61721D59D0F8004CFE18 /* NSArray+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+MASShorthandAdditions.h"; sourceTree = "<group>"; };
-		338C61731D59D0F8004CFE18 /* NSLayoutConstraint+MASDebugAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+MASDebugAdditions.h"; sourceTree = "<group>"; };
-		338C61741D59D0F8004CFE18 /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
-		338C61751D59D0F8004CFE18 /* View+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASAdditions.h"; sourceTree = "<group>"; };
-		338C61761D59D0F8004CFE18 /* View+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "View+MASAdditions.m"; sourceTree = "<group>"; };
-		338C61771D59D0F8004CFE18 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
-		338C61781D59D0F8004CFE18 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
-		338C61791D59D0F8004CFE18 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
 		338C61851D59D17C004CFE18 /* VHSSyscnTimeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSSyscnTimeLabel.h; sourceTree = "<group>"; };
 		338C61861D59D17C004CFE18 /* VHSSyscnTimeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSSyscnTimeLabel.m; sourceTree = "<group>"; };
 		338C618E1D59D2BE004CFE18 /* NSDate+VHSExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+VHSExtension.h"; sourceTree = "<group>"; };
@@ -339,6 +309,9 @@
 		33CBF3331D755A5E00D39452 /* UILabel+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+extension.h"; sourceTree = "<group>"; };
 		33CBF3341D755A5E00D39452 /* UILabel+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+extension.m"; sourceTree = "<group>"; };
 		33E374AD1DC1F86700DC069D /* app_security.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = app_security.cer; sourceTree = "<group>"; };
+		33E7F5591DC7270C00642D5D /* ScanNoDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanNoDevice.h; sourceTree = "<group>"; };
+		33E7F55A1DC7270C00642D5D /* ScanNoDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanNoDevice.m; sourceTree = "<group>"; };
+		33E7F55C1DC7272700642D5D /* ScanNoDevice.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanNoDevice.xib; sourceTree = "<group>"; };
 		33ED430C1D4F296F007B0F30 /* VHSSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSSettingController.h; sourceTree = "<group>"; };
 		33ED430D1D4F296F007B0F30 /* VHSSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSSettingController.m; sourceTree = "<group>"; };
 		33ED430F1D4F3075007B0F30 /* StoryboardHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoryboardHelper.h; sourceTree = "<group>"; };
@@ -646,38 +619,6 @@
 				338171851DAC985A00ACB4A0 /* TAPageControl.m */,
 			);
 			path = PageControl;
-			sourceTree = "<group>";
-		};
-		338C61601D59D0F8004CFE18 /* Masonry */ = {
-			isa = PBXGroup;
-			children = (
-				338C61611D59D0F8004CFE18 /* MASCompositeConstraint.h */,
-				338C61621D59D0F8004CFE18 /* MASCompositeConstraint.m */,
-				338C61631D59D0F8004CFE18 /* MASConstraint+Private.h */,
-				338C61641D59D0F8004CFE18 /* MASConstraint.h */,
-				338C61651D59D0F8004CFE18 /* MASConstraint.m */,
-				338C61661D59D0F8004CFE18 /* MASConstraintMaker.h */,
-				338C61671D59D0F8004CFE18 /* MASConstraintMaker.m */,
-				338C61681D59D0F8004CFE18 /* MASLayoutConstraint.h */,
-				338C61691D59D0F8004CFE18 /* MASLayoutConstraint.m */,
-				338C616A1D59D0F8004CFE18 /* Masonry.h */,
-				338C616B1D59D0F8004CFE18 /* MASUtilities.h */,
-				338C616C1D59D0F8004CFE18 /* MASViewAttribute.h */,
-				338C616D1D59D0F8004CFE18 /* MASViewAttribute.m */,
-				338C616E1D59D0F8004CFE18 /* MASViewConstraint.h */,
-				338C616F1D59D0F8004CFE18 /* MASViewConstraint.m */,
-				338C61701D59D0F8004CFE18 /* NSArray+MASAdditions.h */,
-				338C61711D59D0F8004CFE18 /* NSArray+MASAdditions.m */,
-				338C61721D59D0F8004CFE18 /* NSArray+MASShorthandAdditions.h */,
-				338C61731D59D0F8004CFE18 /* NSLayoutConstraint+MASDebugAdditions.h */,
-				338C61741D59D0F8004CFE18 /* NSLayoutConstraint+MASDebugAdditions.m */,
-				338C61751D59D0F8004CFE18 /* View+MASAdditions.h */,
-				338C61761D59D0F8004CFE18 /* View+MASAdditions.m */,
-				338C61771D59D0F8004CFE18 /* View+MASShorthandAdditions.h */,
-				338C61781D59D0F8004CFE18 /* ViewController+MASAdditions.h */,
-				338C61791D59D0F8004CFE18 /* ViewController+MASAdditions.m */,
-			);
-			path = Masonry;
 			sourceTree = "<group>";
 		};
 		338C618C1D59D2BE004CFE18 /* FitBracelet */ = {
@@ -1014,7 +955,6 @@
 			children = (
 				3381717D1DAC985A00ACB4A0 /* PageControl */,
 				3342F3661D9387AE00B31317 /* BaiDu */,
-				338C61601D59D0F8004CFE18 /* Masonry */,
 				670463641D40C56B0051A9F6 /* SDCycleScrollView */,
 				CAD91A3B1D5DB69B00AEF2FB /* AppPay */,
 			);
@@ -1207,6 +1147,9 @@
 				33F2BA4E1D658B6E00928976 /* VHSModifyInfoController.m */,
 				338B24BF1D864B3200E62838 /* VHSTestController.h */,
 				338B24C01D864B3200E62838 /* VHSTestController.m */,
+				3364D1E91DC7668D00E8A3FF /* VHSFitBraceletHelpController.h */,
+				3364D1EA1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m */,
+				3364D1EB1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1240,6 +1183,9 @@
 				3353B9C51D782A8400335815 /* VHSMeScoreCell.m */,
 				3360B6621D894045005BDB77 /* VHSNoStypeCell.h */,
 				3360B6631D894045005BDB77 /* VHSNoStypeCell.m */,
+				33E7F5591DC7270C00642D5D /* ScanNoDevice.h */,
+				33E7F55A1DC7270C00642D5D /* ScanNoDevice.m */,
+				33E7F55C1DC7272700642D5D /* ScanNoDevice.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1454,7 +1400,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				671217F21D3F4C71004CFD14 /* Shop.storyboard in Resources */,
-				338C61CA1D59D2BE004CFE18 /* VHSFitBraceletHelpController.xib in Resources */,
 				67C7AE111D38AB2A0091F669 /* LaunchScreen.storyboard in Resources */,
 				67C7AE0E1D38AB2A0091F669 /* Assets.xcassets in Resources */,
 				338C61BD1D59D2BE004CFE18 /* VHSBindDoneMessage.xib in Resources */,
@@ -1464,6 +1409,7 @@
 				671217EE1D3F4C53004CFD14 /* Dynamic.storyboard in Resources */,
 				33E374AE1DC1F86700DC069D /* app_security.cer in Resources */,
 				CAD91A4C1D5DB69B00AEF2FB /* AlipaySDK.bundle in Resources */,
+				33E7F55D1DC7272700642D5D /* ScanNoDevice.xib in Resources */,
 				338C61C81D59D2BE004CFE18 /* VHSUnBindCell.xib in Resources */,
 				671217F41D3F4C81004CFD14 /* Discover.storyboard in Resources */,
 				67C7AE0C1D38AB2A0091F669 /* Main.storyboard in Resources */,
@@ -1473,6 +1419,7 @@
 				338C61C61D59D2BE004CFE18 /* VHSTimeToast.xib in Resources */,
 				CA7F12211D42025D00C7F145 /* Login.storyboard in Resources */,
 				6704636C1D40C56B0051A9F6 /* placeholder@2x.png in Resources */,
+				3364D1ED1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib in Resources */,
 				67E13FC41D460C54001C58D7 /* Me.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1551,22 +1498,17 @@
 				338C61511D58BD36004CFE18 /* VHSRecordStepController.m in Sources */,
 				334038F91D8175F800202DDD /* TransferStepModel.m in Sources */,
 				CA254EC21D4AEB1500853D3C /* VHSLoginPersonCell.m in Sources */,
-				338C617E1D59D0F8004CFE18 /* MASViewAttribute.m in Sources */,
 				33514CD01D61DB4100ECDEA5 /* NSDictionary+VHSExtension.m in Sources */,
 				338C61BE1D59D2BE004CFE18 /* VHSScanDeviceCell.m in Sources */,
 				33ED43171D4F47B3007B0F30 /* VHSPaymentsDetailCell.m in Sources */,
-				338C61811D59D0F8004CFE18 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				33ED43141D4F33B5007B0F30 /* VHSSettingCell.m in Sources */,
 				CA254EBF1D49FFA700853D3C /* VHSLoginPersonalViewController.m in Sources */,
 				33F2BA3F1D648C6C00928976 /* UserDetailModel.m in Sources */,
 				67B4F8D11D3CA8EC00F933F0 /* UIBarButtonItem+VHS_extension.m in Sources */,
-				338C617B1D59D0F8004CFE18 /* MASConstraint.m in Sources */,
 				67B4F8E71D3CC2A900F933F0 /* UIView+VHS_animation.m in Sources */,
 				CA7F122D1D42028C00C7F145 /* VHSPasswordCell.m in Sources */,
-				338C61821D59D0F8004CFE18 /* View+MASAdditions.m in Sources */,
 				33514CD61D64708200ECDEA5 /* VHSAllStepCell.m in Sources */,
 				338C61411D586575004CFE18 /* VHSActionData.m in Sources */,
-				338C61831D59D0F8004CFE18 /* ViewController+MASAdditions.m in Sources */,
 				67B4F8D71D3CAA5500F933F0 /* VHSNavigationController.m in Sources */,
 				33F2BA401D648C6C00928976 /* UserScoreModel.m in Sources */,
 				671217FF1D3F4D61004CFD14 /* VHSShopController.m in Sources */,
@@ -1574,6 +1516,7 @@
 				6793203E1D41E406004B0CEA /* VHSDiscoverCell.m in Sources */,
 				33514CD31D646A9100ECDEA5 /* VHSAllStepsController.m in Sources */,
 				33F2BA521D658E7300928976 /* VHSModifyNormalCell.m in Sources */,
+				33E7F55B1DC7270C00642D5D /* ScanNoDevice.m in Sources */,
 				338171891DAC985A00ACB4A0 /* TAPageControl.m in Sources */,
 				3381717C1DAC94E900ACB4A0 /* MBProgressHUD+VHS.m in Sources */,
 				33F2BA551D658E8900928976 /* VHSModifyMobileCell.m in Sources */,
@@ -1602,14 +1545,11 @@
 				338C61B81D59D2BE004CFE18 /* UIView+VHSExtension.m in Sources */,
 				33F2BA4F1D658B6E00928976 /* VHSModifyInfoController.m in Sources */,
 				33CBF3301D73D81400D39452 /* PublicWKWebViewController.m in Sources */,
-				338C617C1D59D0F8004CFE18 /* MASConstraintMaker.m in Sources */,
 				338C61C51D59D2BE004CFE18 /* VHSTimeToast.m in Sources */,
 				3353B9C61D782A8400335815 /* VHSMeScoreCell.m in Sources */,
 				33F2BA491D65671D00928976 /* VHSLaunchViewController.m in Sources */,
 				670463781D40C8140051A9F6 /* VHSDynamicBannerCell.m in Sources */,
-				338C617D1D59D0F8004CFE18 /* MASLayoutConstraint.m in Sources */,
 				33514CCD1D61DA3800ECDEA5 /* NSArray+VHSExtension.m in Sources */,
-				338C61C91D59D2BE004CFE18 /* VHSFitBraceletHelpController.m in Sources */,
 				67B4F8DD1D3CAAB900F933F0 /* VHSBaseViewController.m in Sources */,
 				33ED431D1D4F4A88007B0F30 /* VHSMyScoreController.m in Sources */,
 				673248321D46F1C200194DE3 /* XLAlertManager.m in Sources */,
@@ -1620,7 +1560,6 @@
 				3325E0A01D6C2EFF0045AC33 /* MeSumScoreModel.m in Sources */,
 				67E13FD31D460E81001C58D7 /* UserInfoCell.m in Sources */,
 				67B4F8E01D3CAB0300F933F0 /* XLTextView.m in Sources */,
-				338C617F1D59D0F8004CFE18 /* MASViewConstraint.m in Sources */,
 				338C61C21D59D2BE004CFE18 /* VHSSettingBraceletCell.m in Sources */,
 				338C61BB1D59D2BE004CFE18 /* SharePeripheral.m in Sources */,
 				338B24C11D864B3200E62838 /* VHSTestController.m in Sources */,
@@ -1629,11 +1568,11 @@
 				338C61C71D59D2BE004CFE18 /* VHSUnBindCell.m in Sources */,
 				33ED43201D502A43007B0F30 /* VHSFeedbackController.m in Sources */,
 				67B4F8DA1D3CAA8300F933F0 /* VHSTabBarController.m in Sources */,
+				3364D1EC1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m in Sources */,
 				33ED43291D503106007B0F30 /* VHSQuestionPhoneCell.m in Sources */,
 				33120C8E1D79738000A006C9 /* VHSLocatServicer.m in Sources */,
 				330C9DF91D90DE25005875FE /* VHSToast.m in Sources */,
 				338C61C01D59D2BE004CFE18 /* VHSScanNoDevice.m in Sources */,
-				338C617A1D59D0F8004CFE18 /* MASCompositeConstraint.m in Sources */,
 				338C61D11D59E06C004CFE18 /* VHSScanBraceletController.m in Sources */,
 				6730197C1D3C6850004A3320 /* AppDelegate.m in Sources */,
 				CA254EC91D4B5D1800853D3C /* VHSActivityNoticeCell.m in Sources */,
@@ -1663,7 +1602,6 @@
 				3343A3251DAC89C900DEF1C2 /* UIColor+extension.m in Sources */,
 				33FB4B101D50843E00AB8086 /* LoginModel.m in Sources */,
 				67E13F561D45D77D001C58D7 /* XLAlertController.m in Sources */,
-				338C61801D59D0F8004CFE18 /* NSArray+MASAdditions.m in Sources */,
 				67AD039F1D40DDE200246667 /* VHSDynamicBigIgvCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1824,8 +1762,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7997BBEE031D9D0035CBC8BF /* Pods-GongYunTong.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_VPLUS;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage_VPLUS;
 				CODE_SIGN_ENTITLEMENTS = GongYunTong/GongYunTong.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1865,8 +1803,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 98B1E91F032D2652494B1BF7 /* Pods-GongYunTong.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_VPLUS;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage_VPLUS;
 				CODE_SIGN_ENTITLEMENTS = GongYunTong/GongYunTong.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

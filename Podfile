@@ -12,4 +12,5 @@ pod 'SDWebImage'
 pod 'MBProgressHUD'
 pod 'MJRefresh'
 pod 'YYModel'
+pod 'Masonry'
 end

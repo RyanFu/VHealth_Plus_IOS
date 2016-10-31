@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VHSFitBraceletHelpController">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AZM-wv-0H8">
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="500" id="85d-rc-VP6"/>
+                    </constraints>
+                </view>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PfD-BT-eq6">
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Oh-ZS-6dE">
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="初次使用注意" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmI-r5-725">
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="初次使用时，将手环放到充电器上，手环会自动开机并进行初次激活。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lm8-eW-AZ5">
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机是否有电？" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bkw-Oj-Z4q">
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="附近有其他手机之前连接过手环？" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ud8-Mj-rWX">
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="尝试重启蓝牙？" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tde-RO-wCa">
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="可将手环放在充电器上，以确保有电。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cos-Ab-cz6">
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="可先将该手机蓝牙关闭，然后再使用当前手机进行绑定。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w42-Y9-rjb">
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="如果手环有电，且手机贴近后仍无法搜索到，可以尝试重新启动手机蓝牙。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAl-2j-pyb">
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="如果重启蓝牙无效，请尝试重启手机。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="la6-Q8-0Zf">
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_congdian" translatesAutoresizingMaskIntoConstraints="NO" id="xiA-Dm-ax4"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="尝试重启手机" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YU2-4D-UWb">
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="其他疑问" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kOD-E0-RIh">
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="若您有其他问题，可致电 400-620-1800" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="07F-dv-Grp">
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstItem="lm8-eW-AZ5" firstAttribute="leading" secondItem="3Oh-ZS-6dE" secondAttribute="leading" constant="8" id="3mP-Ix-cnN"/>
+                                <constraint firstItem="xiA-Dm-ax4" firstAttribute="top" secondItem="cos-Ab-cz6" secondAttribute="bottom" constant="5" id="65W-ZL-fcz"/>
+                                <constraint firstItem="bmI-r5-725" firstAttribute="top" secondItem="3Oh-ZS-6dE" secondAttribute="top" constant="10" id="6SB-0a-jFx"/>
+                                <constraint firstItem="bkw-Oj-Z4q" firstAttribute="top" secondItem="lm8-eW-AZ5" secondAttribute="bottom" constant="10" id="95U-Xf-zll"/>
+                                <constraint firstItem="cos-Ab-cz6" firstAttribute="leading" secondItem="3Oh-ZS-6dE" secondAttribute="leading" constant="8" id="E7B-zl-DnV"/>
+                                <constraint firstAttribute="trailing" secondItem="la6-Q8-0Zf" secondAttribute="trailing" constant="8" id="Eup-H0-9wf"/>
+                                <constraint firstItem="lm8-eW-AZ5" firstAttribute="top" secondItem="bmI-r5-725" secondAttribute="bottom" constant="5" id="Haz-dU-LbO"/>
+                                <constraint firstAttribute="trailing" secondItem="07F-dv-Grp" secondAttribute="trailing" constant="8" id="Jf5-K8-pup"/>
+                                <constraint firstItem="bmI-r5-725" firstAttribute="leading" secondItem="3Oh-ZS-6dE" secondAttribute="leading" constant="8" id="MSM-Qf-llx"/>
+                                <constraint firstItem="xiA-Dm-ax4" firstAttribute="centerX" secondItem="3Oh-ZS-6dE" secondAttribute="centerX" id="QoL-Kk-bnf"/>
+                                <constraint firstItem="YU2-4D-UWb" firstAttribute="leading" secondItem="3Oh-ZS-6dE" secondAttribute="leading" constant="8" id="UI3-KM-ydR"/>
+                                <constraint firstItem="Tde-RO-wCa" firstAttribute="leading" secondItem="3Oh-ZS-6dE" secondAttribute="leading" constant="8" id="UdB-sN-uDA"/>
+                                <constraint firstItem="w42-Y9-rjb" firstAttribute="leading" secondItem="3Oh-ZS-6dE" secondAttribute="leading" constant="8" id="Ur6-1c-Usm"/>
+                                <constraint firstAttribute="trailing" secondItem="bAl-2j-pyb" secondAttribute="trailing" constant="8" id="Wzl-3Q-2IH"/>
+                                <constraint firstAttribute="trailing" secondItem="lm8-eW-AZ5" secondAttribute="trailing" constant="8" id="YBu-7x-MZh"/>
+                                <constraint firstItem="kOD-E0-RIh" firstAttribute="top" secondItem="la6-Q8-0Zf" secondAttribute="bottom" constant="10" id="ZNM-mh-zdD"/>
+                                <constraint firstItem="la6-Q8-0Zf" firstAttribute="top" secondItem="YU2-4D-UWb" secondAttribute="bottom" constant="5" id="a6l-hJ-PB5"/>
+                                <constraint firstItem="bAl-2j-pyb" firstAttribute="top" secondItem="Tde-RO-wCa" secondAttribute="bottom" constant="5" id="aYL-v8-yAY"/>
+                                <constraint firstItem="cos-Ab-cz6" firstAttribute="top" secondItem="bkw-Oj-Z4q" secondAttribute="bottom" constant="5" id="bif-s7-yNX"/>
+                                <constraint firstItem="kOD-E0-RIh" firstAttribute="leading" secondItem="3Oh-ZS-6dE" secondAttribute="leading" constant="8" id="dDa-g9-Vnr"/>
+                                <constraint firstItem="07F-dv-Grp" firstAttribute="top" secondItem="kOD-E0-RIh" secondAttribute="bottom" constant="5" id="iqt-km-zFo"/>
+                                <constraint firstItem="Tde-RO-wCa" firstAttribute="top" secondItem="w42-Y9-rjb" secondAttribute="bottom" constant="10" id="j8b-k7-lyx"/>
+                                <constraint firstAttribute="trailing" secondItem="w42-Y9-rjb" secondAttribute="trailing" constant="8" id="kYM-IP-n4P"/>
+                                <constraint firstItem="w42-Y9-rjb" firstAttribute="top" secondItem="ud8-Mj-rWX" secondAttribute="bottom" constant="5" id="kYQ-Vb-GfH"/>
+                                <constraint firstItem="bAl-2j-pyb" firstAttribute="leading" secondItem="3Oh-ZS-6dE" secondAttribute="leading" constant="8" id="keo-1b-2de"/>
+                                <constraint firstItem="YU2-4D-UWb" firstAttribute="top" secondItem="bAl-2j-pyb" secondAttribute="bottom" constant="10" id="kgB-MT-JDu"/>
+                                <constraint firstItem="la6-Q8-0Zf" firstAttribute="leading" secondItem="3Oh-ZS-6dE" secondAttribute="leading" constant="8" id="mpB-SY-TuF"/>
+                                <constraint firstAttribute="trailing" secondItem="cos-Ab-cz6" secondAttribute="trailing" constant="8" id="nz2-V0-ZGD"/>
+                                <constraint firstItem="ud8-Mj-rWX" firstAttribute="leading" secondItem="3Oh-ZS-6dE" secondAttribute="leading" constant="8" id="qBr-hz-Anh"/>
+                                <constraint firstItem="07F-dv-Grp" firstAttribute="leading" secondItem="3Oh-ZS-6dE" secondAttribute="leading" constant="8" id="t1d-oy-fUi"/>
+                                <constraint firstItem="bkw-Oj-Z4q" firstAttribute="leading" secondItem="3Oh-ZS-6dE" secondAttribute="leading" constant="8" id="uhb-s2-UBo"/>
+                                <constraint firstItem="ud8-Mj-rWX" firstAttribute="top" secondItem="xiA-Dm-ax4" secondAttribute="bottom" constant="10" id="y8b-Tq-VxO"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="3Oh-ZS-6dE" secondAttribute="trailing" id="C8s-86-cQb"/>
+                        <constraint firstItem="3Oh-ZS-6dE" firstAttribute="leading" secondItem="PfD-BT-eq6" secondAttribute="leading" id="DdX-BY-3dY"/>
+                        <constraint firstAttribute="bottom" secondItem="3Oh-ZS-6dE" secondAttribute="bottom" id="Dgt-fS-Cd5"/>
+                        <constraint firstItem="3Oh-ZS-6dE" firstAttribute="top" secondItem="PfD-BT-eq6" secondAttribute="top" id="kYC-0f-xXa"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="PfD-BT-eq6" secondAttribute="bottom" id="4QQ-t9-V6x"/>
+                <constraint firstItem="3Oh-ZS-6dE" firstAttribute="width" secondItem="AZM-wv-0H8" secondAttribute="width" id="99v-x2-wVk"/>
+                <constraint firstItem="PfD-BT-eq6" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="HZj-gv-IP6"/>
+                <constraint firstItem="3Oh-ZS-6dE" firstAttribute="height" secondItem="AZM-wv-0H8" secondAttribute="height" id="SIb-r4-xv5"/>
+                <constraint firstAttribute="trailing" secondItem="AZM-wv-0H8" secondAttribute="trailing" id="XZx-MH-NJ4"/>
+                <constraint firstAttribute="trailing" secondItem="PfD-BT-eq6" secondAttribute="trailing" id="bwE-Xf-ngH"/>
+                <constraint firstItem="AZM-wv-0H8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="mCA-IS-66t"/>
+                <constraint firstItem="AZM-wv-0H8" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="wgc-aA-TEz"/>
+                <constraint firstItem="PfD-BT-eq6" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="z31-ld-N7f"/>
+            </constraints>
+            <point key="canvasLocation" x="249" y="171"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon_congdian" width="259" height="77"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
+    </simulatedMetricsContainer>
+</document>

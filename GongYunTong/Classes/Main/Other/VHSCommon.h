@@ -14,7 +14,7 @@
 /***网络环境切换总开关***/
 
 //测试环境
-#define GYT_BUILD_FOR_TEST
+#define GYT_BUILD_FOR_TEST 0
 
 //生产环境
 #define GYT_BUILD_FOR_RELEASE
@@ -41,9 +41,10 @@
 //#define kServerURL @"https://kldf.dfzq.com.cn/oauth2"
 #endif
 
-#ifdef GYT_BUILD_FOR_RELEASE
+//#ifdef GYT_BUILD_FOR_RELEASE
 //#define kServerURL @"http://118.242.18.199:10000/oauth2"
-#endif
+//#define kServerURL @"https://kldf.dfzq.com.cn/oauth2"
+//#endif
 
 /// 配置支付宝相关
 #define ALIPAY_APP_SCHEME     @"VHSgongyuntong"

@@ -61,7 +61,7 @@
     
     _stepsLabel.text =  [NSString stringWithFormat:@"%@步",[NSString stringWithFormat:@"%@", @(self.sumSteps)]];
     self.kilometre = [[k_UserDefaults objectForKey:k_Steps_To_Kilometre_Ratio] doubleValue] * self.sumSteps;
-    [self setLabel:_stepsLabel labelText:_stepsLabel.text attriText:[NSString stringWithFormat:@"%ld", self.sumSteps]];
+    [self setLabel:_stepsLabel labelText:_stepsLabel.text attriText:[NSString stringWithFormat:@"%ld", (long)self.sumSteps]];
     
     // 15分钟，自动同步数据到云端
     [k_NotificationCenter addObserver:self selector:@selector(autosyncStepsToCloud) name:k_NOTI_SYNCSTEPS_TO_NET object:nil];
@@ -319,7 +319,7 @@
         // 手环跨天时候，可能在获取实时手环数据未获取，但是上次同步数据有，导致了负数
         self.sumSteps = self.sumSteps ? self.sumSteps : 0;
         
-        NSLog(@"--real-%ld--db-%ld--last-%ld--sum-%ld", realtimeSteps, dbSteps, lastSyncSteps, self.sumSteps);
+        NSLog(@"--real-%ld--db-%ld--last-%ld--sum-%ld", (long)realtimeSteps, (long)dbSteps, (long)lastSyncSteps, (long)self.sumSteps);
         
         NSString *stepTotal = [NSString stringWithFormat:@"%@", @(self.sumSteps)];
         // 步数转为公里数据

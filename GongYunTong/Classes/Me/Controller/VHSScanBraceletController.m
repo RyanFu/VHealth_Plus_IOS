@@ -16,7 +16,8 @@
 #import "VHSStepAlgorithm.h"
 #import "NSDate+VHSExtension.h"
 #import "VHSTimeToast.h"
-
+#import "ScanNoDevice.h"
+#import "VHSFitBraceletHelpController.h"
 
 @interface VHSScanBraceletController ()<UITableViewDelegate, UITableViewDataSource, VHSScanDeviceCellDelegate>
 
@@ -24,7 +25,6 @@
 @property (nonatomic, strong) NSMutableArray *peripheralArray;
 @property (nonatomic, strong) ASDKSetting *setting;
 @property (nonatomic, strong) ASDKGetHandringData *handingData;
-@property (nonatomic, strong) ProtocolLiveDataModel *liveDataModel;
 
 @property (nonatomic, assign) BOOL isBinding;
 
@@ -32,7 +32,9 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *realTimesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *footerViewTip;
+@property (weak, nonatomic) IBOutlet UIView *footerView;
 @property (nonatomic, strong) VHSScanDeviceCell *bindCell;
+@property (nonatomic, strong) ScanNoDevice *nodevice;
 
 @end
 
@@ -47,12 +49,11 @@
     return _peripheralArray;
 }
 
-#pragma mark - override setter method 
-
-- (void)setLiveDataModel:(ProtocolLiveDataModel *)liveDataModel {
-    
-    _liveDataModel = liveDataModel;
-    
+- (ScanNoDevice *)nodevice {
+    if (!_nodevice) {
+        _nodevice = [ScanNoDevice scanNoDeviceFromNib];
+    }
+    return _nodevice;
 }
 
 - (void)viewDidLoad {
@@ -60,8 +61,6 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
-    [VHSTimeToast toastShow:5];
     
     // 初始化手环
     [[VHSStepAlgorithm shareAlgorithm] shareBLE];
@@ -90,6 +89,24 @@
 }
 
 -(void)scanDevice:(UIButton *)button {
+    // 倒计时结束判断
+    self.nodevice.hidden = YES;
+    [VHSTimeToast toastShow:5.0 success:^{
+        if (![self.peripheralArray count]) {
+            self.nodevice.hidden = NO;
+            [self.view addSubview:self.nodevice];
+            self.nodevice.center = self.view.center;
+            
+            __weak typeof(self) weakSelf = self;
+            self.nodevice.getHelpBlock = ^(){
+                VHSFitBraceletHelpController *helpVC = [[VHSFitBraceletHelpController alloc] init];
+                [weakSelf.navigationController pushViewController:helpVC animated:YES];
+            };
+            
+            UITapGestureRecognizer *tapResearch = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(researchBle)];
+            [self.view addGestureRecognizer:tapResearch];
+        }
+    }];
     //先断开正在连接的设备
     if ([ShareDataSdk shareInstance].peripheral.state == CBPeripheralStateConnected) {
         [[SharePeripheral sharePeripheral].bleMolue ASDKSendDisConnectDevice:[ShareDataSdk shareInstance].peripheral];
@@ -153,6 +170,7 @@
     self.peripheralArray = noti.userInfo[DeviceDidScanBLEsUserInfoKey];
     if ([self.peripheralArray count] > 0) {
         self.footerViewTip.hidden = NO;
+        self.footerView.hidden = NO;
     }
     [self.tableView reloadData];
 }
@@ -317,6 +335,11 @@
     self.bindCell.waitingIgv.hidden = YES;
     self.bindCell.bingButton.hidden = NO;
     self.tableView.userInteractionEnabled = YES;
+}
+
+#pragma mark - 搜索手环
+- (void)researchBle {
+    [self scanDevice:nil];
 }
 
 @end

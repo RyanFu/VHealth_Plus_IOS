@@ -302,21 +302,18 @@
             VHSAboutSpaceCell *spaceCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([VHSAboutSpaceCell class])];
             spaceCell.dynamicItem = item;
             return spaceCell;
-            
         }
         else if ([item.imgType integerValue] == 2) {
             // 大图
             VHSDynamicBigIgvCell *bigIgvCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([VHSDynamicBigIgvCell class])];
             bigIgvCell.dynamicItem = item;
             return bigIgvCell;
-            
         }
         else if ([item.imgType integerValue] == 3){
             // 三图
             VHSMoreIgvCell *moreIgvCell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([VHSMoreIgvCell class])];
             moreIgvCell.dynamicItem = item;
             return moreIgvCell;
-            
         }
     }
     return nil;

@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_onlogin" translatesAutoresizingMaskIntoConstraints="NO" id="e2W-2s-G1O"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dfzq_login_logo" translatesAutoresizingMaskIntoConstraints="NO" id="e2W-2s-G1O"/>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lBm-vQ-ONw">
                                 <color key="backgroundColor" red="0.86274509799999999" green="0.23529411759999999" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -344,7 +344,7 @@
     </scenes>
     <resources>
         <image name="btn_login" width="256" height="50"/>
-        <image name="icon_onlogin" width="75" height="75"/>
+        <image name="dfzq_login_logo" width="75" height="75"/>
         <image name="icon_password" width="22" height="22"/>
         <image name="icon_user" width="22" height="22"/>
     </resources>

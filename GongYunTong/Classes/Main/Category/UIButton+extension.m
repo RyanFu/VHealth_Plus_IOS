@@ -35,7 +35,7 @@
                 [countdownLabel removeFromSuperview];
             });
         }else{
-            NSString *strTime = [NSString stringWithFormat:@"%ld秒",timeout];
+            NSString *strTime = [NSString stringWithFormat:@"%ld秒",(long)timeout];
             dispatch_async(dispatch_get_main_queue(), ^{
                 //设置界面的按钮显示 根据自己需求设置
                 countdownLabel.text = strTime;

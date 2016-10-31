@@ -32,7 +32,7 @@
     self.bingButton.hidden=NO;
     self.waitingIgv.hidden=YES;
     [self.waitingIgv.layer removeAllAnimations];
-    self.modelLabel.text = [NSString stringWithFormat:@"%@ %ld",model.name,model.RSSI];
+    self.modelLabel.text = [NSString stringWithFormat:@"%@ %ld",model.name,(long)model.RSSI];
     
 }
 - (IBAction)bingClick:(UIButton *)sender {

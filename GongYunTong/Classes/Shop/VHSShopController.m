@@ -116,7 +116,7 @@ static NSString *MAIN_SHOP_URL = @"http://118.242.18.199:10000/index.php";
     }
 }
 
-- (void)loadRequest {
+- (void)loadReq {
     NSString *url = [NSString stringWithFormat:@"%@?vhstoken=%@", MAIN_SHOP_URL, [VHSCommon vhstoken]];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15.0];
     [self.contentWKWebView loadRequest:request];
@@ -169,7 +169,7 @@ static NSString *MAIN_SHOP_URL = @"http://118.242.18.199:10000/index.php";
     [self customNavigationBar];
     [self setupRefresh];
     
-    [self loadRequest];
+    [self loadReq];
     
     // 进度条
     self.progress = [[UIView alloc] initWithFrame:CGRectMake(0,
@@ -199,7 +199,7 @@ static NSString *MAIN_SHOP_URL = @"http://118.242.18.199:10000/index.php";
     
     self.thisPage = YES;
     [self.contentWKWebView evaluateJavaScript:@"__isIndex()" completionHandler:^(id _Nullable any, NSError * _Nullable error) {
-        BOOL res = (BOOL)any;
+        BOOL res = [any boolValue];
         if (self.loadTimes == 1) {
             return;
         }
@@ -303,7 +303,7 @@ static NSString *MAIN_SHOP_URL = @"http://118.242.18.199:10000/index.php";
     }
     
     [self.contentWKWebView evaluateJavaScript:@"__isIndex()" completionHandler:^(id _Nullable any, NSError * _Nullable error) {
-        BOOL res = (BOOL)any;
+        BOOL res = [any boolValue];
         if (res) {
             self.closeView.hidden = YES;
             self.didClickGoBack = NO;
@@ -415,7 +415,7 @@ static NSString *MAIN_SHOP_URL = @"http://118.242.18.199:10000/index.php";
         if (iOS8) {
             self.noContentView.hidden = YES;
             self.contentWKWebView.hidden = NO;
-            [self loadRequest];
+            [self loadReq];
         }
     } else {
         [VHSToast toast:TOAST_NO_NETWORK];

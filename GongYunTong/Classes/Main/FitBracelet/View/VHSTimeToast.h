@@ -10,8 +10,8 @@
 
 @interface VHSTimeToast : UIView
 
-
 +(instancetype)timeToastFromXib;
 
 +(void)toastShow:(NSInteger)time;
++ (void)toastShow:(NSInteger)time success:(void (^)())showSuccessBlock;
 @end
