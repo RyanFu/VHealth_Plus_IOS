@@ -420,16 +420,16 @@
 
 - (void)uploadStepsWithFlagView:(UIView *)tapView {
     // 手动同步本地数据库到服务端
-    [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:^(BOOL isSuccess) {
+    [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:^(NSDictionary *result) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [tapView.layer removeAllAnimations];
-            if (isSuccess) {
-                // 同步到服务器的时间
-                self.syncTimeLabel.text = [NSString stringWithFormat:@"上次同步：%@", [VHSCommon timeInfoWithDateString:[VHSCommon getUploadServerTime]]];
-            } else {
+            if (!result) {
                 [VHSToast toast:TOAST_UPLOAD_SETPS_FAIL];
+            } else if ([result[@"result"] integerValue] != 200) {
+                [VHSToast toast:result[@"info"]];
+            } else {
+                self.syncTimeLabel.text = [NSString stringWithFormat:@"上次同步：%@", [VHSCommon timeInfoWithDateString:[VHSCommon getUploadServerTime]]];
             }
-            
             self.syncTimeLabel.userInteractionEnabled = YES;
             self.syncRotate.userInteractionEnabled = YES;
         });

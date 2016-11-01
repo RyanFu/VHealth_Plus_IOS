@@ -55,7 +55,7 @@
 
 
 /// 上传所有的未上传的数据
-- (void)uploadAllUnuploadActionData:(void (^)(BOOL isSuccess))syncBlock;
+- (void)uploadAllUnuploadActionData:(void (^)(NSDictionary *result))syncBlock;
 
 /**
  *  插入或者更新一个数据

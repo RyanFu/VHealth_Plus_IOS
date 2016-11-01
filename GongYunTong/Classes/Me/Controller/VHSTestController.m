@@ -11,6 +11,7 @@
 #import "VHSStepAlgorithm.h"
 #import "VHSLocatServicer.h"
 #import "PublicWKWebViewController.h"
+#import "NSDate+VHSExtension.h"
 
 
 @interface VHSTestController ()
@@ -50,8 +51,11 @@
 
 
 - (void)confirmBtn:(UIButton *)btn {
-    
 //    [[VHSLocatServicer shareLocater] startUpdatingLocation]; // 开启定位服务
+    
+    NSString *past = @"2016-11-01 10:54:00";
+    NSInteger pastday = [NSDate pastOfNowWithPastDateStr:past];
+    [VHSToast toast:[NSString stringWithFormat:@"%ld", (long)pastday]];
 }
 
 - (void)cancelBtn:(UIButton *)btn {

@@ -393,20 +393,21 @@
     return sumSteps;
 }
 
-- (void)uploadAllUnuploadActionData:(void (^)(BOOL))syncBlock {
+//- (void)uploadAllUnuploadActionData:(void (^)(BOOL))syncBlock {
+- (void)uploadAllUnuploadActionData:(void (^)(NSDictionary *))syncBlock {
     
     VHSDataBaseManager *manager = [VHSDataBaseManager shareInstance];
     
     NSString *memberId = [[VHSCommon userInfo].memberId stringValue];
     if ([VHSCommon isNullString:memberId]) {
-        if (syncBlock) syncBlock(YES);
+        if (syncBlock) syncBlock(nil);
         return;
     }
     // 获取所有该用户未上传的数据
     NSArray *unuploadList = [manager selectUnuploadFromActionLst:memberId];
     if (![unuploadList count]) {
         [VHSCommon setUploadServerTime:[VHSCommon getDate:[NSDate date]]];
-        if (syncBlock) syncBlock(YES);
+        if (syncBlock) syncBlock(@{@"result" : @200});
         return;
     }
     
@@ -425,22 +426,17 @@
     message.path = @"/addStep.htm";
     message.httpMethod = VHSNetworkPOST;
     
-    [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *resultObject) {
-        if ([resultObject[@"result"] integerValue] == 200) {
-            NSArray *kmList = resultObject[@"kmList"];
+    [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
+        if ([result[@"result"] integerValue] == 200) {
+            NSArray *kmList = result[@"kmList"];
             // 更新本地数据库中的上传状态
             for (NSDictionary *kmDict in kmList) {
                 [manager updateStatusToActionLst:kmDict[@"sportDate"] macAddress:[NSString stringWithFormat:@"%@", kmDict[@"handMac"]] distance:kmDict[@"km"]];
             }
             [VHSCommon setUploadServerTime:[VHSCommon getDate:[NSDate date]]];
-            
-            if (syncBlock) {
-                syncBlock(YES);
-            }
-        } else {
-            if (syncBlock) {
-                syncBlock(NO);
-            }
+        }
+        if (syncBlock) {
+            syncBlock(result);
         }
     } fail:^(NSError *error) {
         [VHSToast toast:TOAST_NETWORK_SUSPEND];

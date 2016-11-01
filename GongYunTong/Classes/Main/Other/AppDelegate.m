@@ -568,6 +568,9 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
             [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
             [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
         }];
+    } else {
+        [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
+        [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
     }
     // 开启定时器
 //    [self runloopLocalMobileToNetwork];

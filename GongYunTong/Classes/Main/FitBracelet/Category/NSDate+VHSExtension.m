@@ -62,10 +62,18 @@
 
 + (NSInteger)pastOfNowWithPastDateStr:(NSString *)pastDateStr {
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *nowComps = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
-    NSDateComponents *lastComps = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[VHSCommon dateWithDateStr:pastDateStr]];
-    NSInteger pastDays = nowComps.day - lastComps.day;
+    NSDateComponents *nowComps = [calendar components:NSCalendarUnitSecond | NSCalendarUnitMinute | NSCalendarUnitHour| NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    NSDateComponents *lastComps = [calendar components:NSCalendarUnitSecond | NSCalendarUnitMinute | NSCalendarUnitHour |NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[VHSCommon dateWithDateStr:pastDateStr]];
     
+    NSInteger pastDays = nowComps.day - lastComps.day;
+    if (nowComps.month == lastComps.month && nowComps.year == lastComps.year) {
+        // 同月
+        pastDays = nowComps.day - lastComps.day;
+    } else if (nowComps.month != lastComps.month) {
+        // 跨月
+        NSUInteger days = [self daysForMonthDateStr:pastDateStr];
+        pastDays = nowComps.day + days - lastComps.day;
+    }
     return pastDays;
 }
 
@@ -136,6 +144,13 @@
     }
     
     return flag;
+}
+
++ (NSUInteger)daysForMonthDateStr:(NSString *)dateStr {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSRange range = [calendar rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:[VHSCommon dateWithDateStr:dateStr]];
+    NSUInteger numberOfDaysInMonth = range.length;
+    return numberOfDaysInMonth;
 }
 
 @end
