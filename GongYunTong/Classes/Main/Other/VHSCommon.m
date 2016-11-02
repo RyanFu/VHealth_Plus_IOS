@@ -74,11 +74,11 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
 }
 
 + (NSString *)vhstoken {
-    return [k_UserDefaults objectForKey:k_VHS_Token];
+    return [self getUserDefautForKey:k_VHS_Token];
 }
 
 + (NSString *)latitudeLongitude {
-    NSString *latiLongi = [k_UserDefaults objectForKey:k_LATITUDE_LONGITUDE];
+    NSString *latiLongi = [self getUserDefautForKey:k_LATITUDE_LONGITUDE];
     if (!latiLongi || !latiLongi.length) {
         return @"";
     }
@@ -97,8 +97,17 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
     [k_UserDefaults synchronize];
 }
 
++ (void)saveUserDefault:(id)value forKey:(NSString *)key {
+    [k_UserDefaults setObject:value forKey:key];
+    [k_UserDefaults synchronize];
+}
 
-+ (BOOL) validatePassword:(NSString *)passWord
++ (id)getUserDefautForKey:(NSString *)key {
+    id value = [k_UserDefaults objectForKey:key];
+    return value;
+}
+
++ (BOOL)validatePassword:(NSString *)passWord
 {
     NSArray *arrPassword; /*将文件转化为一行一行的*/
     NSString * htmlPath = [[NSBundle mainBundle] pathForResource:@"SimplePassword"
@@ -148,7 +157,6 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
 }
 
 + (UserInfoModel *)userInfo {
-    
     NSMutableDictionary *userDict = [[k_UserDefaults dictionaryForKey:@"userInfo"] mutableCopy];
     [userDict setObject:[k_UserDefaults objectForKey:k_LOGIN_NUMBERS] forKey:@"loginNum"];
     
@@ -225,7 +233,7 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
     NSString *strYmd = [df stringFromDate:date];
     
     return strYmd;
-
+    
 }
 
 // 日期转换处理（Date --> yyyy-MM-dd）
@@ -347,99 +355,86 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
     
     NSTimeInterval cha = now - late;
     
-    
     return (int)cha;
 }
 
 + (void)setShouHuanMacAddress:(NSString *)macAddress {
-    [k_UserDefaults setObject:macAddress forKey:k_SHOUHUAN_MAC_ADDRESS];
-    [k_UserDefaults synchronize];
+    [self saveUserDefault:macAddress forKey:k_SHOUHUAN_MAC_ADDRESS];
 }
 + (void)setShouHuanName:(NSString *)name {
-    [k_UserDefaults setObject:name forKey:k_SHOUHUAN_NAME];
-    [k_UserDefaults synchronize];
+    [self saveUserDefault:name forKey:k_SHOUHUAN_NAME];
 }
 + (void)setShouHuanUUID:(NSString *)uuid {
-    [k_UserDefaults setObject:uuid forKey:k_SHOUHUAN_UUID];
-    [k_UserDefaults synchronize];
+    [self saveUserDefault:uuid forKey:k_SHOUHUAN_UUID];
 }
 + (void)setShouHuanConnectedTime:(NSString *)time {
-    [k_UserDefaults setObject:time forKey:k_SHOUHUAN_CONNECTED_TIME];
-    [k_UserDefaults synchronize];
+    [self saveUserDefault:time forKey:k_SHOUHUAN_CONNECTED_TIME];
 }
 + (void)setShouHuanBoundTime:(NSString *)time {
-    [k_UserDefaults setObject:time forKey:k_SHOUHUAN_BOUND_TIME];
-    [k_UserDefaults synchronize];
+    [self saveUserDefault:time forKey:k_SHOUHUAN_BOUND_TIME];
 }
 + (void)setShouHuanUnbingTime:(NSString *)time {
-    [k_UserDefaults setObject:time forKey:k_SHOUHUAN_UNBING_TIME];
-    [k_UserDefaults synchronize];
+    [self saveUserDefault:time forKey:k_SHOUHUAN_UNBING_TIME];
 }
 + (void)setShouHuanLastTimeSync:(NSString *)time {
-    [k_UserDefaults setObject:time forKey:k_SHOUHUAN_LAST_TIME_SYNC];
-    [k_UserDefaults synchronize];
+    [self saveUserDefault:time forKey:k_SHOUHUAN_LAST_TIME_SYNC];
 }
 + (void)setShouHuanBoundSteps:(NSInteger)steps {
-    [k_UserDefaults setObject:@(steps) forKey:k_SHOUHUAN_BOUND_STEPS];
-    [k_UserDefaults synchronize];
+    [self saveUserDefault:@(steps) forKey:k_SHOUHUAN_BOUND_STEPS];
 }
 + (void)setShouHuanUnbingSteps:(NSString *)steps {
-    [k_UserDefaults setObject:steps forKey:k_SHOUHUAN_UNBING_STEPS];
-    [k_UserDefaults synchronize];
+    [self saveUserDefault:steps forKey:k_SHOUHUAN_UNBING_STEPS];
 }
 + (void)setShouHuanLastStepsSync:(NSInteger)lastSteps {
-    [k_UserDefaults setObject:@(lastSteps) forKey:k_SHOUHUAN_LAST_STEPS_SYNC];
-    [k_UserDefaults synchronize];
+    [self saveUserDefault:@(lastSteps) forKey:k_SHOUHUAN_LAST_STEPS_SYNC];
 }
 + (void)setUploadServerTime:(NSString *)time {
-    [k_UserDefaults setObject:time forKey:k_UPLOAD_TO_SERVER_TIME];
-    [k_UserDefaults synchronize];
+    [self saveUserDefault:time forKey:k_UPLOAD_TO_SERVER_TIME];
 }
 
 + (NSString *)getShouHuanMacSddress {
-    return [k_UserDefaults objectForKey:k_SHOUHUAN_MAC_ADDRESS];
+    return [self getUserDefautForKey:k_SHOUHUAN_MAC_ADDRESS];
 }
 + (NSString *)getShouHuanName {
-    return [k_UserDefaults objectForKey:k_SHOUHUAN_NAME];
+    return [self getUserDefautForKey:k_SHOUHUAN_NAME];
 }
 + (NSString *)getShouHuanUUID {
-    return [k_UserDefaults objectForKey:k_SHOUHUAN_UUID];
+    return [self getUserDefautForKey:k_SHOUHUAN_UUID];
 }
 + (NSString *)getShouHuanConnectedTime {
-    return [k_UserDefaults objectForKey:k_SHOUHUAN_CONNECTED_TIME];
+    return [self getUserDefautForKey:k_SHOUHUAN_CONNECTED_TIME];
 }
 + (NSString *)getShouHuanBoundTime {
-    return [k_UserDefaults objectForKey:k_SHOUHUAN_BOUND_TIME];
+    return [self getUserDefautForKey:k_SHOUHUAN_BOUND_TIME];
 }
 + (NSString *)getShouHuanUnbingTime {
-    return [k_UserDefaults objectForKey:k_SHOUHUAN_UNBING_TIME];
+    return [self getUserDefautForKey:k_SHOUHUAN_UNBING_TIME];
 }
 + (NSString *)getShouHuanLastTimeSync {
-    return [k_UserDefaults objectForKey:k_SHOUHUAN_LAST_TIME_SYNC];
+    return [self getUserDefautForKey:k_SHOUHUAN_LAST_TIME_SYNC];
 }
 + (NSString *)getShouHuanBoundSteps {
-    return [k_UserDefaults objectForKey:k_SHOUHUAN_BOUND_STEPS];
+    return [self getUserDefautForKey:k_SHOUHUAN_BOUND_STEPS];
 }
 + (NSString *)getShouHuanUnbingSteps {
-    return [k_UserDefaults objectForKey:k_SHOUHUAN_UNBING_STEPS];
+    return [self getUserDefautForKey:k_SHOUHUAN_UNBING_STEPS];
 }
 + (NSInteger)getShouHuanLastStepsSync {
-    NSInteger lastStepsSync = [[k_UserDefaults objectForKey:k_SHOUHUAN_LAST_STEPS_SYNC] integerValue];
+    NSInteger lastStepsSync = [[self getUserDefautForKey:k_SHOUHUAN_LAST_STEPS_SYNC] integerValue];
     return lastStepsSync;
 }
 + (NSString *)getUploadServerTime {
-    return [k_UserDefaults objectForKey:k_UPLOAD_TO_SERVER_TIME];
+    return [self getUserDefautForKey:k_UPLOAD_TO_SERVER_TIME];
 }
 
 #pragma mark - 数据库相关
 
 + (void)saveDataBaseVersion {
-    [k_UserDefaults setInteger:k_VHS_DataBase_Version forKey:k_VHS_DataBase_Version_Key];
-    [k_UserDefaults synchronize];
+    [self saveUserDefault:k_VHS_DataBase_Version forKey:k_VHS_DataBase_Version_Key];
 }
 
 + (NSInteger)getDatabaseVersion {
-    NSInteger version = [k_UserDefaults integerForKey:k_VHS_DataBase_Version_Key];
+    NSInteger version = [[self getUserDefautForKey:k_VHS_DataBase_Version_Key] integerValue];
     return version;
 }
 
@@ -447,41 +442,35 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
 
 + (void)saveLaunchUrl:(NSString *)url {
     NSString *defineUrl = url ? url : @"";
-    [k_UserDefaults setObject:[NSString stringWithFormat:@"%@", defineUrl] forKey:k_LaunchUrl];
-    [k_UserDefaults synchronize];
+    [self saveUserDefault:[NSString stringWithFormat:@"%@", defineUrl] forKey:k_LaunchUrl];
 }
 
 + (void)saveLaunchTime:(NSString *)time {
     NSString *defaultTime = time ? time : @"";
-    [k_UserDefaults setObject:defaultTime forKey:k_Launch_Time];
-    [k_UserDefaults synchronize];
+    [self saveUserDefault:defaultTime forKey:k_Launch_Time];
 }
 
 + (void)saveDynamicTime:(NSString *)time {
     NSString *defaultTime = time ? time : @"";
-    [k_UserDefaults setObject:defaultTime forKey:k_Late_Show_Dynamic_Time];
-    [k_UserDefaults synchronize];
+    [self saveUserDefault:defaultTime forKey:k_Late_Show_Dynamic_Time];
 }
 
 + (void)saveActivityTime:(NSString *)time {
     NSString *defaultTime = time ? time : @"";
-    [k_UserDefaults setObject:defaultTime forKey:k_Late_Show_Activity_Time];
-    [k_UserDefaults synchronize];
+    [self saveUserDefault:defaultTime forKey:k_Late_Show_Activity_Time];
 }
 
 + (void)saveShopTime:(NSString *)time {
     NSString *defaultTime = time ? time : @"";
-    [k_UserDefaults setObject:defaultTime forKey:k_Late_Show_Shop_Time];
-    [k_UserDefaults synchronize];
+    [self saveUserDefault:defaultTime forKey:k_Late_Show_Shop_Time];
 }
 
 + (void)saveBPushChannelId:(NSString *)channelId {
-    [k_UserDefaults setObject:channelId ? channelId : @"" forKey:k_BPush_Channel_id];
-    [k_UserDefaults synchronize];
+    [self saveUserDefault:channelId ? channelId : @"" forKey:k_BPush_Channel_id];
 }
 
 + (NSString *)getChannelId {
-    NSString *channelId = [k_UserDefaults objectForKey:k_BPush_Channel_id];
+    NSString *channelId = [self getUserDefautForKey:k_BPush_Channel_id];
     if (channelId) {
         return channelId;
     }
@@ -490,8 +479,8 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
 
 + (BOOL)isLogined {
     NSString *token = [VHSCommon vhstoken];
-    NSInteger loginNumbers = [[k_UserDefaults objectForKey:k_LOGIN_NUMBERS] integerValue];
-    if (![VHSCommon isNullString:token] && loginNumbers > 0) {
+    NSInteger logins = [[self getUserDefautForKey:k_LOGIN_NUMBERS] integerValue];
+    if (![VHSCommon isNullString:token] && logins > 0) {
         return YES;
     }
     return NO;

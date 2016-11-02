@@ -100,7 +100,13 @@ extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环�
 /// 移除本地用户信息 － 包括缓存
 + (void)removeLocationUserInfo;
 
-+ (BOOL) validatePassword:(NSString *)passWord;
+/// 使用UserDefault保存信息
++ (void)saveUserDefault:(id)value forKey:(NSString *)key;
+/// 从UserDefault中获取信息
++ (id)getUserDefautForKey:(NSString *)key;
+
+// 校验简单密码
++ (BOOL)validatePassword:(NSString *)passWord;
 
 /// 获取用户基本信息
 + (UserInfoModel *)userInfo;

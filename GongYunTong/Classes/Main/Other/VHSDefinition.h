@@ -40,7 +40,7 @@
 #pragma mark - APP全局字段 ==============================字段=====================================
 
 #define k_VHS_DataBase_Version_Key                      @"database_version"
-#define k_VHS_DataBase_Version                          1
+#define k_VHS_DataBase_Version                          @1
 #define k_LATITUDE_LONGITUDE                            @"k_LATITUDE_LONGITUDE"             // 经纬度
 #define k_Launch_Time                                   @"k_Launch_Time"                    // 记录启动的时间
 #define k_Late_Duration(x)                              x * 3600                                    

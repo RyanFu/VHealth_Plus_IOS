@@ -317,7 +317,7 @@
         
         self.sumSteps = dbSteps + realtimeSteps - lastSyncSteps;
         // 手环跨天时候，可能在获取实时手环数据未获取，但是上次同步数据有，导致了负数
-        self.sumSteps = self.sumSteps ? self.sumSteps : 0;
+        self.sumSteps = self.sumSteps > 0 ? self.sumSteps : 0;
         
         NSLog(@"--real-%ld--db-%ld--last-%ld--sum-%ld", (long)realtimeSteps, (long)dbSteps, (long)lastSyncSteps, (long)self.sumSteps);
         
@@ -335,7 +335,6 @@
 - (void)changeLabelData {
     NSInteger steps = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
     self.sumSteps = steps;
-    
     // 步数转为公里数据
     self.kilometre = [[k_UserDefaults objectForKey:k_Steps_To_Kilometre_Ratio] doubleValue] * self.sumSteps;
     
