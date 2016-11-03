@@ -49,7 +49,6 @@
     
 }
 
-
 - (void)confirmBtn:(UIButton *)btn {
 //    [[VHSLocatServicer shareLocater] startUpdatingLocation]; // 开启定位服务
     
@@ -59,7 +58,7 @@
 }
 
 - (void)cancelBtn:(UIButton *)btn {
-    [[VHSLocatServicer shareLocater] stopUpdatingLocation];
+//    [[VHSLocatServicer shareLocater] stopUpdatingLocation];
 }
 
 @end
