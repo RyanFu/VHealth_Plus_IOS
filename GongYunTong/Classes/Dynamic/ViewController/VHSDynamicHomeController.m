@@ -5,6 +5,7 @@
 //  Created by vhsben on 16/7/20.
 //  Copyright © 2016年 lucky. All rights reserved.
 //
+// will add swift to project
 
 #import "VHSDynamicHomeController.h"
 #import "VHSDynamicBannerCell.h"
