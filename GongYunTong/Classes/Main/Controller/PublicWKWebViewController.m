@@ -317,8 +317,8 @@
     }
     else if ([method isEqualToString:@"getLocation"]) {
         [[VHSLocatServicer shareLocater] startUpdatingLocation]; // 开启定位服务
+        [MBProgressHUD showMessage:@"正在签到"];
         while (1) {
-            [MBProgressHUD showMessage:@"正在签到"];
             NSLog(@"latitudeLongitude = %@", [VHSCommon latitudeLongitude]);
             if ([VHSCommon latitudeLongitude]) {
                 [MBProgressHUD hiddenHUD];

@@ -57,8 +57,7 @@
     double longitude = location.coordinate.longitude;
     
     NSString *latitudeAndLongitude = [NSString stringWithFormat:@"%f;%f", latitude, longitude];
-    [k_UserDefaults setObject:latitudeAndLongitude forKey:k_LATITUDE_LONGITUDE];
-    [k_UserDefaults synchronize];
+    [VHSCommon saveUserDefault:latitudeAndLongitude forKey:k_LATITUDE_LONGITUDE];
     
     NSLog(@"经纬度---->%@", [NSString stringWithFormat:@"%f;%f", latitude, longitude]);
 }
