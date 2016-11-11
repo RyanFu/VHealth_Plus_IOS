@@ -668,7 +668,7 @@
         if (photoImage) {
             message.imageArray = @[photoImage];
         }
-        message.path = @"/addHeader.htm";
+        message.path = URL_ADD_HEADER;
         message.httpMethod = VHSNetworkUpload;
         
         [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
@@ -698,7 +698,7 @@
     
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     message.params = uploadInfo;
-    message.path = @"/upMember.htm";
+    message.path = URL_UP_MEMBER;
     message.httpMethod = VHSNetworkPOST;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {

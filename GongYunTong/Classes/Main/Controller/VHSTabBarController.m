@@ -83,7 +83,7 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
         message.params = @{@"acceptMsg" : @"1"};
     }
     
-    message.path = @"/upAcceptMsg.htm";
+    message.path = URL_UP_ACCEPT_MSG;
     message.httpMethod = VHSNetworkPOST;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(id resultObject) {

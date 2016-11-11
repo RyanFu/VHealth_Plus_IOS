@@ -393,7 +393,6 @@
     return sumSteps;
 }
 
-//- (void)uploadAllUnuploadActionData:(void (^)(BOOL))syncBlock {
 - (void)uploadAllUnuploadActionData:(void (^)(NSDictionary *))syncBlock {
     
     VHSDataBaseManager *manager = [VHSDataBaseManager shareInstance];
@@ -423,7 +422,7 @@
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     message.params = @{@"steps" : jsonSteps,
                        @"timestamp" : [VHSCommon getTimeStamp]};
-    message.path = @"/addStep.htm";
+    message.path = URL_ADD_STEP;
     message.httpMethod = VHSNetworkPOST;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {

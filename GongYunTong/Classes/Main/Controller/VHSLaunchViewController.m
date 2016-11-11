@@ -41,9 +41,9 @@
         [self setupLanuchWithUrl:nil duration:0];
         return;
     }
-    
+    // 获取app启动页
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = @"/getAppStart.htm";
+    message.path = URL_GET_APP_START;
     message.httpMethod = VHSNetworkGET;
     message.timeout = 2.0;
     

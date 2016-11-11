@@ -20,9 +20,8 @@
 
 @end
 
-static NSString *ACTIVITY_MAIN_URL = @"http://118.242.18.199:10000/client/activity/index.htm";
-//static NSString *ACTIVITY_MAIN_URL = @"http://192.168.2.30:8080/client/activity/index.htm";
-//static NSString *ACTIVITY_MAIN_URL = @"https://kldf.dfzq.com.cn/client/activity/index.htm";
+static NSString *ACTIVITY_MAIN_URL = @"http://vhealthplus.valurise.com/client/activity/index.htm";
+//static NSString *ACTIVITY_MAIN_URL = @"http://118.242.18.199:10000/client/activity/index.htm";
 
 @implementation VHSActivityController
 

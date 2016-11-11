@@ -174,7 +174,7 @@
 - (void)confirmBtnClick:(UIButton *)sender {
     
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = @"/upPasswordCode.htm";
+    message.path = URL_UP_PASSWORD_CODE;
     message.params = self.passwordInfoDict;
     message.httpMethod = VHSNetworkPOST;
     

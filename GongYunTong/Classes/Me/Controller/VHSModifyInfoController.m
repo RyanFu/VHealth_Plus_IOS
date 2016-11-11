@@ -186,7 +186,7 @@
     
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     message.params = uploadInfo;
-    message.path = @"/upMember.htm";
+    message.path = URL_UP_MEMBER;
     message.httpMethod = VHSNetworkPOST;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {

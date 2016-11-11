@@ -141,7 +141,7 @@
     // 网络请求绑定 - 告知服务器手环解绑
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     message.params = @{@"handMac" : [k_UserDefaults objectForKey:k_SHOUHUAN_MAC_ADDRESS], @"actionType" : @"0"};
-    message.path = @"/doHandMac.htm";
+    message.path = URL_DO_HAND_MAC;
     message.httpMethod = VHSNetworkPOST;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *resultObject) {
@@ -184,7 +184,7 @@
     // 应用退出
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     message.timeout = 10;
-    message.path = @"/doQuit.htm";
+    message.path = URL_DO_QUIT;
     message.httpMethod = VHSNetworkPOST;
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         NSLog(@"doQuit-result = %@", result);

@@ -82,7 +82,7 @@ NSInteger const ROWCOUNT = 3;
     
     [self.bannerList removeAllObjects];
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = @"/getDiscovery.htm";
+    message.path = URL_GET_DISCOVERY;
     message.httpMethod = VHSNetworkPOST;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(id resultObject) {
@@ -172,7 +172,7 @@ NSInteger const ROWCOUNT = 3;
 /// 记录拨打的电话号码
 - (void)recordPhoneCallWithPhoneNumber:(NSString *)phoneNumber {
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = @"/addPhoneCall.htm";
+    message.path = URL_ADD_PHONE_CALL;
     message.params = @{@"callNo" : phoneNumber};
     message.httpMethod = VHSNetworkPOST;
     

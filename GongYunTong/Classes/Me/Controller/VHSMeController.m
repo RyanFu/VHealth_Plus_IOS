@@ -86,7 +86,7 @@
     }
     
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = @"/getMemberScore.htm";
+    message.path = URL_GET_MEMBER_SCORE;
     message.httpMethod = VHSNetworkPOST;
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         if ([result[@"result"] integerValue] == 200) {
@@ -107,7 +107,7 @@
     }
     
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = @"/getMemberDetail.htm";
+    message.path = URL_GET_MEMBER_DETAIL;
     message.httpMethod = VHSNetworkPOST;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {

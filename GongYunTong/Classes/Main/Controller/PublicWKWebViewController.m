@@ -393,7 +393,7 @@
     if (![VHSCommon isNullString:payParam]) {
         message.params = @{@"pay" : payParam};
     }
-    message.path = @"/getPaySign.htm";
+    message.path = URL_GET_PAY_SIGN;
     message.httpMethod = VHSNetworkPOST;
     __weak typeof(self) weakSelf = self;
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {

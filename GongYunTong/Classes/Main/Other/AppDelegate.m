@@ -513,7 +513,7 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
 
 - (void)downloadLaunchUrl:(void (^)(NSString *url))success {
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = @"/getAppStart.htm";
+    message.path = URL_GET_APP_START;
     message.httpMethod = VHSNetworkGET;
     
     NSString *companyId = [[VHSCommon userInfo].companyId stringValue];

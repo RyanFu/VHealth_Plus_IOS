@@ -128,7 +128,7 @@ CGFloat const settingFooterHeight=106;
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     NSString *handmacId = [k_UserDefaults objectForKey:k_SHOUHUAN_MAC_ADDRESS];
     message.params = @{@"handMac" : handmacId, @"actionType" : @"0"};
-    message.path = @"/doHandMac.htm";
+    message.path = URL_DO_HAND_MAC;
     message.httpMethod = VHSNetworkPOST;
     
     __weak __typeof(self)weakSelf = self;

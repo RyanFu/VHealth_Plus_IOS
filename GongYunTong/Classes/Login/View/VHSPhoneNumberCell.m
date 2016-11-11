@@ -46,7 +46,7 @@
     }
     
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = @"/getVerCode.htm";
+    message.path = URL_GET_VERCODE;
     message.params = @{@"mobile" : self.phoneTextField.text};
     message.httpMethod = VHSNetworkPOST;
     

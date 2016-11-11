@@ -505,7 +505,7 @@
     
     // 网络上传数据
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = @"/addBMI.htm";
+    message.path = URL_ADD_BMI;
     message.params = self.dicPage;
     message.httpMethod = VHSNetworkPOST;
     

@@ -143,7 +143,7 @@
 
 - (void)loadNewData {
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = @"/getIndexBanner.htm";
+    message.path = URL_GET_INDEX_BANNER;
     message.httpMethod = VHSNetworkPOST;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
@@ -174,7 +174,7 @@
     }
     
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = @"/getIndexDynamic.htm";
+    message.path = URL_GET_INDEX_DYNAMIC;
     message.params = @{@"currentPageNum" : @(self.currentPageNum)};
     message.httpMethod = VHSNetworkGET;
     
@@ -210,7 +210,7 @@
 
 - (void) checkVersion {
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = @"/getVersion.htm";
+    message.path = URL_GET_VERSION;
     message.httpMethod = VHSNetworkPOST;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {

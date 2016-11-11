@@ -175,7 +175,7 @@
 - (void)postFeedbackSuggestion {
     
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = @"/addSuggestion.htm";
+    message.path = URL_ADD_SUGGESTION;
     message.params = self.feedbackDict;
     message.httpMethod = VHSNetworkPOST;
     

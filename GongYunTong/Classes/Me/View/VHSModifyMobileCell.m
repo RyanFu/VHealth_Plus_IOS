@@ -66,7 +66,7 @@
         
         VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
         message.params = @{@"mobile" :  mobile};
-        message.path = @"/getVerCode.htm";
+        message.path = URL_GET_VERCODE;
         message.httpMethod = VHSNetworkPOST;
         [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
             if ([result[@"result"] integerValue] == 200) {

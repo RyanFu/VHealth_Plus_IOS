@@ -26,9 +26,8 @@
 
 @end
 
-static NSString *MAIN_SHOP_URL = @"http://118.242.18.199:10000/index.php";
-//static NSString *MAIN_SHOP_URL = @"https://kldf.dfzq.com.cn/ecshop/index.php";
-//static NSString *MAIN_SHOP_URL = @"http://192.168.2.30/index.php";
+static NSString *MAIN_SHOP_URL = @"http://shop.valurise.com/index.php";
+//static NSString *MAIN_SHOP_URL = @"http://118.242.18.199:10000/index.php";
 
 @implementation VHSShopController
 
@@ -427,7 +426,7 @@ static NSString *MAIN_SHOP_URL = @"http://118.242.18.199:10000/index.php";
 - (void)alipay:(NSString *)payParam {
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     message.params = @{@"pay" : payParam};
-    message.path = @"/getPaySign.htm";
+    message.path = URL_GET_PAY_SIGN;
     message.httpMethod = VHSNetworkPOST;
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         if ([result[@"result"] integerValue] == 200) {

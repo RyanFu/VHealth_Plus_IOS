@@ -91,7 +91,7 @@
                        @"appversion" : [VHSCommon appVersion],
                        @"osversion" : [VHSCommon osNameVersion],
                        @"channelId" : [VHSCommon getChannelId]};
-    message.path = @"/login.htm";
+    message.path = URL_LOGIN;
     message.httpMethod = VHSNetworkPOST;
     
     [MBProgressHUD showMessage:nil];
@@ -186,7 +186,7 @@
 /// 获取服务器步数
 - (void)getMemberStep {
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = @"/getMemberStep.htm";
+    message.path = URL_GET_MEMBER_STEP;
     message.httpMethod = VHSNetworkPOST;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {

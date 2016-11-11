@@ -91,7 +91,7 @@
 // 步数明细
 - (void)downloadSumSteps {
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = @"/getMemberStepKmList.htm";
+    message.path = URL_GET_MEMBER_STEP_KM_LIST;
     message.httpMethod = VHSNetworkPOST;
     message.params = @{@"currentPageNum" : @(self.currentPageNum)};
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
