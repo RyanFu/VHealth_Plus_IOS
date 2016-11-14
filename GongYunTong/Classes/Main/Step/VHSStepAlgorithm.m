@@ -32,14 +32,13 @@
     return _ASDKHandler;
 }
 
-#pragma mark -
+#pragma mark - 初始化
 
 + (VHSStepAlgorithm *)shareAlgorithm {
     static VHSStepAlgorithm *algorithm = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         algorithm = [[VHSStepAlgorithm alloc] init];
-        
     });
     return algorithm;
 }

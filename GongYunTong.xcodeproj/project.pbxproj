@@ -16,6 +16,7 @@
 		3325E09D1D6AA9F00045AC33 /* BalanceItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3325E09C1D6AA9F00045AC33 /* BalanceItemModel.m */; };
 		3325E0A01D6C2EFF0045AC33 /* MeSumScoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3325E09F1D6C2EFF0045AC33 /* MeSumScoreModel.m */; };
 		332758701DA8D49D00C285DB /* VHSAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3327586F1DA8D49D00C285DB /* VHSAlertController.m */; };
+		33392BAB1DD9561F00AE3A93 /* ShortcutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 33392BAA1DD9561F00AE3A93 /* ShortcutItem.m */; };
 		334038F91D8175F800202DDD /* TransferStepModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 334038F81D8175F800202DDD /* TransferStepModel.m */; };
 		334039091D82B40100202DDD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 334039081D82B40100202DDD /* Security.framework */; };
 		3342F36A1D9387AE00B31317 /* libBaiduMobStat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3342F3691D9387AE00B31317 /* libBaiduMobStat.a */; };
@@ -211,6 +212,8 @@
 		3325E09F1D6C2EFF0045AC33 /* MeSumScoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeSumScoreModel.m; sourceTree = "<group>"; };
 		3327586E1DA8D49D00C285DB /* VHSAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSAlertController.h; sourceTree = "<group>"; };
 		3327586F1DA8D49D00C285DB /* VHSAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSAlertController.m; sourceTree = "<group>"; };
+		33392BA91DD9561F00AE3A93 /* ShortcutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShortcutItem.h; sourceTree = "<group>"; };
+		33392BAA1DD9561F00AE3A93 /* ShortcutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShortcutItem.m; sourceTree = "<group>"; };
 		334038F71D8175F800202DDD /* TransferStepModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransferStepModel.h; sourceTree = "<group>"; };
 		334038F81D8175F800202DDD /* TransferStepModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransferStepModel.m; sourceTree = "<group>"; };
 		334039081D82B40100202DDD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -939,6 +942,8 @@
 				33640B5D1D9224BC00B34C8B /* KeyChainStore.m */,
 				338C613E1D583AFE004CFE18 /* VHSDefinition.h */,
 				3317AFE81DD5C305003CFEBB /* VHSURL.h */,
+				33392BA91DD9561F00AE3A93 /* ShortcutItem.h */,
+				33392BAA1DD9561F00AE3A93 /* ShortcutItem.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -1531,6 +1536,7 @@
 				CAD91A521D5DB69B00AEF2FB /* payRequsestHandler.mm in Sources */,
 				67B4F8EE1D3CDB4500F933F0 /* VHSHttpEngine.m in Sources */,
 				CAD91A531D5DB69B00AEF2FB /* WXUtil.mm in Sources */,
+				33392BAB1DD9561F00AE3A93 /* ShortcutItem.m in Sources */,
 				CA254EC61D4B5CEB00853D3C /* VHSActivityTitleCell.m in Sources */,
 				CA7F122E1D42028C00C7F145 /* VHSPhoneNumberCell.m in Sources */,
 				CA7F122C1D42028C00C7F145 /* VHSLoginController.m in Sources */,
@@ -1764,12 +1770,10 @@
 				DEVELOPMENT_TEAM = C76485U944;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/FitSDK",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/FitSDK",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Login/FitSDK",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/AppPay/Alibaba",
-					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/PGY",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GongYunTong/PrefixHeader.pch";
 				INFOPLIST_FILE = GongYunTong/Info.plist;
@@ -1805,12 +1809,10 @@
 				DEVELOPMENT_TEAM = C76485U944;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/FitSDK",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/FitSDK",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Login/FitSDK",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/AppPay/Alibaba",
-					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/PGY",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GongYunTong/PrefixHeader.pch";
 				INFOPLIST_FILE = GongYunTong/Info.plist;

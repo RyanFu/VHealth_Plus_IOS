@@ -202,8 +202,7 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
     BOOL didRetrieveFlags = SCNetworkReachabilityGetFlags(defaultRouteReachability, &flags);
     CFRelease(defaultRouteReachability);
     
-    if (!didRetrieveFlags)
-    {
+    if (!didRetrieveFlags) {
         return NO;
     }
     
@@ -430,7 +429,7 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
 #pragma mark - 数据库相关
 
 + (void)saveDataBaseVersion {
-    [self saveUserDefault:k_VHS_DataBase_Version forKey:k_VHS_DataBase_Version_Key];
+    [self saveUserDefault:@(k_VHS_DataBase_Version) forKey:k_VHS_DataBase_Version_Key];
 }
 
 + (NSInteger)getDatabaseVersion {

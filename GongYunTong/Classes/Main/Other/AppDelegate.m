@@ -11,13 +11,12 @@
 #import "VHSStepAlgorithm.h"
 #import "VHSFitBraceletStateManager.h"
 #import "MBProgressHUD+VHS.h"
-//#import <PgySDK/PgyManager.h>
-//#import <PgyUpdate/PgyUpdateManager.h>
 #import <UserNotifications/UserNotifications.h>
 #import "VHSStartController.h"
 #import "NSDate+VHSExtension.h"
 #import "BaiduMobStat.h"
 #import "BPush.h"
+#import "ShortcutItem.h"
 
 static BOOL isBackGroundActivateApplication;
 
@@ -40,8 +39,6 @@ typedef NS_ENUM(NSInteger, TimerType)
 
 @end
 
-/***蒲公英***/
-static NSString *PGY_APP_ID = @"63566aa74651a92a8a767c452e3fc876";
 /***百度统计***/
 static NSString *BaiduMob_APP_KEY = @"a3bd4374ec";
 /***百度推送相关***/
@@ -76,15 +73,6 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
     statTracker.enableDebugOn = NO;
     [statTracker startWithAppId:BaiduMob_APP_KEY]; // 设置您在mtj网站上添加的app的appkey,此处AppId即为应用的appKey
 }
-
-//#pragma mark - 蒲公英
-//
-//- (void)startPGY {
-//    // 启动基本SDK
-//    [[PgyManager sharedPgyManager] startManagerWithAppId:PGY_APP_ID];
-//    // 启动更新检查SDK
-//    [[PgyUpdateManager sharedPgyManager] startManagerWithAppId:PGY_APP_ID];
-//}
 
 #pragma mark - 百度推送
 
@@ -123,50 +111,27 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 }
 
-#pragma mark - applicaion did launch
+#pragma mark - UIApplication Did Finish Launching
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-//    [self startPGY];
+    // 开启百度统计
     [self startBaiduMobileStat];
+    // 开启百度推送
     [self startBaiDuPush:application launchingWithOptions:launchOptions];
     
+    // 创建数据库，开启手机计步
     [[VHSStepAlgorithm shareAlgorithm] start];
     
     // 启动时间
     [VHSCommon saveLaunchTime:[VHSCommon getDate:[NSDate date]]];
     
+    // 设置3D Touch，仅支持iPhone6s之上
+    if (![application.shortcutItems count]) {
+        [[ShortcutItem defaultShortcutItem] configShortcutItemApplication:application];
+    }
+    
     return YES;
-}
-
-#pragma mark - 定时更新本地数据和服务器数据
-// 同步手环数据到手机
-- (void)runloopBleToMobile {
-    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
-    self.bleTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-    dispatch_time_t start = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC));
-    uint64_t interval = (uint64_t)(60.0 * NSEC_PER_SEC);
-    dispatch_source_set_timer(self.bleTimer, start, interval, 0);
-    dispatch_source_set_event_handler(self.bleTimer, ^{
-        NSLog(@"-----> 定时器同步手环数据到手环数据库表");
-        [[VHSStepAlgorithm shareAlgorithm] asynDataFromBraceletToMobileDB:nil];
-    });
-    dispatch_resume(self.bleTimer);
-}
-// 同步手机数据到云端
-- (void)runloopLocalMobileToNetwork {
-    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
-    self.mobileTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-    dispatch_time_t start = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC));
-    uint64_t interval = (uint64_t)(15 * 60 * NSEC_PER_SEC);
-    dispatch_source_set_timer(self.mobileTimer, start, interval, 0);
-    dispatch_source_set_event_handler(self.mobileTimer, ^{
-         NSLog(@"-----> 定时器同步mobile数据到网络服务器数据库表");
-        [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
-        [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
-    });
-    // 5. 启动定时器
-    dispatch_resume(self.mobileTimer);
 }
 
 #pragma mark - 手环相关
@@ -532,11 +497,6 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    
-    
-//    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:10];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -578,7 +538,6 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
 //内存警告
@@ -599,5 +558,52 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
         
     }
 }
+
+#pragma mark - UIApplicationShortcut Item Handle
+
+- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
+    // 根据不一样的shortcut处理不一样的事件
+    if (shortcutItem) {
+        if ([shortcutItem.type isEqualToString:@"vhealth_plus_share"]) {
+            NSArray *arr = @[@"share"];
+            UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:arr applicationActivities:nil];
+            [self.window.rootViewController presentViewController:activityVC animated:YES completion:nil];
+            
+            if (completionHandler) completionHandler(NO);
+        }
+    }
+    
+    if (completionHandler) completionHandler(YES);
+}
+
+#pragma mark - 定时更新本地数据和服务器数据
+// 同步手环数据到手机
+//- (void)runloopBleToMobile {
+//    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+//    self.bleTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+//    dispatch_time_t start = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC));
+//    uint64_t interval = (uint64_t)(60.0 * NSEC_PER_SEC);
+//    dispatch_source_set_timer(self.bleTimer, start, interval, 0);
+//    dispatch_source_set_event_handler(self.bleTimer, ^{
+//        NSLog(@"-----> 定时器同步手环数据到手环数据库表");
+//        [[VHSStepAlgorithm shareAlgorithm] asynDataFromBraceletToMobileDB:nil];
+//    });
+//    dispatch_resume(self.bleTimer);
+//}
+//// 同步手机数据到云端
+//- (void)runloopLocalMobileToNetwork {
+//    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+//    self.mobileTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+//    dispatch_time_t start = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC));
+//    uint64_t interval = (uint64_t)(15 * 60 * NSEC_PER_SEC);
+//    dispatch_source_set_timer(self.mobileTimer, start, interval, 0);
+//    dispatch_source_set_event_handler(self.mobileTimer, ^{
+//        NSLog(@"-----> 定时器同步mobile数据到网络服务器数据库表");
+//        [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
+//        [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
+//    });
+//    // 5. 启动定时器
+//    dispatch_resume(self.mobileTimer);
+//}
 
 @end
