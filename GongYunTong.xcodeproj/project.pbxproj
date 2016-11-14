@@ -74,6 +74,7 @@
 		33CBF3301D73D81400D39452 /* PublicWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF32F1D73D81400D39452 /* PublicWKWebViewController.m */; };
 		33CBF3351D755A5E00D39452 /* UILabel+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF3341D755A5E00D39452 /* UILabel+extension.m */; };
 		33E374AE1DC1F86700DC069D /* app_security.cer in Resources */ = {isa = PBXBuildFile; fileRef = 33E374AD1DC1F86700DC069D /* app_security.cer */; };
+		33E5B8B71DD9941100E52A11 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 33E5B8B61DD9941100E52A11 /* README.md */; };
 		33E7F55B1DC7270C00642D5D /* ScanNoDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E7F55A1DC7270C00642D5D /* ScanNoDevice.m */; };
 		33E7F55D1DC7272700642D5D /* ScanNoDevice.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33E7F55C1DC7272700642D5D /* ScanNoDevice.xib */; };
 		33ED430E1D4F296F007B0F30 /* VHSSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33ED430D1D4F296F007B0F30 /* VHSSettingController.m */; };
@@ -315,6 +316,7 @@
 		33CBF3331D755A5E00D39452 /* UILabel+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+extension.h"; sourceTree = "<group>"; };
 		33CBF3341D755A5E00D39452 /* UILabel+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+extension.m"; sourceTree = "<group>"; };
 		33E374AD1DC1F86700DC069D /* app_security.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = app_security.cer; sourceTree = "<group>"; };
+		33E5B8B61DD9941100E52A11 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		33E7F5591DC7270C00642D5D /* ScanNoDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanNoDevice.h; sourceTree = "<group>"; };
 		33E7F55A1DC7270C00642D5D /* ScanNoDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanNoDevice.m; sourceTree = "<group>"; };
 		33E7F55C1DC7272700642D5D /* ScanNoDevice.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanNoDevice.xib; sourceTree = "<group>"; };
@@ -1099,6 +1101,7 @@
 				67B4F8C81D3CA4B200F933F0 /* VHS_Header.h */,
 				67C7AE371D38D41D0091F669 /* PrefixHeader.pch */,
 				33E374AD1DC1F86700DC069D /* app_security.cer */,
+				33E5B8B61DD9941100E52A11 /* README.md */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1530,6 +1533,7 @@
 				CA254ECC1D4B5D4A00853D3C /* VHSActivityRewardCell.m in Sources */,
 				33514BE31D5B848900ECDEA5 /* VHSFitBraceletSettingController.m in Sources */,
 				CA58AABF1D584CAA0076BA42 /* VHSStepAlgorithm.m in Sources */,
+				33E5B8B71DD9941100E52A11 /* README.md in Sources */,
 				6704636E1D40C56B0051A9F6 /* SDCycleScrollView.m in Sources */,
 				33FB4B131D519D2700AB8086 /* UserInfoModel.m in Sources */,
 				67AD03A51D40E0B700246667 /* VHSMoreIgvCell.m in Sources */,
