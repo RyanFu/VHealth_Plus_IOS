@@ -24,19 +24,16 @@
 #define GYT_BUILD_FOR_TEST
 #endif
 
-/***end***/
-
-// http://118.242.18.199:10000
-
-
 #ifdef GYT_BUILD_FOR_TEST
 #define kServerURL @"http://vhealthplus.valurise.com/oauth2/"
 //#define kServerURL @"http://118.242.18.199:10000/oauth2"
+//#define kServerURL @"http://192.168.5.8:80/oauth2/"
 #endif
 
 #ifdef GYT_BUILD_FOR_BATE
 #define kServerURL @"http://vhealthplus.valurise.com/oauth2/"
 //#define kServerURL @"http://118.242.18.199:10000/oauth2"
+//#define kServerURL @"http://192.168.5.8:80/oauth2/"
 #endif
 
 //#ifdef GYT_BUILD_FOR_RELEASE

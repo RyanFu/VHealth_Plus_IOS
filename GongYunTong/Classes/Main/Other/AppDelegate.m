@@ -20,19 +20,7 @@
 
 static BOOL isBackGroundActivateApplication;
 
-typedef NS_ENUM(NSInteger, TimerType)
-{
-    TimerTypeOfBleToMobile = 1,     // 定时器从手环同步数据到手机
-    TimerTypeOfMobileToNetwork      // 从手机同步到服务器
-};
-
 @interface AppDelegate ()<AsdkBleModuleDelegate>
-{
-    UIView *adView;
-}
-
-@property (nonatomic, strong) dispatch_source_t mobileTimer;
-@property (nonatomic, strong) dispatch_source_t bleTimer;
 
 // 外围设备对象
 @property(nonatomic,strong)CBPeripheral *BLEPeripheral;
@@ -394,7 +382,6 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    NSLog(@"test-deviceToken:%@",deviceToken);
     [BPush registerDeviceToken:deviceToken];
     [BPush bindChannelWithCompleteHandler:^(id result, NSError *error) {
         // 需要在绑定成功后进行 settag listtag deletetag unbind 操作否则会失败
@@ -500,12 +487,6 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    // 取消定时器
-//    dispatch_cancel(self.bleTimer);
-//    dispatch_cancel(self.mobileTimer);
-    
-    NSLog(@"%@", [ShareDataSdk shareInstance].peripheral);
-    
     if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStateDisbind) {
         [[ShareDataSdk shareInstance].peripheral removeObserver:self forKeyPath:@"state"];
     }
@@ -532,9 +513,6 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
         [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
         [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
     }
-    // 开启定时器
-//    [self runloopLocalMobileToNetwork];
-//    [self runloopBleToMobile]
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -575,35 +553,5 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
     
     if (completionHandler) completionHandler(YES);
 }
-
-#pragma mark - 定时更新本地数据和服务器数据
-// 同步手环数据到手机
-//- (void)runloopBleToMobile {
-//    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
-//    self.bleTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-//    dispatch_time_t start = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC));
-//    uint64_t interval = (uint64_t)(60.0 * NSEC_PER_SEC);
-//    dispatch_source_set_timer(self.bleTimer, start, interval, 0);
-//    dispatch_source_set_event_handler(self.bleTimer, ^{
-//        NSLog(@"-----> 定时器同步手环数据到手环数据库表");
-//        [[VHSStepAlgorithm shareAlgorithm] asynDataFromBraceletToMobileDB:nil];
-//    });
-//    dispatch_resume(self.bleTimer);
-//}
-//// 同步手机数据到云端
-//- (void)runloopLocalMobileToNetwork {
-//    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
-//    self.mobileTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-//    dispatch_time_t start = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC));
-//    uint64_t interval = (uint64_t)(15 * 60 * NSEC_PER_SEC);
-//    dispatch_source_set_timer(self.mobileTimer, start, interval, 0);
-//    dispatch_source_set_event_handler(self.mobileTimer, ^{
-//        NSLog(@"-----> 定时器同步mobile数据到网络服务器数据库表");
-//        [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
-//        [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
-//    });
-//    // 5. 启动定时器
-//    dispatch_resume(self.mobileTimer);
-//}
 
 @end
