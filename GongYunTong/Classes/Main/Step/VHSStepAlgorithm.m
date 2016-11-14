@@ -415,8 +415,9 @@
         NSDictionary *actionDict = @{@"sportDate" : action.recordTime , @"step" : @(action.step), @"handMac" : action.macAddress};
         [jsonStepsList addObject:actionDict];
     }
-    
-    NSString *jsonSteps = [jsonStepsList vhs_jsonStringWithPrettyPrint:NO];
+
+    // NSArray convert to Json
+    NSString *jsonSteps = [jsonStepsList convertJson];
     
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     message.params = @{@"steps" : jsonSteps,

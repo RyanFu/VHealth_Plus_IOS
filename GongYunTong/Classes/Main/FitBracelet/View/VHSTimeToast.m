@@ -8,7 +8,7 @@
 
 #import "VHSTimeToast.h"
 #import "MBProgressHUD.h"
-#import "UIView+VHSExtension.h"
+#import "UIView+animation.h"
 
 @interface VHSTimeToast ()
 

@@ -81,7 +81,7 @@ extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环�
 + (NSString *)osNameVersion;
 /// 获取开发厂商ID
 + (NSString *)idfv;
-/// 获取uuid
+/// 获取uuid - 通过钥匙串的方式存储，和获取
 + (NSString *)deviceToken;
 /// 获取手机型号
 + (NSString *)phoneModel;

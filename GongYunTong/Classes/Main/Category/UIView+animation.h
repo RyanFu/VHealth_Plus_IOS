@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIView (VHS_animation)
+@interface UIView (animation)
 
 // 旋转动画（菊花转动）
 -(void)startRotateAnimation;
-
 // 旋转动画 duration越小 转的越快
 -(void)startRotateAnimation:(double)duration;
 // 停止动画
 -(void)stopAllAnimation;
+
+
 @end

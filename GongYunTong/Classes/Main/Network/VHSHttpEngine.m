@@ -58,34 +58,9 @@ static VHSHttpEngine *_instance = nil;
     return self;
 }
 
-/**
- 监控网络状态
- */
-- (BOOL)checkNetworkStatus
-{
-    __block BOOL isNetworkUse = YES;
-    
-    AFNetworkReachabilityManager *reachabilityManager = [AFNetworkReachabilityManager sharedManager];
-    [reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        if (status == AFNetworkReachabilityStatusUnknown) {
-            isNetworkUse = YES;
-        } else if (status == AFNetworkReachabilityStatusReachableViaWiFi){
-            isNetworkUse = YES;
-        } else if (status == AFNetworkReachabilityStatusReachableViaWWAN){
-            isNetworkUse = YES;
-        } else if (status == AFNetworkReachabilityStatusNotReachable){
-            // 网络异常操作
-            isNetworkUse = NO;
-            DLog(@"网络异常,请检查网络是否可用！");
-        }
-    }];
-    [reachabilityManager startMonitoring];
-    return isNetworkUse;
-}
-
 - (void)getRequest:(NSString *)urlPath parameters:(id)parameters success:(RequestSuccess)success failure:(RequestFailure)failure
 {
-    if (![self checkNetworkStatus]) {
+    if (![VHSCommon isNetworkAvailable]) {
         if (success) {
             success(nil);
         }
@@ -124,7 +99,7 @@ static VHSHttpEngine *_instance = nil;
 
 - (void)postRequest:(NSString *)urlPath parameters:(id)parameters success:(RequestSuccess)success failure:(RequestFailure)failure
 {
-    if (![self checkNetworkStatus]) {
+    if (![VHSCommon isNetworkAvailable]) {
         if (success) {
             success(nil);
         }

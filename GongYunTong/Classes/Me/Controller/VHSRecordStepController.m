@@ -14,7 +14,7 @@
 #import "VHSFitBraceletSettingController.h"
 #import "AppDelegate.h"
 #import "VHSAllStepsController.h"
-#import "UIView+VHS_animation.h"
+#import "UIView+animation.h"
 #import "MBProgressHUD+VHS.h"
 #import "NSDate+VHSExtension.h"
 

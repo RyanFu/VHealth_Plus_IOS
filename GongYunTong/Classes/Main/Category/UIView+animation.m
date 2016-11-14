@@ -6,9 +6,9 @@
 //  Copyright © 2016年 lucky. All rights reserved.
 //
 
-#import "UIView+VHS_animation.h"
+#import "UIView+animation.h"
 
-@implementation UIView (VHS_animation)
+@implementation UIView (animation)
 
 
 -(void)startRotateAnimation{
@@ -34,6 +34,7 @@
     rotationAnimation.repeatCount = MAXFLOAT;
     [self.layer addAnimation:rotationAnimation forKey:@"VHSrotationAnimation"];
 }
+
 -(void)stopAllAnimation
 {
     [self.layer removeAllAnimations];

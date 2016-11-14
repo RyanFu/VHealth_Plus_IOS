@@ -8,7 +8,7 @@
 
 #import "VHSSettingBraceletCell.h"
 #import "VHSFitBraceletSettingModel.h"
-#import "UIView+VHSExtension.h"
+#import "UIView+animation.h"
 #import "NSDate+VHSExtension.h"
 
 @interface VHSSettingBraceletCell ()

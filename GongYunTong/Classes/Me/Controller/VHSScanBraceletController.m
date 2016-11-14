@@ -10,7 +10,7 @@
 #import "VHSScanDeviceCell.h"
 #import "SharePeripheral.h"
 #import "MBProgressHUD+VHS.h"
-#import "UIView+VHS_animation.h"
+#import "UIView+animation.h"
 #import "VHSFitBraceletStateManager.h"
 #import "VHSFitBraceletSettingController.h"
 #import "VHSStepAlgorithm.h"

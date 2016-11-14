@@ -1,5 +1,5 @@
 //
-//  NSArray+VHSExtension.h
+//  NSDictionary+VHSExtension.h
 //  GongYunTong
 //
 //  Created by pingjun lin on 16/8/15.
@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSArray (VHSExtension)
+@interface NSDictionary (VHSExtension)
 
-/// nsarray --> json
-- (NSString *)vhs_jsonStringWithPrettyPrint:(BOOL) prettyPrint;
+/// NSDictionary --> Json String
+- (NSString *)convertJson;
 
 @end
