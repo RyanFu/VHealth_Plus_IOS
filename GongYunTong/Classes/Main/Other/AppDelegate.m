@@ -115,9 +115,9 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
     [VHSCommon saveLaunchTime:[VHSCommon getDate:[NSDate date]]];
     
     // 设置3D Touch，仅支持iPhone6s之上
-    if (![application.shortcutItems count]) {
-        [[ShortcutItem defaultShortcutItem] configShortcutItemApplication:application];
-    }
+//    if (![application.shortcutItems count]) {
+//        [[ShortcutItem defaultShortcutItem] configShortcutItemApplication:application];
+//    }
     
     return YES;
 }

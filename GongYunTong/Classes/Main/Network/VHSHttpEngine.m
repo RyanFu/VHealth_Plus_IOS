@@ -46,7 +46,7 @@ static VHSHttpEngine *_instance = nil;
         
         // 安全验证 - reference : http://www.jianshu.com/p/f732749ce786
         AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode: AFSSLPinningModeCertificate];
-        NSString *certificatePath = [[NSBundle mainBundle] pathForResource:@"app_security" ofType:@"cer"];
+        NSString *certificatePath = [[NSBundle mainBundle] pathForResource:@"vhealth_plus" ofType:@"cer"];
         NSData *certificateData = [NSData dataWithContentsOfFile:certificatePath];
         
         NSSet *certificateSet  = [[NSSet alloc] initWithObjects:certificateData, nil];

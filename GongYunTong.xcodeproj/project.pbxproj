@@ -69,11 +69,11 @@
 		33CBF32D1D73C9B500D39452 /* UIButton+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF32C1D73C9B500D39452 /* UIButton+extension.m */; };
 		33CBF3301D73D81400D39452 /* PublicWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF32F1D73D81400D39452 /* PublicWKWebViewController.m */; };
 		33CBF3351D755A5E00D39452 /* UILabel+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF3341D755A5E00D39452 /* UILabel+extension.m */; };
-		33E374AE1DC1F86700DC069D /* app_security.cer in Resources */ = {isa = PBXBuildFile; fileRef = 33E374AD1DC1F86700DC069D /* app_security.cer */; };
 		33E5B8B71DD9941100E52A11 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 33E5B8B61DD9941100E52A11 /* README.md */; };
 		33E5B8C01DD9A43200E52A11 /* NSArray+VHSExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5B8B91DD9A43200E52A11 /* NSArray+VHSExtension.m */; };
 		33E5B8C11DD9A43200E52A11 /* NSDate+VHSExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5B8BB1DD9A43200E52A11 /* NSDate+VHSExtension.m */; };
 		33E5B8C21DD9A43200E52A11 /* NSDictionary+VHSExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5B8BD1DD9A43200E52A11 /* NSDictionary+VHSExtension.m */; };
+		33E5B8C51DDB122800E52A11 /* vhealth_plus.cer in Resources */ = {isa = PBXBuildFile; fileRef = 33E5B8C41DDB122800E52A11 /* vhealth_plus.cer */; };
 		33E7F55B1DC7270C00642D5D /* ScanNoDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E7F55A1DC7270C00642D5D /* ScanNoDevice.m */; };
 		33E7F55D1DC7272700642D5D /* ScanNoDevice.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33E7F55C1DC7272700642D5D /* ScanNoDevice.xib */; };
 		33ED430E1D4F296F007B0F30 /* VHSSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33ED430D1D4F296F007B0F30 /* VHSSettingController.m */; };
@@ -306,7 +306,6 @@
 		33CBF32F1D73D81400D39452 /* PublicWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicWKWebViewController.m; sourceTree = "<group>"; };
 		33CBF3331D755A5E00D39452 /* UILabel+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+extension.h"; sourceTree = "<group>"; };
 		33CBF3341D755A5E00D39452 /* UILabel+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+extension.m"; sourceTree = "<group>"; };
-		33E374AD1DC1F86700DC069D /* app_security.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = app_security.cer; sourceTree = "<group>"; };
 		33E5B8B61DD9941100E52A11 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		33E5B8B81DD9A43200E52A11 /* NSArray+VHSExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+VHSExtension.h"; sourceTree = "<group>"; };
 		33E5B8B91DD9A43200E52A11 /* NSArray+VHSExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+VHSExtension.m"; sourceTree = "<group>"; };
@@ -314,6 +313,7 @@
 		33E5B8BB1DD9A43200E52A11 /* NSDate+VHSExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+VHSExtension.m"; sourceTree = "<group>"; };
 		33E5B8BC1DD9A43200E52A11 /* NSDictionary+VHSExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+VHSExtension.h"; sourceTree = "<group>"; };
 		33E5B8BD1DD9A43200E52A11 /* NSDictionary+VHSExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+VHSExtension.m"; sourceTree = "<group>"; };
+		33E5B8C41DDB122800E52A11 /* vhealth_plus.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = vhealth_plus.cer; sourceTree = "<group>"; };
 		33E7F5591DC7270C00642D5D /* ScanNoDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanNoDevice.h; sourceTree = "<group>"; };
 		33E7F55A1DC7270C00642D5D /* ScanNoDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanNoDevice.m; sourceTree = "<group>"; };
 		33E7F55C1DC7272700642D5D /* ScanNoDevice.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanNoDevice.xib; sourceTree = "<group>"; };
@@ -1087,7 +1087,7 @@
 				67C7AE121D38AB2A0091F669 /* Info.plist */,
 				67B4F8C81D3CA4B200F933F0 /* VHS_Header.h */,
 				67C7AE371D38D41D0091F669 /* PrefixHeader.pch */,
-				33E374AD1DC1F86700DC069D /* app_security.cer */,
+				33E5B8C41DDB122800E52A11 /* vhealth_plus.cer */,
 				33E5B8B61DD9941100E52A11 /* README.md */,
 			);
 			name = "Supporting Files";
@@ -1396,11 +1396,11 @@
 				338C61C11D59D2BE004CFE18 /* VHSScanNoDevice.xib in Resources */,
 				CA4C0A991D5034140039765C /* SimplePassword.txt in Resources */,
 				671217EE1D3F4C53004CFD14 /* Dynamic.storyboard in Resources */,
-				33E374AE1DC1F86700DC069D /* app_security.cer in Resources */,
 				CAD91A4C1D5DB69B00AEF2FB /* AlipaySDK.bundle in Resources */,
 				33E7F55D1DC7272700642D5D /* ScanNoDevice.xib in Resources */,
 				338C61C81D59D2BE004CFE18 /* VHSUnBindCell.xib in Resources */,
 				671217F41D3F4C81004CFD14 /* Discover.storyboard in Resources */,
+				33E5B8C51DDB122800E52A11 /* vhealth_plus.cer in Resources */,
 				67C7AE0C1D38AB2A0091F669 /* Main.storyboard in Resources */,
 				338C61BF1D59D2BE004CFE18 /* VHSScanDeviceCell.xib in Resources */,
 				33C5E97F1D94F4D3004814BA /* test.caf in Resources */,
