@@ -77,6 +77,8 @@
 		33E5B8CD1DDBFEA800E52A11 /* VHSForgetPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5B8C81DDBFEA800E52A11 /* VHSForgetPasswordViewController.m */; };
 		33E5B8CE1DDBFEA800E52A11 /* VHSLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5B8CA1DDBFEA800E52A11 /* VHSLoginController.m */; };
 		33E5B8CF1DDBFEA800E52A11 /* VHSLoginPersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5B8CC1DDBFEA800E52A11 /* VHSLoginPersonalViewController.m */; };
+		33E5B8D61DDC543100E52A11 /* VHSActivityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5B8D51DDC543100E52A11 /* VHSActivityController.m */; };
+		33E5B8DD1DDC54AA00E52A11 /* VHSShopController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5B8DA1DDC54AA00E52A11 /* VHSShopController.m */; };
 		33E7F55B1DC7270C00642D5D /* ScanNoDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E7F55A1DC7270C00642D5D /* ScanNoDevice.m */; };
 		33E7F55D1DC7272700642D5D /* ScanNoDevice.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33E7F55C1DC7272700642D5D /* ScanNoDevice.xib */; };
 		33ED430E1D4F296F007B0F30 /* VHSSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33ED430D1D4F296F007B0F30 /* VHSSettingController.m */; };
@@ -113,8 +115,6 @@
 		671217F01D3F4C65004CFD14 /* Activity.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 671217EF1D3F4C65004CFD14 /* Activity.storyboard */; };
 		671217F21D3F4C71004CFD14 /* Shop.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 671217F11D3F4C71004CFD14 /* Shop.storyboard */; };
 		671217F41D3F4C81004CFD14 /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 671217F31D3F4C81004CFD14 /* Discover.storyboard */; };
-		671217FC1D3F4D48004CFD14 /* VHSActivityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 671217FB1D3F4D48004CFD14 /* VHSActivityController.m */; };
-		671217FF1D3F4D61004CFD14 /* VHSShopController.m in Sources */ = {isa = PBXBuildFile; fileRef = 671217FE1D3F4D61004CFD14 /* VHSShopController.m */; };
 		6730197C1D3C6850004A3320 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 673019781D3C6850004A3320 /* AppDelegate.m */; };
 		6730197D1D3C6850004A3320 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 673019791D3C6850004A3320 /* main.m */; };
 		673248321D46F1C200194DE3 /* XLAlertManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 673248311D46F1C200194DE3 /* XLAlertManager.m */; };
@@ -319,6 +319,10 @@
 		33E5B8CA1DDBFEA800E52A11 /* VHSLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSLoginController.m; sourceTree = "<group>"; };
 		33E5B8CB1DDBFEA800E52A11 /* VHSLoginPersonalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSLoginPersonalViewController.h; sourceTree = "<group>"; };
 		33E5B8CC1DDBFEA800E52A11 /* VHSLoginPersonalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSLoginPersonalViewController.m; sourceTree = "<group>"; };
+		33E5B8D41DDC543100E52A11 /* VHSActivityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSActivityController.h; sourceTree = "<group>"; };
+		33E5B8D51DDC543100E52A11 /* VHSActivityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSActivityController.m; sourceTree = "<group>"; };
+		33E5B8D91DDC54AA00E52A11 /* VHSShopController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSShopController.h; sourceTree = "<group>"; };
+		33E5B8DA1DDC54AA00E52A11 /* VHSShopController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSShopController.m; sourceTree = "<group>"; };
 		33E7F5591DC7270C00642D5D /* ScanNoDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanNoDevice.h; sourceTree = "<group>"; };
 		33E7F55A1DC7270C00642D5D /* ScanNoDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanNoDevice.m; sourceTree = "<group>"; };
 		33E7F55C1DC7272700642D5D /* ScanNoDevice.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanNoDevice.xib; sourceTree = "<group>"; };
@@ -385,10 +389,6 @@
 		671217EF1D3F4C65004CFD14 /* Activity.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Activity.storyboard; sourceTree = "<group>"; };
 		671217F11D3F4C71004CFD14 /* Shop.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Shop.storyboard; sourceTree = "<group>"; };
 		671217F31D3F4C81004CFD14 /* Discover.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Discover.storyboard; sourceTree = "<group>"; };
-		671217FA1D3F4D48004CFD14 /* VHSActivityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSActivityController.h; sourceTree = "<group>"; };
-		671217FB1D3F4D48004CFD14 /* VHSActivityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSActivityController.m; sourceTree = "<group>"; };
-		671217FD1D3F4D61004CFD14 /* VHSShopController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSShopController.h; sourceTree = "<group>"; };
-		671217FE1D3F4D61004CFD14 /* VHSShopController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSShopController.m; sourceTree = "<group>"; };
 		673019771D3C6850004A3320 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		673019781D3C6850004A3320 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		673019791D3C6850004A3320 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -713,6 +713,45 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		33E5B8D31DDC543100E52A11 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				33E5B8D41DDC543100E52A11 /* VHSActivityController.h */,
+				33E5B8D51DDC543100E52A11 /* VHSActivityController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		33E5B8D71DDC543900E52A11 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		33E5B8D81DDC54AA00E52A11 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				33E5B8D91DDC54AA00E52A11 /* VHSShopController.h */,
+				33E5B8DA1DDC54AA00E52A11 /* VHSShopController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		33E5B8DB1DDC54AA00E52A11 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		33E5B8DC1DDC54AA00E52A11 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		33F2BA3A1D648C3100928976 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -799,8 +838,8 @@
 		671217E61D3F4B00004CFD14 /* Activity */ = {
 			isa = PBXGroup;
 			children = (
-				671217FA1D3F4D48004CFD14 /* VHSActivityController.h */,
-				671217FB1D3F4D48004CFD14 /* VHSActivityController.m */,
+				33E5B8D31DDC543100E52A11 /* Controller */,
+				33E5B8D71DDC543900E52A11 /* Model */,
 				CA254EC31D4B4B8000853D3C /* View */,
 			);
 			path = Activity;
@@ -809,8 +848,9 @@
 		671217E71D3F4B0F004CFD14 /* Shop */ = {
 			isa = PBXGroup;
 			children = (
-				671217FD1D3F4D61004CFD14 /* VHSShopController.h */,
-				671217FE1D3F4D61004CFD14 /* VHSShopController.m */,
+				33E5B8D81DDC54AA00E52A11 /* Controller */,
+				33E5B8DB1DDC54AA00E52A11 /* Model */,
+				33E5B8DC1DDC54AA00E52A11 /* View */,
 			);
 			path = Shop;
 			sourceTree = "<group>";
@@ -1504,7 +1544,6 @@
 				338C61411D586575004CFE18 /* VHSActionData.m in Sources */,
 				67B4F8D71D3CAA5500F933F0 /* VHSNavigationController.m in Sources */,
 				33F2BA401D648C6C00928976 /* UserScoreModel.m in Sources */,
-				671217FF1D3F4D61004CFD14 /* VHSShopController.m in Sources */,
 				338C61C41D59D2BE004CFE18 /* VHSSyscnTimeLabel.m in Sources */,
 				6793203E1D41E406004B0CEA /* VHSDiscoverCell.m in Sources */,
 				33514CD31D646A9100ECDEA5 /* VHSAllStepsController.m in Sources */,
@@ -1532,6 +1571,7 @@
 				33E5B8CF1DDBFEA800E52A11 /* VHSLoginPersonalViewController.m in Sources */,
 				33392BAB1DD9561F00AE3A93 /* ShortcutItem.m in Sources */,
 				CA254EC61D4B5CEB00853D3C /* VHSActivityTitleCell.m in Sources */,
+				33E5B8DD1DDC54AA00E52A11 /* VHSShopController.m in Sources */,
 				CA7F122E1D42028C00C7F145 /* VHSPhoneNumberCell.m in Sources */,
 				338171861DAC985A00ACB4A0 /* TAAbstractDotView.m in Sources */,
 				33E5B8CE1DDBFEA800E52A11 /* VHSLoginController.m in Sources */,
@@ -1546,8 +1586,8 @@
 				33ED431D1D4F4A88007B0F30 /* VHSMyScoreController.m in Sources */,
 				673248321D46F1C200194DE3 /* XLAlertManager.m in Sources */,
 				33ED430E1D4F296F007B0F30 /* VHSSettingController.m in Sources */,
-				671217FC1D3F4D48004CFD14 /* VHSActivityController.m in Sources */,
 				67E13FCA1D460E6E001C58D7 /* VHSMeController.m in Sources */,
+				33E5B8D61DDC543100E52A11 /* VHSActivityController.m in Sources */,
 				33F2BA461D65506B00928976 /* VHSPersonInfoController.m in Sources */,
 				3325E0A01D6C2EFF0045AC33 /* MeSumScoreModel.m in Sources */,
 				67E13FD31D460E81001C58D7 /* UserInfoCell.m in Sources */,

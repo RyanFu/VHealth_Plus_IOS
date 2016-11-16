@@ -302,7 +302,7 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
 /*
  处理支付宝或分享结果
  */
-
+/// iOS4.x - iOS9.0
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
