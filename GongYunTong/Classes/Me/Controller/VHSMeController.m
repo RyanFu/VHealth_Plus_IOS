@@ -91,8 +91,7 @@
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         if ([result[@"result"] integerValue] == 200) {
             // 缓存数据
-            [k_UserDefaults setObject:result forKey:Cache_Me_UserScore];
-            [k_UserDefaults synchronize];
+            [VHSCommon saveUserDefault:result forKey:Cache_Me_UserScore];
             
             self.userScore = [UserScoreModel yy_modelWithDictionary:result];
         }
@@ -112,8 +111,7 @@
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         if ([result[@"result"] integerValue] == 200) {
-            [k_UserDefaults setObject:result forKey:k_User_Detail_Info];
-            [k_UserDefaults synchronize];
+            [VHSCommon saveUserDefault:result forKey:k_User_Detail_Info];
             self.userDetail = [UserDetailModel yy_modelWithDictionary:result];
         }
         [self.tableView reloadData];

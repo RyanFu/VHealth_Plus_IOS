@@ -34,7 +34,7 @@
     self.topSpace.constant = top_space_ratio * SCREENH;
     
     // username
-    NSString *username = [k_UserDefaults objectForKey:k_User_Name];
+    NSString *username = [VHSCommon getUserDefautForKey:k_User_Name];;
     // 默认密码和账户
     self.txtAccount.text = username;
 //    self.txtPassword.text = @"123456";
@@ -105,16 +105,15 @@
         LoginModel *loginModel = [LoginModel yy_modelWithDictionary:result];
         
         // 登陆成功后－本地化vhstoken
-        [k_UserDefaults setObject:result[@"vhstoken"] forKey:k_VHS_Token];
-        [k_UserDefaults setObject:[NSNumber numberWithInteger:[result[@"loginNum"] integerValue]] forKey:k_LOGIN_NUMBERS];
-        [k_UserDefaults setObject:result[@"stride"] forKey:k_Steps_To_Kilometre_Ratio];
-        [k_UserDefaults setObject:account forKey:k_User_Name];
-        [k_UserDefaults setObject:[VHSCommon getDate:[NSDate date]] forKey:k_M7_MOBILE_SYNC_TIME];
+        [VHSCommon saveUserDefault:result[@"vhstoken"] forKey:k_VHS_Token];
+        [VHSCommon saveUserDefault:[NSNumber numberWithInteger:[result[@"loginNum"] integerValue]] forKey:k_LOGIN_NUMBERS];
+        [VHSCommon saveUserDefault:result[@"stride"] forKey:k_Steps_To_Kilometre_Ratio];
+        [VHSCommon saveUserDefault:account forKey:k_User_Name];
+        [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]] forKey:k_M7_MOBILE_SYNC_TIME];
         NSString *macAddress = result[@"handMac"];
         if (![VHSCommon isNullString:macAddress]) {
-            [k_UserDefaults setObject:macAddress forKey:k_SHOUHUAN_MAC_ADDRESS];
+            [VHSCommon saveUserDefault:macAddress forKey:k_SHOUHUAN_MAC_ADDRESS];
         }
-        [k_UserDefaults synchronize];
         
         // 保存用户信息到本地
         [self persistentUserInfo:result];
@@ -153,8 +152,7 @@
     [userInfo setObject:[NSString stringWithFormat:@"%@", [VHSUntils absolutelyString:_txtAccount.text]] forKey:@"account"];
     [userInfo setObject:[NSNumber numberWithInteger:[userDict[@"companyId"] integerValue]] forKey:@"companyId"];
     
-    [k_UserDefaults setObject:userInfo forKey:@"userInfo"];
-    [k_UserDefaults synchronize];
+    [VHSCommon saveUserDefault:userInfo forKey:@"userInfo"];
 }
 
 -(void)viewWillAppear:(BOOL)animated {

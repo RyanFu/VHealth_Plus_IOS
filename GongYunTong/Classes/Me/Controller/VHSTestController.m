@@ -52,9 +52,15 @@
 - (void)confirmBtn:(UIButton *)btn {
 //    [[VHSLocatServicer shareLocater] startUpdatingLocation]; // 开启定位服务
     
-    NSString *past = @"2016-11-01 10:54:00";
-    NSInteger pastday = [NSDate pastOfNowWithPastDateStr:past];
-    [VHSToast toast:[NSString stringWithFormat:@"%ld", (long)pastday]];
+//    NSString *past = @"2016-11-01 10:54:00";
+//    NSInteger pastday = [NSDate pastOfNowWithPastDateStr:past];
+//    [VHSToast toast:[NSString stringWithFormat:@"%ld", (long)pastday]];
+    
+    [VHSAlertController alertMessage:@"版本较低" title:@"升级提示" confirmHandler:^(UIAlertAction *action) {
+        
+    } cancleHandler:^(UIAlertAction *action) {
+        
+    }];
 }
 
 - (void)cancelBtn:(UIButton *)btn {

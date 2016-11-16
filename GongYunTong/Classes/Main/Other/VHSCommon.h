@@ -94,7 +94,7 @@ extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环�
 /// 移除本地用户信息 － 包括缓存
 + (void)removeLocationUserInfo;
 
-/// 使用UserDefault保存信息
+/// UserDefault保存信息
 + (void)saveUserDefault:(id)value forKey:(NSString *)key;
 /// 从UserDefault中获取信息
 + (id)getUserDefautForKey:(NSString *)key;

@@ -64,8 +64,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    VHSTestController *testController = [[VHSTestController alloc] init];
-//    [self.navigationController pushViewController:testController animated:YES];
+    VHSTestController *testController = [[VHSTestController alloc] init];
+    [self.navigationController pushViewController:testController animated:YES];
 }
 
 

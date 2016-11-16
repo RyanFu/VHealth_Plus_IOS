@@ -214,8 +214,6 @@
     message.httpMethod = VHSNetworkPOST;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
-        NSLog(@"checkVersion - %@", result);
-        
         if ([result[@"result"] integerValue] != 200) return;
         
         NSString *content = result[@"content"];
