@@ -43,7 +43,7 @@ NSInteger const ROWCOUNT = 3;
     self.automaticallyAdjustsScrollViewInsets = false;
     
     // 先从缓存中读取数据
-    NSArray *cacheDiscoverList = [k_UserDefaults objectForKey:Cache_Discover_BannerList];
+    NSArray *cacheDiscoverList = [VHSCommon getUserDefautForKey:Cache_Discover_BannerList];
     for (NSDictionary *dict in cacheDiscoverList) {
         BannerItemModel *model = [BannerItemModel yy_modelWithDictionary:dict];
         [self.bannerList addObject:model];
@@ -191,8 +191,7 @@ NSInteger const ROWCOUNT = 3;
         NSDictionary *dict = [model transferToDict:model];
         [cacheBannerList addObject:dict];
     }
-    [k_UserDefaults setObject:cacheBannerList forKey:Cache_Discover_BannerList];
-    [k_UserDefaults synchronize];
+    [VHSCommon saveUserDefault:cacheBannerList forKey:Cache_Discover_BannerList];
 }
 
 

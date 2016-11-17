@@ -26,7 +26,7 @@
 
 @end
 
-static NSString *MAIN_SHOP_URL = @"http://vhealthplus.valurise.com/index.php";
+static NSString *MAIN_SHOP_URL = @"https://vhealthplus.valurise.com/index.php";
 //static NSString *MAIN_SHOP_URL = @"http://118.242.18.199:10000/index.php";
 
 @implementation VHSShopController
@@ -216,7 +216,7 @@ static NSString *MAIN_SHOP_URL = @"http://vhealthplus.valurise.com/index.php";
 
 - (void)webViewIfNeededRefresh {
     // 超过时间一个小时，自动刷新
-    NSString *lateTime = [k_UserDefaults objectForKey:k_Late_Show_Shop_Time];
+    NSString *lateTime = [VHSCommon getUserDefautForKey:k_Late_Show_Shop_Time];
     if ([VHSCommon intervalSinceNow:lateTime] >= k_Late_Duration(1.0)) {
         [self.contentWKWebView.scrollView.mj_header beginRefreshing];
     }

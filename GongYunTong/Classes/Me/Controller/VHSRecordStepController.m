@@ -60,7 +60,7 @@
     [self initUI];
     
     _stepsLabel.text =  [NSString stringWithFormat:@"%@步",[NSString stringWithFormat:@"%@", @(self.sumSteps)]];
-    self.kilometre = [[k_UserDefaults objectForKey:k_Steps_To_Kilometre_Ratio] doubleValue] * self.sumSteps;
+    self.kilometre = [[VHSCommon getUserDefautForKey:k_Steps_To_Kilometre_Ratio] doubleValue] * self.sumSteps;
     [self setLabel:_stepsLabel labelText:_stepsLabel.text attriText:[NSString stringWithFormat:@"%ld", (long)self.sumSteps]];
     
     // 15分钟，自动同步数据到云端
@@ -323,7 +323,7 @@
         
         NSString *stepTotal = [NSString stringWithFormat:@"%@", @(self.sumSteps)];
         // 步数转为公里数据
-        self.kilometre = [[k_UserDefaults objectForKey:k_Steps_To_Kilometre_Ratio] doubleValue] * self.sumSteps;
+        self.kilometre = [[VHSCommon getUserDefautForKey:k_Steps_To_Kilometre_Ratio] doubleValue] * self.sumSteps;
        
         _stepsLabel.text =  [NSString stringWithFormat:@"%@步",stepTotal];
 
@@ -336,8 +336,8 @@
     NSInteger steps = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
     self.sumSteps = steps;
     // 步数转为公里数据
-    self.kilometre = [[k_UserDefaults objectForKey:k_Steps_To_Kilometre_Ratio] doubleValue] * self.sumSteps;
-    
+    self.kilometre = [[VHSCommon getUserDefautForKey:k_Steps_To_Kilometre_Ratio] doubleValue] * self.sumSteps;
+
     NSString *str = [NSString stringWithFormat:@"%ld",(long)self.sumSteps];
     _stepsLabel.text =  [NSString stringWithFormat:@"%@步",str];
 

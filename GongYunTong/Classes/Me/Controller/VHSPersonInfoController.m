@@ -710,8 +710,7 @@
             // 修改身高体重，性别，产生新的步幅
             float stride = [result[@"stride"] floatValue];
             if (stride) {
-                [k_UserDefaults setObject:result[@"stride"] forKey:k_Steps_To_Kilometre_Ratio];
-                [k_UserDefaults synchronize];
+                [VHSCommon saveUserDefault:result[@"stride"] forKey:k_Steps_To_Kilometre_Ratio];
             }
         }
         [VHSToast toast:result[@"info"]];

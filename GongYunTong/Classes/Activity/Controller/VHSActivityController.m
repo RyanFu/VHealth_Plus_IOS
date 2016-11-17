@@ -20,8 +20,8 @@
 
 @end
 
-static NSString *ACTIVITY_MAIN_URL = @"http://vhealthplus.valurise.com/client/activity/index.htm";
-//static NSString *ACTIVITY_MAIN_URL = @"http://118.242.18.199:10000/client/activity/index.htm";
+//static NSString *ACTIVITY_MAIN_URL = @"http://vhealthplus.valurise.com/client/activity/index.htm";
+static NSString *ACTIVITY_MAIN_URL = @"http://118.242.18.199:10000/client/activity/index.htm";
 
 @implementation VHSActivityController
 
@@ -129,7 +129,7 @@ static NSString *ACTIVITY_MAIN_URL = @"http://vhealthplus.valurise.com/client/ac
 
 - (void)webViewIfNeededRefresh {
     // 超过时间一个小时，自动刷新
-    NSString *lateTime = [k_UserDefaults objectForKey:k_Late_Show_Activity_Time];
+    NSString *lateTime = [VHSCommon getUserDefautForKey:k_Late_Show_Activity_Time];
     if ([VHSCommon intervalSinceNow:lateTime] >= k_Late_Duration(1.0)) {
         [self.contentWKWebView.scrollView.mj_header beginRefreshing];
     }

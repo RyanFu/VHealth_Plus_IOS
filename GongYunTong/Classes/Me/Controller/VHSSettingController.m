@@ -140,7 +140,8 @@
     
     // 网络请求绑定 - 告知服务器手环解绑
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.params = @{@"handMac" : [k_UserDefaults objectForKey:k_SHOUHUAN_MAC_ADDRESS], @"actionType" : @"0"};
+    message.params = @{@"handMac" : [VHSCommon getUserDefautForKey:k_SHOUHUAN_MAC_ADDRESS],
+                       @"actionType" : @"0"};
     message.path = URL_DO_HAND_MAC;
     message.httpMethod = VHSNetworkPOST;
     

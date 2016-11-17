@@ -61,8 +61,8 @@
     self.currentPageNum = 1;
     
     // 缓存中读取数据
-    self.arrBannerList = [k_UserDefaults objectForKey:Cache_Dynamic_BannerList];
-    NSArray *cacheDynamicList = [k_UserDefaults objectForKey:Cache_Dynamic_DynamicList];
+    self.arrBannerList = [VHSCommon getUserDefautForKey:Cache_Dynamic_BannerList];
+    NSArray *cacheDynamicList = [VHSCommon getUserDefautForKey:Cache_Dynamic_DynamicList];
     for (NSDictionary *dict in cacheDynamicList) {
         [self.dynamicList addObject:[DynamicItemModel yy_modelWithDictionary:dict]];
     }
@@ -96,7 +96,7 @@
 
 - (void)tableViewIfNeededRefresh {
     // 超过时间一个小时，自动刷新
-    NSString *lateTime = [k_UserDefaults objectForKey:k_Late_Show_Dynamic_Time];
+    NSString *lateTime = [VHSCommon getUserDefautForKey:k_Late_Show_Dynamic_Time];
     if ([VHSCommon intervalSinceNow:lateTime] >= k_Late_Duration(1.0)) {
         [self.dynamicHomeTable.mj_header beginRefreshing];
     }
@@ -353,9 +353,8 @@
     for (DynamicItemModel *model in self.dynamicList) {
         [cacheDynamicList addObject:[model transferToDict]];
     }
-    [k_UserDefaults setObject:self.arrBannerList forKey:Cache_Dynamic_BannerList];
-    [k_UserDefaults setObject:cacheDynamicList forKey:Cache_Dynamic_DynamicList];
-    [k_UserDefaults synchronize];
+    [VHSCommon saveUserDefault:self.arrBannerList forKey:Cache_Dynamic_BannerList];
+    [VHSCommon saveUserDefault:cacheDynamicList forKey:Cache_Dynamic_DynamicList];
 }
 
 - (void)appWillEnterForeground {

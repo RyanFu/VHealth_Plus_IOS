@@ -54,7 +54,7 @@
     
     // 先从缓存中读取数据
     self.userDetail = [VHSCommon userDetailInfo];
-    self.userScore = [UserScoreModel yy_modelWithDictionary:[k_UserDefaults objectForKey:Cache_Me_UserScore]];
+    self.userScore = [UserScoreModel yy_modelWithDictionary:[VHSCommon getUserDefautForKey:Cache_Me_UserScore]];
     
     [self getMemberScore];
     [self downloadUserInfo];

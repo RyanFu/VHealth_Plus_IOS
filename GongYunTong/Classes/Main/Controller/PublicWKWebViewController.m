@@ -319,7 +319,6 @@
         [[VHSLocatServicer shareLocater] startUpdatingLocation]; // 开启定位服务
         [MBProgressHUD showMessage:@"正在签到"];
         while (1) {
-            NSLog(@"latitudeLongitude = %@", [VHSCommon latitudeLongitude]);
             if ([VHSCommon latitudeLongitude]) {
                 [MBProgressHUD hiddenHUD];
                 break;

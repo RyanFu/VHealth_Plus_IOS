@@ -12,7 +12,7 @@
 #import "VHSLocatServicer.h"
 #import "PublicWKWebViewController.h"
 #import "NSDate+VHSExtension.h"
-
+#import "MBProgressHUD+VHS.h"
 
 @interface VHSTestController ()
 
@@ -56,11 +56,14 @@
 //    NSInteger pastday = [NSDate pastOfNowWithPastDateStr:past];
 //    [VHSToast toast:[NSString stringWithFormat:@"%ld", (long)pastday]];
     
-    [VHSAlertController alertMessage:@"版本较低" title:@"升级提示" confirmHandler:^(UIAlertAction *action) {
-        
-    } cancleHandler:^(UIAlertAction *action) {
-        
-    }];
+//    [VHSAlertController alertMessage:@"版本较低" title:@"升级提示" confirmHandler:^(UIAlertAction *action) {
+//        
+//    } cancleHandler:^(UIAlertAction *action) {
+//        
+//    }];
+    
+    [MBProgressHUD showDelay:2.0];
+    NSLog(@"........");
 }
 
 - (void)cancelBtn:(UIButton *)btn {

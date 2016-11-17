@@ -19,6 +19,17 @@ typedef NS_ENUM(NSInteger, HUDShowType)
     return [[[UIApplication sharedApplication] windows] lastObject];
 }
 
++ (void)show {
+    [self showMessage:nil];
+}
+
++ (void)showDelay:(NSInteger)delay {
+    [self show];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self hiddenHUD];
+    });
+}
+
 + (void)showMessage:(NSString *)message {
     [self showMessage:message hideDelay:15 toView:nil showType:HUDShowWaitType];
 }
