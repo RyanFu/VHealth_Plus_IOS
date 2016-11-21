@@ -59,11 +59,11 @@
     NSString *latitudeAndLongitude = [NSString stringWithFormat:@"%f;%f", latitude, longitude];
     [VHSCommon saveUserDefault:latitudeAndLongitude forKey:k_LATITUDE_LONGITUDE];
     
-    NSLog(@"经纬度---->%@", [NSString stringWithFormat:@"%f;%f", latitude, longitude]);
+    CLog(@"经纬度---->%@", [NSString stringWithFormat:@"%f;%f", latitude, longitude]);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    NSLog(@"%@", error.description);
+    CLog(@"%@", error.description);
 }
 
 @end

@@ -109,7 +109,7 @@ NSInteger const ROWCOUNT = 3;
         }
         
     } fail:^(NSError *error) {
-        NSLog(@"%@",error);
+        CLog(@"%@",error);
     }];
 
 }
@@ -177,9 +177,9 @@ NSInteger const ROWCOUNT = 3;
     message.httpMethod = VHSNetworkPOST;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
-        NSLog(@"%@", result);
+        CLog(@"%@", result);
     } fail:^(NSError *error) {
-        NSLog(@"%@", error.description);
+        CLog(@"%@", error.description);
     }];
 }
 

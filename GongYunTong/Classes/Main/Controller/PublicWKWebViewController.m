@@ -282,7 +282,7 @@
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
-    NSLog(@"2error %@",error.description);
+    CLog(@"2error %@",error.description);
     [self.contentWKWebView.scrollView.mj_header endRefreshing];
 }
 
@@ -311,7 +311,7 @@
         [self getTokenSuccess:^(NSString *token) {
             NSString *jsMethod = [NSString stringWithFormat:@"%@('%@')", backMethod, token];
             [weakSelf.contentWKWebView evaluateJavaScript:jsMethod completionHandler:^(id _Nullable any, NSError * _Nullable error) {
-                NSLog(@"成功");
+                CLog(@"成功");
             }];
         }];
     }
@@ -448,7 +448,7 @@
     }
     else if (status == 9000) {
         [self.contentWKWebView evaluateJavaScript:@"backPay('支付成功')" completionHandler:^(id _Nullable any, NSError * _Nullable error) {
-            NSLog(@"调用成功");
+            CLog(@"调用成功");
         }];
     }
 }
@@ -483,13 +483,13 @@
 }
 
 - (void)dealloc {
-    NSLog(@"----publicWKWebView -------------- dealloc");
+    CLog(@"----publicWKWebView -------------- dealloc");
 }
 
 #pragma mark - appEnterBackground
 
 - (void)appEnterBackground {
-    NSLog(@"appEnterBackground------------");
+    CLog(@"appEnterBackground------------");
 }
 
 @end

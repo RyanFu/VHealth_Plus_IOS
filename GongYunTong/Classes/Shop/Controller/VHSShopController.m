@@ -330,11 +330,11 @@ static NSString *MAIN_SHOP_URL = @"https://vhealthplus.valurise.com/index.php";
 
 // 页面加载失败时调用
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
-    NSLog(@"1error %@",error.description);
+    CLog(@"1error %@",error.description);
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
-    NSLog(@"2error %@",error.description);
+    CLog(@"2error %@",error.description);
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
@@ -469,7 +469,7 @@ static NSString *MAIN_SHOP_URL = @"https://vhealthplus.valurise.com/index.php";
     if (status == 0) {
         // wkWebView调用js代码
         [self.contentWKWebView evaluateJavaScript:@"js_method()" completionHandler:^(id _Nullable any, NSError * _Nullable error) {
-            NSLog(@"any == %@", any);
+            CLog(@"any == %@", any);
         }];
     }
     else if (status == 4000) {
@@ -489,7 +489,7 @@ static NSString *MAIN_SHOP_URL = @"https://vhealthplus.valurise.com/index.php";
     }
     else if (status == 9000) {
         [self.contentWKWebView evaluateJavaScript:@"backPay('success')" completionHandler:^(id _Nullable any, NSError * _Nullable error) {
-            NSLog(@"调用成功");
+            CLog(@"调用成功");
         }];
     }
 }

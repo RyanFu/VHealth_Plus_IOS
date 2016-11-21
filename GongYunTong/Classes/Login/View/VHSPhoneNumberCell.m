@@ -61,7 +61,7 @@
              [MBProgressHUD showError:result[@"info"]];
         }
     } fail:^(NSError *error) {
-        NSLog(@"error = %@", error);
+        CLog(@"error = %@", error);
     }];
 }
 

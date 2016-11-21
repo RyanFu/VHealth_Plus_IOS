@@ -115,7 +115,7 @@
         VHSPasswordCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         cell.model = self.array.lastObject;
         cell.callBack = ^(NSString *newPassWord) {
-            NSLog(@"newPassword = %@", newPassWord);
+            CLog(@"newPassword = %@", newPassWord);
             [self.passwordInfoDict setObject:newPassWord forKey:@"newPassword"];
         };
         return cell;

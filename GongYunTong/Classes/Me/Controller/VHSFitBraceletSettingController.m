@@ -248,7 +248,7 @@ CGFloat const settingFooterHeight=106;
 
 - (void)dealloc
 {
-    NSLog(@"解绑页面释放");
+    CLog(@"解绑页面释放");
 }
 
 @end

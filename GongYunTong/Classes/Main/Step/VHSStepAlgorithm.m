@@ -179,7 +179,7 @@
     [self.pedometer startPedometerUpdatesFromDate:[NSDate date]
                                       withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
                                               
-                                              NSLog(@"shouji-steps:%@", pedometerData.numberOfSteps);
+                                              CLog(@"shouji-steps:%@", pedometerData.numberOfSteps);
                                               if ([VHSFitBraceletStateManager nowBLEState] != FitBLEStateDisbind) {
                                                   [k_UserDefaults setObject:[VHSCommon getDate:[NSDate date]] forKey:k_M7_MOBILE_SYNC_TIME];
                                                   [k_UserDefaults synchronize];
@@ -266,7 +266,7 @@
                 NSString *pastTime = [NSDate yyyymmddByPastDays:i];
                 NSString *pastYMD = [NSDate ymdByPastDay:i];
                 [self sportDayWithDate:pastTime sportBlock:^(ProtocolSportDataModel *sportData) {
-                    NSLog(@"时间：%@ 一天的总步数--------> %ld", pastTime, (long)sportData.total_step);
+                    CLog(@"时间：%@ 一天的总步数--------> %ld", pastTime, (long)sportData.total_step);
                     NSInteger syncSteps = [VHSCommon getShouHuanLastStepsSync];
                     
                     VHSActionData *action = [[VHSActionData alloc] init];

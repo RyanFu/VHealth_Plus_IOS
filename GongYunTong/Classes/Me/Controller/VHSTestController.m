@@ -63,7 +63,7 @@
 //    }];
     
     [MBProgressHUD showDelay:2.0];
-    NSLog(@"........");
+    CLog(@"........");
 }
 
 - (void)cancelBtn:(UIButton *)btn {

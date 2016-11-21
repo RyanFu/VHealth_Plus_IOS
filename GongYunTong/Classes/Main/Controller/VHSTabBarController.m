@@ -87,9 +87,9 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
     message.httpMethod = VHSNetworkPOST;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(id resultObject) {
-        NSLog(@"消息更改成功");
+        CLog(@"消息更改成功");
     } fail:^(NSError *error) {
-        NSLog(@"error == %@", error);
+        CLog(@"error == %@", error);
     }];
 }
 

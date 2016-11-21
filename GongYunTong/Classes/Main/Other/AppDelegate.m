@@ -130,16 +130,16 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
         [SharePeripheral sharePeripheral].bleMolue = [[ASDKBleModule alloc] init];
         [SharePeripheral sharePeripheral].bleMolue.delegate = self;
         [[SharePeripheral sharePeripheral] setCallBackJump:^(CBPeripheral *peripheral){
-            NSLog(@"连接成功======");
+            CLog(@"连接成功======");
             if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindConnected) {
                 //绑定且连接状态
-                NSLog(@"手环链接－－－并且已经绑定");
+                CLog(@"手环链接－－－并且已经绑定");
                 // 证明 - 已经绑定过手环
                 NSString *mac = [k_UserDefaults objectForKey:k_SHOUHUAN_MAC_ADDRESS];
                 [ShareDataSdk shareInstance].smart_device_id = mac;
                 [k_NotificationCenter postNotificationName:DeviceDidConnectedBLEsNotification object:nil userInfo:@{DeviceDidConnectedBLEsUserInfoPeripheral : peripheral}];
             } else {
-                NSLog(@"手环链接－－－未绑定  macid====%@",[ShareDataSdk shareInstance].smart_device_id);
+                CLog(@"手环链接－－－未绑定  macid====%@",[ShareDataSdk shareInstance].smart_device_id);
                 //扫描页面绑定设备
                 [k_NotificationCenter postNotificationName:DeviceDidConnectedBLEsNotification object:nil userInfo:@{DeviceDidConnectedBLEsUserInfoPeripheral : peripheral}];
             }
@@ -190,13 +190,13 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
         // 本地保存手环连接时间
         [VHSCommon setShouHuanConnectedTime:[VHSCommon getYmdFromDate:[NSDate date]]];
     } else {
-        NSLog(@"连接失败：%@",error);
+        CLog(@"连接失败：%@",error);
     }
 }
 
 // 断开外围手环设备回调
 - (void)ASDKBLEManagerDisConnectWithCBCentral:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-    NSLog(@"xl断开连接：%@",error);
+    CLog(@"xl断开连接：%@",error);
 }
 
 // 判断蓝牙是否开启
@@ -251,15 +251,9 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
  */
 -(void) onResp:(BaseResp*)resp
 {
-    
-    ///NSLog(@"Pay onResp = %@ ",resp);
-    
     if ([resp isKindOfClass:[PayResp class]])
     {
         PayResp* payResp = (PayResp*)resp;
-        
-        ///NSLog(@"Pay Response = %@",payResp);
-        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"PayNotification" object:self userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d",payResp.errCode] forKey:@"status"]];
     }
 }
@@ -350,26 +344,26 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
 // 此方法是 用户点击了通知，应用在前台 或者开启后台并且应用在后台 时调起
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
-    NSLog(@"run+++++++++didReceiveRemoteNotification");
+    CLog(@"run+++++++++didReceiveRemoteNotification");
     
     if (completionHandler) {
-        NSLog(@"apns-UIBackgroundFetchResultNewData");
+        CLog(@"apns-UIBackgroundFetchResultNewData");
         completionHandler(UIBackgroundFetchResultNewData);
     }
     
     // 应用在前台，不跳转页面，让用户选择。
     if (application.applicationState == UIApplicationStateActive) {
-        NSLog(@"acitve = %@", userInfo);
+        CLog(@"acitve = %@", userInfo);
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
     }
     //杀死状态下，直接跳转到跳转页面。
     if (application.applicationState == UIApplicationStateInactive && !isBackGroundActivateApplication) {
-        NSLog(@"applacation is unactive ===== %@",userInfo);
+        CLog(@"applacation is unactive ===== %@",userInfo);
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
     }
     // 应用在后台。当后台设置aps字段里的 content-available 值为 1 并开启远程通知激活应用的选项
     if (application.applicationState == UIApplicationStateBackground) {
-        NSLog(@"background is Activated Application - %@", userInfo);
+        CLog(@"background is Activated Application - %@", userInfo);
         // 此处可以选择激活应用提前下载邮件图片等内容。
         isBackGroundActivateApplication = YES;
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
@@ -392,17 +386,17 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
             if ([result[@"error_code"] intValue] != 0) { return; }
             // 获取channel_id
             NSString *channelId = [BPush getChannelId];
-            NSLog(@"Channel_id == %@",channelId);
+            CLog(@"Channel_id == %@",channelId);
             [VHSCommon saveBPushChannelId:[BPush getChannelId]];
             
             [BPush listTagsWithCompleteHandler:^(id result, NSError *error) {
                 if (result) {
-                    NSLog(@"result ============== %@",result);
+                    CLog(@"result ============== %@",result);
                 }
             }];
             [BPush setTag:@"vhs_gyt_tags" withCompleteHandler:^(id result, NSError *error) {
                 if (result) {
-                    NSLog(@"设置tag成功");
+                    CLog(@"设置tag成功");
                 }
             }];
         }
@@ -411,11 +405,11 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
 
 // 当 DeviceToken 获取失败时，系统会回调此方法
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    NSLog(@"DeviceToken 获取失败，原因：%@",error);
+    CLog(@"DeviceToken 获取失败，原因：%@",error);
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    NSLog(@"接收本地通知啦！！！");
+    CLog(@"接收本地通知啦！！！");
     [BPush showLocalNotificationAtFront:notification identifierKey:nil];
 }
 

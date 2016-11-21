@@ -62,13 +62,13 @@ static SharePeripheral*sharePeripheral = nil;
     if (success) {
         for (CBService *service in peripheral.services)
         {
-            NSLog(@"Service found with UUID: %@", service.UUID);  //查找特征
+            CLog(@"Service found with UUID: %@", service.UUID);  //查找特征
             [asdkBleModule ASDKSendDiscoverCharcristic:peripheral];
             
         }
     }
     else{
-        NSLog(@"%@",@"获取失败哦");
+        CLog(@"%@",@"获取失败哦");
     }
 }
 
@@ -80,11 +80,9 @@ static SharePeripheral*sharePeripheral = nil;
  
 - (void)ASDKBLEManagerHaveReceivedData:(BOOL)success Peripheral:(CBPeripheral *)peripheral Characteristic:(CBCharacteristic *)charac error:(NSError *)error{
     if (success) {
-        
-       
     }
     else{
-        NSLog(@"%@",@"获取失败");
+        CLog(@"%@",@"获取失败");
     }
 }
 // 此方法是已经绑定手环，下次进入会调用此方法

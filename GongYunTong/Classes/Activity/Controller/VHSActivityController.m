@@ -182,12 +182,12 @@ static NSString *ACTIVITY_MAIN_URL = @"http://118.242.18.199:10000/client/activi
 
 // 页面加载失败时调用
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
-    NSLog(@"error %@",error.description);
+    CLog(@"error %@",error.description);
     [webView.scrollView.mj_header endRefreshing];
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
-    NSLog(@"error %@",error.description);
+    CLog(@"error %@",error.description);
     [webView.scrollView.mj_header endRefreshing];
 }
 
@@ -211,7 +211,7 @@ static NSString *ACTIVITY_MAIN_URL = @"http://118.242.18.199:10000/client/activi
         [self getTokenSuccess:^(NSString *token) {
             NSString *jsMethod = [NSString stringWithFormat:@"%@('%@')", backMethod, token];
             [self.contentWKWebView evaluateJavaScript:jsMethod completionHandler:^(id _Nullable any, NSError * _Nullable error) {
-                NSLog(@"成功");
+                CLog(@"成功");
             }];
         }];
     }

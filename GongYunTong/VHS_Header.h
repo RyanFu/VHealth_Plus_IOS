@@ -9,8 +9,19 @@
 #ifndef VHS_Header_h
 #define VHS_Header_h
 
-//**打印**//
-#define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+// detail log
+#ifdef DEBUG
+# define DLog(fmt, ...) NSLog((@"\n[文件名:%s]\n" "[函数名:%s]\n" "[行号:%d]\n" fmt), __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+# define DLog(...);
+#endif
+
+// simple log
+#ifdef DEBUG
+# define CLog(fmt, ...) NSLog(@"\n" fmt, ##__VA_ARGS__);
+#else 
+# define CLog(...);
+#endif
 
 #define iphone4x_3_5     ([UIScreen mainScreen].bounds.size.height==480.0f)
 

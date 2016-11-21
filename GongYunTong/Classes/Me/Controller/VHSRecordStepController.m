@@ -303,7 +303,7 @@
 - (void)stepsTap:(UIGestureRecognizer *)tap {
     VHSAllStepsController *stepsVC = (VHSAllStepsController *)[StoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSAllStepsController"];
     [self.navigationController pushViewController:stepsVC animated:YES];
-    NSLog(@"点击了所有步数");
+    CLog(@"点击了所有步数");
 }
 
 #pragma mark - kvo
@@ -319,7 +319,7 @@
         // 手环跨天时候，可能在获取实时手环数据未获取，但是上次同步数据有，导致了负数
         self.sumSteps = self.sumSteps > 0 ? self.sumSteps : 0;
         
-        NSLog(@"--real-%ld--db-%ld--last-%ld--sum-%ld", (long)realtimeSteps, (long)dbSteps, (long)lastSyncSteps, (long)self.sumSteps);
+        CLog(@"--real-%ld--db-%ld--last-%ld--sum-%ld", (long)realtimeSteps, (long)dbSteps, (long)lastSyncSteps, (long)self.sumSteps);
         
         NSString *stepTotal = [NSString stringWithFormat:@"%@", @(self.sumSteps)];
         // 步数转为公里数据
@@ -392,7 +392,7 @@
             }];
         } else {
             // 直接获取手环实时数据到自建数据表中
-            NSLog(@"我走了这里");
+            CLog(@"我走了这里");
             
             NSInteger lastSyncSteps = [VHSCommon getShouHuanLastStepsSync];
             // 同步数据到本地
@@ -456,7 +456,7 @@
 
 - (void)dealloc {
     [k_NotificationCenter removeObserver:self name:k_NOTI_SYNCSTEPS_TO_NET object:nil];
-    NSLog(@"record-step %s", __FUNCTION__);
+    CLog(@"record-step %s", __FUNCTION__);
 }
 
 @end

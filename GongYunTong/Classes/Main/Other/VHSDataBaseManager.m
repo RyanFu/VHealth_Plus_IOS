@@ -109,7 +109,7 @@
            mac_address:(NSString *)mac_address {
     
     if (!action_id.length || !action_id) {
-        NSLog(@"主键不见");
+        CLog(@"主键不见");
         return NO;
     }
     if (!member_id.length || !member_id) {
@@ -125,9 +125,9 @@
     }
     
     if (flag) {
-        NSLog(@"插入一条数据成功");
+        CLog(@"插入一条数据成功");
     } else {
-        NSLog(@"插入一条数据失败");
+        CLog(@"插入一条数据失败");
     }
     
     [self closeDB];
@@ -433,7 +433,7 @@
                 NSString *updateSql = [NSString stringWithFormat:@"update action_lst set step = %@, upload = 0, end_time = '%@' where record_time = '%@' and action_type = %@ and member_id = '%@'", destSteps, [VHSCommon getDate:[NSDate date]], record_time, action_type, member_id];
                 BOOL res = [_db executeUpdate:updateSql];
                 if (res) {
-                    NSLog(@"更新一条数据成功－－－－－success");
+                    CLog(@"更新一条数据成功－－－－－success");
                 }
             }
         }
@@ -454,7 +454,7 @@
                                       upload:0
                                  mac_address:[k_UserDefaults objectForKey:k_SHOUHUAN_MAC_ADDRESS]];
             if (res) {
-                DLog(@"插入一条数据成功－－－－－success");
+                CLog(@"插入一条数据成功－－－－－success");
             }
         }
         

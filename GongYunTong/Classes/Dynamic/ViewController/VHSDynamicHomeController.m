@@ -153,7 +153,7 @@
             }
         }
     } fail:^(NSError *error) {
-        NSLog(@"%@",error);
+        CLog(@"%@",error);
     }];
 }
 
@@ -204,7 +204,7 @@
     } fail:^(NSError *error) {
         [self.dynamicHomeTable.mj_header endRefreshing];
         [self.dynamicHomeTable.mj_footer endRefreshing];
-        NSLog(@"error = %@", error);
+        CLog(@"error = %@", error);
     }];
 }
 
@@ -386,7 +386,7 @@
 }
 
 - (void)dealloc {
-    NSLog(@"dynamic - dealloc");
+    CLog(@"dynamic - dealloc");
 }
 
 @end

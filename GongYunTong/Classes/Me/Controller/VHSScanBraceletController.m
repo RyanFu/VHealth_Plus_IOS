@@ -217,14 +217,14 @@
 }
 // 绑定手环
 - (void)bindBracelet {
-    NSLog(@"准备震动－－－开始绑定");
+    CLog(@"准备震动－－－开始绑定");
     
     [self recoverCell];
     
     __weak VHSScanBraceletController *weakSelf = self;
     // 已经连接成功,开始绑定
     [self.setting ASDKSendDeviceBindingWithCMDType:ASDKDeviceBinding withUpdateBlock:^(int errorCode) {
-        NSLog(@"已经震动");
+        CLog(@"已经震动");
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hiddenHUD];
             if (errorCode == SUCCESS) {
@@ -293,7 +293,7 @@
     if (handMac) {
         [params setObject:handMac forKey:@"handMac"];
     } else {
-        NSLog(@".......");
+        CLog(@".......");
     }
     if (type) {
         [params setObject:type forKey:@"actionType"];
@@ -312,7 +312,7 @@
             }
         }
     } fail:^(NSError *error) {
-        NSLog(@"%@", error.description);
+        CLog(@"%@", error.description);
     }];
 }
 

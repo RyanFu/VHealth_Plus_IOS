@@ -167,7 +167,7 @@
         
         NSDate *dateStr = [format dateFromString:userBirthday];
         
-        NSLog(@"dateStr %@ ",dateStr);
+        CLog(@"dateStr %@ ",dateStr);
         
         
         if (dateStr==nil) {
