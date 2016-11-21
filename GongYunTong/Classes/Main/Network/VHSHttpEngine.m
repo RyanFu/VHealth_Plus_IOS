@@ -8,6 +8,7 @@
 
 #import "VHSHttpEngine.h"
 #import "AFNetworking.h"
+#import "SecurityUtil.h"
 
 @interface VHSHttpEngine ()
 
@@ -84,6 +85,8 @@ static VHSHttpEngine *_instance = nil;
                 [k_NotificationCenter postNotificationName:k_NOTIFICATION_TOKEN_INVALID object:self userInfo:userInfo];
             }
         }
+        // 解密服务器返回值
+//        id response = [[SecurityUtil share] decryptBody:responseObject];
         if (success) {
             success(responseObject); //成功回调
         }
@@ -123,6 +126,8 @@ static VHSHttpEngine *_instance = nil;
                 [k_NotificationCenter postNotificationName:k_NOTIFICATION_TOKEN_INVALID object:self userInfo:userInfo];
             }
         }
+        // 解密服务器返回值
+//        id response = [[SecurityUtil share] decryptBody:responseObject];
         if (success) {
             success(responseObject); //成功回调
         }
@@ -164,7 +169,7 @@ static VHSHttpEngine *_instance = nil;
                 // 转成二进制
                 NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
                 // 上传的参数名
-                NSString * name = [NSString stringWithFormat:@"pictureFile%ld", i];
+                NSString * name = [NSString stringWithFormat:@"pictureFile%ld", (long)i];
                 // 上传fileName
                 NSString * fileName = [NSString stringWithFormat:@"%@.jpg", name];
                 
@@ -183,6 +188,8 @@ static VHSHttpEngine *_instance = nil;
     } progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        // 解密服务器返回值
+//        id response = [[SecurityUtil share] decryptBody:responseObject];
         if (success) success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failure) failure(error);
@@ -226,4 +233,7 @@ static VHSHttpEngine *_instance = nil;
     [_manager.requestSerializer setValue:[VHSCommon appVersion] forHTTPHeaderField:@"appversion"];
     [_manager.requestSerializer setValue:[VHSCommon phoneModel] forHTTPHeaderField:@"model"];
 }
+
+
+
 @end

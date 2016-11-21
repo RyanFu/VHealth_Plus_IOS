@@ -37,4 +37,27 @@
     dispatch_resume(_timer);
 }
 
+- (CGSize)sizeFit {
+    CGRect frame = self.frame;
+    NSString *text = self.text;
+    
+    CGRect fitRect = [text boundingRectWithSize:CGSizeMake(frame.size.width, MAXFLOAT)
+                                         options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                      attributes:@{NSFontAttributeName : self.font}
+                                         context:nil];
+    
+    CGSize fitSize = fitRect.size;
+    
+    if (frame.size.width < fitSize.width) {
+        frame.size.width = fitSize.width;
+    }
+    if (frame.size.height < fitSize.height) {
+        frame.size.height = fitSize.height;
+    }
+    
+    self.frame = frame;
+    
+    return fitRect.size;
+}
+
 @end

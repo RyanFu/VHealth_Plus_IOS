@@ -7,7 +7,14 @@
 //
 
 #import "VHSRequestMessage.h"
+#import "SecurityUtil.h"
 
 @implementation VHSRequestMessage
+
+//- (void)setParams:(NSDictionary *)params {
+//    // 对参数进行加密
+//    NSDictionary *encryptedParams = [[SecurityUtil share] encryptBody:params];
+//    _params = encryptedParams;;
+//}
 
 @end

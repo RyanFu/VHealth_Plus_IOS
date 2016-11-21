@@ -17,4 +17,7 @@
  */
 - (void)countDownWithSeconds:(NSInteger)durationTime;
 
+/// label 宽高自适应，需开始先设置好label对应的frame
+- (CGSize)sizeFit;
+
 @end

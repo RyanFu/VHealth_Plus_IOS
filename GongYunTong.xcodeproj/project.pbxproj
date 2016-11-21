@@ -66,6 +66,12 @@
 		33C5E97E1D94F4D3004814BA /* libBPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C5E97C1D94F4D3004814BA /* libBPush.a */; };
 		33C5E97F1D94F4D3004814BA /* test.caf in Resources */ = {isa = PBXBuildFile; fileRef = 33C5E97D1D94F4D3004814BA /* test.caf */; };
 		33C5E9811D98C272004814BA /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C5E9801D98C272004814BA /* libsqlite3.tbd */; };
+		33CB6EAC1DDEB1E2001E470A /* NSData+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CB6EA71DDEB1E2001E470A /* NSData+AES256.m */; };
+		33CB6EAD1DDEB1E2001E470A /* NSString+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CB6EA91DDEB1E2001E470A /* NSString+AES256.m */; };
+		33CB6EAE1DDEB1E2001E470A /* RSAEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CB6EAB1DDEB1E2001E470A /* RSAEncryptor.m */; };
+		33CB6EB11DDEC7D4001E470A /* SecurityUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CB6EB01DDEC7D4001E470A /* SecurityUtil.m */; };
+		33CB6EB41DDEE294001E470A /* NSString+VHSExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CB6EB31DDEE294001E470A /* NSString+VHSExtension.m */; };
+		33CB6EB61DDEEF28001E470A /* public_key.der in Resources */ = {isa = PBXBuildFile; fileRef = 33CB6EB51DDEEF28001E470A /* public_key.der */; };
 		33CBF32D1D73C9B500D39452 /* UIButton+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF32C1D73C9B500D39452 /* UIButton+extension.m */; };
 		33CBF3301D73D81400D39452 /* PublicWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF32F1D73D81400D39452 /* PublicWKWebViewController.m */; };
 		33CBF3351D755A5E00D39452 /* UILabel+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF3341D755A5E00D39452 /* UILabel+extension.m */; };
@@ -299,6 +305,17 @@
 		33C5E97C1D94F4D3004814BA /* libBPush.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBPush.a; sourceTree = "<group>"; };
 		33C5E97D1D94F4D3004814BA /* test.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.caf; sourceTree = "<group>"; };
 		33C5E9801D98C272004814BA /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		33CB6EA61DDEB1E2001E470A /* NSData+AES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+AES256.h"; sourceTree = "<group>"; };
+		33CB6EA71DDEB1E2001E470A /* NSData+AES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+AES256.m"; sourceTree = "<group>"; };
+		33CB6EA81DDEB1E2001E470A /* NSString+AES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AES256.h"; sourceTree = "<group>"; };
+		33CB6EA91DDEB1E2001E470A /* NSString+AES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AES256.m"; sourceTree = "<group>"; };
+		33CB6EAA1DDEB1E2001E470A /* RSAEncryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSAEncryptor.h; sourceTree = "<group>"; };
+		33CB6EAB1DDEB1E2001E470A /* RSAEncryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSAEncryptor.m; sourceTree = "<group>"; };
+		33CB6EAF1DDEC7D4001E470A /* SecurityUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecurityUtil.h; sourceTree = "<group>"; };
+		33CB6EB01DDEC7D4001E470A /* SecurityUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecurityUtil.m; sourceTree = "<group>"; };
+		33CB6EB21DDEE294001E470A /* NSString+VHSExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+VHSExtension.h"; sourceTree = "<group>"; };
+		33CB6EB31DDEE294001E470A /* NSString+VHSExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+VHSExtension.m"; sourceTree = "<group>"; };
+		33CB6EB51DDEEF28001E470A /* public_key.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = public_key.der; sourceTree = "<group>"; };
 		33CBF32B1D73C9B500D39452 /* UIButton+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+extension.h"; sourceTree = "<group>"; };
 		33CBF32C1D73C9B500D39452 /* UIButton+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+extension.m"; sourceTree = "<group>"; };
 		33CBF32E1D73D81400D39452 /* PublicWKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicWKWebViewController.h; sourceTree = "<group>"; };
@@ -700,6 +717,22 @@
 			path = normalversion;
 			sourceTree = "<group>";
 		};
+		33CB6EA51DDEB1E2001E470A /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				33CB6EA61DDEB1E2001E470A /* NSData+AES256.h */,
+				33CB6EA71DDEB1E2001E470A /* NSData+AES256.m */,
+				33CB6EA81DDEB1E2001E470A /* NSString+AES256.h */,
+				33CB6EA91DDEB1E2001E470A /* NSString+AES256.m */,
+				33CB6EAA1DDEB1E2001E470A /* RSAEncryptor.h */,
+				33CB6EAB1DDEB1E2001E470A /* RSAEncryptor.m */,
+				33CB6EAF1DDEC7D4001E470A /* SecurityUtil.h */,
+				33CB6EB01DDEC7D4001E470A /* SecurityUtil.m */,
+				33CB6EB51DDEEF28001E470A /* public_key.der */,
+			);
+			path = Security;
+			sourceTree = "<group>";
+		};
 		33E5B8C61DDBFEA800E52A11 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -893,6 +926,7 @@
 		6730196E1D3C6651004A3320 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				673019731D3C6651004A3320 /* ThirdLibrary */,
 				673019711D3C6651004A3320 /* Model */,
 				673019751D3C6651004A3320 /* View */,
 				673019701D3C6651004A3320 /* Controller */,
@@ -901,7 +935,6 @@
 				6730196F1D3C6651004A3320 /* Category */,
 				CA58AABC1D584C490076BA42 /* Step */,
 				673019721D3C6651004A3320 /* Other */,
-				673019731D3C6651004A3320 /* ThirdLibrary */,
 				673019741D3C6651004A3320 /* Tool */,
 			);
 			path = Main;
@@ -930,6 +963,8 @@
 				33CBF3341D755A5E00D39452 /* UILabel+extension.m */,
 				3343A3231DAC89C900DEF1C2 /* UIColor+extension.h */,
 				3343A3241DAC89C900DEF1C2 /* UIColor+extension.m */,
+				33CB6EB21DDEE294001E470A /* NSString+VHSExtension.h */,
+				33CB6EB31DDEE294001E470A /* NSString+VHSExtension.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1002,6 +1037,7 @@
 		673019741D3C6651004A3320 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				33CB6EA51DDEB1E2001E470A /* Security */,
 				33514BDE1D5B034200ECDEA5 /* FitSDK */,
 				67E13F541D45D77D001C58D7 /* XLAlertController.h */,
 				67E13F551D45D77D001C58D7 /* XLAlertController.m */,
@@ -1433,6 +1469,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33CB6EB61DDEEF28001E470A /* public_key.der in Resources */,
 				671217F21D3F4C71004CFD14 /* Shop.storyboard in Resources */,
 				67C7AE0E1D38AB2A0091F669 /* Assets.xcassets in Resources */,
 				338C61BD1D59D2BE004CFE18 /* VHSBindDoneMessage.xib in Resources */,
@@ -1543,7 +1580,9 @@
 				33514CD61D64708200ECDEA5 /* VHSAllStepCell.m in Sources */,
 				338C61411D586575004CFE18 /* VHSActionData.m in Sources */,
 				67B4F8D71D3CAA5500F933F0 /* VHSNavigationController.m in Sources */,
+				33CB6EAE1DDEB1E2001E470A /* RSAEncryptor.m in Sources */,
 				33F2BA401D648C6C00928976 /* UserScoreModel.m in Sources */,
+				33CB6EB41DDEE294001E470A /* NSString+VHSExtension.m in Sources */,
 				338C61C41D59D2BE004CFE18 /* VHSSyscnTimeLabel.m in Sources */,
 				6793203E1D41E406004B0CEA /* VHSDiscoverCell.m in Sources */,
 				33514CD31D646A9100ECDEA5 /* VHSAllStepsController.m in Sources */,
@@ -1562,6 +1601,8 @@
 				33514BE31D5B848900ECDEA5 /* VHSFitBraceletSettingController.m in Sources */,
 				CA58AABF1D584CAA0076BA42 /* VHSStepAlgorithm.m in Sources */,
 				33E5B8B71DD9941100E52A11 /* README.md in Sources */,
+				33CB6EAD1DDEB1E2001E470A /* NSString+AES256.m in Sources */,
+				33CB6EB11DDEC7D4001E470A /* SecurityUtil.m in Sources */,
 				6704636E1D40C56B0051A9F6 /* SDCycleScrollView.m in Sources */,
 				33FB4B131D519D2700AB8086 /* UserInfoModel.m in Sources */,
 				67AD03A51D40E0B700246667 /* VHSMoreIgvCell.m in Sources */,
@@ -1580,6 +1621,7 @@
 				33CBF3301D73D81400D39452 /* PublicWKWebViewController.m in Sources */,
 				338C61C51D59D2BE004CFE18 /* VHSTimeToast.m in Sources */,
 				3353B9C61D782A8400335815 /* VHSMeScoreCell.m in Sources */,
+				33CB6EAC1DDEB1E2001E470A /* NSData+AES256.m in Sources */,
 				33F2BA491D65671D00928976 /* VHSLaunchViewController.m in Sources */,
 				670463781D40C8140051A9F6 /* VHSDynamicBannerCell.m in Sources */,
 				67B4F8DD1D3CAAB900F933F0 /* VHSBaseViewController.m in Sources */,
@@ -1796,7 +1838,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/FitSDK",
-					"$(PROJECT_DIR)/GongYunTong/Classes/Login/FitSDK",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/AppPay/Alibaba",
 				);
@@ -1835,7 +1876,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/FitSDK",
-					"$(PROJECT_DIR)/GongYunTong/Classes/Login/FitSDK",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/AppPay/Alibaba",
 				);
