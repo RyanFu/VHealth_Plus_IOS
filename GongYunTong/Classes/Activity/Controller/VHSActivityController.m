@@ -25,6 +25,11 @@ static NSString *ACTIVITY_MAIN_URL = @"http://118.242.18.199:10000/client/activi
 
 @implementation VHSActivityController
 
+/**
+ *  有关使用WKWebView
+ *  reference: http://liuyanwei.jumppo.com/2015/10/17/ios-webView.html
+ **/
+
 - (WKWebView *)contentWKWebView {
     if (!_contentWKWebView) {
         WKWebViewConfiguration *configration = [[WKWebViewConfiguration alloc] init];

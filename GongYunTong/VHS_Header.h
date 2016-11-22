@@ -49,4 +49,4 @@
 #define k_NotificationCenter      [NSNotificationCenter defaultCenter]      // NSNotificationCenter
 
 
-#endif /* VHS_Header_h */
+#endif
