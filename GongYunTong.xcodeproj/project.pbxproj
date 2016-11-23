@@ -35,6 +35,7 @@
 		33640B5E1D9224BC00B34C8B /* KeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 33640B5D1D9224BC00B34C8B /* KeyChainStore.m */; };
 		3364D1EC1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3364D1EA1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m */; };
 		3364D1ED1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3364D1EB1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib */; };
+		337408191DE5416C00D142DA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 337408181DE5416B00D142DA /* README.md */; };
 		338171861DAC985A00ACB4A0 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3381717F1DAC985A00ACB4A0 /* TAAbstractDotView.m */; };
 		338171871DAC985A00ACB4A0 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 338171811DAC985A00ACB4A0 /* TAAnimatedDotView.m */; };
 		338171881DAC985A00ACB4A0 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 338171831DAC985A00ACB4A0 /* TADotView.m */; };
@@ -75,7 +76,6 @@
 		33CBF32D1D73C9B500D39452 /* UIButton+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF32C1D73C9B500D39452 /* UIButton+extension.m */; };
 		33CBF3301D73D81400D39452 /* PublicWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF32F1D73D81400D39452 /* PublicWKWebViewController.m */; };
 		33CBF3351D755A5E00D39452 /* UILabel+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF3341D755A5E00D39452 /* UILabel+extension.m */; };
-		33E5B8B71DD9941100E52A11 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 33E5B8B61DD9941100E52A11 /* README.md */; };
 		33E5B8C01DD9A43200E52A11 /* NSArray+VHSExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5B8B91DD9A43200E52A11 /* NSArray+VHSExtension.m */; };
 		33E5B8C11DD9A43200E52A11 /* NSDate+VHSExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5B8BB1DD9A43200E52A11 /* NSDate+VHSExtension.m */; };
 		33E5B8C21DD9A43200E52A11 /* NSDictionary+VHSExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E5B8BD1DD9A43200E52A11 /* NSDictionary+VHSExtension.m */; };
@@ -200,7 +200,6 @@
 
 /* Begin PBXFileReference section */
 		0588B8F6140A1C3DC0DA81A6 /* libPods-GongYunTong.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GongYunTong.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3309F9591D86726F0055F5A8 /* GongYunTong.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = GongYunTong.entitlements; sourceTree = "<group>"; };
 		330C9DF71D90DE25005875FE /* VHSToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSToast.h; sourceTree = "<group>"; };
 		330C9DF81D90DE25005875FE /* VHSToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSToast.m; sourceTree = "<group>"; };
 		33120C8C1D79738000A006C9 /* VHSLocatServicer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSLocatServicer.h; sourceTree = "<group>"; };
@@ -247,6 +246,8 @@
 		3364D1E91DC7668D00E8A3FF /* VHSFitBraceletHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSFitBraceletHelpController.h; sourceTree = "<group>"; };
 		3364D1EA1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSFitBraceletHelpController.m; sourceTree = "<group>"; };
 		3364D1EB1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VHSFitBraceletHelpController.xib; sourceTree = "<group>"; };
+		337408171DE5405900D142DA /* GongYunTong.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = GongYunTong.entitlements; sourceTree = "<group>"; };
+		337408181DE5416B00D142DA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3381717E1DAC985A00ACB4A0 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
 		3381717F1DAC985A00ACB4A0 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
 		338171801DAC985A00ACB4A0 /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
@@ -319,7 +320,6 @@
 		33CBF32F1D73D81400D39452 /* PublicWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicWKWebViewController.m; sourceTree = "<group>"; };
 		33CBF3331D755A5E00D39452 /* UILabel+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+extension.h"; sourceTree = "<group>"; };
 		33CBF3341D755A5E00D39452 /* UILabel+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+extension.m"; sourceTree = "<group>"; };
-		33E5B8B61DD9941100E52A11 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		33E5B8B81DD9A43200E52A11 /* NSArray+VHSExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+VHSExtension.h"; sourceTree = "<group>"; };
 		33E5B8B91DD9A43200E52A11 /* NSArray+VHSExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+VHSExtension.m"; sourceTree = "<group>"; };
 		33E5B8BA1DD9A43200E52A11 /* NSDate+VHSExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+VHSExtension.h"; sourceTree = "<group>"; };
@@ -619,6 +619,22 @@
 				33514BDF1D5B034200ECDEA5 /* VeryfitSDK.framework */,
 			);
 			path = FitSDK;
+			sourceTree = "<group>";
+		};
+		337408161DE5405900D142DA /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				337408171DE5405900D142DA /* GongYunTong.entitlements */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		3374081A1DE5419100D142DA /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				337408181DE5416B00D142DA /* README.md */,
+			);
+			name = Resource;
 			sourceTree = "<group>";
 		};
 		3381717D1DAC985A00ACB4A0 /* PageControl */ = {
@@ -1118,6 +1134,7 @@
 			isa = PBXGroup;
 			children = (
 				67C7AE001D38AB2A0091F669 /* GongYunTong */,
+				3374081A1DE5419100D142DA /* Resource */,
 				67C7AE1A1D38AB2A0091F669 /* GongYunTongTests */,
 				67C7AE251D38AB2A0091F669 /* GongYunTongUITests */,
 				67C7ADFF1D38AB2A0091F669 /* Products */,
@@ -1139,7 +1156,7 @@
 		67C7AE001D38AB2A0091F669 /* GongYunTong */ = {
 			isa = PBXGroup;
 			children = (
-				3309F9591D86726F0055F5A8 /* GongYunTong.entitlements */,
+				337408161DE5405900D142DA /* Resource */,
 				6730196D1D3C6651004A3320 /* Classes */,
 				67C7AE011D38AB2A0091F669 /* Supporting Files */,
 			);
@@ -1155,7 +1172,6 @@
 				67B4F8C81D3CA4B200F933F0 /* VHS_Header.h */,
 				67C7AE371D38D41D0091F669 /* PrefixHeader.pch */,
 				33E5B8C41DDB122800E52A11 /* vplus_https.cer */,
-				33E5B8B61DD9941100E52A11 /* README.md */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1586,12 +1602,12 @@
 				CA254ECC1D4B5D4A00853D3C /* VHSActivityRewardCell.m in Sources */,
 				33514BE31D5B848900ECDEA5 /* VHSFitBraceletSettingController.m in Sources */,
 				CA58AABF1D584CAA0076BA42 /* VHSStepAlgorithm.m in Sources */,
-				33E5B8B71DD9941100E52A11 /* README.md in Sources */,
 				33CB6EAD1DDEB1E2001E470A /* NSString+AES256.m in Sources */,
 				33CB6EB11DDEC7D4001E470A /* SecurityUtil.m in Sources */,
 				6704636E1D40C56B0051A9F6 /* SDCycleScrollView.m in Sources */,
 				33FB4B131D519D2700AB8086 /* UserInfoModel.m in Sources */,
 				67AD03A51D40E0B700246667 /* VHSMoreIgvCell.m in Sources */,
+				337408191DE5416C00D142DA /* README.md in Sources */,
 				CAD91A521D5DB69B00AEF2FB /* payRequsestHandler.mm in Sources */,
 				67B4F8EE1D3CDB4500F933F0 /* VHSHttpEngine.m in Sources */,
 				CAD91A531D5DB69B00AEF2FB /* WXUtil.mm in Sources */,
@@ -1817,7 +1833,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_VPLUS;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage_VPLUS;
-				CODE_SIGN_ENTITLEMENTS = GongYunTong/GongYunTong.entitlements;
+				CODE_SIGN_ENTITLEMENTS = /Users/pingjunlin/Documents/VHealth_Plus_IOS/GongYunTong/Resource/GongYunTong.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 2JGJK49F2H;
@@ -1855,7 +1871,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_VPLUS;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage_VPLUS;
-				CODE_SIGN_ENTITLEMENTS = GongYunTong/GongYunTong.entitlements;
+				CODE_SIGN_ENTITLEMENTS = /Users/pingjunlin/Documents/VHealth_Plus_IOS/GongYunTong/Resource/GongYunTong.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 2JGJK49F2H;
