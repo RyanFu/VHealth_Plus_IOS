@@ -23,12 +23,7 @@
 
 @implementation VHSForgetPasswordViewController
 
-- (NSMutableDictionary *)passwordInfoDict {
-    if (!_passwordInfoDict) {
-        _passwordInfoDict = [NSMutableDictionary new];
-    }
-    return _passwordInfoDict;
-}
+#pragma mark - life cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -51,7 +46,7 @@
     
     UILabel *labphone = [[UILabel alloc] init];
     labphone.frame = CGRectMake(0, 0, 200, 20);
-    labphone.center = CGPointMake(SCREEN_WIDTH/2, SCREEN_HEIGHT-84);
+    labphone.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 84);
     labphone.text = @"联系客服 400-620-1800";
     labphone.font = [UIFont systemFontOfSize:14];
     labphone.textAlignment = NSTextAlignmentCenter;
@@ -62,6 +57,44 @@
     self.tvPassWord.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(downKyboard)];
     [self.tvPassWord addGestureRecognizer:tap];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    // 设置导航栏的背景色不透明
+    [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:1];
+    // 设置导航栏title颜色
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
+    [self.navigationController.navigationBar setTintColor:[UIColor blackColor]];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [[BaiduMobStat defaultStat] pageviewStartWithName:@"忘记密码"];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[BaiduMobStat defaultStat] pageviewEndWithName:@"忘记密码"];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark -
+
+- (NSMutableDictionary *)passwordInfoDict {
+    if (!_passwordInfoDict) {
+        _passwordInfoDict = [NSMutableDictionary new];
+    }
+    return _passwordInfoDict;
 }
 
 - (NSArray *)array {
@@ -126,7 +159,7 @@
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 
     if (section == 0) {
-            return @"通过手机号找回密码";
+        return @"通过手机号找回密码";
     }
     if (section == 1) {
         return @"创建新密码";
@@ -139,35 +172,6 @@
         return 35.0;
     }
     return 0.0;
-}
-
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    
-    // 设置导航栏的背景色不透明
-    [[[self.navigationController.navigationBar subviews] objectAtIndex:0] setAlpha:1];
-    // 设置导航栏title颜色
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
-    [self.navigationController.navigationBar setTintColor:[UIColor blackColor]];
-}
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    [[BaiduMobStat defaultStat] pageviewStartWithName:@"忘记密码"];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    [[BaiduMobStat defaultStat] pageviewEndWithName:@"忘记密码"];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - 修改信息提交
