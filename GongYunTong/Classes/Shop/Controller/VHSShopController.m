@@ -26,9 +26,6 @@
 
 @end
 
-static NSString *MAIN_SHOP_URL = @"https://vhealthplus.valurise.com/index.php";
-//static NSString *MAIN_SHOP_URL = @"http://118.242.18.199:10000/index.php";
-
 @implementation VHSShopController
 
 - (void)setDidHiddenTabBar:(BOOL)didHiddenTabBar {

@@ -25,5 +25,6 @@
 @property (nonatomic, strong) NSNumber * weight;
 @property (nonatomic, strong) NSArray * depts;
 @property (nonatomic, strong) NSString * headerUrl;
+@property (nonatomic, strong) NSString *workNo;         // 员工号
 
 @end

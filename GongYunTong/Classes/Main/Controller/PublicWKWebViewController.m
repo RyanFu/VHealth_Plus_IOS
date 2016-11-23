@@ -14,15 +14,16 @@
 
 @property (nonatomic, strong) WKWebView *contentWKWebView;
 
-@property (nonatomic, strong) UIView    *progress;
-@property (nonatomic, strong) UIView    *noContentView;
+@property (nonatomic, strong) UIView    *progress;              // 加载进度条
+@property (nonatomic, strong) UIView    *noContentView;         // 网页加载错误提示信息
 
-@property (nonatomic, strong) UIView    *backBarView;
-@property (nonatomic, strong) UIView    *closeBarView;
+@property (nonatomic, strong) UIView    *backBarView;           // 自定义返回按钮
+@property (nonatomic, strong) UIView    *closeBarView;          // 自定义关闭按钮
 
-@property (nonatomic, assign) BOOL      shouldShowCloseBtn;
+@property (nonatomic, assign) BOOL      shouldShowCloseBtn;     // 是否显示关闭按钮
 
-@property (nonatomic, copy) NSString    *loadedRequestUrl;
+@property (nonatomic, copy) NSString    *loadedRequestUrl;      // 加载成功的URL
+@property (nonatomic, assign) BOOL      shouldCloseBGMusic;     // 页面消失关闭背景音乐
 
 @end
 
@@ -48,7 +49,7 @@
     backLabel.text = @"返回";
     backLabel.textColor = [UIColor colorWithHexString:@"#828282"];
     backLabel.font = [UIFont systemFontOfSize:14.0];
-
+    
     self.backBarView = backView;
     
     [backView addSubview:backImage];
@@ -168,7 +169,8 @@
     
     [super viewDidLoad];
     
-//    [self customNavigation];
+    self.shouldCloseBGMusic = YES;
+    //    [self customNavigation];
     [self customNavigationBar];
     [self setupRefresh];
     
@@ -225,7 +227,9 @@
     self.navigationController.navigationBarHidden = NO;
     
     // 关闭音乐播放
-    [self.contentWKWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+    if (self.shouldCloseBGMusic) {
+        [self.contentWKWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -282,7 +286,7 @@
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
-    CLog(@"2error %@",error.description);
+    NSLog(@"2error %@",error.description);
     [self.contentWKWebView.scrollView.mj_header endRefreshing];
 }
 
@@ -330,6 +334,13 @@
     }
     else if ([method isEqualToString:@"closeGps"]) {
         [[VHSLocatServicer shareLocater] stopUpdatingLocation];
+    }
+    else if ([method isEqualToString:@"playVideo"]) {
+        self.shouldCloseBGMusic = NO;
+        NSString *videoUrl = bodyDict[@"value"];
+        PublicWKWebViewController *playVideoVC = [[PublicWKWebViewController alloc] init];
+        playVideoVC.urlString = videoUrl;
+        [self.navigationController pushViewController:playVideoVC animated:YES];
     }
 }
 
@@ -392,7 +403,7 @@
     if (![VHSCommon isNullString:payParam]) {
         message.params = @{@"pay" : payParam};
     }
-    message.path = URL_GET_PAY_SIGN;
+    message.path = @"/getPaySign.htm";
     message.httpMethod = VHSNetworkPOST;
     __weak typeof(self) weakSelf = self;
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
@@ -453,7 +464,7 @@
     }
 }
 
-#pragma mark - js call oc 
+#pragma mark - js call oc
 // 获取token
 - (void)getTokenSuccess:(void (^)(NSString *token))successBlock {
     NSString *token = [VHSCommon vhstoken];
@@ -470,7 +481,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark - oc call js 
+#pragma mark - oc call js
 
 // 调用js返回URL的上一级
 - (void) backAppUrl {

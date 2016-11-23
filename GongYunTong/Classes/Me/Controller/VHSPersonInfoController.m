@@ -209,7 +209,19 @@
 - (NSArray *)arrPersonInfo {
     if (!_arrPersonInfo) {
 
-        _arrPersonInfo = @[@"头像",@"昵称",@"手机号",@"邮箱",@"性别",@"身高",@"体重",@"出身年月",@"企业",@"层级二",@"层级三",@"层级四"];
+        _arrPersonInfo = @[@"头像",
+                           @"昵称",
+                           @"手机号",
+                           @"邮箱",
+                           @"员工号",
+                           @"性别",
+                           @"身高",
+                           @"体重",
+                           @"出身年月",
+                           @"企业",
+                           @"层级二",
+                           @"层级三",
+                           @"层级四"];
     }
     return _arrPersonInfo;
 }
@@ -224,7 +236,7 @@
     NSInteger num = 0;
     switch (section) {
         case 0:
-            num = 4;
+            num = 5;
             
             break;
         case 1:
@@ -271,6 +283,10 @@
             }
             else if (indexPath.row == 3) {
                 cell.detailTextLabel.text = self.detailModel.email;
+            }
+            else if (indexPath.row == 4) {
+                cell.detailTextLabel.text = self.detailModel.workNo;
+                cell.accessoryType = UITableViewCellAccessoryNone;
             }
             cell.textLabel.text = self.arrPersonInfo[indexPath.row];
             break;

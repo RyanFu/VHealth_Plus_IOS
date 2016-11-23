@@ -11,35 +11,6 @@
 #import "UserDetailModel.h"
 
 
-/***网络环境切换总开关***/
-
-//测试环境
-#define GYT_BUILD_FOR_TEST 0
-
-//生产环境
-#define GYT_BUILD_FOR_RELEASE
-
-//如果没有打开任何环境那就是测试环境
-#if !defined GYT_BUILD_FOR_TEST && !defined GYT_BUILD_FOR_RELEASE && !defined GYT_BUILD_FOR_BATE
-#define GYT_BUILD_FOR_TEST
-#endif
-
-#ifdef GYT_BUILD_FOR_TEST
-#define kServerURL @"https://vhealthplus.valurise.com/oauth2"
-//#define kServerURL @"http://118.242.18.199:10000/oauth2"
-//#define kServerURL @"http://192.168.2.72:8080/oauth2"
-#endif
-
-#ifdef GYT_BUILD_FOR_BATE
-#define kServerURL @"https://vhealthplus.valurise.com/oauth2"
-//#define kServerURL @"http://118.242.18.199:10000/oauth2"
-//#define kServerURL @"http://192.168.2.72:8080/oauth2"
-#endif
-
-//#ifdef GYT_BUILD_FOR_RELEASE
-//#define kServerURL @"http://118.242.18.199:10000/oauth2"
-//#endif
-
 /// 配置支付宝相关
 #define ALIPAY_APP_SCHEME     @"VHSgongyuntong"
 
