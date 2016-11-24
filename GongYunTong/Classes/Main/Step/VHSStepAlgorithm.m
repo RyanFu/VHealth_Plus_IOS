@@ -92,6 +92,7 @@
     [self acce];
 }
 
+// 手机计步
 - (void)acce {
     
     if ([VHSFitBraceletStateManager nowBLEState] != FitBLEStateDisbind) {
@@ -164,8 +165,7 @@
                                                    [self insertOrUpdateActionToMobileFromM7:action];
                                                    
                                                    // 更新手机同步时间
-                                                   [k_UserDefaults setObject:[VHSCommon getDate:[NSDate date]] forKey:k_M7_MOBILE_SYNC_TIME];
-                                                   [k_UserDefaults synchronize];
+                                                   [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]] forKey:k_M7_MOBILE_SYNC_TIME];
                                                    // 开启实时步数实时更新
                                                    [self beginM7RealtimeStepLive];
                                                });
@@ -174,6 +174,7 @@
     }
 }
 
+// 获取实时手机产生的运动数据
 - (void)beginM7RealtimeStepLive {
     
     [self.pedometer startPedometerUpdatesFromDate:[NSDate date]
@@ -181,8 +182,7 @@
                                               
                                               CLog(@"shouji-steps:%@", pedometerData.numberOfSteps);
                                               if ([VHSFitBraceletStateManager nowBLEState] != FitBLEStateDisbind) {
-                                                  [k_UserDefaults setObject:[VHSCommon getDate:[NSDate date]] forKey:k_M7_MOBILE_SYNC_TIME];
-                                                  [k_UserDefaults synchronize];
+                                                  [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]] forKey:k_M7_MOBILE_SYNC_TIME];
                                                   self.lastSynaM7Steps = pedometerData.numberOfSteps.integerValue;
                                                   return;
                                               }

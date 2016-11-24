@@ -76,7 +76,13 @@ JS端调用Native使用如下方法：
 
 ### 网络请求
 
-网络模块采用的是对`AFNetworking`进行封装。主要集中在类`VHSHttpEngine`，还有一个配置类`VHSRequestMessage`，该类封装了网络请求的参数，请求类型，请求路径，请求超时，请求图片等的设置。
+网络模块采用的是对`AFNetworking`进行封装。主要集中在类`VHSHttpEngine`，还有一个配置类`VHSRequestMessage`，该类封装了网络请求需要的参数。
+
+	@property (nonatomic, strong) NSDictionary      *params;                   // body参数
+	@property (nonatomic, copy) NSString            *path;                     // 服务器路径
+	@property (nonatomic, assign) VHSNetworkType    httpMethod;                 // 提交服务器方式
+	@property (nonatomic, copy) NSArray             *imageArray;               // 上传图片集合
+	@property (nonatomic, assign) NSTimeInterval    timeout;                    // 请求服务器超时时间
 
 设置好配置类，直接使用`VHSHttpEngine`的单利，调用
 
@@ -89,8 +95,51 @@ JS端调用Native使用如下方法：
 
 ### 手环计步，手机(`HealthKit`)计步
 
+手机，手环计步协同工作的逻辑：
+
+1. App安装，启动应用，开启手机计步。
+2. 手机计步页读取实时步数。
+3. 开启扫描，连接绑定手环，更改本地手环绑定状态，手机计步页实时读取手环数据。
+4. 解除绑定，更改本地手环绑定状态，手机计步页读取手环实时数据。
+
+需要同步数据到本地数据库的点：
+
+1. 手机产生实时数据
+2. 手环解绑
+3. 手动点击同步数据
+
+具体手环和手机使用的技术点
+
+* 手机计步：
+
+	介绍：手机计步采用的是Apple的`CMPedometer`API，该API是iOS8之后推出的(iOS7及其之下的可以使用`CMStepCounter`，但是仅仅只能获取步数)，可以做到和Apple自带软件"健康"一样的精确。也可以统计某段时间内用户步数，距离信息，甚至计算用户爬了多少级楼梯。具体参考[CMPedometer](https://developer.apple.com/reference/coremotion/cmpedometer)
+
+	本项目使用封装在`VHSStepAlgorithm`中，两个方法分别封装了苹果的原生API方法
+		
+		- (void)acce; // 手机计步，获取指定时间时间段的运动数据
+		- (void)beginM7RealtimeStepLive; // 获取手机实时产生的运动数据
+
+* 手环计步：
+
+	手环计步是基于手环厂商的SDK--`VeryfitSDK.framework`，存放于目录Main->Tool->FitSDK下。手环的使用步骤集中在类`VHSScanBraceletController`，逻辑步骤如下：
+	
+	1. 手环SDK的初始化(`ASDKShareFunction *asdk = [[ASDKShareFunction alloc] init];`)
+	2. 扫描手环(实例化`ASDKBleModule`对象，调用方法`- (Void)ASDKSendScanDevice`)
+	3. 连接手环(实例化`ASDKBleModule`,调用方法`- (Void)ASDKSendConnectDevice:`)
+	4. 绑定手环(实例化`ASDKSetting`，调用方法`- (void)ASDKSendDeviceBindingWithCMDType:(ASDKDeviceBindCMD)type
+                         withUpdateBlock:(BLTAcceptSettingValue)block;`)
+
 ### 项目第三方架包管理
 
+项目对第三方架包采用Pod管理，只需要在Podfile文件中添加如:
 
+	pod 'MBProgressHUD'
+	pod 'Base64nl', '~> 1.2'
+	
+之后cd到项目目录下，运行
+
+	pod install
+	
+具体安装参考：[CocoaPods安装和使用教程](http://code4app.com/article/cocoapods-install-usage)
  
 
