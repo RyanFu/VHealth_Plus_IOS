@@ -91,7 +91,10 @@ JS端调用Native使用如下方法：
 
 ### 本地数据持久化
 
-本地数据持久化通过使用封装`FMDB`实现，项目中数据的持久化主要针对运动步数的保存。主要的实现类在`VHSDataBaseManager`中，实现了数据库的创建，表的创建，以及对数据的增删改出操作。具体的业务对表的操作集中在`VHSStepAlgorithm`中。
+本地数据持久化分成两种：
+
+1. 通过使用封装`FMDB`实现，这部分数据的持久化主要针对运动步数的保存。主要的实现类在`VHSDataBaseManager`中，实现了数据库的创建，表的创建，以及对数据的增删改出操作。具体的业务对表的操作集中在`VHSStepAlgorithm`中。
+2. 第二部部分可以称之为缓存，存放在`NSUserDefault`，主要是针对动态`Dynamic`，发现`Discover`，我`Me`这三个模块的主页部分。缓存的策略是在页面载入`ViewDidLoad`中先从缓存获取数据展示，在接收到`UIApplicationWillResignActiveNotification`通知后，对当前页面中的数据进行保存。而图片的缓存利用的是`SDWebImage`框架。具体的原理参照[SDWebImage实现原理](http://codeboy.leanote.com/post/SDWebImage%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86)
 
 ### 手环计步，手机(`HealthKit`)计步
 

@@ -35,7 +35,6 @@
 		33640B5E1D9224BC00B34C8B /* KeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 33640B5D1D9224BC00B34C8B /* KeyChainStore.m */; };
 		3364D1EC1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3364D1EA1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m */; };
 		3364D1ED1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3364D1EB1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib */; };
-		337408191DE5416C00D142DA /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 337408181DE5416B00D142DA /* README.md */; };
 		338171861DAC985A00ACB4A0 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3381717F1DAC985A00ACB4A0 /* TAAbstractDotView.m */; };
 		338171871DAC985A00ACB4A0 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 338171811DAC985A00ACB4A0 /* TAAnimatedDotView.m */; };
 		338171881DAC985A00ACB4A0 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 338171831DAC985A00ACB4A0 /* TADotView.m */; };
@@ -1607,7 +1606,6 @@
 				6704636E1D40C56B0051A9F6 /* SDCycleScrollView.m in Sources */,
 				33FB4B131D519D2700AB8086 /* UserInfoModel.m in Sources */,
 				67AD03A51D40E0B700246667 /* VHSMoreIgvCell.m in Sources */,
-				337408191DE5416C00D142DA /* README.md in Sources */,
 				CAD91A521D5DB69B00AEF2FB /* payRequsestHandler.mm in Sources */,
 				67B4F8EE1D3CDB4500F933F0 /* VHSHttpEngine.m in Sources */,
 				CAD91A531D5DB69B00AEF2FB /* WXUtil.mm in Sources */,
