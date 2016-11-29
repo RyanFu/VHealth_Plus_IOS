@@ -215,14 +215,10 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
 - (void)callBackReconect:(NSString *)uuidString{
     //加上这2句代码，防止多次连接设备   note by xulong
     CBPeripheral *peri = [ShareDataSdk shareInstance].peripheral;
-    if (peri && peri.state == CBPeripheralStateConnecting) {
-        return;
-    }
+    if (peri && peri.state == CBPeripheralStateDisconnected) return;
+    
     NSString *uuid = [k_UserDefaults objectForKey:k_SHOUHUAN_UUID];
     NSString *name = [k_UserDefaults objectForKey:k_SHOUHUAN_NAME];
-    if (!uuid) {
-        return;
-    }
     [[SharePeripheral sharePeripheral].bleMolue ASDKSendConnectDevice:uuid];
     [SharePeripheral sharePeripheral].bleName = name;
     
