@@ -47,7 +47,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"我";
+    self.navigationItem.title = @"我";
     self.headerViewLineHeight.constant = 0.5;
     // 获取版本信息
     self.copyright.text = [NSString stringWithFormat:@"版本%@ 由好人生集团提供", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
@@ -70,12 +70,12 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[BaiduMobStat defaultStat] pageviewStartWithName:[NSString stringWithFormat:@"%@", self.title]];
+    [[BaiduMobStat defaultStat] pageviewStartWithName:[NSString stringWithFormat:@"%@", @"我"]];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[BaiduMobStat defaultStat] pageviewEndWithName:[NSString stringWithFormat:@"%@", self.title]];
+    [[BaiduMobStat defaultStat] pageviewEndWithName:[NSString stringWithFormat:@"%@", @"我"]];
 }
 
 #pragma mark - download data 
@@ -116,7 +116,7 @@
         }
         [self.tableView reloadData];
     } fail:^(NSError *error) {
-        DLog(@"用户详情 ---- %@", error.localizedDescription);
+        CLog(@"用户详情 ---- %@", error.localizedDescription);
     }];
 }
 

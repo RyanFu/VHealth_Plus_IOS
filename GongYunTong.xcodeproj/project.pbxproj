@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		19097B366133A5163133F1D2 /* libPods-GongYunTong.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0588B8F6140A1C3DC0DA81A6 /* libPods-GongYunTong.a */; };
+		3304BB5C1DED62F600EDBC6B /* UserInfoModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3304BB5A1DED62F600EDBC6B /* UserInfoModel.h */; };
+		3304BB5D1DED62F600EDBC6B /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304BB5B1DED62F600EDBC6B /* UserInfoModel.m */; };
+		3304BB631DED63FB00EDBC6B /* ShortcutItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 3304BB5F1DED63FB00EDBC6B /* ShortcutItem.h */; };
+		3304BB641DED63FB00EDBC6B /* ShortcutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304BB601DED63FB00EDBC6B /* ShortcutItem.m */; };
+		3304BB651DED63FB00EDBC6B /* TabbarItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 3304BB611DED63FB00EDBC6B /* TabbarItem.h */; };
+		3304BB661DED63FB00EDBC6B /* TabbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304BB621DED63FB00EDBC6B /* TabbarItem.m */; };
+		3304BB691DED64F600EDBC6B /* VHSActionData.h in Headers */ = {isa = PBXBuildFile; fileRef = 3304BB671DED64F600EDBC6B /* VHSActionData.h */; };
+		3304BB6A1DED64F600EDBC6B /* VHSActionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304BB681DED64F600EDBC6B /* VHSActionData.m */; };
 		330C9DF91D90DE25005875FE /* VHSToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 330C9DF81D90DE25005875FE /* VHSToast.m */; };
 		33120C8E1D79738000A006C9 /* VHSLocatServicer.m in Sources */ = {isa = PBXBuildFile; fileRef = 33120C8D1D79738000A006C9 /* VHSLocatServicer.m */; };
 		33120C901D7973A500A006C9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33120C8F1D7973A500A006C9 /* CoreLocation.framework */; };
@@ -16,7 +24,6 @@
 		3325E09D1D6AA9F00045AC33 /* BalanceItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3325E09C1D6AA9F00045AC33 /* BalanceItemModel.m */; };
 		3325E0A01D6C2EFF0045AC33 /* MeSumScoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3325E09F1D6C2EFF0045AC33 /* MeSumScoreModel.m */; };
 		332758701DA8D49D00C285DB /* VHSAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3327586F1DA8D49D00C285DB /* VHSAlertController.m */; };
-		33392BAB1DD9561F00AE3A93 /* ShortcutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 33392BAA1DD9561F00AE3A93 /* ShortcutItem.m */; };
 		334038F91D8175F800202DDD /* TransferStepModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 334038F81D8175F800202DDD /* TransferStepModel.m */; };
 		334039091D82B40100202DDD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 334039081D82B40100202DDD /* Security.framework */; };
 		3342F36A1D9387AE00B31317 /* libBaiduMobStat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3342F3691D9387AE00B31317 /* libBaiduMobStat.a */; };
@@ -41,7 +48,6 @@
 		338171891DAC985A00ACB4A0 /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 338171851DAC985A00ACB4A0 /* TAPageControl.m */; };
 		338B24C11D864B3200E62838 /* VHSTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 338B24C01D864B3200E62838 /* VHSTestController.m */; };
 		338C61351D543516004CFE18 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 338C61341D543516004CFE18 /* WebKit.framework */; };
-		338C61411D586575004CFE18 /* VHSActionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61401D586575004CFE18 /* VHSActionData.m */; };
 		338C61511D58BD36004CFE18 /* VHSRecordStepController.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61501D58BD36004CFE18 /* VHSRecordStepController.m */; };
 		338C61571D59837F004CFE18 /* VHSDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61561D59837F004CFE18 /* VHSDataBaseManager.m */; };
 		338C61B91D59D2BE004CFE18 /* VHSFitBraceletSettingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61941D59D2BE004CFE18 /* VHSFitBraceletSettingModel.m */; };
@@ -105,7 +111,6 @@
 		33F2BA521D658E7300928976 /* VHSModifyNormalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 33F2BA511D658E7300928976 /* VHSModifyNormalCell.m */; };
 		33F2BA551D658E8900928976 /* VHSModifyMobileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 33F2BA541D658E8900928976 /* VHSModifyMobileCell.m */; };
 		33FB4B101D50843E00AB8086 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FB4B0F1D50843E00AB8086 /* LoginModel.m */; };
-		33FB4B131D519D2700AB8086 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FB4B121D519D2700AB8086 /* UserInfoModel.m */; };
 		33FB4B1C1D51E4C300AB8086 /* VHSUntils.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FB4B1B1D51E4C300AB8086 /* VHSUntils.m */; };
 		33FB4B251D52EA3C00AB8086 /* BannerItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FB4B241D52EA3C00AB8086 /* BannerItemModel.m */; };
 		33FB4B281D53103200AB8086 /* DynamicItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 33FB4B271D53103200AB8086 /* DynamicItemModel.m */; };
@@ -199,6 +204,14 @@
 
 /* Begin PBXFileReference section */
 		0588B8F6140A1C3DC0DA81A6 /* libPods-GongYunTong.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GongYunTong.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3304BB5A1DED62F600EDBC6B /* UserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = "<group>"; };
+		3304BB5B1DED62F600EDBC6B /* UserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
+		3304BB5F1DED63FB00EDBC6B /* ShortcutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShortcutItem.h; sourceTree = "<group>"; };
+		3304BB601DED63FB00EDBC6B /* ShortcutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShortcutItem.m; sourceTree = "<group>"; };
+		3304BB611DED63FB00EDBC6B /* TabbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabbarItem.h; sourceTree = "<group>"; };
+		3304BB621DED63FB00EDBC6B /* TabbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabbarItem.m; sourceTree = "<group>"; };
+		3304BB671DED64F600EDBC6B /* VHSActionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSActionData.h; sourceTree = "<group>"; };
+		3304BB681DED64F600EDBC6B /* VHSActionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSActionData.m; sourceTree = "<group>"; };
 		330C9DF71D90DE25005875FE /* VHSToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSToast.h; sourceTree = "<group>"; };
 		330C9DF81D90DE25005875FE /* VHSToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSToast.m; sourceTree = "<group>"; };
 		33120C8C1D79738000A006C9 /* VHSLocatServicer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSLocatServicer.h; sourceTree = "<group>"; };
@@ -259,8 +272,6 @@
 		338B24C01D864B3200E62838 /* VHSTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSTestController.m; sourceTree = "<group>"; };
 		338C61341D543516004CFE18 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		338C613E1D583AFE004CFE18 /* VHSDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHSDefinition.h; sourceTree = "<group>"; };
-		338C613F1D586575004CFE18 /* VHSActionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VHSActionData.h; path = GongYunTong/Classes/Main/Other/VHSActionData.h; sourceTree = SOURCE_ROOT; };
-		338C61401D586575004CFE18 /* VHSActionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VHSActionData.m; path = GongYunTong/Classes/Main/Other/VHSActionData.m; sourceTree = SOURCE_ROOT; };
 		338C614F1D58BD35004CFE18 /* VHSRecordStepController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSRecordStepController.h; sourceTree = "<group>"; };
 		338C61501D58BD36004CFE18 /* VHSRecordStepController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSRecordStepController.m; sourceTree = "<group>"; };
 		338C61551D59837F004CFE18 /* VHSDataBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSDataBaseManager.h; sourceTree = "<group>"; };
@@ -377,8 +388,6 @@
 		33F2BA541D658E8900928976 /* VHSModifyMobileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSModifyMobileCell.m; sourceTree = "<group>"; };
 		33FB4B0E1D50843E00AB8086 /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
 		33FB4B0F1D50843E00AB8086 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
-		33FB4B111D519D2700AB8086 /* UserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfoModel.h; path = GongYunTong/Classes/Login/Model/UserInfoModel.h; sourceTree = SOURCE_ROOT; };
-		33FB4B121D519D2700AB8086 /* UserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfoModel.m; path = GongYunTong/Classes/Login/Model/UserInfoModel.m; sourceTree = SOURCE_ROOT; };
 		33FB4B1A1D51E4C300AB8086 /* VHSUntils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSUntils.h; sourceTree = "<group>"; };
 		33FB4B1B1D51E4C300AB8086 /* VHSUntils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSUntils.m; sourceTree = "<group>"; };
 		33FB4B231D52EA3C00AB8086 /* BannerItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BannerItemModel.h; path = GongYunTong/Classes/Main/Other/BannerItemModel.h; sourceTree = SOURCE_ROOT; };
@@ -592,6 +601,19 @@
 				0588B8F6140A1C3DC0DA81A6 /* libPods-GongYunTong.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3304BB5E1DED63FB00EDBC6B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3304BB671DED64F600EDBC6B /* VHSActionData.h */,
+				3304BB681DED64F600EDBC6B /* VHSActionData.m */,
+				3304BB5F1DED63FB00EDBC6B /* ShortcutItem.h */,
+				3304BB601DED63FB00EDBC6B /* ShortcutItem.m */,
+				3304BB611DED63FB00EDBC6B /* TabbarItem.h */,
+				3304BB621DED63FB00EDBC6B /* TabbarItem.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		3342F3661D9387AE00B31317 /* BaiDu */ = {
@@ -927,8 +949,8 @@
 		6730196E1D3C6651004A3320 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				3304BB5E1DED63FB00EDBC6B /* Model */,
 				673019731D3C6651004A3320 /* ThirdLibrary */,
-				673019711D3C6651004A3320 /* Model */,
 				673019751D3C6651004A3320 /* View */,
 				673019701D3C6651004A3320 /* Controller */,
 				338C618C1D59D2BE004CFE18 /* FitBracelet */,
@@ -987,17 +1009,6 @@
 				33CBF32F1D73D81400D39452 /* PublicWKWebViewController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		673019711D3C6651004A3320 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				33FB4B111D519D2700AB8086 /* UserInfoModel.h */,
-				33FB4B121D519D2700AB8086 /* UserInfoModel.m */,
-				338C613F1D586575004CFE18 /* VHSActionData.h */,
-				338C61401D586575004CFE18 /* VHSActionData.m */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		673019721D3C6651004A3320 /* Other */ = {
@@ -1305,6 +1316,8 @@
 				33FB4B0F1D50843E00AB8086 /* LoginModel.m */,
 				334038F71D8175F800202DDD /* TransferStepModel.h */,
 				334038F81D8175F800202DDD /* TransferStepModel.m */,
+				3304BB5A1DED62F600EDBC6B /* UserInfoModel.h */,
+				3304BB5B1DED62F600EDBC6B /* UserInfoModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1353,6 +1366,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3304BB651DED63FB00EDBC6B /* TabbarItem.h in Headers */,
+				3304BB5C1DED62F600EDBC6B /* UserInfoModel.h in Headers */,
+				3304BB691DED64F600EDBC6B /* VHSActionData.h in Headers */,
+				3304BB631DED63FB00EDBC6B /* ShortcutItem.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1590,7 +1607,6 @@
 				3317AFE71DD5C294003CFEBB /* MBProgressHUD+VHS.m in Sources */,
 				CA7F122D1D42028C00C7F145 /* VHSPasswordCell.m in Sources */,
 				33514CD61D64708200ECDEA5 /* VHSAllStepCell.m in Sources */,
-				338C61411D586575004CFE18 /* VHSActionData.m in Sources */,
 				67B4F8D71D3CAA5500F933F0 /* VHSNavigationController.m in Sources */,
 				33CB6EAE1DDEB1E2001E470A /* RSAEncryptor.m in Sources */,
 				33F2BA401D648C6C00928976 /* UserScoreModel.m in Sources */,
@@ -1615,13 +1631,11 @@
 				33CB6EAD1DDEB1E2001E470A /* NSString+AES256.m in Sources */,
 				33CB6EB11DDEC7D4001E470A /* SecurityUtil.m in Sources */,
 				6704636E1D40C56B0051A9F6 /* SDCycleScrollView.m in Sources */,
-				33FB4B131D519D2700AB8086 /* UserInfoModel.m in Sources */,
 				67AD03A51D40E0B700246667 /* VHSMoreIgvCell.m in Sources */,
 				CAD91A521D5DB69B00AEF2FB /* payRequsestHandler.mm in Sources */,
 				67B4F8EE1D3CDB4500F933F0 /* VHSHttpEngine.m in Sources */,
 				CAD91A531D5DB69B00AEF2FB /* WXUtil.mm in Sources */,
 				33E5B8CF1DDBFEA800E52A11 /* VHSLoginPersonalViewController.m in Sources */,
-				33392BAB1DD9561F00AE3A93 /* ShortcutItem.m in Sources */,
 				CA254EC61D4B5CEB00853D3C /* VHSActivityTitleCell.m in Sources */,
 				33E5B8DD1DDC54AA00E52A11 /* VHSShopController.m in Sources */,
 				CA7F122E1D42028C00C7F145 /* VHSPhoneNumberCell.m in Sources */,
@@ -1641,7 +1655,9 @@
 				33ED430E1D4F296F007B0F30 /* VHSSettingController.m in Sources */,
 				67E13FCA1D460E6E001C58D7 /* VHSMeController.m in Sources */,
 				33E5B8D61DDC543100E52A11 /* VHSActivityController.m in Sources */,
+				3304BB641DED63FB00EDBC6B /* ShortcutItem.m in Sources */,
 				33F2BA461D65506B00928976 /* VHSPersonInfoController.m in Sources */,
+				3304BB661DED63FB00EDBC6B /* TabbarItem.m in Sources */,
 				3325E0A01D6C2EFF0045AC33 /* MeSumScoreModel.m in Sources */,
 				67E13FD31D460E81001C58D7 /* UserInfoCell.m in Sources */,
 				67B4F8E01D3CAB0300F933F0 /* XLTextView.m in Sources */,
@@ -1661,11 +1677,13 @@
 				338C61C01D59D2BE004CFE18 /* VHSScanNoDevice.m in Sources */,
 				338C61D11D59E06C004CFE18 /* VHSScanBraceletController.m in Sources */,
 				6730197C1D3C6850004A3320 /* AppDelegate.m in Sources */,
+				3304BB5D1DED62F600EDBC6B /* UserInfoModel.m in Sources */,
 				CA254EC91D4B5D1800853D3C /* VHSActivityNoticeCell.m in Sources */,
 				33FB4B251D52EA3C00AB8086 /* BannerItemModel.m in Sources */,
 				33F2BA431D648CB700928976 /* EveryDayStepModel.m in Sources */,
 				33ED43111D4F3075007B0F30 /* StoryboardHelper.m in Sources */,
 				33E5B8CD1DDBFEA800E52A11 /* VHSForgetPasswordViewController.m in Sources */,
+				3304BB6A1DED64F600EDBC6B /* VHSActionData.m in Sources */,
 				3360B6641D894045005BDB77 /* VHSNoStypeCell.m in Sources */,
 				33FB4B1C1D51E4C300AB8086 /* VHSUntils.m in Sources */,
 				33FB4B281D53103200AB8086 /* DynamicItemModel.m in Sources */,

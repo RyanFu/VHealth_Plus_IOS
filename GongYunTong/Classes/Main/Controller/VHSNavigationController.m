@@ -19,12 +19,13 @@
 {
     //设置searchBard的取消按钮颜色属性
     if (iOS9) {
-        [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]]setTitleTextAttributes:
-         [NSDictionary dictionaryWithObjectsAndKeys:[UIColor yellowColor],NSForegroundColorAttributeName,nil]
-                                                                                                           forState:UIControlStateNormal];
+        [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]]
+                                               setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor yellowColor],NSForegroundColorAttributeName,nil]
+                                           forState:UIControlStateNormal];
     } else {
-        [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil]setTitleTextAttributes:
-         [NSDictionary dictionaryWithObjectsAndKeys:[UIColor yellowColor],NSForegroundColorAttributeName,nil]forState:UIControlStateNormal];
+        [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil]
+                             setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor yellowColor],NSForegroundColorAttributeName,nil]
+                                           forState:UIControlStateNormal];
     }
 
 //    // 设置整个项目所有item的主题样式
@@ -60,22 +61,11 @@
     //设置导航栏返回按钮箭头的颜色（若不实现setTitleTextAttributes: forState方法，可同时改变字体颜色)
     [navBar setTintColor:[UIColor blackColor]];
     
-    //导航栏禁用半透明效果
-    //    if(iOS7){
-    //        [navBar setTranslucent:NO];
-    //    }
-    
-    //隐藏那条黑线
-    //    [navBar setBackgroundImage:[UIImage new]
-    //                            forBarPosition:UIBarPositionAny
-    //                                barMetrics:UIBarMetricsDefault];
-    //    [navBar setShadowImage:[[UIImage alloc] init]];
-    
     //导航栏背景颜色
     [navBar setBarTintColor:[UIColor whiteColor]];
     
     //导航栏标题样式
-    [navBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, [UIFont boldSystemFontOfSize:17], NSFontAttributeName, nil]];
+    [navBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName, [UIFont boldSystemFontOfSize:17], NSFontAttributeName, nil]];
 }
 //实现此方法，可在NavigationController的栈顶视图里设置信号栏字体颜色
 - (UIViewController *)childViewControllerForStatusBarStyle

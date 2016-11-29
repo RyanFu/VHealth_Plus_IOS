@@ -292,7 +292,6 @@
     if ([VHSCommon isNullString:theTitle] == NO && [theTitle isEqualToString:@"index"] == NO) {
         if ([url containsString:@"vhstoken"]) {
             self.navigationItem.title = @"福利";
-            self.tabBarItem.title = @"福利";
         } else {
             self.navigationItem.title = theTitle;
         }
