@@ -220,6 +220,9 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
     }
     NSString *uuid = [k_UserDefaults objectForKey:k_SHOUHUAN_UUID];
     NSString *name = [k_UserDefaults objectForKey:k_SHOUHUAN_NAME];
+    if (!uuid) {
+        return;
+    }
     [[SharePeripheral sharePeripheral].bleMolue ASDKSendConnectDevice:uuid];
     [SharePeripheral sharePeripheral].bleName = name;
     
@@ -272,7 +275,7 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
     }
     else if([req isKindOfClass:[ShowMessageFromWXReq class]])
     {
-        ShowMessageFromWXReq* temp = (ShowMessageFromWXReq*)req;
+        ShowMessageFromWXReq *temp = (ShowMessageFromWXReq*)req;
         WXMediaMessage *msg = temp.message;
         
         //显示微信传过来的内容
@@ -421,7 +424,6 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
     // 进入前台，消除所有Badge Number
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     
-    
     // 一个小时显示启动页
     NSString *companyId = [[VHSCommon userInfo].companyId stringValue];
     if (!companyId) {
@@ -477,8 +479,7 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
     } fail:^(NSError *error) {}];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-}
+- (void)applicationDidEnterBackground:(UIApplication *)application {}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStateDisbind) {
@@ -504,8 +505,10 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
             [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
         }];
     } else {
-        [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
-        [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
+            [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
+        });
     }
 }
 

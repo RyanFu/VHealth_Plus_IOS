@@ -53,7 +53,6 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
     viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:selectName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     //设置字体
     [viewController.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor]} forState:UIControlStateNormal];
-//    viewController.tabBarItem.imageInsets=UIEdgeInsetsMake(5, -5, 0, 0);
     [viewController.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]} forState:UIControlStateSelected];
     
     VHSNavigationController *navigationController = [[VHSNavigationController alloc] initWithRootViewController:viewController];

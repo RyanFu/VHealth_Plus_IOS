@@ -292,7 +292,7 @@
             break;
         case 1:
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.text = self.arrPersonInfo[indexPath.row+4];
+            cell.textLabel.text = self.arrPersonInfo[indexPath.row+5];
             if (indexPath.row == 0) {
                 if ([self.detailModel.gender intValue] == 1) {
                     cell.detailTextLabel.text = @"男";
@@ -315,7 +315,7 @@
             cell.accessoryType = UITableViewCellAccessoryNone;
             if (indexPath.row == 0) {
                 // 公司名
-                cell.textLabel.text = _arrPersonInfo[indexPath.row + 8];
+                cell.textLabel.text = _arrPersonInfo[indexPath.row + 9];
                 cell.detailTextLabel.text = self.detailModel.companyName;
             } else {
                 NSDictionary *deptDic = self.detailModel.depts[indexPath.row - 1];

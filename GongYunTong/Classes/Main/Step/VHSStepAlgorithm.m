@@ -52,7 +52,6 @@
         VHSDataBaseManager *dm = [[VHSDataBaseManager alloc] init];
         [dm createDB];
         [dm createTable];
-        [dm openDB];
         
         NSDate *nowDate = [NSDate date];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -99,7 +98,7 @@
         return;
     }
     
-    __block NSString *lastSyncM7DateStr = [k_UserDefaults objectForKey:k_M7_MOBILE_SYNC_TIME];
+    __block NSString *lastSyncM7DateStr = [VHSCommon getUserDefautForKey:k_M7_MOBILE_SYNC_TIME];
     if ([VHSCommon isNullString:lastSyncM7DateStr]) {
         lastSyncM7DateStr = [VHSCommon getDate:[NSDate date]];
     }
@@ -165,7 +164,8 @@
                                                    [self insertOrUpdateActionToMobileFromM7:action];
                                                    
                                                    // 更新手机同步时间
-                                                   [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]] forKey:k_M7_MOBILE_SYNC_TIME];
+                                                   [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]]
+                                                                       forKey:k_M7_MOBILE_SYNC_TIME];
                                                    // 开启实时步数实时更新
                                                    [self beginM7RealtimeStepLive];
                                                });
@@ -176,13 +176,14 @@
 
 // 获取实时手机产生的运动数据
 - (void)beginM7RealtimeStepLive {
-    
+    CLog(@"-------beginM7RealtimeStepLive");
     [self.pedometer startPedometerUpdatesFromDate:[NSDate date]
                                       withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
                                               
                                               CLog(@"shouji-steps:%@", pedometerData.numberOfSteps);
                                               if ([VHSFitBraceletStateManager nowBLEState] != FitBLEStateDisbind) {
-                                                  [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]] forKey:k_M7_MOBILE_SYNC_TIME];
+                                                  [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]]
+                                                                      forKey:k_M7_MOBILE_SYNC_TIME];
                                                   self.lastSynaM7Steps = pedometerData.numberOfSteps.integerValue;
                                                   return;
                                               }
@@ -218,8 +219,8 @@
                                                       if (i != 0) {
                                                           lastSyncTime = [NSDate yyyymmddhhmmssStartByPastDays:i - 1];
                                                       } else {
-                                                          [k_UserDefaults setObject:[VHSCommon getDate:[NSDate date]] forKey:k_M7_MOBILE_SYNC_TIME];
-                                                          [k_UserDefaults synchronize];
+                                                          [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]]
+                                                                              forKey:k_M7_MOBILE_SYNC_TIME];
                                                       }
                                                   }
                                               } else {
@@ -237,8 +238,8 @@
                                                   
                                                   [self insertOrUpdateActionToMobileFromM7:action];
                                                   // 更新手机同步时间
-                                                  [k_UserDefaults setObject:[VHSCommon getDate:[NSDate date]] forKey:k_M7_MOBILE_SYNC_TIME];
-                                                  [k_UserDefaults synchronize];
+                                                  [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]]
+                                                                      forKey:k_M7_MOBILE_SYNC_TIME];
                                               }
                                               self.lastSynaM7Steps = pedometerData.numberOfSteps.integerValue;
                                       }];

@@ -29,7 +29,8 @@
 @property (nonatomic, strong) UIImageView *syncRotate;  // 同步按钮
 
 @property (nonatomic, strong) UILabel *stepsLabel;
-@property (nonatomic, strong) NSTimer *tm;
+@property (nonatomic, strong) NSTimer *mobileTimer;     // 定时获取手环数据
+@property (nonatomic, strong) NSTimer *syncTimer;       // 定时判断界面同步计步数据显示时间
 
 @property (nonatomic, assign) NSInteger sumStepsOnDB;   // 已经同步到本地数据库总步数
 @property (nonatomic, assign) double kilometre;      // 公里数
@@ -99,17 +100,22 @@
         self.lastTimeLabel.text = [NSString stringWithFormat:@"上次获取手环数据-%@",[VHSCommon timeInfoWithDateString:[VHSCommon getShouHuanLastTimeSync]]];
     }
     
-    // 同步到服务器的时间
-    self.syncTimeLabel.text = [NSString stringWithFormat:@"上次同步：%@", [VHSCommon timeInfoWithDateString:[VHSCommon getUploadServerTime]]];
+    // 开启同步数据定时器，30秒检测一次数据是否同步
+    self.syncTimer = [NSTimer scheduledTimerWithTimeInterval:30.0f
+                                                      target:self
+                                                    selector:@selector(syncTimeLabelChange)
+                                                    userInfo:nil
+                                                     repeats:YES];
+    [self.syncTimer fire];
     
     if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStateDisbind) {
         // 使用手机数据
-        _tm = [NSTimer scheduledTimerWithTimeInterval:2.0f
+        _mobileTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f
                                                target:self
-                                             selector:@selector(changeLabelData)
+                                             selector:@selector(stepLabelDataChange)
                                              userInfo:nil
                                               repeats:YES];
-        [_tm fire];
+        [_mobileTimer fire];
         
     } else {
         // 使用手环数据
@@ -128,9 +134,13 @@
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
     [self.navigationController.navigationBar setTintColor:[UIColor blackColor]];
     
+    if ([self.syncTimer isValid]) {
+        [self.syncTimer invalidate];
+    }
+    
     if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStateDisbind) {
-        if ([_tm isValid]) {
-            [_tm invalidate];
+        if ([_mobileTimer isValid]) {
+            [_mobileTimer invalidate];
         }
     } else {
         // 释放器
@@ -332,8 +342,9 @@
 }
 
 /// 从谐处理器中获取数据
-- (void)changeLabelData {
-    NSInteger steps = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
+- (void)stepLabelDataChange {
+    NSInteger steps = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue]
+                                                                                date:[VHSCommon getYmdFromDate:[NSDate date]]];
     self.sumSteps = steps;
     // 步数转为公里数据
     self.kilometre = [[VHSCommon getUserDefautForKey:k_Steps_To_Kilometre_Ratio] doubleValue] * self.sumSteps;
@@ -350,6 +361,11 @@
     NSRange stepsRange = NSMakeRange([label.text rangeOfString:attriText].location, attriText.length);
     [attributes addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:35] range:stepsRange];
     [label setAttributedText:attributes];
+}
+
+/// 同步到服务器的时间显示
+- (void)syncTimeLabelChange {
+    self.syncTimeLabel.text = [NSString stringWithFormat:@"上次同步：%@", [VHSCommon timeInfoWithDateString:[VHSCommon getUploadServerTime]]];
 }
 
 #pragma mark - 从本地获取一天的的所有步数

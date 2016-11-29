@@ -27,20 +27,6 @@
 - (void)createDB;
 
 /**
- *  开启数据库
- *
- *  @return 标志位 - 成功为YES
- */
-- (BOOL)openDB;
-
-/**
- *  关闭数据库
- *
- *  @return 标志位 - 成功为YES
- */
-- (BOOL)closeDB;
-
-/**
  *  创建表
  */
 - (void)createTable;
@@ -68,7 +54,7 @@
               member_id:(NSString *)member_id
             action_mode:(NSInteger) action_mode
             action_type:(NSString *)action_type
-               distance:(CGFloat)distance
+               distance:(float)distance
                 seconds:(NSInteger)seconds
                 calorie:(NSInteger)calorie
                    step:(NSInteger)step
@@ -97,43 +83,6 @@
 -(NSMutableArray *)selectUnuploadFromActionLst:(NSString *)memberId;
 
 /**
- *  获取某日总里程数
- *
- *  @param memberId 用户ID
- *  @param ymd      记录时间
- *
- *  @return 某日日程总数
- */
--(CGFloat)selectActionDistanceFromActionLst:(NSString *)memberId ymd:(NSString *)ymd;
-
-/**
- *  删除指定的运动数据
- *
- *  @param action_id 运动ID
- */
--(void)deleteActionByActionId:(NSString *)action_id;
-
-/**
- *  获取一个月的运动数据
- *
- *  @param memberId 用户ID
- *  @param ym       年月
- *
- *  @return 一个月的运动数据
- */
--(NSMutableArray *)selectMonthDataFromActionList:(NSString *)memberId ym:(NSString *)ym;
-
-/**
- *  获取某月每一天的运动统计（运动一览表）
- *
- *  @param memberId 用户ID
- *  @param ym       年月
- *
- *  @return 月每一天的运动统计
- */
--(NSMutableArray *)selectStatisticsFromActionLst:(NSString *)memberId ym:(NSString *)ym;
-
-/**
  *  获取用户一天的总步数
  *
  *  @param mdmberId 用户ID
@@ -156,7 +105,7 @@
                         member_id:(NSString *)member_id
                       action_mode:(NSInteger) action_mode
                       action_type:(NSString *)action_type
-                         distance:(CGFloat)distance
+                         distance:(float)distance
                           seconds:(NSInteger)seconds
                           calorie:(NSInteger)calorie
                              step:(NSInteger)step
@@ -173,7 +122,7 @@
                         member_id:(NSString *)member_id
                       action_mode:(NSInteger) action_mode
                       action_type:(NSString *)action_type
-                         distance:(CGFloat)distance
+                         distance:(float)distance
                           seconds:(NSInteger)seconds
                           calorie:(NSInteger)calorie
                              step:(NSInteger)step
