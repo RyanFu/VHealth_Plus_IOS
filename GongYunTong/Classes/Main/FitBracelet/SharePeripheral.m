@@ -64,7 +64,6 @@ static SharePeripheral*sharePeripheral = nil;
         {
             CLog(@"Service found with UUID: %@", service.UUID);  //查找特征
             [asdkBleModule ASDKSendDiscoverCharcristic:peripheral];
-            
         }
     }
     else{
