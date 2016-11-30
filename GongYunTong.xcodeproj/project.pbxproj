@@ -1428,7 +1428,7 @@
 				TargetAttributes = {
 					67C7ADFD1D38AB2A0091F669 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 2JGJK49F2H;
+						DevelopmentTeam = C76485U944;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -1853,7 +1853,7 @@
 				CODE_SIGN_ENTITLEMENTS = /Users/pingjunlin/Documents/VHealth_Plus_IOS/GongYunTong/Resource/GongYunTong.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 2JGJK49F2H;
+				DEVELOPMENT_TEAM = C76485U944;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/FitSDK",
@@ -1872,7 +1872,7 @@
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/BaiDu/normalversion",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.appstore.gongyuntong;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.gongyuntong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1890,7 +1890,7 @@
 				CODE_SIGN_ENTITLEMENTS = /Users/pingjunlin/Documents/VHealth_Plus_IOS/GongYunTong/Resource/GongYunTong.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 2JGJK49F2H;
+				DEVELOPMENT_TEAM = C76485U944;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/FitSDK",
@@ -1909,7 +1909,7 @@
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/BaiDu/normalversion",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.appstore.gongyuntong;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.gongyuntong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
