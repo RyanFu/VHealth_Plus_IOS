@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "GlassView.h"
 #import "BaiduMobStat.h"
+#import "VHSNavigationController.h"
+#import "TabbarItem.h"
 
 @interface VHSBaseViewController : UIViewController
 
@@ -23,4 +25,8 @@
  * 注意：导航不能为空
  */
 @property(nonatomic,copy)NSString *nextVcBackTitle;
+
+
+@property (nonatomic, strong) TabbarItem *barItem;
+
 @end

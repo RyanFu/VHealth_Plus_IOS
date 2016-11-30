@@ -28,6 +28,8 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self getTabNavConfiguration];
+    
     [self addChildViewControllerWithStoryboard:@"Dynamic" storyboardIdentifier:@"VHSDynamicHomeController" tabBarItemTitle:@"动态" image:@"icon_dongtai" andSelectImage:@"icon_dongtai_sel"];
     [self addChildViewControllerWithStoryboard:@"Activity" storyboardIdentifier:@"VHSActivityController" tabBarItemTitle:@"活动" image:@"icon_huodong" andSelectImage:@"icon_huodong_sel"];
     [self addChildViewControllerWithStoryboard:@"Shop" storyboardIdentifier:@"VHSShopController" tabBarItemTitle:@"福利" image:@"icon_fuli" andSelectImage:@"icon_fuli_selected"];
@@ -42,8 +44,6 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(switchOfNotification)
                                                  name:UIApplicationWillEnterForegroundNotification object:nil];
-    
-    [self configTabNavigationBar];
 }
 
 
@@ -95,7 +95,7 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
 }
 
 /// 配置导航栏和Tabbar
-- (void)configTabNavigationBar {
+- (void)getTabNavConfiguration {
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     message.path = URL_GET_NAVIGATION;
     message.httpMethod = VHSNetworkPOST;
@@ -106,6 +106,19 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
         if ([result[@"result"] integerValue] != 200) return;
         
         [VHSCommon saveUserDefault:result forKey:Cache_Config_NavOrTabbar];
+        
+        NSMutableArray *list = [NSMutableArray new];
+        // 获取缓存数据源
+        for (NSDictionary *dic in result[@"resultList"]) {
+            TabbarItem *item = [TabbarItem yy_modelWithDictionary:dic];
+            [list addObject:item];
+        }
+        
+        for (NSInteger i = 0; i < [self.viewControllers count]; i++) {
+            VHSNavigationController *nav = (VHSNavigationController *)self.viewControllers[i];
+            VHSBaseViewController *baseVC = nav.viewControllers[0];
+            baseVC.barItem = list[i];
+        }
         
     } fail:^(NSError *error) {
         CLog(@"%@", error.description);

@@ -10,9 +10,18 @@
 
 @interface VHSBaseViewController ()
 
+@property (nonatomic, strong) UIImageView *navigationBar;
+
 @end
 
 @implementation VHSBaseViewController
+
+- (UIImageView *)navigationBar {
+    if (!_navigationBar) {
+        _navigationBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, SCREENW, 44)];
+    }
+    return _navigationBar;
+}
 
 -(void)loadView {
     [super loadView];
@@ -28,6 +37,14 @@
     [super viewWillAppear:animated];
     
     self.isVisible = YES;
+    
+    // 配置导航栏
+    if ([self.navigationController.viewControllers count] > 1) {
+        self.navigationController.navigationBarHidden = NO;
+    }
+    else if ([self.navigationController.viewControllers count] == 1 && [self.barItem.topType integerValue] == 0) {
+        self.navigationController.navigationBarHidden = YES;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -64,6 +81,26 @@
     UIBarButtonItem *item = [[UIBarButtonItem alloc]init];
     item.title = nextVcBackTitle;
     self.navigationItem.backBarButtonItem = item;
+}
+
+#pragma mark -  配置导航栏
+
+- (void)setBarItem:(TabbarItem *)barItem {
+    _barItem = barItem;
+    // 0: 图片 1: 文字
+    if ([_barItem.topType integerValue] == 0) {
+        self.navigationController.navigationBarHidden = YES;
+        
+        // 使用ImageView替代导航栏
+        [self.view addSubview:self.navigationBar];
+        [self.navigationBar sd_setImageWithURL:[NSURL URLWithString:_barItem.topUrl]];
+        
+    } else {
+        self.navigationItem.title = _barItem.topUrl;
+    }
+    
+    // 配置TabbarItem
+    self.tabBarItem.title = _barItem.footerName;
 }
 
 @end

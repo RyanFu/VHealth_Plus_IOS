@@ -3,7 +3,7 @@
 //  GongYunTong
 //
 //  Created by vhsben on 16/7/18.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs. All rights reserved.
 //
 
 #import "VHSNavigationController.h"
@@ -11,12 +11,13 @@
 
 @interface VHSNavigationController ()
 
+@property (nonatomic, strong) UIImageView *navImageView;
+@property (nonatomic, strong) UIView *navView;
 @property (nonatomic, strong) NSMutableArray *configNavTabList;
 
 @end
 
 @implementation VHSNavigationController
-
 
 + (void)initialize
 {
@@ -74,59 +75,22 @@
                                     [UIFont boldSystemFontOfSize:17],
                                     NSFontAttributeName, nil]];
 }
+
 //实现此方法，可在NavigationController的栈顶视图里设置信号栏字体颜色
-- (UIViewController *)childViewControllerForStatusBarStyle
-{
+- (UIViewController *)childViewControllerForStatusBarStyle {
     return self.topViewController;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
-- (void)configNavTab {
-    NSDictionary *result = [VHSCommon getUserDefautForKey:Cache_Config_NavOrTabbar];
-    
-    // 获取缓存数据源
-    self.configNavTabList = [NSMutableArray new];
-    for (NSDictionary *dic in result[@"resultList"]) {
-        TabbarItem *item = [TabbarItem yy_modelWithDictionary:dic];
-        [self.configNavTabList addObject:item];
-    }
-    
-    if (self.tabBarController.selectedIndex == 0) {
-        [self configWithTabbarItem:self.configNavTabList[0]];
-    }
-    else if (self.tabBarController.selectedIndex == 1) {
-        NSLog(@"1");
-    }
-    else if (self.tabBarController.selectedIndex == 2) {
-        NSLog(@"2");
-    }
-    else if (self.tabBarController.selectedIndex == 3) {
-        NSLog(@"3");
-    }
-    else if (self.tabBarController.selectedIndex == 4) {
-        NSLog(@"4");
-    }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
-- (void)configWithTabbarItem:(TabbarItem *)item {
-    // 0 : 图片url，1 : title文字
-    if ([item.topType integerValue] == 0) {
-        self.navigationController.navigationBarHidden = YES;
-        
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, SCREENW, TABBAR_HEIGHT)];
-        imgView.userInteractionEnabled = YES;
-        [imgView sd_setImageWithURL:[NSURL URLWithString:item.topUrl] placeholderImage:[UIImage imageNamed:@"btn_startuse_s"]];
-        [self.navigationController.view addSubview:imgView];
-        
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
-        [imgView addGestureRecognizer:tap];
-    } else {
-        
-    }
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 }
 
 

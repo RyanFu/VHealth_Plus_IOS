@@ -166,7 +166,6 @@
 }
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     
     self.shouldCloseBGMusic = YES;
