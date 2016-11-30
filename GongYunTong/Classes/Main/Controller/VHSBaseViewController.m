@@ -3,7 +3,7 @@
 //  GongYunTong
 //
 //  Created by vhsben on 16/7/18.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs. All rights reserved.
 //
 
 #import "VHSBaseViewController.h"
@@ -30,6 +30,10 @@
     self.isVisible = YES;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
@@ -54,11 +58,12 @@
     }
     return _glassView;
 }
--(void)setNextVcBackTitle:(NSString *)nextVcBackTitle
-{
-    _nextVcBackTitle=nextVcBackTitle;
-    UIBarButtonItem *item=[[UIBarButtonItem alloc]init];
-    item.title=nextVcBackTitle;
-    self.navigationItem.backBarButtonItem=item;
+-(void)setNextVcBackTitle:(NSString *)nextVcBackTitle {
+    
+    _nextVcBackTitle = nextVcBackTitle;
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]init];
+    item.title = nextVcBackTitle;
+    self.navigationItem.backBarButtonItem = item;
 }
+
 @end

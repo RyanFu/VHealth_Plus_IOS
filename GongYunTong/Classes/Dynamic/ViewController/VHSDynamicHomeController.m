@@ -57,7 +57,7 @@
     self.automaticallyAdjustsScrollViewInsets = false;
     self.dynamicHomeTable.backgroundColor = COLORHex(@"#EFEFF4");
     
-    self.navigationItem.title = @"动态";
+//    self.navigationItem.title = @"动态";
     self.currentPageNum = 1;
     
     // 缓存中读取数据

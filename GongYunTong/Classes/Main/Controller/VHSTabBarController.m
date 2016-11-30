@@ -16,7 +16,10 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
     AcceptNotificationStatusClose
 };
 
-@interface VHSTabBarController ()
+@interface VHSTabBarController ()<UITabBarControllerDelegate>
+
+@property (nonatomic, strong) NSMutableArray *tabitemList;
+@property (nonatomic, strong) UIImage *image;
 
 @end
 
@@ -31,6 +34,9 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
     [self addChildViewControllerWithStoryboard:@"Discover" storyboardIdentifier:@"VHSDiscoverController" tabBarItemTitle:@"发现" image:@"icon_faxian" andSelectImage:@"icon_faxian_sel"];
     
     [self addChildViewControllerWithStoryboard:@"Me" storyboardIdentifier:@"VHSMeController" tabBarItemTitle:@"我" image:@"icon_wo" andSelectImage:@"icon_wo_sel"];
+    
+    // 代理
+    self.delegate = self;
     
     // 监听系统信息进入前台的通知
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -99,30 +105,7 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
         NSDictionary *result = response;
         if ([result[@"result"] integerValue] != 200) return;
         
-        CLog(@"%@", result);
-        
-        NSArray *resultList = result[@"resultList"];
-        
-        NSMutableArray *tabItemList = [NSMutableArray new];
-        for (NSDictionary *dict in resultList) {
-            TabbarItem *item = [TabbarItem yy_modelWithDictionary:dict];
-            [tabItemList addObject:item];
-        }
-        
-        NSArray *childControllers = self.viewControllers;
-        for (NSInteger i = 0; i < [childControllers count]; i++) {
-            // 设置Tabbar
-            VHSNavigationController *nav = childControllers[i];
-            TabbarItem *item = tabItemList[i];
-            nav.tabBarItem.title = item.footerName;
-            
-            // 0 : 图片 1 : 文字
-            if ([item.topType integerValue] == 0) {
-                
-            } else {
-                
-            }
-        }
+        [VHSCommon saveUserDefault:result forKey:Cache_Config_NavOrTabbar];
         
     } fail:^(NSError *error) {
         CLog(@"%@", error.description);

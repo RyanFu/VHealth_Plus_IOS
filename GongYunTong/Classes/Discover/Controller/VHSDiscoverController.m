@@ -37,7 +37,7 @@ NSInteger const ROWCOUNT = 3;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"发现";
+//    self.navigationItem.title = @"发现";
     
     // 防止navigationBar挡住tableView/scrollView
     self.automaticallyAdjustsScrollViewInsets = false;
