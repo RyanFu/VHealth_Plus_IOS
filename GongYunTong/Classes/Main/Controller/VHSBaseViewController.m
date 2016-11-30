@@ -19,6 +19,11 @@
 - (UIImageView *)navigationBar {
     if (!_navigationBar) {
         _navigationBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, SCREENW, 44)];
+        
+        _navigationBar.layer.shadowColor = [UIColor blackColor].CGColor;
+        _navigationBar.layer.shadowOffset = CGSizeMake(0, 0.8);
+        _navigationBar.layer.shadowRadius = 1.0f;
+        _navigationBar.layer.shadowOpacity = 0.5f;
     }
     return _navigationBar;
 }

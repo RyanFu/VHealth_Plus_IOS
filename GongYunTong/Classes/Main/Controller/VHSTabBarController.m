@@ -28,17 +28,19 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 服务器获取导航栏配置信息
     [self getTabNavConfiguration];
     
     [self addChildViewControllerWithStoryboard:@"Dynamic" storyboardIdentifier:@"VHSDynamicHomeController" tabBarItemTitle:@"动态" image:@"icon_dongtai" andSelectImage:@"icon_dongtai_sel"];
     [self addChildViewControllerWithStoryboard:@"Activity" storyboardIdentifier:@"VHSActivityController" tabBarItemTitle:@"活动" image:@"icon_huodong" andSelectImage:@"icon_huodong_sel"];
     [self addChildViewControllerWithStoryboard:@"Shop" storyboardIdentifier:@"VHSShopController" tabBarItemTitle:@"福利" image:@"icon_fuli" andSelectImage:@"icon_fuli_selected"];
     [self addChildViewControllerWithStoryboard:@"Discover" storyboardIdentifier:@"VHSDiscoverController" tabBarItemTitle:@"发现" image:@"icon_faxian" andSelectImage:@"icon_faxian_sel"];
-    
     [self addChildViewControllerWithStoryboard:@"Me" storyboardIdentifier:@"VHSMeController" tabBarItemTitle:@"我" image:@"icon_wo" andSelectImage:@"icon_wo_sel"];
     
-    // 代理
-    self.delegate = self;
+    // 从缓存获取配置导航
+    NSArray *listOfNavTab = [VHSCommon getUserDefautForKey:Cache_Config_NavOrTabbar];
+    [self configNavOrTabWith:listOfNavTab];
+    
     
     // 监听系统信息进入前台的通知
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -79,6 +81,7 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
     
     VHSNavigationController *navigationController = [[VHSNavigationController alloc] initWithRootViewController:VC];
     [self addChildViewController:navigationController];
+    
 }
 
 
@@ -105,23 +108,36 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
         NSDictionary *result = response;
         if ([result[@"result"] integerValue] != 200) return;
         
-        [VHSCommon saveUserDefault:result forKey:Cache_Config_NavOrTabbar];
+        NSArray *resultList = result[@"resultList"];
+        [VHSCommon saveUserDefault:resultList forKey:Cache_Config_NavOrTabbar];
         
-        NSMutableArray *list = [NSMutableArray new];
-        // 获取缓存数据源
-        for (NSDictionary *dic in result[@"resultList"]) {
-            TabbarItem *item = [TabbarItem yy_modelWithDictionary:dic];
-            [list addObject:item];
-        }
-        
-        for (NSInteger i = 0; i < [self.viewControllers count]; i++) {
-            VHSNavigationController *nav = (VHSNavigationController *)self.viewControllers[i];
-            VHSBaseViewController *baseVC = nav.viewControllers[0];
-            baseVC.barItem = list[i];
-        }
+        // 配置导航栏和标签栏
+        [self configNavOrTabWith:resultList];
         
     } fail:^(NSError *error) {
         CLog(@"%@", error.description);
+    }];
+}
+
+/// 配置标签栏和导航栏
+- (void)configNavOrTabWith:(NSArray *)dictList {
+    
+    if (![dictList isKindOfClass:[NSArray class]]) return;
+    
+    NSMutableArray *tabbarList = [NSMutableArray new];
+    // 获取缓存数据源
+    for (NSDictionary *dic in dictList) {
+        TabbarItem *item = [TabbarItem yy_modelWithDictionary:dic];
+        [tabbarList addObject:item];
+    }
+    
+    // 根据后端返回的nindex去对应的改变controller
+    [tabbarList enumerateObjectsUsingBlock:^(TabbarItem *item, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSInteger index = [item.nindex integerValue];
+        
+        VHSNavigationController *nav = (VHSNavigationController *)self.viewControllers[index - 1];
+        VHSBaseViewController *baseVC = nav.viewControllers[0];
+        baseVC.barItem = item;
     }];
 }
 
