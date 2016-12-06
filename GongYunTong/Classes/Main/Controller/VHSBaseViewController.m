@@ -47,7 +47,7 @@
     if ([self.navigationController.viewControllers count] > 1) {
         self.navigationController.navigationBarHidden = NO;
     }
-    else if ([self.navigationController.viewControllers count] == 1 && [self.barItem.topType integerValue] == 0) {
+    else if (self.barItem && [self.navigationController.viewControllers count] == 1 && [self.barItem.topType integerValue] == 0) {
         self.navigationController.navigationBarHidden = YES;
     }
 }
@@ -76,7 +76,7 @@
 {
     if (!_glassView)
     {
-        _glassView = [[GlassView alloc]initWithFrame:CGRectMake(0, 64, SCREENW, SCREENH- 64)];
+        _glassView = [[GlassView alloc] initWithFrame:CGRectMake(0, 64, SCREENW, SCREENH- 64)];
     }
     return _glassView;
 }

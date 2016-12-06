@@ -29,24 +29,24 @@
 #endif
 
 #ifdef GYT_BUILD_FOR_TEST
-//#define kServerURL @"https://vhealthplus.valurise.com/oauth2"
-#define kServerURL @"http://118.242.18.199:10000/oauth2"
+#define kServerURL @"https://vhealthplus.valurise.com/oauth2"
+//#define kServerURL @"http://118.242.18.199:10000/oauth2"
 //#define kServerURL @"http://192.168..72:8080/oauth2"
 #endif
 
 #ifdef GYT_BUILD_FOR_BATE
-//#define kServerURL @"https://vhealthplus.valurise.com/oauth2"
-#define kServerURL @"http://118.242.18.199:10000/oauth2"
+#define kServerURL @"https://vhealthplus.valurise.com/oauth2"
+//#define kServerURL @"http://118.242.18.199:10000/oauth2"
 //#define kServerURL @"http://192.168.2.72:8080/oauth2"
 #endif
 
 /// 福利链接
-//static NSString *MAIN_SHOP_URL = @"https://vhealthplus.valurise.com/index.php";
-static NSString *MAIN_SHOP_URL = @"http://118.242.18.199:10000/index.php";
+static NSString *MAIN_SHOP_URL = @"https://vhealthplus.valurise.com/index.php";
+//static NSString *MAIN_SHOP_URL = @"http://118.242.18.199:10000/index.php";
 
 /// 活动链接
-//static NSString *ACTIVITY_MAIN_URL = @"http://vhealthplus.valurise.com/client/activity/index.htm";
-static NSString *ACTIVITY_MAIN_URL = @"http://118.242.18.199:10000/client/activity/index.htm";
+static NSString *ACTIVITY_MAIN_URL = @"http://vhealthplus.valurise.com/client/activity/index.htm";
+//static NSString *ACTIVITY_MAIN_URL = @"http://118.242.18.199:10000/client/activity/index.htm";
 
 #pragma mark - 接口
 
