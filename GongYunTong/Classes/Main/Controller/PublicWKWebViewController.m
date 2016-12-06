@@ -166,12 +166,10 @@
 }
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     
     self.shouldCloseBGMusic = YES;
     //    [self customNavigation];
-    [self customNavigationBar];
     [self setupRefresh];
     
     NSString *url = nil;
@@ -217,6 +215,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [self customNavigationBar];
     [self.contentWKWebView reload];
 }
 

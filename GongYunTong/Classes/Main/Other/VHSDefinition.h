@@ -3,7 +3,7 @@
 //  GongYunTong
 //
 //  Created by pingjun lin on 16/8/8.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #ifndef VHSDefinition_h
@@ -11,10 +11,11 @@
 
 #define mark - 缓存 ======================
 
-#define Cache_Dynamic_BannerList                @"Cache_Dynamic_BannerList"
-#define Cache_Dynamic_DynamicList               @"Cache_Dynamic_DynamicList"
-#define Cache_Discover_BannerList               @"Cache_Discover_BannerList"
-#define Cache_Me_UserScore                      @"Cache_Me_UserScore"
+#define Cache_Dynamic_BannerList                @"Cache_Dynamic_BannerList"     // 动态banner缓存
+#define Cache_Dynamic_DynamicList               @"Cache_Dynamic_DynamicList"    // 动态列表缓存
+#define Cache_Discover_BannerList               @"Cache_Discover_BannerList"    // 发现
+#define Cache_Me_UserScore                      @"Cache_Me_UserScore"           // 我
+#define Cache_Config_NavOrTabbar                @"Cache_Config_NavOrTabbar"     // 导航栏和状态栏
 
 #pragma mark - Toast -=========================Toast 提示语===================
 

@@ -37,7 +37,7 @@ NSInteger const ROWCOUNT = 3;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"发现";
+//    self.navigationItem.title = @"发现";
     
     // 防止navigationBar挡住tableView/scrollView
     self.automaticallyAdjustsScrollViewInsets = false;
@@ -59,12 +59,12 @@ NSInteger const ROWCOUNT = 3;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[BaiduMobStat defaultStat] pageviewStartWithName:[NSString stringWithFormat:@"%@", self.title]];
+    [[BaiduMobStat defaultStat] pageviewStartWithName:[NSString stringWithFormat:@"%@", @"发现"]];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[BaiduMobStat defaultStat] pageviewEndWithName:[NSString stringWithFormat:@"%@", self.title]];
+    [[BaiduMobStat defaultStat] pageviewEndWithName:[NSString stringWithFormat:@"%@", @"发现"]];
 }
 
 -(void)setupFlowLayout {

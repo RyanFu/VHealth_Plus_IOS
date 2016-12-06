@@ -3,16 +3,30 @@
 //  GongYunTong
 //
 //  Created by vhsben on 16/7/18.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs. All rights reserved.
 //
 
 #import "VHSBaseViewController.h"
 
 @interface VHSBaseViewController ()
 
+@property (nonatomic, strong) UIImageView *navigationBar;
+
 @end
 
 @implementation VHSBaseViewController
+
+- (UIImageView *)navigationBar {
+    if (!_navigationBar) {
+        _navigationBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, SCREENW, 44)];
+        
+        _navigationBar.layer.shadowColor = [UIColor blackColor].CGColor;
+        _navigationBar.layer.shadowOffset = CGSizeMake(0, 0.8);
+        _navigationBar.layer.shadowRadius = 1.0f;
+        _navigationBar.layer.shadowOpacity = 0.5f;
+    }
+    return _navigationBar;
+}
 
 -(void)loadView {
     [super loadView];
@@ -28,6 +42,18 @@
     [super viewWillAppear:animated];
     
     self.isVisible = YES;
+    
+    // 配置导航栏
+    if ([self.navigationController.viewControllers count] > 1) {
+        self.navigationController.navigationBarHidden = NO;
+    }
+    else if (self.barItem && [self.navigationController.viewControllers count] == 1 && [self.barItem.topType integerValue] == 0) {
+        self.navigationController.navigationBarHidden = YES;
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -50,15 +76,36 @@
 {
     if (!_glassView)
     {
-        _glassView = [[GlassView alloc]initWithFrame:CGRectMake(0, 64, SCREENW, SCREENH- 64)];
+        _glassView = [[GlassView alloc] initWithFrame:CGRectMake(0, 64, SCREENW, SCREENH- 64)];
     }
     return _glassView;
 }
--(void)setNextVcBackTitle:(NSString *)nextVcBackTitle
-{
-    _nextVcBackTitle=nextVcBackTitle;
-    UIBarButtonItem *item=[[UIBarButtonItem alloc]init];
-    item.title=nextVcBackTitle;
-    self.navigationItem.backBarButtonItem=item;
+-(void)setNextVcBackTitle:(NSString *)nextVcBackTitle {
+    
+    _nextVcBackTitle = nextVcBackTitle;
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]init];
+    item.title = nextVcBackTitle;
+    self.navigationItem.backBarButtonItem = item;
 }
+
+#pragma mark -  配置导航栏
+
+- (void)setBarItem:(TabbarItem *)barItem {
+    _barItem = barItem;
+    // 0: 图片 1: 文字
+    if ([_barItem.topType integerValue] == 0) {
+        self.navigationController.navigationBarHidden = YES;
+        
+        // 使用ImageView替代导航栏
+        [self.view addSubview:self.navigationBar];
+        [self.navigationBar sd_setImageWithURL:[NSURL URLWithString:_barItem.topUrl]];
+        
+    } else {
+        self.navigationItem.title = _barItem.topUrl;
+    }
+    
+    // 配置TabbarItem
+    self.tabBarItem.title = _barItem.footerName;
+}
+
 @end

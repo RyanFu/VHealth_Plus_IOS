@@ -232,7 +232,6 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
     NSString *name = [k_UserDefaults objectForKey:k_SHOUHUAN_NAME];
     [[SharePeripheral sharePeripheral].bleMolue ASDKSendConnectDevice:uuid];
     [SharePeripheral sharePeripheral].bleName = name;
-    
 }
 
 - (void)syncFitBleData:(void (^)(int errorCode))syncBlock {
@@ -395,8 +394,7 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
             // 确认绑定成功
             if ([result[@"error_code"] intValue] != 0) { return; }
             // 获取channel_id
-            NSString *channelId = [BPush getChannelId];
-            CLog(@"Channel_id == %@",channelId);
+            CLog(@"Channel_id == %@",[BPush getChannelId]);
             [VHSCommon saveBPushChannelId:[BPush getChannelId]];
             
             [BPush listTagsWithCompleteHandler:^(id result, NSError *error) {

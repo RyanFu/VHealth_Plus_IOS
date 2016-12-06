@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TabbarItem.h"
 
 @interface VHSNavigationController : UINavigationController
 

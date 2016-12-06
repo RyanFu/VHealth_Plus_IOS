@@ -98,5 +98,7 @@ static NSString *ACTIVITY_MAIN_URL = @"http://vhealthplus.valurise.com/client/ac
 #define URL_ADD_STEP                                @"/addStep.htm"
 /// 引用是否开启推送服务
 #define URL_UP_ACCEPT_MSG                           @"/upAcceptMsg.htm"
+/// 配置导航栏和Tabbar
+#define URL_GET_NAVIGATION                          @"/getNavigation.htm"
 
 #endif /* VHSURL_h */

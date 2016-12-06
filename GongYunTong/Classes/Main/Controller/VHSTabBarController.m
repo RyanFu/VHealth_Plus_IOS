@@ -8,6 +8,7 @@
 
 #import "VHSTabBarController.h"
 #import "VHSNavigationController.h"
+#import "TabbarItem.h"
 
 typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
 {
@@ -15,7 +16,10 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
     AcceptNotificationStatusClose
 };
 
-@interface VHSTabBarController ()
+@interface VHSTabBarController ()<UITabBarControllerDelegate>
+
+@property (nonatomic, strong) NSMutableArray *tabitemList;
+@property (nonatomic, strong) UIImage *image;
 
 @end
 
@@ -24,15 +28,24 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 服务器获取导航栏配置信息
+    [self getTabNavConfiguration];
+    
     [self addChildViewControllerWithStoryboard:@"Dynamic" storyboardIdentifier:@"VHSDynamicHomeController" tabBarItemTitle:@"动态" image:@"icon_dongtai" andSelectImage:@"icon_dongtai_sel"];
     [self addChildViewControllerWithStoryboard:@"Activity" storyboardIdentifier:@"VHSActivityController" tabBarItemTitle:@"活动" image:@"icon_huodong" andSelectImage:@"icon_huodong_sel"];
     [self addChildViewControllerWithStoryboard:@"Shop" storyboardIdentifier:@"VHSShopController" tabBarItemTitle:@"福利" image:@"icon_fuli" andSelectImage:@"icon_fuli_selected"];
     [self addChildViewControllerWithStoryboard:@"Discover" storyboardIdentifier:@"VHSDiscoverController" tabBarItemTitle:@"发现" image:@"icon_faxian" andSelectImage:@"icon_faxian_sel"];
-    
     [self addChildViewControllerWithStoryboard:@"Me" storyboardIdentifier:@"VHSMeController" tabBarItemTitle:@"我" image:@"icon_wo" andSelectImage:@"icon_wo_sel"];
     
+    // 从缓存获取配置导航
+    NSArray *listOfNavTab = [VHSCommon getUserDefautForKey:Cache_Config_NavOrTabbar];
+    [self configNavOrTabWith:listOfNavTab];
+    
+    
     // 监听系统信息进入前台的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(switchOfNotification) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(switchOfNotification)
+                                                 name:UIApplicationWillEnterForegroundNotification object:nil];
 }
 
 
@@ -46,16 +59,27 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
  *  @param selectName tabBarItem上的选中图片
  */
 
-- (void)addChildViewControllerWithStoryboard:(NSString *)sb storyboardIdentifier:(NSString *)identifier tabBarItemTitle:(NSString *)title image:(NSString *)imageName andSelectImage:(NSString *)selectName {
+- (void)addChildViewControllerWithStoryboard:(NSString *)sb
+                        storyboardIdentifier:(NSString *)identifier
+                             tabBarItemTitle:(NSString *)title
+                                       image:(NSString *)imageName
+                              andSelectImage:(NSString *)selectName {
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:sb bundle:nil];
-    UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:identifier];
-    viewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:title image:[[UIImage imageNamed:imageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:selectName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+    UIViewController *VC = [StoryboardHelper controllerWithStoryboardName:sb
+                                                             controllerId:identifier];
+    
+    VC.tabBarItem = [[UITabBarItem alloc] initWithTitle:title
+                                                  image:[[UIImage imageNamed:imageName]
+                                 imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                          selectedImage:[[UIImage imageNamed:selectName]
+                                 imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
     //设置字体
-    [viewController.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor]} forState:UIControlStateNormal];
-    [viewController.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]} forState:UIControlStateSelected];
+    [VC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor lightGrayColor]}
+                                             forState:UIControlStateNormal];
+    [VC.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]}
+                                             forState:UIControlStateSelected];
     
-    VHSNavigationController *navigationController = [[VHSNavigationController alloc] initWithRootViewController:viewController];
+    VHSNavigationController *navigationController = [[VHSNavigationController alloc] initWithRootViewController:VC];
     [self addChildViewController:navigationController];
     
 }
@@ -73,7 +97,52 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
     }
 }
 
-// 通知服务器，是否接受推送通知
+/// 配置导航栏和Tabbar
+- (void)getTabNavConfiguration {
+    VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
+    message.path = URL_GET_NAVIGATION;
+    message.httpMethod = VHSNetworkPOST;
+    
+    [[VHSHttpEngine sharedInstance] sendMessage:message success:^(id response) {
+        CLog(@"%@", response);
+        
+        NSDictionary *result = response;
+        if ([result[@"result"] integerValue] != 200) return;
+        
+        NSArray *resultList = result[@"resultList"];
+        [VHSCommon saveUserDefault:resultList forKey:Cache_Config_NavOrTabbar];
+        
+        // 配置导航栏和标签栏
+        [self configNavOrTabWith:resultList];
+        
+    } fail:^(NSError *error) {
+        CLog(@"%@", error.description);
+    }];
+}
+
+/// 配置标签栏和导航栏
+- (void)configNavOrTabWith:(NSArray *)dictList {
+    
+    if (![dictList isKindOfClass:[NSArray class]]) return;
+    
+    NSMutableArray *tabbarList = [NSMutableArray new];
+    // 获取缓存数据源
+    for (NSDictionary *dic in dictList) {
+        TabbarItem *item = [TabbarItem yy_modelWithDictionary:dic];
+        [tabbarList addObject:item];
+    }
+    
+    // 根据后端返回的nindex去对应的改变controller
+    [tabbarList enumerateObjectsUsingBlock:^(TabbarItem *item, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSInteger index = [item.nindex integerValue];
+        
+        VHSNavigationController *nav = (VHSNavigationController *)self.viewControllers[index - 1];
+        VHSBaseViewController *baseVC = nav.viewControllers[0];
+        baseVC.barItem = item;
+    }];
+}
+
+/// 通知服务器，是否接受推送通知
 - (void)postNotificationStatus:(AcceptNotificationStatus)status {
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     if (status == AcceptNotificationStatusClose) {
@@ -93,7 +162,9 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIApplicationWillEnterForegroundNotification
+                                                  object:nil];
 }
 
 @end

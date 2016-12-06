@@ -83,7 +83,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    self.title = @"活动";
+//    self.navigationItem.title = @"活动";
     self.view.backgroundColor = COLOR_BG_TABLEVIEW;
     
     // 防止navigationBar挡住tableView/scrollView
@@ -120,13 +120,13 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[BaiduMobStat defaultStat] pageviewStartWithName:[NSString stringWithFormat:@"%@", self.title]];
+    [[BaiduMobStat defaultStat] pageviewStartWithName:[NSString stringWithFormat:@"%@", @"活动"]];
     [self webViewIfNeededRefresh];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[BaiduMobStat defaultStat] pageviewEndWithName:[NSString stringWithFormat:@"%@", self.title]];
+    [[BaiduMobStat defaultStat] pageviewEndWithName:[NSString stringWithFormat:@"%@", @"活动"]];
 }
 
 - (void)webViewIfNeededRefresh {
@@ -175,8 +175,7 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     NSString *theTitle = webView.title;
     if ([VHSCommon isNullString:theTitle]) {
-        self.navigationItem.title = @"活动";
-        self.tabBarItem.title = @"活动";
+//        self.navigationItem.title = @"活动";
     }
     
     [webView.scrollView.mj_header endRefreshing];
