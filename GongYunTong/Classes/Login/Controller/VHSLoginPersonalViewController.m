@@ -171,7 +171,7 @@
         
         
         if (dateStr==nil) {
-            components =[calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth |NSCalendarUnitDay)
+            components =[calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay)
                                     fromDate:date];
             NSInteger year = [components year];
             NSInteger month = [components month];
@@ -205,7 +205,7 @@
 -(NSArray *)arrInfo
 {
     if (!_arrInfo) {
-        _arrInfo=@[@"性别 *",@"身高 *",@"体重 *",@"出身年月 *"];
+        _arrInfo=@[@"性别 *",@"身高 *",@"体重 *",@"出生年月 *"];
     }
     return _arrInfo;
 }

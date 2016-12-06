@@ -160,8 +160,9 @@
     self.bindCell.bingButton.hidden = YES;
     
     PeripheralModel *model = self.peripheralArray[indexPath.row];
-    [[SharePeripheral sharePeripheral].bleMolue ASDKSendConnectDevice:model.UUID];
     
+    /// 去绑定手环
+    [self toSendConnectDevice:model];
 }
 
 #pragma mark - 收到外围设备监听消息
@@ -179,7 +180,7 @@
     //会多次回调此方法，只网络请求判断一次
     if (!self.isBinding) {
         self.isBinding = YES;
-        [MBProgressHUD showMessage:nil];
+//        [MBProgressHUD showMessage:nil];
         CBPeripheral *peripheral = noti.userInfo[DeviceDidConnectedBLEsUserInfoPeripheral];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -326,6 +327,13 @@
     
     NSIndexPath *index = [self.tableView indexPathForCell:cell];
     PeripheralModel *model = self.peripheralArray[index.row];
+    
+    // 同发送绑定手环
+    [self toSendConnectDevice:model];
+}
+
+- (void)toSendConnectDevice:(PeripheralModel *)model {
+    [MBProgressHUD showMessage:nil];
     [[SharePeripheral sharePeripheral].bleMolue ASDKSendConnectDevice:model.UUID];
 }
 

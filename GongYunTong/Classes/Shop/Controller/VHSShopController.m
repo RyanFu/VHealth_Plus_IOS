@@ -16,22 +16,18 @@
 @property (nonatomic, strong) UIView                *noContentView;
 @property (nonatomic, strong) WKWebView             *contentWKWebView;
 
-@property (nonatomic, strong) UIView                *progress;
-@property (nonatomic, strong) UIView                *backView;
-@property (nonatomic, strong) UIView                *closeView;
-@property (nonatomic, assign) BOOL                  didHiddenTabBar;
-@property (nonatomic, assign) BOOL                  didClickGoBack;
-@property (nonatomic, assign) BOOL                  thisPage;
-@property (nonatomic, assign) NSInteger             loadTimes;
+@property (nonatomic, strong) UIView                *progress;          // 进度条
+@property (nonatomic, strong) UIView                *backView;          // 返回
+@property (nonatomic, strong) UIView                *closeView;         // 关闭
+@property (nonatomic, assign) BOOL                  didClickGoBack;     // 点击返回按钮
+@property (nonatomic, assign) NSInteger             loadTimes;          // 载入次数
 
 @end
 
 @implementation VHSShopController
 
-- (void)setDidHiddenTabBar:(BOOL)didHiddenTabBar {
-    _didHiddenTabBar = didHiddenTabBar;
-    
-    self.backView.hidden = !_didHiddenTabBar;
+- (BOOL)isHiddenTabbar {
+    return self.tabBarController.tabBar.isHidden;
 }
 
 #pragma mark - 自定义导航栏
@@ -93,23 +89,44 @@
 }
 
 - (void)shouldShowBottomBar:(BOOL)shouldShow {
-    if (shouldShow) {
-        self.didHiddenTabBar = NO;
+    // 不在当前页面
+    if (!self.isVisible) {
+        return;
+    }
+
+    if (!shouldShow) {
+        self.tabBarController.tabBar.hidden = YES;
         CGRect tabBarFrame = self.navigationController.tabBarController.tabBar.frame;
         CGRect webFrame = self.contentWKWebView.frame;
         [UIView animateWithDuration:0.1 animations:^{
-            self.navigationController.tabBarController.tabBar.frame = CGRectMake(tabBarFrame.origin.x, tabBarFrame.origin.y - tabBarFrame.size.height, tabBarFrame.size.width, tabBarFrame.size.height);
-            self.contentWKWebView.frame = CGRectMake(webFrame.origin.x, webFrame.origin.y, webFrame.size.width, webFrame.size.height - tabBarFrame.size.height);
-        }];
-    } else {
-        self.didHiddenTabBar = YES;
-        CGRect tabBarFrame = self.navigationController.tabBarController.tabBar.frame;
-        CGRect webFrame = self.contentWKWebView.frame;
-        [UIView animateWithDuration:0.1 animations:^{
-            self.navigationController.tabBarController.tabBar.frame = CGRectMake(tabBarFrame.origin.x, tabBarFrame.origin.y + tabBarFrame.size.height, tabBarFrame.size.width, tabBarFrame.size.height);
             self.contentWKWebView.frame = CGRectMake(webFrame.origin.x, webFrame.origin.y, webFrame.size.width, webFrame.size.height + tabBarFrame.size.height);
         }];
+    } else {
+        CGRect tabBarFrame = self.navigationController.tabBarController.tabBar.frame;
+        CGRect webFrame = self.contentWKWebView.frame;
+        self.tabBarController.tabBar.hidden = NO;
+        [UIView animateWithDuration:0.1 animations:^{
+            self.contentWKWebView.frame = CGRectMake(webFrame.origin.x, webFrame.origin.y, webFrame.size.width, webFrame.size.height - tabBarFrame.size.height);
+        }];
     }
+    
+//    if (shouldShow) {
+//        self.didHiddenTabBar = NO;
+//        CGRect tabBarFrame = self.navigationController.tabBarController.tabBar.frame;
+//        CGRect webFrame = self.contentWKWebView.frame;
+//        [UIView animateWithDuration:0.1 animations:^{
+//            self.navigationController.tabBarController.tabBar.frame = CGRectMake(tabBarFrame.origin.x, tabBarFrame.origin.y - tabBarFrame.size.height, tabBarFrame.size.width, tabBarFrame.size.height);
+//            self.contentWKWebView.frame = CGRectMake(webFrame.origin.x, webFrame.origin.y, webFrame.size.width, webFrame.size.height - tabBarFrame.size.height);
+//        }];
+//    } else {
+//        self.didHiddenTabBar = YES;
+//        CGRect tabBarFrame = self.navigationController.tabBarController.tabBar.frame;
+//        CGRect webFrame = self.contentWKWebView.frame;
+//        [UIView animateWithDuration:0.1 animations:^{
+//            self.navigationController.tabBarController.tabBar.frame = CGRectMake(tabBarFrame.origin.x, tabBarFrame.origin.y + tabBarFrame.size.height, tabBarFrame.size.width, tabBarFrame.size.height);
+//            self.contentWKWebView.frame = CGRectMake(webFrame.origin.x, webFrame.origin.y, webFrame.size.width, webFrame.size.height + tabBarFrame.size.height);
+//        }];
+//    }
 }
 
 - (void)loadReq {
@@ -185,21 +202,23 @@
     }
     
     // 监听支付宝支付回调通知
-    [k_NotificationCenter addObserver:self selector:@selector(handleAlipayInfo:) name:k_NOTI_ALIPAY_CALLBACK_INFO object:nil];
+    [k_NotificationCenter addObserver:self
+                             selector:@selector(handleAlipayInfo:)
+                                 name:k_NOTI_ALIPAY_CALLBACK_INFO
+                               object:nil];
     // 监测系统通知
-    [k_NotificationCenter addObserver:self selector:@selector(appWillEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [k_NotificationCenter addObserver:self
+                             selector:@selector(appWillEnterForeground)
+                                 name:UIApplicationWillEnterForegroundNotification
+                               object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.thisPage = YES;
     [self.contentWKWebView evaluateJavaScript:@"__isIndex()" completionHandler:^(id _Nullable any, NSError * _Nullable error) {
         BOOL res = [any boolValue];
-        if (self.loadTimes == 1) {
-            return;
-        }
-        if (!res) {
+        if (!res && self.loadTimes != 1) {
             [self shouldShowBottomBar:NO];
         }
     }];
@@ -222,8 +241,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
-    self.thisPage = NO;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -298,23 +315,21 @@
         }
     }
     
+    // 页面加载结束后判断是否为主页面
     [self.contentWKWebView evaluateJavaScript:@"__isIndex()" completionHandler:^(id _Nullable any, NSError * _Nullable error) {
         BOOL res = [any boolValue];
-        if (res) {
+        BOOL HiddenTabBar = [self isHiddenTabbar];
+        // 主页
+        if (res && HiddenTabBar) {
+            [self shouldShowBottomBar:YES];
+            self.backView.hidden = YES;
             self.closeView.hidden = YES;
             self.didClickGoBack = NO;
-            if (self.didHiddenTabBar) {
-                [self shouldShowBottomBar:YES];
-                self.backView.hidden = YES;
-            }
-        } else {
-            if (!self.didHiddenTabBar) {
-                if (!self.thisPage) {
-                    return;
-                }
-                self.backView.hidden = NO;
-                [self shouldShowBottomBar:NO];
-            }
+        }
+        // 不是主页并且没有隐藏标签栏
+        else if (!res && !HiddenTabBar) {
+            [self shouldShowBottomBar:NO];
+            self.backView.hidden = NO;
         }
     }];
     

@@ -50,7 +50,7 @@
     self.title = @"我";
     self.headerViewLineHeight.constant = 0.5;
     // 获取版本信息
-    self.copyright.text = [NSString stringWithFormat:@"版本%@ 由好人生集团提供", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
+    self.copyright.text = [NSString stringWithFormat:@"版本%@ 由好人生集团提供", [VHSCommon appVersion]];
     
     // 先从缓存中读取数据
     self.userDetail = [VHSCommon userDetailInfo];
@@ -242,6 +242,8 @@
         __weak __typeof(self)weakSelf = self;
         scoreVC.myscoreCallBack = ^(UserScoreModel *scoreModel) {
             weakSelf.userScore = scoreModel;
+            [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section]
+                              withRowAnimation:UITableViewRowAnimationFade];
         };
         [self.navigationController pushViewController:scoreVC animated:YES];
     }

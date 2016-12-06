@@ -85,7 +85,14 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
     }
     
     // 在 App 启动时注册百度云推送服务，需要提供 Apikey
-    [BPush registerChannel:launchOptions apiKey:Baidu_Push_ApiKey pushMode:BPushModeDevelopment withFirstAction:@"打开" withSecondAction:@"关闭" withCategory:@"test" useBehaviorTextInput:YES isDebug:YES];
+    [BPush registerChannel:launchOptions
+                    apiKey:Baidu_Push_ApiKey
+                  pushMode:BPushModeDevelopment
+           withFirstAction:@"打开"
+          withSecondAction:@"关闭"
+              withCategory:@"test"
+      useBehaviorTextInput:YES
+                   isDebug:YES];
     
     // 禁用地理位置推送 需要再绑定接口前调用。
     [BPush disableLbs];
@@ -137,11 +144,15 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
                 // 证明 - 已经绑定过手环
                 NSString *mac = [k_UserDefaults objectForKey:k_SHOUHUAN_MAC_ADDRESS];
                 [ShareDataSdk shareInstance].smart_device_id = mac;
-                [k_NotificationCenter postNotificationName:DeviceDidConnectedBLEsNotification object:nil userInfo:@{DeviceDidConnectedBLEsUserInfoPeripheral : peripheral}];
+                [k_NotificationCenter postNotificationName:DeviceDidConnectedBLEsNotification
+                                                    object:nil
+                                                  userInfo:@{DeviceDidConnectedBLEsUserInfoPeripheral : peripheral}];
             } else {
                 CLog(@"手环链接－－－未绑定  macid====%@",[ShareDataSdk shareInstance].smart_device_id);
                 //扫描页面绑定设备
-                [k_NotificationCenter postNotificationName:DeviceDidConnectedBLEsNotification object:nil userInfo:@{DeviceDidConnectedBLEsUserInfoPeripheral : peripheral}];
+                [k_NotificationCenter postNotificationName:DeviceDidConnectedBLEsNotification
+                                                    object:nil
+                                                  userInfo:@{DeviceDidConnectedBLEsUserInfoPeripheral : peripheral}];
             }
         }];
     });

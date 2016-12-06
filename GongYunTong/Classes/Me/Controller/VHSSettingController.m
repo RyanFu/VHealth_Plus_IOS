@@ -188,7 +188,6 @@
     message.path = URL_DO_QUIT;
     message.httpMethod = VHSNetworkPOST;
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
-        CLog(@"doQuit-result = %@", result);
         if ([result[@"result"] integerValue] == 200) {
             if (successBlock) successBlock(YES);
         } else {
