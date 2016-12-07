@@ -429,24 +429,22 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
     // 进入前台，消除所有Badge Number
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     
-    // 一个小时显示启动页
-    NSString *companyId = [[VHSCommon userInfo].companyId stringValue];
-    if (!companyId) {
-        // 更新应用进入foreground的时间
-        [VHSCommon saveLaunchTime:[VHSCommon getDate:[NSDate date]]];
-        return;
-    }
+    NSString *adTime = [VHSCommon getUserDefautForKey:k_Launch_Time];
+    // 更新应用进入foreground的时间
+    [VHSCommon saveLaunchTime:[VHSCommon getDate:[NSDate date]]];
     
-    NSString *adTime = [k_UserDefaults objectForKey:k_Launch_Time];
-    if ([VHSCommon intervalSinceNow:adTime] >= k_Late_Duration(1.0)) {
-        NSString *luanchUrl = [k_UserDefaults objectForKey:k_LaunchUrl];
-        if (!luanchUrl) {
-            [self downloadLaunchUrl:^(NSString *url) {
-                [self showLaunchPage:url];
-            }];
-        } else {
-            [self showLaunchPage:luanchUrl];
-        }
+    // 没有公司编号，没有启动页
+    NSString *companyId = [[VHSCommon userInfo].companyId stringValue];
+    if (!companyId) return;
+    
+    // 显示启动页的时间小于一个小时
+    if ([VHSCommon intervalSinceNow:adTime] < k_Late_Duration(1.0)) return;
+    
+    NSString *luanchUrl = [VHSCommon getUserDefautForKey:k_LaunchUrl];
+    if (!luanchUrl) {
+        [self downloadLaunchUrl:^(NSString *url) { [self showLaunchPage:url]; }];
+    } else {
+        [self showLaunchPage:luanchUrl];
     }
 }
 
