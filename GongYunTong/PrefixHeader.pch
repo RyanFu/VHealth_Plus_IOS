@@ -3,7 +3,7 @@
 //  GongYunTong
 //
 //  Created by vhsben on 16/7/15.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #ifndef PrefixHeader_pch
@@ -26,7 +26,7 @@
 #import "MJRefresh.h"
 #import "StoryboardHelper.h"
 #import "YYModel.h"
-#import "VHSUntils.h"
+#import "VHSUtils.h"
 #import "VHSDefinition.h"
 #import "Masonry.h"
 //#import <VeryfitSDK/VeryfitSDK.h>

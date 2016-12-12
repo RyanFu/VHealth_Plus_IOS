@@ -3,7 +3,7 @@
 //  GongYunTong
 //
 //  Created by vhsben on 16/7/18.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #import "VHSHttpEngine.h"
@@ -227,6 +227,8 @@ static VHSHttpEngine *_instance = nil;
     } else {
         [_manager.requestSerializer setValue:@"" forHTTPHeaderField:@"vhstoken"];
     }
+    
+    CLog(@"vhstoken = %@", [VHSCommon vhstoken]);
     
     [_manager.requestSerializer setValue:[VHSCommon deviceToken] forHTTPHeaderField:@"imei"];
     [_manager.requestSerializer setValue:[VHSCommon osVersion] forHTTPHeaderField:@"osversion"];

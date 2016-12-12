@@ -3,12 +3,12 @@
 //  GongYunTong
 //
 //  Created by pingjun lin on 16/8/3.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
-#import "VHSUntils.h"
+#import "VHSUtils.h"
 
-@implementation VHSUntils
+@implementation VHSUtils
 
 + (BOOL)validateSimplePhone:(NSString *)phone
 {
@@ -100,11 +100,11 @@
 }
 
 /**
- *将图片缩放到指定的CGSize大小
- * UIImage image 原始的图片
- * CGSize size 要缩放到的大小
+ *  将图片缩放到指定的CGSize大小
+ *  UIImage image 原始的图片
+ *  CGSize size 要缩放到的大小
  */
-+(UIImage*)image:(UIImage *)image scaleToSize:(CGSize)size {
++(UIImage *)image:(UIImage *)image scaleToSize:(CGSize)size {
     // 得到图片上下文，指定绘制范围，会导致图片的的分辨率出现问题
 //    UIGraphicsBeginImageContext(size);
     // 下面方法，第一个参数表示区域大小。第二个参数表示是否是非透明的。如果需要显示半透明效果，需要传NO，否则传YES。第三个参数就是屏幕密度了
@@ -112,11 +112,38 @@
     // 将图片按照指定大小绘制
     [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
     // 从当前图片上下文中导出图片
-    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
     // 当前图片上下文出栈
     UIGraphicsEndImageContext();
     // 返回新的改变大小后的图片
     return scaledImage;
+}
+
+/**
+ *  异步下载图片，存储到沙盒路径汇总
+ */
++ (BOOL)saveImageWithPath:(NSString *)urlPath {
+    // http://ste.india.com/sites/default/files/2016/01/21/452974-monkey.jpg
+    // 获取沙盒路径
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    
+    // 拼接图片地址
+    NSString *imageName = [[urlPath componentsSeparatedByString:@"/"] lastObject];
+    NSString *currentImagePath = [path stringByAppendingPathComponent:imageName];
+    
+    // 异步下载图片
+    __block BOOL isSuccess = NO;
+    dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(concurrentQueue, ^{
+        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
+        UIImage *image = [UIImage imageWithData:data];
+       
+        // 根据图片的地址保存图片
+        isSuccess = [UIImagePNGRepresentation(image) writeToFile:currentImagePath atomically:YES];
+        
+        CLog(@"下载图片 %@ - %@", isSuccess ? @"成功" : @"失败", currentImagePath);
+    });
+    return isSuccess;
 }
 
 @end

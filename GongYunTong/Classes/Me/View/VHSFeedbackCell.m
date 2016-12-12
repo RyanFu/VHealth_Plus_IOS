@@ -3,7 +3,7 @@
 //  GongYunTong
 //
 //  Created by pingjun lin on 16/8/2.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #import "VHSFeedbackCell.h"
@@ -74,7 +74,7 @@
 - (void)textViewDidEndEditing:(UITextView *)textView {
     
     NSString *text = textView.text;
-    NSString *trimString = [VHSUntils absolutelyString:text];
+    NSString *trimString = [VHSUtils absolutelyString:text];
     if ([trimString length] == 0 || [trimString isEqualToString:@""] || !trimString) {
         if (!_placeHolder) {
             textView.text = @"问题描述";

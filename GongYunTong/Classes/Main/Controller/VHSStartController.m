@@ -4,7 +4,7 @@
 //  GongYunTong
 //
 //  Created by pingjun lin on 16/8/18.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #import "VHSStartController.h"
@@ -39,10 +39,18 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.durationTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self dismissViewControllerAnimated:NO completion:nil];
+    });
 }
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
+}
+
+- (void)dealloc {
+    CLog(@"VHSStartController dealloc");
 }
 
 @end

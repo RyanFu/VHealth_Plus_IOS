@@ -27,6 +27,15 @@
  *  reference: http://liuyanwei.jumppo.com/2015/10/17/ios-webView.html
  **/
 
+-(void)addAllScriptMsgHandle{
+    WKUserContentController *controller = self.contentWKWebView.configuration.userContentController;
+    [controller addScriptMessageHandler:self name:@"vhswebview"];
+}
+-(void)removeAllScriptMsgHandle{
+    WKUserContentController *controller = self.contentWKWebView.configuration.userContentController;
+    [controller removeScriptMessageHandlerForName:@"vhswebview"];
+}
+
 - (WKWebView *)contentWKWebView {
     if (!_contentWKWebView) {
         WKWebViewConfiguration *configration = [[WKWebViewConfiguration alloc] init];

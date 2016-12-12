@@ -3,7 +3,7 @@
 //  GongYunTong
 //
 //  Created by pingjun lin on 16/8/29.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #import "PublicWKWebViewController.h"
@@ -76,52 +76,31 @@
     self.navigationItem.leftBarButtonItems = @[backBarItem, closeBarItem];
 }
 
-- (void)customNavigation {
-    self.navigationController.navigationBarHidden = YES;
-    
-    UIView *navigationView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, SCREENW, 44)];
-    navigationView.backgroundColor = [UIColor whiteColor];
-    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, navigationView.frame.size.height - 0.3, SCREENW, 0.3)];
-    line.backgroundColor = [UIColor colorWithWhite:0.4 alpha:0.4];
-    [navigationView addSubview:line];
-    
-    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(10, 0, 50, 44)];
-    
-    UIImageView *backImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 13, 18, 18)];
-    backImage.image = [UIImage imageNamed:@"icon_back"];
-    
-    UILabel *backLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(backImage.frame), 7, 40, 30)];
-    backLabel.text = @"返回";
-    backLabel.textColor = [UIColor colorWithHexString:@"#828282"];
-    backLabel.font = [UIFont systemFontOfSize:14.0];
-    
-    self.backBarView = backView;
-    
-    [backView addSubview:backImage];
-    [backView addSubview:backLabel];
-    
-    UITapGestureRecognizer *backGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backAppUrl)];
-    [backView addGestureRecognizer:backGesture];
-    
-    [navigationView addSubview:backView];
-    
-    [self.view addSubview:navigationView];
-}
-
 #pragma mark - 创建WebView
 
-- (WKWebView *)contentWKWebView {
-    if (!_contentWKWebView) {
-        WKWebViewConfiguration *configration = [[WKWebViewConfiguration alloc] init];
-        [configration.userContentController addScriptMessageHandler:self name:@"vhswebview"];
-        _contentWKWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, SCREENW, SCREENH - NAVIAGTION_HEIGHT) configuration:configration];
-        _contentWKWebView.UIDelegate = self;
-        _contentWKWebView.navigationDelegate = self;
-        _contentWKWebView.allowsBackForwardNavigationGestures = YES;
-        // 监听进度条
-        [_contentWKWebView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
-    }
-    return _contentWKWebView;
+-(void)addAllScriptMsgHandle{
+    WKUserContentController *controller = self.contentWKWebView.configuration.userContentController;
+    [controller addScriptMessageHandler:self name:@"vhswebview"];
+}
+-(void)removeAllScriptMsgHandle{
+    WKUserContentController *controller = self.contentWKWebView.configuration.userContentController;
+    [controller removeScriptMessageHandlerForName:@"vhswebview"];
+}
+
+- (void)setupWKWebView {
+    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+    WKUserContentController *controller = [[WKUserContentController alloc] init];
+    configuration.userContentController = controller;
+    self.contentWKWebView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, SCREENW, SCREENH - NAVIAGTION_HEIGHT)
+                                               configuration:configuration];
+    self.contentWKWebView.UIDelegate = self;
+    self.contentWKWebView.navigationDelegate = self;
+    self.contentWKWebView.allowsBackForwardNavigationGestures = YES;
+    // 监听进度条
+    [self.contentWKWebView addObserver:self
+                            forKeyPath:@"estimatedProgress"
+                               options:NSKeyValueObservingOptionNew context:nil];
+    [self addAllScriptMsgHandle];
 }
 
 - (UIView *)noContentView {
@@ -169,8 +148,9 @@
     [super viewDidLoad];
     
     self.shouldCloseBGMusic = YES;
-    //    [self customNavigation];
+    [self setupWKWebView];
     [self setupRefresh];
+    [self customNavigationBar];
     
     NSString *url = nil;
     if (_shouldToken) {
@@ -214,9 +194,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    [self customNavigationBar];
-    [self.contentWKWebView reload];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -476,7 +453,7 @@
 
 - (void)closeWebView {
     [self.contentWKWebView removeObserver:self forKeyPath:@"estimatedProgress"];
-    _contentWKWebView = nil;
+    [self removeAllScriptMsgHandle];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -499,6 +476,7 @@
 #pragma mark - appEnterBackground
 
 - (void)appEnterBackground {
+    self.shouldCloseBGMusic = NO;
     CLog(@"appEnterBackground------------");
 }
 

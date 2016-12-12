@@ -3,7 +3,7 @@
 //  GongYunTong
 //
 //  Created by vhsben on 16/7/21.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #import "VHSDynamicBannerCell.h"
@@ -15,7 +15,7 @@
     
     self.backgroundColor = [UIColor colorWithHexString:@"#efeff4"];
     
-    self.bannerView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREENW, self.contentView.frame.size.height - 12) delegate:nil placeholderImage:[UIImage imageNamed:@"pic_dynamic_default750_350"]];
+    self.bannerView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREENW, self.contentView.frame.size.height) delegate:nil placeholderImage:[UIImage imageNamed:@"pic_dynamic_default750_350"]];
     self.bannerView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     self.bannerView.pageDotColor = RGBACOLOR(245, 245, 245, 0.5);
     self.bannerView.currentPageDotColor = COLORHex(@"#dc3c38");

@@ -4,7 +4,7 @@
 //  GongYunTong
 //
 //  Created by vhsben on 16/7/15.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #import "AppDelegate.h"
@@ -17,6 +17,7 @@
 #import "BaiduMobStat.h"
 #import "BPush.h"
 #import "ShortcutItem.h"
+#import "VHSTabBarController.h"
 
 static BOOL isBackGroundActivateApplication;
 
@@ -430,8 +431,6 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     
     NSString *adTime = [VHSCommon getUserDefautForKey:k_Launch_Time];
-    // 更新应用进入foreground的时间
-    [VHSCommon saveLaunchTime:[VHSCommon getDate:[NSDate date]]];
     
     // 没有公司编号，没有启动页
     NSString *companyId = [[VHSCommon userInfo].companyId stringValue];
@@ -449,17 +448,12 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
 }
 
 - (void)showLaunchPage:(NSString *)url {
+    UIViewController *controller = self.window.rootViewController;
     // 展示广告页
-    UIViewController *VC = self.window.rootViewController;
     VHSStartController *startVC = (VHSStartController *)[StoryboardHelper controllerWithStoryboardName:@"Main" controllerId:@"VHSStartController"];
     startVC.launchUrl = url;
-    [VC presentViewController:startVC
-                     animated:NO
-                   completion:^{
-                       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                           [VC dismissViewControllerAnimated:NO completion:nil];
-                       });
-                   }];
+    startVC.durationTime = 2.0;
+    [controller presentViewController:startVC animated:NO completion:^{}];
 }
 
 - (void)downloadLaunchUrl:(void (^)(NSString *url))success {
@@ -482,7 +476,10 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
     } fail:^(NSError *error) {}];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {}
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    // 保存进入应用后台的时间
+    [VHSCommon saveLaunchTime:[VHSCommon getDate:[NSDate date]]];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStateDisbind) {

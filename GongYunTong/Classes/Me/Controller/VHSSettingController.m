@@ -3,7 +3,7 @@
 //  GongYunTong
 //
 //  Created by pingjun lin on 16/8/1.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #import "VHSSettingController.h"
@@ -64,8 +64,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    VHSTestController *testController = [[VHSTestController alloc] init];
-//    [self.navigationController pushViewController:testController animated:YES];
+    VHSTestController *testController = [[VHSTestController alloc] init];
+    [self.navigationController pushViewController:testController animated:YES];
 }
 
 
@@ -75,7 +75,7 @@
     NSString *strMessage = @"您确定要退出工运通吗?";
     if ([VHSFitBraceletStateManager nowBLEState] != FitBLEStateDisbind) {
         //已经绑定手环
-        strMessage = @"退出后将解绑手环，确定退出吗？";
+        strMessage = @"退出后将解绑手环，确定退出吗?";
     }
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:strMessage delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
     [alert show];
@@ -113,8 +113,6 @@
                     [VHSToast toast:TOAST_NETWORK_SUSPEND];
                 }
             }];
-    
-            
         };
         
         if ([VHSFitBraceletStateManager nowBLEState] != FitBLEStateDisbind) {

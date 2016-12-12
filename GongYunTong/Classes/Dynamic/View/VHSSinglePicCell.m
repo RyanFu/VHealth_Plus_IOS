@@ -3,20 +3,21 @@
 //  GongYunTong
 //
 //  Created by vhsben on 16/7/21.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
-#import "VHSAboutSpaceCell.h"
+#import "VHSSinglePicCell.h"
 
-@interface VHSAboutSpaceCell ()
+@interface VHSSinglePicCell ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *titleImageView;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timelabel;
+@property (weak, nonatomic) IBOutlet UILabel *outlineLabel;
 
 @end
 
-@implementation VHSAboutSpaceCell
+@implementation VHSSinglePicCell
 
 - (void)setDynamicItem:(DynamicItemModel *)dynamicItem {
     
@@ -27,6 +28,7 @@
     }
     self.contentLabel.text = _dynamicItem.title;
     self.timelabel.text = _dynamicItem.pubTime;
+    self.outlineLabel.text = _dynamicItem.dynamicZyText;
 }
 
 - (void)awakeFromNib {

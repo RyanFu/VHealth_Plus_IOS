@@ -3,7 +3,7 @@
 //  GongYunTong
 //
 //  Created by ios-bert on 16/7/22.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #import "VHSPersonInfoController.h"
@@ -675,7 +675,7 @@
     __block UIImage *photoImage = nil;
     [picker dismissViewControllerAnimated:YES completion:^{
         // 设置照片按钮信息
-        self.headImage = [VHSUntils image:[info objectForKey:UIImagePickerControllerEditedImage] scaleToSize:CGSizeMake(62, 62)];
+        self.headImage = [VHSUtils image:[info objectForKey:UIImagePickerControllerEditedImage] scaleToSize:CGSizeMake(62, 62)];
         self.ivPhoto.image = self.headImage;
         photoImage = self.headImage;
         
@@ -718,18 +718,21 @@
     message.httpMethod = VHSNetworkPOST;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
-        if ([result[@"result"] integerValue] == 200) {
-            if (uploadSuccess) {
-                uploadSuccess();
-            }
-            
-            // 修改身高体重，性别，产生新的步幅
-            float stride = [result[@"stride"] floatValue];
-            if (stride) {
-                [VHSCommon saveUserDefault:result[@"stride"] forKey:k_Steps_To_Kilometre_Ratio];
-            }
-        }
+        
         [VHSToast toast:result[@"info"]];
+        
+        if ([result[@"result"] integerValue] != 200) return;
+        
+        if (uploadSuccess) {
+            uploadSuccess();
+        }
+        
+        // 修改身高体重，性别，产生新的步幅
+        float stride = [result[@"stride"] floatValue];
+        if (stride) {
+            [VHSCommon saveUserDefault:result[@"stride"] forKey:k_Steps_To_Kilometre_Ratio];
+        }
+
     } fail:^(NSError *error) {}];
     
 }

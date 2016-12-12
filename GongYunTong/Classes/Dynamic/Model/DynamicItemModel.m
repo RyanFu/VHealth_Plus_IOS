@@ -3,7 +3,7 @@
 //  GongYunTong
 //
 //  Created by pingjun lin on 16/8/4.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #import "DynamicItemModel.h"
@@ -17,6 +17,7 @@
     [dict setObject:self.pubTime forKey:@"pubTime"];
     [dict setObject:self.title forKey:@"title"];
     [dict setObject:self.urls forKey:@"urls"];
+    [dict setObject:self.dynamicZyText forKey:@"dynamicZyText"];
     return [dict copy];
 }
 

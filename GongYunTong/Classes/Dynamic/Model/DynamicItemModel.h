@@ -3,7 +3,7 @@
 //  GongYunTong
 //
 //  Created by pingjun lin on 16/8/4.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString * pubTime;
 @property (nonatomic, strong) NSString * title;
 @property (nonatomic, strong) NSString * urls;
+@property (nonatomic, strong) NSString * dynamicZyText;
 
 - (NSDictionary *)transferToDict;
 

@@ -4,7 +4,7 @@
 //  GongYunTong
 //
 //  Created by pingjun lin on 16/9/12.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #import "VHSTestController.h"
@@ -16,10 +16,7 @@
 
 @interface VHSTestController ()
 
-@property (nonatomic, strong) UITextField *beginF;
-@property (nonatomic, strong) UITextField *endF;
-
-@property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) UIImageView *imageView2;
 
 @end
 
@@ -35,39 +32,48 @@
     [confirmBtn addTarget:self action:@selector(confirmBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:confirmBtn];
     
-    UITextField *f1 = [[UITextField alloc] initWithFrame:CGRectMake(50, 200, 300, 50)];
-    [f1 setBackgroundColor:[UIColor blueColor]];
-    _beginF = f1;
-    [self.view addSubview:f1];
+    NSString *imagePath = @"http://ste.india.com/sites/default/files/2016/01/21/452974-monkey.jpg";
+    UIImageView *imageView1 = [[UIImageView alloc] initWithFrame:CGRectMake(10, 160, SCREENW - 20, 100)];
+    imageView1.backgroundColor = [UIColor purpleColor];
+    [imageView1 sd_setImageWithURL:[NSURL URLWithString:imagePath]];
+    [self.view addSubview:imageView1];
     
-    UIButton *cancelBtn = [[UIButton alloc] initWithFrame:CGRectMake(50, 300, 100, 50)];
-    cancelBtn.backgroundColor = [UIColor yellowColor];
-    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-    [cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [cancelBtn addTarget:self action:@selector(cancelBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:cancelBtn];
-    
+    _imageView2 = [[UIImageView alloc] initWithFrame:CGRectMake(10, 270, SCREENW - 20, 100)];
+    _imageView2.backgroundColor = [UIColor purpleColor];
+    [self.view addSubview:_imageView2];
 }
 
 - (void)confirmBtn:(UIButton *)btn {
-//    [[VHSLocatServicer shareLocater] startUpdatingLocation]; // 开启定位服务
+    NSString *defaultPath = @"http://ste.india.com/sites/default/files/2016/01/21/452974-monkey.jpg";
+    [VHSUtils saveImageWithPath:defaultPath];
     
-//    NSString *past = @"2016-11-01 10:54:00";
-//    NSInteger pastday = [NSDate pastOfNowWithPastDateStr:past];
-//    [VHSToast toast:[NSString stringWithFormat:@"%ld", (long)pastday]];
+    NSString *imageName = [[defaultPath componentsSeparatedByString:@"/"] lastObject];
+    NSString *imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:imageName];
     
-//    [VHSAlertController alertMessage:@"版本较低" title:@"升级提示" confirmHandler:^(UIAlertAction *action) {
-//        
-//    } cancleHandler:^(UIAlertAction *action) {
-//        
-//    }];
+    CLog(@"%@", imagePath);
     
-    [MBProgressHUD showDelay:2.0];
-    CLog(@"........");
+    if ([[NSFileManager defaultManager] fileExistsAtPath:imagePath]) {
+        NSData *data = [[NSData alloc] initWithContentsOfFile:imagePath];
+        _imageView2.image = [UIImage imageWithData:data];
+    }
 }
 
-- (void)cancelBtn:(UIButton *)btn {
-//    [[VHSLocatServicer shareLocater] stopUpdatingLocation];
+- (void)playSandbox {
+    // 获取Documents路径
+    NSString *documentPath = NSHomeDirectory();
+    NSString *docuPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    CLog(@"documentPath:\n%@", documentPath);
+    CLog(@"documentPath:\n%@", docuPath);
+    
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    CLog(@"cachePath:\n%@", cachePath);
+    
+    NSString *prefrencePath = [NSSearchPathForDirectoriesInDomains(NSPreferencePanesDirectory, NSUserDomainMask, YES) lastObject];
+    CLog(@"prefrencePath:\n%@", prefrencePath);
+    
+    NSString *tempPath = NSTemporaryDirectory();
+    CLog(@"tempPath:\n%@", tempPath);
 }
+
 
 @end

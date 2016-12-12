@@ -26,4 +26,13 @@
     }
 }
 
+- (CGSize)computerWithSize:(CGSize)size font:(UIFont *)font  {
+    NSDictionary *attrs = @{NSFontAttributeName : font};
+    CGRect rect = [self boundingRectWithSize:size
+                                     options:NSStringDrawingUsesLineFragmentOrigin
+                                  attributes:attrs
+                                     context:nil];
+    return rect.size;
+}
+
 @end

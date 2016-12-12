@@ -3,7 +3,7 @@
 //  GongYunTong
 //
 //  Created by vhsben on 16/7/20.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -25,7 +25,8 @@
 /// 屏幕高
 #define SCREEN_HEIGHT    [[UIScreen mainScreen] bounds].size.height
 
-#define RATIO(x)    x / SCREEN_WIDTH
+#define ratioW SCREENW / 375.0
+#define ratioH SCREENH / 667.0
 
 //系统版本
 #define IOS_7 [[UIDevice currentDevice].systemVersion floatValue]>= 7.0

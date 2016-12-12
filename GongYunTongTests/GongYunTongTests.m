@@ -3,7 +3,7 @@
 //  GongYunTongTests
 //
 //  Created by vhsben on 16/7/15.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>

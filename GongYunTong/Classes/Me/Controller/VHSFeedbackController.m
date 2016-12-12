@@ -3,7 +3,7 @@
 //  GongYunTong
 //
 //  Created by pingjun lin on 16/8/2.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #import "VHSFeedbackController.h"
@@ -153,7 +153,7 @@
 #pragma mark - 显示电话电话拨打
 
 - (void)showCall {
-    NSString *phoneNumber = [VHSUntils absolutelyString:[[self.feedbackPhoneNmber.text componentsSeparatedByString:@":"] lastObject]];
+    NSString *phoneNumber = [VHSUtils absolutelyString:[[self.feedbackPhoneNmber.text componentsSeparatedByString:@":"] lastObject]];
     UIActionSheet *callPhoneSheet = [[UIActionSheet alloc] initWithTitle:@"点击拨打客服电话" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:phoneNumber, nil];
     [callPhoneSheet showInView:self.view];
 }

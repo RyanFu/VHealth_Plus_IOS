@@ -3,7 +3,7 @@
 //  GongYunTong
 //
 //  Created by vhsben on 16/7/21.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #import "VHSMoreIgvCell.h"
@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *secondImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *thirdImageView;
 @property (weak, nonatomic) IBOutlet UILabel *time;
+@property (weak, nonatomic) IBOutlet UILabel *outlineLabel;
 
 
 @end
@@ -41,6 +42,7 @@
     }
     self.title.text = _dynamicItem.title;
     self.time.text = _dynamicItem.pubTime;
+    self.outlineLabel.text = _dynamicItem.dynamicZyText;
 }
 
 - (void)awakeFromNib {

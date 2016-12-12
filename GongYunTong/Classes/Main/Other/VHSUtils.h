@@ -3,13 +3,13 @@
 //  GongYunTong
 //
 //  Created by pingjun lin on 16/8/3.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "KeyChainStore.h"
 
-@interface VHSUntils : NSObject
+@interface VHSUtils : NSObject
 
 /// 校验电话号码 - 简单
 + (BOOL)validateSimplePhone:(NSString *)phone;
@@ -33,4 +33,8 @@
  */
 + (UIImage*)image:(UIImage *)image scaleToSize:(CGSize)size;
 
+/**
+ *  异步下载图片，存储到沙盒路径汇总
+ */
++ (BOOL)saveImageWithPath:(NSString *)urlPath;
 @end

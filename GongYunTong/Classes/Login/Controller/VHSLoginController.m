@@ -3,7 +3,7 @@
 //  GongYunTong
 //
 //  Created by ios-bert on 16/7/20.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #import "VHSLoginController.h"
@@ -149,7 +149,7 @@
     [userInfo setObject:[NSNumber numberWithInteger:[userDict[@"acceptMsg"] integerValue]] forKey:@"acceptMsg"];
     [userInfo setObject:[NSNumber numberWithInteger:[userDict[@"addStepMaxNum"] integerValue]] forKeyedSubscript:@"addStepMaxNum"];
     [userInfo setObject:[NSNumber numberWithInteger:[userDict[@"memberId"] integerValue]] forKey:@"memberId"];
-    [userInfo setObject:[NSString stringWithFormat:@"%@", [VHSUntils absolutelyString:_txtAccount.text]] forKey:@"account"];
+    [userInfo setObject:[NSString stringWithFormat:@"%@", [VHSUtils absolutelyString:_txtAccount.text]] forKey:@"account"];
     [userInfo setObject:[NSNumber numberWithInteger:[userDict[@"companyId"] integerValue]] forKey:@"companyId"];
     
     [VHSCommon saveUserDefault:userInfo forKey:@"userInfo"];

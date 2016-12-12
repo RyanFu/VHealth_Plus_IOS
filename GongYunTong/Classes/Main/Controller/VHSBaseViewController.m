@@ -18,12 +18,12 @@
 
 - (UIImageView *)navigationBar {
     if (!_navigationBar) {
-        _navigationBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, SCREENW, 44)];
+        _navigationBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREENW, 64)];
         
-        _navigationBar.layer.shadowColor = [UIColor blackColor].CGColor;
-        _navigationBar.layer.shadowOffset = CGSizeMake(0, 0.8);
-        _navigationBar.layer.shadowRadius = 1.0f;
-        _navigationBar.layer.shadowOpacity = 0.5f;
+//        _navigationBar.layer.shadowColor = [UIColor blackColor].CGColor;
+//        _navigationBar.layer.shadowOffset = CGSizeMake(0, 0.8);
+//        _navigationBar.layer.shadowRadius = 1.0f;
+//        _navigationBar.layer.shadowOpacity = 0.5f;
     }
     return _navigationBar;
 }
@@ -93,9 +93,8 @@
 - (void)setBarItem:(TabbarItem *)barItem {
     _barItem = barItem;
     // 0: 图片 1: 文字
+    self.navigationController.navigationBarHidden = ![_barItem.topType boolValue];
     if ([_barItem.topType integerValue] == 0) {
-        self.navigationController.navigationBarHidden = YES;
-        
         // 使用ImageView替代导航栏
         [self.view addSubview:self.navigationBar];
         [self.navigationBar sd_setImageWithURL:[NSURL URLWithString:_barItem.topUrl]];

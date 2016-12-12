@@ -3,7 +3,7 @@
 //  GongYunTong
 //
 //  Created by vhsben on 16/7/20.
-//  Copyright © 2016年 lucky. All rights reserved.
+//  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
 #import "VHSDiscoverController.h"
@@ -12,6 +12,7 @@
 #import "XLAlertManager.h"
 #import "BannerItemModel.h"
 #import "PublicWKWebViewController.h"
+#import "OnekeyCall.h"
 
 //一行显示的个数
 NSInteger const ROWCOUNT = 3;
@@ -132,33 +133,8 @@ NSInteger const ROWCOUNT = 3;
     // discoveryType : 1 链接 2 电话
     if (model.discoveryType == 2) {
         //一键呼
-        NSString *phone = [NSString stringWithFormat:@"\n%@\n",model.hrefUrl];
-        NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:phone];
-        [title addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:28],
-                               NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#4ec7ee"]}
-                       range:NSMakeRange(0, title.length)];
-        NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"\n好人生健康专家热线"
-                                                                                    attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17],NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#212121"]}];
-        NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:@"\n\n饮食 养生 运动 疾病防治 就医 用药 康复" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:COLORHex(@"#828282")}];
-        [message appendAttributedString:content];
-        
-        XLAlertController *alert = [XLAlertController alertControllerWithAttributedTitle:title attributedMessage:message preferredStyle:UIAlertControllerStyleActionSheet];
-        
-        XLAlertAction *call = [XLAlertAction actionWithTitle:@"呼叫" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            UIApplication *app = [UIApplication sharedApplication];
-            NSString *telUrl = [NSString stringWithFormat:@"tel://%@", model.hrefUrl];
-            if ([app canOpenURL:[NSURL URLWithString:telUrl]]) {
-                [app openURL:[NSURL URLWithString:telUrl]];
-                
-                [self recordPhoneCallWithPhoneNumber:model.hrefUrl];
-            }
-        }];
-        XLAlertAction *cancel = [XLAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-        call.titleColor = COLORHex(@"#212121");
-        cancel.titleColor = COLORHex(@"#212121");
-        [alert addAction:call];
-        [alert addAction:cancel];
-        [self presentViewController:alert animated:YES completion:nil];
+        OnekeyCall *oner = [[OnekeyCall alloc] initWithPhone:model.hrefUrl];
+        [oner call];
     }
     else if (model.hrefUrl) {
         PublicWKWebViewController *publicWebVC = [[PublicWKWebViewController alloc] init];
@@ -167,20 +143,6 @@ NSInteger const ROWCOUNT = 3;
         publicWebVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:publicWebVC animated:YES];
     }
-}
-
-/// 记录拨打的电话号码
-- (void)recordPhoneCallWithPhoneNumber:(NSString *)phoneNumber {
-    VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = URL_ADD_PHONE_CALL;
-    message.params = @{@"callNo" : phoneNumber};
-    message.httpMethod = VHSNetworkPOST;
-    
-    [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
-        CLog(@"%@", result);
-    } fail:^(NSError *error) {
-        CLog(@"%@", error.description);
-    }];
 }
 
 #pragma mark - UIApplicationWillResignActiveNotification

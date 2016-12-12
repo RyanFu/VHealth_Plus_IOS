@@ -31,6 +31,8 @@
 #define TOAST_BLE_UNBIND_FAIL                           @"解绑失败"
 #define TOAST_UNFINISH_USER_INFO                        @"请完善所有信息"
 #define TOAST_UNFINISH_FEEDBACK_INFO                    @"请填写您的反馈内容"
+#define TOAST_SIGN_SUCCESS                              @"签到成功"
+#define TOAST_SIGN_FAILURE                              @"签到失败"
 
 
 #pragma mark - 状态码的定义 ==============================状态码=====================================

@@ -12,5 +12,7 @@
 
 /// json转换为数组或字典
 - (id)convertObject;
+/// 计算文本的宽高
+- (CGSize)computerWithSize:(CGSize)size font:(UIFont *)font;
 
 @end
