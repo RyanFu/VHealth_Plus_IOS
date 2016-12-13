@@ -31,11 +31,31 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
     // 服务器获取导航栏配置信息
     [self getTabNavConfiguration];
     
-    [self addChildViewControllerWithStoryboard:@"Dynamic" storyboardIdentifier:@"VHSDynamicHomeController" tabBarItemTitle:@"动态" image:@"icon_dongtai" andSelectImage:@"icon_dongtai_sel"];
-    [self addChildViewControllerWithStoryboard:@"Activity" storyboardIdentifier:@"VHSActivityController" tabBarItemTitle:@"活动" image:@"icon_huodong" andSelectImage:@"icon_huodong_sel"];
-    [self addChildViewControllerWithStoryboard:@"Shop" storyboardIdentifier:@"VHSShopController" tabBarItemTitle:@"福利" image:@"icon_fuli" andSelectImage:@"icon_fuli_selected"];
-    [self addChildViewControllerWithStoryboard:@"Discover" storyboardIdentifier:@"VHSDiscoverController" tabBarItemTitle:@"发现" image:@"icon_faxian" andSelectImage:@"icon_faxian_sel"];
-    [self addChildViewControllerWithStoryboard:@"Me" storyboardIdentifier:@"VHSMeController" tabBarItemTitle:@"我" image:@"icon_wo" andSelectImage:@"icon_wo_sel"];
+    [self addChildViewControllerWithStoryboard:@"Dynamic"
+                          storyboardIdentifier:@"VHSDynamicHomeController"
+                               tabBarItemTitle:@"动态"
+                                         image:@"icon_dongtai"
+                                andSelectImage:@"icon_dongtai_sel"];
+    [self addChildViewControllerWithStoryboard:@"Activity"
+                          storyboardIdentifier:@"VHSActivityController"
+                               tabBarItemTitle:@"活动"
+                                         image:@"icon_huodong"
+                                andSelectImage:@"icon_huodong_sel"];
+    [self addChildViewControllerWithStoryboard:@"Shop"
+                          storyboardIdentifier:@"VHSShopController"
+                               tabBarItemTitle:@"福利"
+                                         image:@"icon_fuli"
+                                andSelectImage:@"icon_fuli_selected"];
+    [self addChildViewControllerWithStoryboard:@"Discover"
+                          storyboardIdentifier:@"VHSDiscoverController"
+                               tabBarItemTitle:@"发现"
+                                         image:@"icon_faxian"
+                                andSelectImage:@"icon_faxian_sel"];
+    [self addChildViewControllerWithStoryboard:@"Me"
+                          storyboardIdentifier:@"VHSMeController"
+                               tabBarItemTitle:@"我"
+                                         image:@"icon_wo"
+                                andSelectImage:@"icon_wo_sel"];
     
     // 从缓存获取配置导航
     NSArray *listOfNavTab = [VHSCommon getUserDefautForKey:Cache_Config_NavOrTabbar];

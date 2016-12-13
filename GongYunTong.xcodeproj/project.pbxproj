@@ -955,8 +955,8 @@
 		6730196D1D3C6651004A3320 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				673019761D3C67A9004A3320 /* Storyboards */,
 				6730196E1D3C6651004A3320 /* Main */,
+				673019761D3C67A9004A3320 /* Storyboards */,
 				67B4F8E41D3CB2D000F933F0 /* Login */,
 				671217E51D3F4AEC004CFD14 /* Dynamic */,
 				671217E61D3F4B00004CFD14 /* Activity */,
