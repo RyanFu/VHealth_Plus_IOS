@@ -12,7 +12,7 @@
 #import "XLAlertManager.h"
 #import "BannerItemModel.h"
 #import "PublicWKWebViewController.h"
-#import "OnekeyCall.h"
+#import "OneAlertCaller.h"
 
 //一行显示的个数
 NSInteger const ROWCOUNT = 3;
@@ -133,8 +133,8 @@ NSInteger const ROWCOUNT = 3;
     // discoveryType : 1 链接 2 电话
     if (model.discoveryType == 2) {
         //一键呼
-        OnekeyCall *oner = [[OnekeyCall alloc] initWithPhone:model.hrefUrl];
-        [oner call];
+        OneAlertCaller *caller = [[OneAlertCaller alloc] initWithPhone:model.hrefUrl];
+        [caller call];
     }
     else if (model.hrefUrl) {
         PublicWKWebViewController *publicWebVC = [[PublicWKWebViewController alloc] init];

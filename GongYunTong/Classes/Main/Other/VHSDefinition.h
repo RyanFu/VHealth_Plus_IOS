@@ -16,6 +16,7 @@
 #define Cache_Discover_BannerList               @"Cache_Discover_BannerList"    // 发现
 #define Cache_Me_UserScore                      @"Cache_Me_UserScore"           // 我
 #define Cache_Config_NavOrTabbar                @"Cache_Config_NavOrTabbar"     // 导航栏和状态栏
+#define Cache_Config_Icon                       @"Cache_Config_Icon"            // 缓存首页中icon的配置
 
 #pragma mark - Toast -=========================Toast 提示语===================
 

@@ -24,8 +24,8 @@
 		3325E09D1D6AA9F00045AC33 /* BalanceItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3325E09C1D6AA9F00045AC33 /* BalanceItemModel.m */; };
 		3325E0A01D6C2EFF0045AC33 /* MeSumScoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3325E09F1D6C2EFF0045AC33 /* MeSumScoreModel.m */; };
 		332758701DA8D49D00C285DB /* VHSAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3327586F1DA8D49D00C285DB /* VHSAlertController.m */; };
-		333F396C1DFBD52C005A43AA /* OnekeyCall.h in Headers */ = {isa = PBXBuildFile; fileRef = 333F396A1DFBD52C005A43AA /* OnekeyCall.h */; };
-		333F396D1DFBD52C005A43AA /* OnekeyCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 333F396B1DFBD52C005A43AA /* OnekeyCall.m */; };
+		333F396C1DFBD52C005A43AA /* OneAlertCaller.h in Headers */ = {isa = PBXBuildFile; fileRef = 333F396A1DFBD52C005A43AA /* OneAlertCaller.h */; };
+		333F396D1DFBD52C005A43AA /* OneAlertCaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 333F396B1DFBD52C005A43AA /* OneAlertCaller.m */; };
 		334038F91D8175F800202DDD /* TransferStepModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 334038F81D8175F800202DDD /* TransferStepModel.m */; };
 		334039091D82B40100202DDD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 334039081D82B40100202DDD /* Security.framework */; };
 		3342F36A1D9387AE00B31317 /* libBaiduMobStat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3342F3691D9387AE00B31317 /* libBaiduMobStat.a */; };
@@ -237,8 +237,8 @@
 		3325E09F1D6C2EFF0045AC33 /* MeSumScoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeSumScoreModel.m; sourceTree = "<group>"; };
 		3327586E1DA8D49D00C285DB /* VHSAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSAlertController.h; sourceTree = "<group>"; };
 		3327586F1DA8D49D00C285DB /* VHSAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSAlertController.m; sourceTree = "<group>"; };
-		333F396A1DFBD52C005A43AA /* OnekeyCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnekeyCall.h; sourceTree = "<group>"; };
-		333F396B1DFBD52C005A43AA /* OnekeyCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnekeyCall.m; sourceTree = "<group>"; };
+		333F396A1DFBD52C005A43AA /* OneAlertCaller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneAlertCaller.h; sourceTree = "<group>"; };
+		333F396B1DFBD52C005A43AA /* OneAlertCaller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneAlertCaller.m; sourceTree = "<group>"; };
 		334038F71D8175F800202DDD /* TransferStepModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransferStepModel.h; sourceTree = "<group>"; };
 		334038F81D8175F800202DDD /* TransferStepModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransferStepModel.m; sourceTree = "<group>"; };
 		334039081D82B40100202DDD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -1050,8 +1050,8 @@
 				33640B5D1D9224BC00B34C8B /* KeyChainStore.m */,
 				338C613E1D583AFE004CFE18 /* VHSDefinition.h */,
 				3317AFE81DD5C305003CFEBB /* VHSURL.h */,
-				333F396A1DFBD52C005A43AA /* OnekeyCall.h */,
-				333F396B1DFBD52C005A43AA /* OnekeyCall.m */,
+				333F396A1DFBD52C005A43AA /* OneAlertCaller.h */,
+				333F396B1DFBD52C005A43AA /* OneAlertCaller.m */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -1393,7 +1393,7 @@
 				3304BB5C1DED62F600EDBC6B /* UserInfoModel.h in Headers */,
 				33E14E1B1DFA7D760021688D /* DynamicItemModel.h in Headers */,
 				33F6FAC11DF7DE29005510D4 /* VHSEnterpriseDynamicCell.h in Headers */,
-				333F396C1DFBD52C005A43AA /* OnekeyCall.h in Headers */,
+				333F396C1DFBD52C005A43AA /* OneAlertCaller.h in Headers */,
 				3304BB691DED64F600EDBC6B /* VHSActionData.h in Headers */,
 				3304BB631DED63FB00EDBC6B /* ShortcutItem.h in Headers */,
 			);
@@ -1664,7 +1664,7 @@
 				33F6FAC21DF7DE29005510D4 /* VHSEnterpriseDynamicCell.m in Sources */,
 				67B4F8EE1D3CDB4500F933F0 /* VHSHttpEngine.m in Sources */,
 				CAD91A531D5DB69B00AEF2FB /* WXUtil.mm in Sources */,
-				333F396D1DFBD52C005A43AA /* OnekeyCall.m in Sources */,
+				333F396D1DFBD52C005A43AA /* OneAlertCaller.m in Sources */,
 				33E5B8CF1DDBFEA800E52A11 /* VHSLoginPersonalViewController.m in Sources */,
 				CA254EC61D4B5CEB00853D3C /* VHSActivityTitleCell.m in Sources */,
 				33E5B8DD1DDC54AA00E52A11 /* VHSShopController.m in Sources */,

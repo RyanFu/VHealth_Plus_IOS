@@ -14,4 +14,6 @@
 @property (nonatomic, assign) NSInteger iconType;   // icon的类型
 @property (nonatomic, strong) NSString *imgUrl;     // 图片链接
 
+- (NSDictionary *)transferToDic;
+
 @end

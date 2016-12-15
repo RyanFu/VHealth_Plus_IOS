@@ -24,7 +24,7 @@
 #import "VHSDynamicConfigurationCell.h"
 #import "IconItem.h"
 #import "NSString+VHSExtension.h"
-#import "OnekeyCall.h"
+#import "OneAlertCaller.h"
 #import "VHSRecordStepController.h"
 #import "VHSMyScoreController.h"
 
@@ -47,13 +47,6 @@
 - (NSMutableArray *)configIconList {
     if (!_configIconList) {
         _configIconList = [NSMutableArray new];
-        
-//        for (NSInteger i = 0; i < 5; i++) {
-//            IconItem *item = [[IconItem alloc] init];
-//            item.iconType = i;
-//            
-//            [_configIconList addObject:item];
-//        }
     }
     return _configIconList;
 }
@@ -79,14 +72,20 @@
     self.automaticallyAdjustsScrollViewInsets = false;
     self.dynamicHomeTable.backgroundColor = COLORHex(@"#EFEFF4");
     
-//    self.navigationItem.title = @"动态";
+    //    self.navigationItem.title = @"动态";
     self.currentPageNum = 1;
     
-    // 缓存中读取数据
+    // 缓存中读取动态列表数据
     self.arrBannerList = [VHSCommon getUserDefautForKey:Cache_Dynamic_BannerList];
     NSArray *cacheDynamicList = [VHSCommon getUserDefautForKey:Cache_Dynamic_DynamicList];
     for (NSDictionary *dict in cacheDynamicList) {
         [self.dynamicList addObject:[DynamicItemModel yy_modelWithDictionary:dict]];
+    }
+    
+    // 缓存读取配置icon的信息
+    NSArray *cacheConfigIconList = [VHSCommon getUserDefautForKey:Cache_Config_Icon];
+    for (NSDictionary *dict in cacheConfigIconList) {
+        [self.configIconList addObject:[IconItem yy_modelWithDictionary:dict]];
     }
     
     //  初始化refresh
@@ -98,9 +97,18 @@
     [self loadIconList];
     
     // 观察系统通知 - UIApplicationWillResignActiveNotification
-    [k_NotificationCenter addObserver:self selector:@selector(appWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
-    [k_NotificationCenter addObserver:self selector:@selector(appWillEnterForeground) name:UIApplicationWillEnterForegroundNotification object:nil];
-    [k_NotificationCenter addObserver:self selector:@selector(relogin:) name:k_NOTIFICATION_TOKEN_INVALID object:nil];
+    [k_NotificationCenter addObserver:self
+                             selector:@selector(appWillResignActive)
+                                 name:UIApplicationWillResignActiveNotification
+                               object:nil];
+    [k_NotificationCenter addObserver:self
+                             selector:@selector(appWillEnterForeground)
+                                 name:UIApplicationWillEnterForegroundNotification
+                               object:nil];
+    [k_NotificationCenter addObserver:self
+                             selector:@selector(relogin:)
+                                 name:k_NOTIFICATION_TOKEN_INVALID
+                               object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -116,15 +124,17 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [[BaiduMobStat defaultStat] pageviewEndWithName:@"动态"];
+    
+    [VHSCommon saveDynamicTime:[VHSCommon getDate:[NSDate date]]];
 }
 
 - (void)tableViewIfNeededRefresh {
     // 超过时间一个小时，自动刷新
-    NSString *lateTime = [VHSCommon getUserDefautForKey:k_Late_Show_Dynamic_Time];
-    if ([VHSCommon intervalSinceNow:lateTime] >= k_Late_Duration(1.0)) {
-        [self.dynamicHomeTable.mj_header beginRefreshing];
-    }
-    [VHSCommon saveDynamicTime:[VHSCommon getDate:[NSDate date]]];
+    NSString *latelyTime = [VHSCommon getUserDefautForKey:k_Late_Show_Dynamic_Time];
+    
+    if ([VHSCommon intervalSinceNow:latelyTime] < k_Late_Duration(1.0)) return;
+    
+    [self.dynamicHomeTable.mj_header beginRefreshing];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -157,13 +167,15 @@
         [self.dynamicHomeTable.mj_footer endRefreshing];
         return;
     }
-
+    
     [self loadNewData];
     [self loadMoreDataIsRefresh:YES];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(k_REFRESH_TIME_OUT * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.dynamicHomeTable.mj_header endRefreshing];
     });
 }
+
+#pragma mark - networker interface
 
 - (void)loadNewData {
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
@@ -172,7 +184,7 @@
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         if ([result[@"result"] integerValue] != 200) return;
-
+        
         if ([result[@"bannerList"] isKindOfClass:[NSArray class]]) {
             self.arrBannerList = result[@"bannerList"];
         }
@@ -231,7 +243,6 @@
     } fail:^(NSError *error) {
         [self.dynamicHomeTable.mj_header endRefreshing];
         [self.dynamicHomeTable.mj_footer endRefreshing];
-        CLog(@"error = %@", error);
     }];
 }
 
@@ -247,22 +258,12 @@
         BOOL isForceUpgrade = [result[@"isForce"] boolValue];
         float serverVersion = [result[@"upgradeVersion"] floatValue];
         float appVersion = [[VHSCommon appVersion] floatValue];
-        if (serverVersion > appVersion) {
-            UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"版本更新" message:content preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"暂不更新" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                if (isForceUpgrade) {
-                    exit(0);
-                }
-            }];
-            [alertVC addAction:cancelAction];
-            UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"马上更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                // 跳转到appStore
-                [VHSCommon toAppStoreForUpgrade];
-            }];
-            [alertVC addAction:confirmAction];
-            
-            [self presentViewController:alertVC animated:YES completion:nil];
-        }
+        
+        if (serverVersion <= appVersion) return;
+        
+        OneAlertCaller *caller = [[OneAlertCaller alloc] initWithContent:content forceUpgrade:isForceUpgrade];
+        [caller call];
+        
     } fail:^(NSError *error) {}];
 }
 
@@ -273,7 +274,7 @@
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         if ([result[@"result"] integerValue] != 200) return;
-    
+        
         if ([self.configIconList count]) {
             [self.configIconList removeAllObjects];
         }
@@ -337,15 +338,20 @@
     }
     else if (indexPath.section == 3) {
         DynamicItemModel *item = self.dynamicList[indexPath.row];
-        item.dynamicZyText = @"我是两行的的我是两行的的我是两行的的我是两行的的我是两行的的我是两行的的";
         NSString *dynamicZyText = item.dynamicZyText;
+        
         CGFloat floatHight = [dynamicZyText computerWithSize:CGSizeMake(SCREENW - 40, CGFLOAT_MAX)
                                                         font:[UIFont systemFontOfSize:15]].height;
-        if (floatHight > 36) floatHight = 36.0;
+        if ([VHSCommon isNullString:dynamicZyText]) {
+            floatHight = 0;
+        } else if (floatHight > 36) {
+            // 文本超过两行
+            floatHight = 36.0;
+        }
         
         if ([item.imgType integerValue] == 1) {
             // 单图
-            if (floatHight < 18.0) floatHight = 18;
+            if (floatHight < 18.0) floatHight = 36;
             
             return 81.0 + floatHight;
         }
@@ -411,14 +417,13 @@
             else if (item.iconType == 1) {
                 // 跳转到webView
                 PublicWKWebViewController *webView = [[PublicWKWebViewController alloc] init];
-//                webView.urlString = item.iconHref;
-                webView.urlString = @"https://www.baidu.com/";
+                webView.urlString = item.iconHref;
                 webView.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:webView animated:YES];
             }
             else if (item.iconType == 3) {
                 // 一键呼
-                OnekeyCall *caller = [[OnekeyCall alloc] initWithPhone:@"400-620-1800"];
+                OneAlertCaller *caller = [[OneAlertCaller alloc] initWithPhone:@"400-620-1800"];
                 [caller call];
             }
         };
@@ -467,8 +472,7 @@
     }
     
     [self.dynamicHomeTable deselectRowAtIndexPath:indexPath animated:YES];
-}
-
+}// 文本超过两行
 #pragma mark - SDCycleScrollViewDelegate
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
@@ -489,6 +493,13 @@
     }
     [VHSCommon saveUserDefault:self.arrBannerList forKey:Cache_Dynamic_BannerList];
     [VHSCommon saveUserDefault:cacheDynamicList forKey:Cache_Dynamic_DynamicList];
+    
+    // 缓存icon的列表信息
+    NSMutableArray *cacheIconList = [NSMutableArray new];
+    for (IconItem *iconItem in self.configIconList) {
+        [cacheIconList addObject:[iconItem transferToDic]];
+    }
+    [VHSCommon saveUserDefault:cacheIconList forKey:Cache_Config_Icon];
 }
 
 - (void)appWillEnterForeground {

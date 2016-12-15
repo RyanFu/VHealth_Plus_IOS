@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface OnekeyCall : NSObject
+@interface OneAlertCaller : NSObject
 
+/// 一键呼
 - (instancetype)initWithPhone:(NSString *)phone;
-
 - (void)call;
+
+// 检查更新
+- (instancetype)initWithContent:(NSString *)content forceUpgrade:(BOOL)isForce;
 
 @end

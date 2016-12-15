@@ -18,7 +18,10 @@
 
 - (UIImageView *)navigationBar {
     if (!_navigationBar) {
-        _navigationBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREENW, 64)];
+        UIView *statusBar = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENW, 20)];
+        statusBar.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:statusBar];
+        _navigationBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 20, SCREENW, 44)];
     }
     return _navigationBar;
 }

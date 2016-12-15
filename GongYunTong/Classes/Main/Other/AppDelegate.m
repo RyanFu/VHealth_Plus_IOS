@@ -1,4 +1,3 @@
-
 //
 //  AppDelegate.m
 //  GongYunTong
@@ -468,11 +467,11 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
         message.params = dic;
     }
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
-        if ([result[@"result"] integerValue] == 200) {
-            NSString *launchUrl = result[@"startUrl"];
-            [VHSCommon saveLaunchUrl:launchUrl];
-            if (success) success(launchUrl);
-        }
+        if ([result[@"result"] integerValue] != 200) return;
+        
+        NSString *launchUrl = result[@"startUrl"];
+        [VHSCommon saveLaunchUrl:launchUrl];
+        if (success) success(launchUrl);
     } fail:^(NSError *error) {}];
 }
 
@@ -492,18 +491,21 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
     if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindDisConnected) {
         [[VHSStepAlgorithm shareAlgorithm] shareBLE];
         [self initConnectPeripheralSuccess:^{
-            if ([VHSStepAlgorithm shareAlgorithm].CBState == CBManagerStatePoweredOn) {
-                [[VHSStepAlgorithm shareAlgorithm] tryReconnectedBracelet];
-                // 监测蓝牙状态改变
-                [[ShareDataSdk shareInstance].peripheral addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-            }
+            if ([VHSStepAlgorithm shareAlgorithm].CBState != CBManagerStatePoweredOn) return;
+            
+            [[VHSStepAlgorithm shareAlgorithm] tryReconnectedBracelet];
+            // 监测蓝牙状态改变
+            [[ShareDataSdk shareInstance].peripheral addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
         }];
-    } else if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindConnected) {
+    }
+    else if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindConnected) {
         // 同步手环数据
-        [[VHSStepAlgorithm shareAlgorithm] asynDataFromBraceletToMobileDB:^{
-            [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
-            [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
-        }];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[VHSStepAlgorithm shareAlgorithm] asynDataFromBraceletToMobileDB:^{
+                [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
+                [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
+            }];
+        });
     } else {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];

@@ -253,64 +253,66 @@
     return _pedometer;
 }
 
+- (void)printCurrentVC {
+    CLog(@"%@", NSStringFromClass([self class]));
+}
+
 #pragma mark - 同步手环数据到手机
 
 - (void)asynDataFromBraceletToMobileDB:(void (^)())syncSuccess {
-    if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindConnected) {
-
-        [self asynDataMySelfTable:^(int errorCode) {
-            
-            NSString *bindTime = [VHSCommon getShouHuanBoundTime];
-            NSInteger pastday = [NSDate pastOfNowWithPastDateStr:bindTime];
-            
-            for (NSInteger i = pastday; i >= 0; i--) {
-                NSString *pastTime = [NSDate yyyymmddByPastDays:i];
-                NSString *pastYMD = [NSDate ymdByPastDay:i];
-                [self sportDayWithDate:pastTime sportBlock:^(ProtocolSportDataModel *sportData) {
-                    CLog(@"时间：%@ 一天的总步数--------> %ld", pastTime, (long)sportData.total_step);
-                    NSInteger syncSteps = [VHSCommon getShouHuanLastStepsSync];
-                    
-                    VHSActionData *action = [[VHSActionData alloc] init];
-                    action.memberId = [[VHSCommon userInfo].memberId stringValue];
-                    action.actionId = [VHSCommon getTimeStamp];
-                    action.step = sportData.total_step - syncSteps;
-                    action.actionType = @"1";
-                    action.recordTime = pastYMD;
-                    [self insertOrUpdateBleAction:action];
-                    
-                    [VHSCommon setShouHuanLastStepsSync:sportData.total_step];
-                    [VHSCommon setShouHuanLastTimeSync:[VHSCommon getDate:[NSDate date]]];
-                    if (pastday > 0 && i > 0) {
-                        [VHSCommon setShouHuanLastStepsSync:0];
-                    }
-                    
-                    // 同步到自己表中成功后的回调
-                    if (syncSuccess) {
-                        syncSuccess();
-                    }
-                }];
-            }
-            // 隔天数据
-            if (pastday > 0) {
-                NSCalendar *calendar = [NSCalendar currentCalendar];
-                NSDateComponents *cmps = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:[NSDate date]];
-                cmps.hour = 0;
-                cmps.minute = 0;
-                cmps.second = 1;
-                NSDate *currentStart = [calendar dateFromComponents:cmps];
+    
+    if ([VHSFitBraceletStateManager nowBLEState] != FitBLEStatebindConnected) return;
+    
+    [self asynDataMySelfTable:^(int errorCode) {
+        
+        NSString *bindTime = [VHSCommon getShouHuanBoundTime];
+        NSInteger pastday = [NSDate pastOfNowWithPastDateStr:bindTime];
+        
+        for (NSInteger i = pastday; i >= 0; i--) {
+            NSString *pastTime = [NSDate yyyymmddByPastDays:i];
+            NSString *pastYMD = [NSDate ymdByPastDay:i];
+            [self sportDayWithDate:pastTime sportBlock:^(ProtocolSportDataModel *sportData) {
+                CLog(@"时间：%@ 一天的总步数--------> %ld", pastTime, (long)sportData.total_step);
+                NSInteger syncSteps = [VHSCommon getShouHuanLastStepsSync];
                 
-                [k_UserDefaults setObject:[VHSCommon getDate:currentStart] forKey:k_SHOUHUAN_BOUND_TIME];
-                [k_UserDefaults synchronize];
-            }
-        }];
-    }
+                VHSActionData *action = [[VHSActionData alloc] init];
+                action.memberId = [[VHSCommon userInfo].memberId stringValue];
+                action.actionId = [VHSCommon getTimeStamp];
+                action.step = sportData.total_step - syncSteps;
+                action.actionType = @"1";
+                action.recordTime = pastYMD;
+                [self insertOrUpdateBleAction:action];
+                
+                [VHSCommon setShouHuanLastStepsSync:sportData.total_step];
+                [VHSCommon setShouHuanLastTimeSync:[VHSCommon getDate:[NSDate date]]];
+                if (pastday > 0 && i > 0) {
+                    [VHSCommon setShouHuanLastStepsSync:0];
+                }
+                
+                // 同步到自己表中成功后的回调
+                if (syncSuccess) {
+                    syncSuccess();
+                }
+            }];
+        }
+        // 隔天数据
+        if (pastday > 0) {
+            NSCalendar *calendar = [NSCalendar currentCalendar];
+            NSDateComponents *cmps = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:[NSDate date]];
+            cmps.hour = 0;
+            cmps.minute = 0;
+            cmps.second = 1;
+            NSDate *currentStart = [calendar dateFromComponents:cmps];
+            
+            [VHSCommon saveUserDefault:[VHSCommon getDate:currentStart] forKey:k_SHOUHUAN_BOUND_TIME];
+        }
+    }];
 }
 
 - (void)asynDataMySelfTable:(void (^)(int errorCode))syncBlock {
     [self.ASDKHandler ASDKSendRequestSportDataForTodayWithUpdateBlock:^(id object, int errorCode) {
-        if (syncBlock) {
-            syncBlock(errorCode);
-        }
+        if (!syncBlock) return;
+        syncBlock(errorCode);
     }];
 }
 
@@ -402,6 +404,9 @@
         if (syncBlock) syncBlock(nil);
         return;
     }
+    
+    if (![VHSCommon isNetworkAvailable]) return;
+    
     // 获取所有该用户未上传的数据
     NSArray *unuploadList = [manager selectUnuploadFromActionLst:memberId];
     if (![unuploadList count]) {

@@ -6,16 +6,17 @@
 //  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
-#import "OnekeyCall.h"
+#import "OneAlertCaller.h"
 #import "XLAlertController.h"
 
-@interface OnekeyCall ()
+@interface OneAlertCaller ()
 
-@property (nonatomic, strong) XLAlertController *alerter;
+@property (nonatomic, strong) UIAlertController *alerter;
+//@property (nonatomic, strong) XLAlertController *alerter;
 
 @end
 
-@implementation OnekeyCall
+@implementation OneAlertCaller
 
 - (instancetype)initWithPhone:(NSString *)phone {
     self = [super init];
@@ -47,6 +48,25 @@
         cancel.titleColor = COLORHex(@"#212121");
         [alert addAction:call];
         [alert addAction:cancel];
+    }
+    return self;
+}
+
+- (instancetype)initWithContent:(NSString *)content forceUpgrade:(BOOL)isForce {
+    self = [super init];
+    if (self) {
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"版本更新" message:content preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"暂不更新" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            if (isForce) { exit(0); }
+        }];
+        [alertVC addAction:cancelAction];
+        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"马上更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            // 跳转到appStore
+            [VHSCommon toAppStoreForUpgrade];
+        }];
+        [alertVC addAction:confirmAction];
+        
+        self.alerter = alertVC;
     }
     return self;
 }
