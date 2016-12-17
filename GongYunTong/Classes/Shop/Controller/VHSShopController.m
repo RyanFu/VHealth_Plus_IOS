@@ -109,24 +109,6 @@
             self.contentWKWebView.frame = CGRectMake(webFrame.origin.x, webFrame.origin.y, webFrame.size.width, webFrame.size.height - tabBarFrame.size.height);
         }];
     }
-    
-//    if (shouldShow) {
-//        self.didHiddenTabBar = NO;
-//        CGRect tabBarFrame = self.navigationController.tabBarController.tabBar.frame;
-//        CGRect webFrame = self.contentWKWebView.frame;
-//        [UIView animateWithDuration:0.1 animations:^{
-//            self.navigationController.tabBarController.tabBar.frame = CGRectMake(tabBarFrame.origin.x, tabBarFrame.origin.y - tabBarFrame.size.height, tabBarFrame.size.width, tabBarFrame.size.height);
-//            self.contentWKWebView.frame = CGRectMake(webFrame.origin.x, webFrame.origin.y, webFrame.size.width, webFrame.size.height - tabBarFrame.size.height);
-//        }];
-//    } else {
-//        self.didHiddenTabBar = YES;
-//        CGRect tabBarFrame = self.navigationController.tabBarController.tabBar.frame;
-//        CGRect webFrame = self.contentWKWebView.frame;
-//        [UIView animateWithDuration:0.1 animations:^{
-//            self.navigationController.tabBarController.tabBar.frame = CGRectMake(tabBarFrame.origin.x, tabBarFrame.origin.y + tabBarFrame.size.height, tabBarFrame.size.width, tabBarFrame.size.height);
-//            self.contentWKWebView.frame = CGRectMake(webFrame.origin.x, webFrame.origin.y, webFrame.size.width, webFrame.size.height + tabBarFrame.size.height);
-//        }];
-//    }
 }
 
 - (void)loadReq {
