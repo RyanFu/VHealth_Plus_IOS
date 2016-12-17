@@ -299,6 +299,12 @@
     // 页面加载结束后判断是否为主页面
     [self.contentWKWebView evaluateJavaScript:@"__isIndex()" completionHandler:^(id _Nullable any, NSError * _Nullable error) {
         BOOL res = [any boolValue];
+        
+        // 多加一层判断，包含token的URL则为首页
+        if ([url containsString:@"vhstoken"]) {
+            res = YES;
+        }
+        
         BOOL HiddenTabBar = [self isHiddenTabbar];
         // 主页
         if (res && HiddenTabBar) {
