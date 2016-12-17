@@ -30,7 +30,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [self.startImageView sd_setImageWithURL:[NSURL URLWithString:self.launchUrl] placeholderImage:[UIImage imageNamed:@"gongyuntong_default_launch"]];
+    [self.startImageView sd_setImageWithURL:[NSURL URLWithString:self.launchUrl]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
