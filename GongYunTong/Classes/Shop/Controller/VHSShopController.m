@@ -300,7 +300,7 @@
     [self.contentWKWebView evaluateJavaScript:@"__isIndex()" completionHandler:^(id _Nullable any, NSError * _Nullable error) {
         BOOL res = [any boolValue];
         
-        // 多加一层判断，包含token的URL则为首页
+        // 包含token的URL则为首页
         if ([url containsString:@"vhstoken"]) {
             res = YES;
         }
