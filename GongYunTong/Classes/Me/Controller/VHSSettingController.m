@@ -72,7 +72,7 @@
 #pragma mark - 登出
 
 - (IBAction)logout:(id)sender {
-    NSString *strMessage = @"您确定要退出工运通吗?";
+    NSString *strMessage = @"您确定要退出V健康+吗?";
     if ([VHSFitBraceletStateManager nowBLEState] != FitBLEStateDisbind) {
         //已经绑定手环
         strMessage = @"退出后将解绑手环，确定退出吗?";
