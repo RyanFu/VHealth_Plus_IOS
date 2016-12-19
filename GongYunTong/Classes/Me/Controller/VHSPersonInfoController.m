@@ -350,7 +350,7 @@
                 modifyVC.callBack = ^(NSString *str) {
                     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
                     cell.detailTextLabel.text = str;
-                    self.detailModel.nickName = str;
+                    if (self.updateNickNameBlock) self.updateNickNameBlock(str);
                 };
                 modifyVC.title = @"昵称";
                 modifyVC.contentStr = cell.detailTextLabel.text;

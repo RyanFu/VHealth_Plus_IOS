@@ -231,6 +231,11 @@
             cell.headerImageUrl = headerUrl;
             self.userDetail.headerUrl = headerUrl;
         };
+        personVC.updateNickNameBlock = ^(NSString *nickname) {
+            self.userDetail.nickName = nickname;
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section]
+                          withRowAnimation:UITableViewRowAnimationFade];
+        };
         personVC.hidesBottomBarWhenPushed = YES;
         personVC.detailModel = self.userDetail;
         [self.navigationController pushViewController:personVC animated:YES];
@@ -257,7 +262,7 @@
             cell.cellInfo = [NSString stringWithFormat:@"今日%ld步", (long)steps];
             weakSelf.todaySteps = steps;
         };
-        recordStepVC.sumSteps = _todaySteps;
+        recordStepVC.sumSteps = self.todaySteps;
         [self.navigationController pushViewController:recordStepVC animated:YES];
     }
     else if (indexPath.section == 3) {

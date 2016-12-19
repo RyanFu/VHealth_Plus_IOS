@@ -20,7 +20,6 @@
         CGFloat fixY = i / 4;
         
         IconConfigurationBtn *btn = [[IconConfigurationBtn alloc] initWithFrame:CGRectMake((15 + (15 + 75) * fixX) * ratioW, ((5 + 90 * ratioW) * fixY), 75 * ratioW, 90 * ratioW)];
-//        btn.backgroundColor = [UIColor purpleColor];
         btn.tag = i + 100;
         [btn addTarget:self action:@selector(configurationBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:btn];
@@ -41,7 +40,6 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
-//        self.backgroundColor = [UIColor yellowColor];
     }
     return self;
 }

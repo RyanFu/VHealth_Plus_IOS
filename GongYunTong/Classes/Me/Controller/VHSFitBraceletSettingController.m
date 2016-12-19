@@ -178,7 +178,7 @@ CGFloat const settingFooterHeight=106;
             }];
         }];
     } else {
-        
+        [self popUpViewController];
     }
 }
 
@@ -199,9 +199,9 @@ CGFloat const settingFooterHeight=106;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    VHSSettingBraceletCell *cell=[tableView dequeueReusableCellWithIdentifier:@"VHSSettingBraceletCell"];
+    VHSSettingBraceletCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VHSSettingBraceletCell"];
     if (!cell) {
-        cell=[[[NSBundle mainBundle] loadNibNamed:@"VHSSettingBraceletCell" owner:nil options:nil]firstObject];
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"VHSSettingBraceletCell" owner:nil options:nil]firstObject];
     }
     cell.model = self.data[indexPath.row];
     return cell;

@@ -14,5 +14,6 @@
 @property (nonatomic, strong) UserDetailModel *detailModel;
 
 @property (nonatomic, copy) void (^uploadHeadBlock)(NSString *headerUrl);
+@property (nonatomic, copy) void (^updateNickNameBlock)(NSString *nickname);
 
 @end

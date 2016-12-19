@@ -3,7 +3,7 @@
 //  GongYunTong
 //
 //  Created by ios-bert on 16/7/28.
-//  Copyright © 2016年 vhs_health. All rights reserved.
+//  Copyright © 2016年 lucky. All rights reserved.
 //
 
 #import "VHSLoginPersonalViewController.h"
@@ -33,7 +33,7 @@
 @implementation VHSLoginPersonalViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    //     Do any additional setup after loading the view.
     
     self.dicPage = [[NSMutableDictionary alloc] init];
     UIView *headerView= [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tvFirstPerson.bounds.size.width, 70)];
@@ -61,12 +61,12 @@
     [btnLogin setImage:[UIImage imageNamed:@"btn_startuse_s"] forState:UIControlStateNormal];
     [btnLogin addTarget:self action:@selector(btnLoginClicked) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:btnLogin];
-
+    
     UITapGestureRecognizer *tableViewGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(downKyboard)];
     tableViewGesture.numberOfTapsRequired = 1;
     tableViewGesture.cancelsTouchesInView = NO;
     [self.tvFirstPerson addGestureRecognizer:tableViewGesture];
-
+    
     // 画面下方视图
     self.secondaryView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height , SCREEN_WIDTH, self.view.frame.size.height / 2)];
     self.secondaryView.backgroundColor = [UIColor whiteColor];
@@ -132,7 +132,7 @@
     self.pvWeight.delegate = self;
     self.pvWeight.dataSource = self;
     self.pvWeight.hidden = YES;
-   
+    
     [self.pvWeight selectRow:30 inComponent:0 animated:NO];
     [self.pvWeight selectRow:0 inComponent:1 animated:NO];
     [self.secondaryView addSubview:self.pvWeight];
@@ -167,11 +167,8 @@
         
         NSDate *dateStr = [format dateFromString:userBirthday];
         
-        CLog(@"dateStr %@ ",dateStr);
-        
-        
         if (dateStr==nil) {
-            components =[calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay)
+            components =[calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth |NSCalendarUnitDay)
                                     fromDate:date];
             NSInteger year = [components year];
             NSInteger month = [components month];
@@ -277,9 +274,9 @@
         
         return tvCell;
     }
-
+    
     return nil;
-
+    
 }
 #pragma mark - UITableView delegate
 
@@ -525,16 +522,20 @@
         
         NSInteger loginNums = [[k_UserDefaults objectForKey:k_LOGIN_NUMBERS] integerValue] + 1;
         ++loginNums;
-        [k_UserDefaults setObject:[NSNumber numberWithInteger:loginNums] forKey:k_LOGIN_NUMBERS];
-        [k_UserDefaults synchronize];
+        [VHSCommon saveUserDefault:[NSNumber numberWithInteger:loginNums] forKey:k_LOGIN_NUMBERS];
         
-        VHSTabBarController *tabBarVC = (VHSTabBarController *)[StoryboardHelper controllerWithStoryboardName:@"Main" controllerId:@"VHSTabBarController"];
-        [self.navigationController pushViewController:tabBarVC animated:YES];
-
+        [self rootOfTabbarController];
+        
     } fail:^(NSError *error) {
         [MBProgressHUD hiddenHUD];
         [VHSToast toast:TOAST_NETWORK_SUSPEND];
     }];
+}
+
+- (void)rootOfTabbarController {
+    UIWindow *window = [UIApplication sharedApplication].delegate.window;
+    VHSTabBarController *tabBarVC = (VHSTabBarController *)[StoryboardHelper controllerWithStoryboardName:@"Main" controllerId:@"VHSTabBarController"];
+    window.rootViewController = tabBarVC;
 }
 
 #pragma mark - UIActionSheet delegate
@@ -552,7 +553,7 @@
     }
     [self.tvFirstPerson deselectRowAtIndexPath:[self.tvFirstPerson indexPathForSelectedRow] animated:YES];
 }
-    
+
 
 #pragma mark - TextField delegate
 

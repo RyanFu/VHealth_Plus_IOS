@@ -33,7 +33,7 @@
 #define SCREENW [UIScreen mainScreen].bounds.size.width
 #define SCREENH [UIScreen mainScreen].bounds.size.height
 #define NAVIAGTION_HEIGHT 64
-#define TABBAR_HEIGHT 44
+#define TABBAR_HEIGHT 49
 // RGB颜色创建
 #define RGBCOLOR(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]

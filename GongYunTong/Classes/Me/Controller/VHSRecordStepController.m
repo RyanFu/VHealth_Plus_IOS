@@ -63,8 +63,7 @@
     _stepsLabel.text =  [NSString stringWithFormat:@"%@步",[NSString stringWithFormat:@"%@", @(self.sumSteps)]];
     self.kilometre = [[VHSCommon getUserDefautForKey:k_Steps_To_Kilometre_Ratio] doubleValue] * self.sumSteps;
     [self setLabel:_stepsLabel labelText:_stepsLabel.text attriText:[NSString stringWithFormat:@"%ld", (long)self.sumSteps]];
-    
-    // 15分钟，自动同步数据到云端
+    // 步数同步到云端
     [k_NotificationCenter addObserver:self selector:@selector(autosyncStepsToCloud) name:k_NOTI_SYNCSTEPS_TO_NET object:nil];
 }
 
@@ -118,10 +117,12 @@
         [_mobileTimer fire];
         
     } else {
-        // 使用手环数据
         // 启动监听手环实时数据的监听器
         [[VHSStepAlgorithm shareAlgorithm] fireTimer];
-        [[VHSStepAlgorithm shareAlgorithm].stepsData addObserver:self forKeyPath:@"step" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        [[VHSStepAlgorithm shareAlgorithm].stepsData addObserver:self
+                                                      forKeyPath:@"step"
+                                                         options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                                                         context:nil];
     }
 }
 

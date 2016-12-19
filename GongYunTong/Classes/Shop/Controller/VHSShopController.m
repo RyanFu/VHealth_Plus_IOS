@@ -24,6 +24,8 @@
 
 @end
 
+#define VHSTOKEN           @"vhstoken"
+
 @implementation VHSShopController
 
 - (BOOL)isHiddenTabbar {
@@ -88,25 +90,42 @@
     [self.contentWKWebView loadRequest:request];
 }
 
-- (void)shouldShowBottomBar:(BOOL)shouldShow {
+#pragma mark - 显示或者隐藏导航栏
+
+- (void)showBottomBar:(BOOL)isShow {
     // 不在当前页面
     if (!self.isVisible) {
         return;
     }
+    
+    if (![VHSCommon isNetworkAvailable]) {
+        return;
+    }
+    
+    self.backView.hidden = isShow;
+    
+    if (isShow) {
+        self.didClickGoBack = NO;
+        self.closeView.hidden = !self.didClickGoBack;
+    }
 
-    if (!shouldShow) {
+    if (!isShow) {
         self.tabBarController.tabBar.hidden = YES;
-        CGRect tabBarFrame = self.navigationController.tabBarController.tabBar.frame;
         CGRect webFrame = self.contentWKWebView.frame;
+        
+        CGFloat webHeight = SCREENH - 64;
         [UIView animateWithDuration:0.1 animations:^{
-            self.contentWKWebView.frame = CGRectMake(webFrame.origin.x, webFrame.origin.y, webFrame.size.width, webFrame.size.height + tabBarFrame.size.height);
+            self.contentWKWebView.frame = CGRectMake(webFrame.origin.x, webFrame.origin.y, webFrame.size.width, webHeight);
         }];
+        
     } else {
         CGRect tabBarFrame = self.navigationController.tabBarController.tabBar.frame;
         CGRect webFrame = self.contentWKWebView.frame;
         self.tabBarController.tabBar.hidden = NO;
+        
+        CGFloat webHeight = SCREENH - 64 - tabBarFrame.size.height;
         [UIView animateWithDuration:0.1 animations:^{
-            self.contentWKWebView.frame = CGRectMake(webFrame.origin.x, webFrame.origin.y, webFrame.size.width, webFrame.size.height - tabBarFrame.size.height);
+            self.contentWKWebView.frame = CGRectMake(webFrame.origin.x, webFrame.origin.y, webFrame.size.width, webHeight);
         }];
     }
 }
@@ -178,9 +197,7 @@
         self.noContentView.hidden = NO;
         [self.view bringSubviewToFront:self.noContentView];
         
-        if (iOS8) {
-            self.contentWKWebView.hidden = YES;
-        }
+        self.contentWKWebView.hidden = YES;
     }
     
     // 监听支付宝支付回调通知
@@ -200,9 +217,16 @@
     
     [self.contentWKWebView evaluateJavaScript:@"__isIndex()" completionHandler:^(id _Nullable any, NSError * _Nullable error) {
         BOOL res = [any boolValue];
-        if (!res && self.loadTimes != 1) {
-            [self shouldShowBottomBar:NO];
+        
+        NSString *url = self.contentWKWebView.URL.absoluteString;
+        if ([url containsString:VHSTOKEN]) {
+            res = YES;
         }
+        if ([VHSCommon isNullString:url]) {
+            res = YES;
+        }
+        
+        [self showBottomBar:res];
     }];
 }
 
@@ -274,6 +298,14 @@
 // 页面开始加载时调用
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
     DLog(@"\n\nwebView url == %@\n\n", webView.URL.absoluteString);
+    
+    NSString *url = webView.URL.absoluteString;
+    
+    self.closeView.hidden = !self.didClickGoBack;
+    
+    if ([url containsString:VHSTOKEN]) {
+        self.closeView.hidden = YES;
+    }
 }
 
 // 当内容开始返回时调用
@@ -289,7 +321,7 @@
     NSString *theTitle = webView.title;
     
     if ([VHSCommon isNullString:theTitle] == NO && [theTitle isEqualToString:@"index"] == NO) {
-        if ([url containsString:@"vhstoken"]) {
+        if ([url containsString:VHSTOKEN]) {
             self.navigationItem.title = @"福利";
         } else {
             self.navigationItem.title = theTitle;
@@ -301,28 +333,12 @@
         BOOL res = [any boolValue];
         
         // 包含token的URL则为首页
-        if ([url containsString:@"vhstoken"]) {
+        if ([url containsString:VHSTOKEN]) {
             res = YES;
         }
-        
-        BOOL HiddenTabBar = [self isHiddenTabbar];
-        // 主页
-        if (res && HiddenTabBar) {
-            [self shouldShowBottomBar:YES];
-            self.backView.hidden = YES;
-            self.closeView.hidden = YES;
-            self.didClickGoBack = NO;
-        }
-        // 不是主页并且没有隐藏标签栏
-        else if (!res && !HiddenTabBar) {
-            [self shouldShowBottomBar:NO];
-            self.backView.hidden = NO;
-        }
-    }];
     
-    if (self.didClickGoBack) {
-        self.closeView.hidden = NO;
-    }
+        [self showBottomBar:res];
+    }];
 
     [self.contentWKWebView.scrollView.mj_header endRefreshing];
 }
