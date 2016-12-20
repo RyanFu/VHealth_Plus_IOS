@@ -24,7 +24,6 @@
         
         CGFloat navH = ratioH * 44;
         _navigationBar = [[UIImageView alloc] initWithFrame:CGRectMake(0, NAVIAGTION_HEIGHT - navH, SCREENW, navH)];
-        _navigationBar.contentMode = UIViewContentModeScaleToFill;
     }
     return _navigationBar;
 }
