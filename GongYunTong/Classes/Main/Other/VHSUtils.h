@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CommonCrypto/CommonDigest.h>
 #import "KeyChainStore.h"
 
 @interface VHSUtils : NSObject
+
++ (NSString *)md5:(NSString *)str;
 
 /// 校验电话号码 - 简单
 + (BOOL)validateSimplePhone:(NSString *)phone;
@@ -37,4 +40,7 @@
  *  异步下载图片，存储到沙盒路径汇总
  */
 + (BOOL)saveImageWithPath:(NSString *)urlPath;
+
+/// 获取本地的图片地址
++ (NSString *)getLocalPathWithPath:(NSString *)urlPath;
 @end

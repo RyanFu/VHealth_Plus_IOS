@@ -9,6 +9,7 @@
 #import "PublicWKWebViewController.h"
 #import "VHSLocatServicer.h"
 #import "MBProgressHUD+VHS.h"
+#import "OneAlertCaller.h"
 
 @interface PublicWKWebViewController ()
 
@@ -172,10 +173,10 @@
     }
     
     self.progress = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                             CGRectGetHeight(self.navigationController.navigationBar.frame) - 2.5,
-                                                             self.contentWKWebView.frame.size.width,
+                                                             CGRectGetHeight(self.navigationController.navigationBar.frame) + 0.5,
+                                                             SCREENW * 0.3,
                                                              2.5)];
-    self.progress.backgroundColor = [UIColor whiteColor];
+    self.progress.backgroundColor = COLOR_PROGRESS_BAR;
     [self.navigationController.navigationBar addSubview:self.progress];
     
     if (![VHSCommon isNetworkAvailable]) {
@@ -222,9 +223,9 @@
         
         self.progress.frame = CGRectMake(self.progress.frame.origin.x,
                                          self.progress.frame.origin.y,
-                                         SCREENW * self.contentWKWebView.estimatedProgress,
+                                         self.contentWKWebView.estimatedProgress,
                                          self.progress.frame.size.height);
-        self.progress.backgroundColor = [UIColor greenColor];
+        self.progress.backgroundColor = COLOR_PROGRESS_BAR;
     }
 }
 
@@ -317,6 +318,13 @@
         PublicWKWebViewController *playVideoVC = [[PublicWKWebViewController alloc] init];
         playVideoVC.urlString = videoUrl;
         [self.navigationController pushViewController:playVideoVC animated:YES];
+    }
+    else if ([method isEqualToString:@"jsCallTel"]) {
+        NSString *phone = bodyDict[@"value"];
+        NSString *title = bodyDict[@"title"];
+        NSString *content = bodyDict[@"content"];
+        OneAlertCaller *caller = [[OneAlertCaller alloc] initWithPhone:phone title:title content:content];
+        [caller call];
     }
 }
 
@@ -444,10 +452,10 @@
 // 获取token
 - (void)getTokenSuccess:(void (^)(NSString *token))successBlock {
     NSString *token = [VHSCommon vhstoken];
-    if (token) {
-        if (successBlock) {
-            successBlock(token);
-        }
+    if (!token) return;
+    
+    if (successBlock) {
+        successBlock(token);
     }
 }
 

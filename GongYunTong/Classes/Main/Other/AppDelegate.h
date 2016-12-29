@@ -21,9 +21,5 @@
 // 同步手环数据
 - (void)syncFitBleData:(void (^)(int errorCode))syncBlock;
 
-
-/// 开启百度推送
-- (void)startBaiDuPush:(UIApplication *)application launchingWithOptions:(NSDictionary *)launchOptions;
-
 @end
 

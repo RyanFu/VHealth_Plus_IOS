@@ -52,8 +52,6 @@
 /// 获取用户一天的所有步数 date : yyyyMMdd
 - (NSInteger)selecteSumStepsWithMemberId:(NSString *)memberId date:(NSString *)date;
 
-
-
 /// 上传所有的未上传的数据
 - (void)uploadAllUnuploadActionData:(void (^)(NSDictionary *result))syncBlock;
 

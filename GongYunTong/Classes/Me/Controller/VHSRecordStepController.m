@@ -323,14 +323,14 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"step"]) {
         NSInteger dbSteps = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userDetailInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
-        NSInteger realtimeSteps = [VHSStepAlgorithm shareAlgorithm].stepsData.step;
+        NSString *realtimeSteps = [VHSStepAlgorithm shareAlgorithm].stepsData.step;
         NSInteger lastSyncSteps = [VHSCommon getShouHuanLastStepsSync];
         
-        self.sumSteps = dbSteps + realtimeSteps - lastSyncSteps;
+        self.sumSteps = dbSteps + [realtimeSteps integerValue] - lastSyncSteps;
         // 手环跨天时候，可能在获取实时手环数据未获取，但是上次同步数据有，导致了负数
         self.sumSteps = self.sumSteps > 0 ? self.sumSteps : 0;
         
-        CLog(@"--real-%ld--db-%ld--last-%ld--sum-%ld", (long)realtimeSteps, (long)dbSteps, (long)lastSyncSteps, (long)self.sumSteps);
+        CLog(@"--real-%@--db-%ld--last-%ld--sum-%ld", realtimeSteps, (long)dbSteps, (long)lastSyncSteps, (long)self.sumSteps);
         
         NSString *stepTotal = [NSString stringWithFormat:@"%@", @(self.sumSteps)];
         // 步数转为公里数据
@@ -409,8 +409,6 @@
             }];
         } else {
             // 直接获取手环实时数据到自建数据表中
-            CLog(@"我走了这里");
-            
             NSInteger lastSyncSteps = [VHSCommon getShouHuanLastStepsSync];
             // 同步数据到本地
             VHSActionData *action = [[VHSActionData alloc] init];
@@ -418,9 +416,11 @@
             action.memberId = [[VHSCommon userInfo].memberId stringValue];
             action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
             action.actionType = @"1";
-            action.step = [VHSStepAlgorithm shareAlgorithm].stepsData.step - lastSyncSteps;
+            NSInteger step = [[VHSStepAlgorithm shareAlgorithm].stepsData.step integerValue] - lastSyncSteps;
+            action.step = [@(step) stringValue];
             action.upload = 0;
             action.endTime = [VHSCommon getDate:[NSDate date]];
+            action.macAddress = [VHSCommon getShouHuanMacSddress];
             [[VHSStepAlgorithm shareAlgorithm] insertOrUpdateBleAction:action];
             
             // 更新本地的标志信息

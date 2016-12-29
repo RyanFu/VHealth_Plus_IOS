@@ -10,15 +10,17 @@
 #import "VHSCommon.h"
 #import "VHSDefinition.h"
 #import "VHS_Header.h"
+#import "NSString+AES256.h"
 
 /// 手机计步：手机实时数据的回调是在子线程中的，查询数据是在主现场中的，为了避免主线程和子线程同时争抢BD对象，所以每一次数据操作都创建一个新的DB对象
+
+//#define KEY_OF_AES       @"123456"
 
 @interface VHSDataBaseManager ()
 
 @end
 
 // action_type 定义当前纪录步数类型
-// 4 手环
 
 @implementation VHSDataBaseManager
 
@@ -39,7 +41,6 @@
 
 // 用户数据库创建处理
 - (void)createDB {
-    
     // 用户数据库不存在时，新建
     if (![[NSFileManager defaultManager] fileExistsAtPath:[self dbPath]]) {
         [VHSCommon saveDataBaseVersion];
@@ -63,16 +64,16 @@
     NSString *createSportTableSql = @"CREATE TABLE IF NOT EXISTS 'action_lst' \
     (   'action_id'             VARCHAR(36), \
         'member_id'             VARCHAR(36),\
-        'action_mode'           INTEGER,\
+        'action_mode'           VARCHAR(8),\
         'action_type'           VARCHAR(8),\
-        'distance'              NUMERIC,\
-        'seconds'               INTEGER,\
-        'calorie'               INTEGER,\
-        'step'                  INTEGER,\
+        'distance'              VARCHAR(36),\
+        'seconds'               VARCHAR(36),\
+        'calorie'               VARCHAR(36),\
+        'step'                  VARCHAR(36),\
         'start_time'            VARCHAR(36),\
         'end_time'              VARCHAR(36),\
         'record_time'           VARCHAR(36),\
-        'score'                 INTEGER,\
+        'score'                 VARCHAR(36),\
         'upload'                INTEGER,\
         'mac_address'           VARCHAR(36)\
     )";
@@ -88,123 +89,128 @@
     [db close];
 }
 
-// 插入一条数据到运动一览表
-- (BOOL)insertActionLst:(NSString *)action_id
-             member_id:(NSString *)member_id
-           action_mode:(NSInteger) action_mode
-           action_type:(NSString *)action_type
-              distance:(float)distance
-               seconds:(NSInteger)seconds
-               calorie:(NSInteger)calorie
-                  step:(NSInteger)step
-            start_time:(NSString *)start_time
-              end_time:(NSString *)end_time
-           record_time:(NSString *)record_time
-                 score:(NSInteger)score
-                upload:(NSInteger)upload
-           mac_address:(NSString *)mac_address {
+- (BOOL)insertAction:(VHSActionData *)action {
     
-    if (!action_id.length || !action_id) {
-        CLog(@"主键不见");
-        return NO;
-    }
-    if (!member_id.length || !member_id) {
-        return NO;
-    }
-    
-    BOOL flag = NO;
-    
-    // 获取DB对象
-    FMDatabase *db = [self getFmdb];
-    [db open];
-    
-    NSString *insertSql = @"INSERT INTO action_lst (action_id, member_id, action_mode, action_type, distance, seconds, calorie, step, start_time, end_time, record_time, score, upload, mac_address) VALUES (? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    flag = [db executeUpdate:insertSql, action_id, member_id, @(action_mode), action_type, @(distance), @(seconds), @(calorie), @(step), start_time, end_time, record_time, @(score), @(upload), mac_address];
-    
-    if (flag) {
-        CLog(@"插入一条数据成功");
-    } else {
-        CLog(@"插入一条数据失败");
-    }
-    
-    [db close];
-    
-    return flag;
+//    if (!action.actionId.length || !action.actionId) {
+//        return NO;
+//    }
+//    else if (!action.memberId.length || !action.memberId) {
+//        return NO;
+//    }
+//    
+//    BOOL flag = NO;
+//    
+//    // 获取DB对象
+//    FMDatabase *db = [self getFmdb];
+//    [db open];
+//    
+//    NSString *insertSql = @"INSERT INTO action_lst (action_id, member_id, action_mode, action_type, distance, seconds, calorie, step, start_time, end_time, record_time, score, upload, mac_address) VALUES (? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//    
+//    NSString *ecStep = [action.step aes256_encrypt:KEY_OF_AES];
+//    action.memberId = [action.memberId aes256_encrypt:KEY_OF_AES];
+//    action.recordTime = [action.recordTime aes256_encrypt:KEY_OF_AES];
+//    
+//    flag = [db executeUpdate:insertSql,
+//            action.actionId,
+//            action.memberId,
+//            action.actionMode,
+//            action.actionType,
+//            action.distance,
+//            action.seconds,
+//            action.calorie,
+//            ecStep,
+//            action.startTime,
+//            action.endTime,
+//            action.recordTime,
+//            action.score,
+//            @(action.upload),
+//            action.macAddress];
+//    
+//    if (flag) {
+//        CLog(@"插入一条数据成功");
+//    } else {
+//        CLog(@"插入一条数据失败");
+//    }
+//    
+//    [db close];
+//    
+//    return flag;
+    return YES;
 }
 
-- (void)insertOrUpdateM7ActionLst:(NSString *)action_id
-                        member_id:(NSString *)member_id
-                      action_mode:(NSInteger) action_mode
-                      action_type:(NSString *)action_type
-                         distance:(float)distance
-                          seconds:(NSInteger)seconds
-                          calorie:(NSInteger)calorie
-                             step:(NSInteger)step
-                       start_time:(NSString *)start_time
-                         end_time:(NSString *)end_time
-                      record_time:(NSString *)record_time
-                            score:(NSInteger)score
-                           upload:(NSInteger)upload
-                      mac_address:(NSString *)mac_address {
- 
-    FMDatabase *db = [self getFmdb];
-    [db open];
-        
-    if ([VHSCommon isNullString:member_id] || [VHSCommon isNullString:record_time]) {
-        [db close];
-        return;
-    }
+- (BOOL)isExistActionWithMemberId:(NSString *)memberId actionType:(NSString *)actionType recordTime:(NSString *)recordTime {
+//    if (!memberId || !actionType.length || !recordTime.length) return NO;
+//    
+//    FMDatabase *db = [self getFmdb];
+//    [db open];
+//    
+//    NSString *sql = [NSString stringWithFormat:@"select count(action_id) as nums from action_lst where member_id = '%@' and record_time = '%@' and action_type = '%@';", memberId, recordTime, actionType];
+//    FMResultSet *rs = [db executeQuery:sql];
+//    
+//    NSInteger nums = 0;
+//    while ([rs next]) {
+//        nums = [rs intForColumn:@"nums"];
+//    }
+//    [db close];
+//    
+//    if (nums > 0) {
+//        return YES;
+//    } else {
+//        return NO;
+//    }
+    return YES;
+}
+
+- (NSInteger)dbStepWithMemberId:(NSString *)memberId actionType:(NSString *)actionType recordTime:(NSString *)recordTime {
+//    if (!memberId || !actionType.length || !recordTime.length) return 0;
+//    
+//    FMDatabase *db = [self getFmdb];
+//    [db open];
+//    
+//    NSString *sql = [NSString stringWithFormat:@"select step from action_lst where member_id = '%@' and record_time = '%@' and action_type = '%@';", memberId, recordTime, actionType];
+//    FMResultSet *rs = [db executeQuery:sql];
+//    
+//    NSInteger step = 0;
+//    while ([rs next]) {
+//        step = [[[rs stringForColumn:@"step"] aes256_decrypt:KEY_OF_AES] integerValue];
+//    }
+//    [db close];
+//    
+//    return step;
+    return 10;
+}
+
+- (void)insertOrUpdateM7Action:(VHSActionData *)action {
     
-    NSString *sql = [NSString stringWithFormat:@"select action_id, step from action_lst where record_time = '%@' and action_type = '%@' and member_id = %@", record_time, action_type, member_id];
-    FMResultSet *rs = [db executeQuery:sql];
-    BOOL flag = NO;
-    NSString *actionId = nil;
-    NSInteger steps = 0;
-    while ([rs next]) {
-        actionId = [rs stringForColumn:@"action_id"];
-        steps = [rs intForColumn:@"step"];
-        if (actionId) {
-            flag = YES;
-        }
-    }
-    
-    // 加一个判断，如果结果rs结果集nil，直接返回
-    if (!rs) return;
-    
-    if (flag) {
-        // 增量大于0才进行更新
-        if (step > 0) {
-            // 存在该数据 －－ 更新
-            NSString *destSteps = [@(steps + step) stringValue];
-            NSString *updateSql = [NSString stringWithFormat:@"update action_lst set step = %@, upload = 0, end_time = '%@' where record_time = '%@' and action_type = %@  and member_id = %@", destSteps, end_time, record_time, action_type, member_id];
-            BOOL res = [db executeUpdate:updateSql];
-            if (res) {
-                CLog(@"更新一条数据成功－－－－－success");
-            }
-        }
-    }
-    else {
-        // 不存在该数据 －－ 插入
-        BOOL res = [self insertActionLst:action_id
-                               member_id:member_id
-                             action_mode:action_mode
-                             action_type:action_type
-                                distance:action_mode
-                                 seconds:seconds
-                                 calorie:calorie
-                                    step:step
-                              start_time:[VHSCommon getDate:[NSDate date]]
-                                end_time:[VHSCommon getDate:[NSDate date]]
-                             record_time:record_time
-                                   score:score
-                                  upload:upload
-                             mac_address:mac_address];
-        if (res) {
-            CLog(@"插入一条数据成功－－－－－success");
-        }
-    }
-    
-    [db close];
+//    action.memberId = [action.memberId aes256_encrypt:KEY_OF_AES];
+//    NSString *enRecordTime = [action.recordTime aes256_encrypt:KEY_OF_AES];
+//    
+//    BOOL flag = [self isExistActionWithMemberId:action.memberId actionType:action.actionType recordTime:enRecordTime];
+//    
+//    FMDatabase *db = [self getFmdb];
+//    [db open];
+//    
+//    if (flag) {
+//        NSInteger dbStep = [self dbStepWithMemberId:action.memberId actionType:action.actionType recordTime:enRecordTime];
+//        // 更新
+//        NSString *destSteps = [@(dbStep + [action.step integerValue]) stringValue];
+//        NSString *updateSql = [NSString stringWithFormat:@"update action_lst set step = '%@', upload = 0, end_time = '%@' where record_time = '%@' and action_type = %@  and member_id = '%@'", [destSteps aes256_encrypt:KEY_OF_AES], action.endTime, enRecordTime, action.actionType, action.memberId];
+//        
+//        [db executeUpdate:updateSql];
+//        
+//        CLog(@"更新一条数据成功－－－－－success");
+//    } else {
+//        // 插入
+//        action.startTime = [VHSCommon getDate:[NSDate date]];
+//        action.endTime = [VHSCommon getDate:[NSDate date]];
+//        action.recordTime = enRecordTime;
+//        action.step = [action.step aes256_encrypt:KEY_OF_AES];
+//        [self insertAction:action];
+//        
+//        CLog(@"插入一条数据成功－－－－－success");
+//    }
+//    
+//    [db close];
 }
 
 // 更新用户运动信息的上传状态
@@ -227,29 +233,323 @@
 
 // 获取用户没有上传的运动信息 
 - (NSMutableArray *)selectUnuploadFromActionLst:(NSString *)memberId {
-    NSMutableArray *unUploadList = [NSMutableArray new];
+//    NSMutableArray *unUploadList = [NSMutableArray new];
+//    
+//    FMDatabase *db = [self getFmdb];
+//    [db open];
+//    
+//    memberId = [memberId aes256_encrypt:KEY_OF_AES];
+//    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM action_lst WHERE member_id = '%@' AND upload = 0 ORDER BY action_id desc", memberId];
+//    
+//    FMResultSet *rs = [db executeQuery:sql];
+//    while ([rs next]) {
+//        NSString *action_id = [rs stringForColumn:@"action_id"];
+//        NSString *member_id = [[rs stringForColumn:@"member_id"] aes256_decrypt:KEY_OF_AES];
+//        NSString *action_type = [rs stringForColumn:@"action_type"];
+//        NSString *distance = [rs stringForColumn:@"distance"];
+//        NSString *calorie = [rs stringForColumn:@"calorie"];
+//        NSString *step = [[rs stringForColumn:@"step"] aes256_decrypt:KEY_OF_AES];
+//        NSString *start_time = [rs stringForColumn:@"start_time"];
+//        NSString *end_time = [rs stringForColumn:@"end_time"];
+//        NSString *record_time = [[rs stringForColumn:@"record_time"] aes256_decrypt:KEY_OF_AES];;
+//        NSString *score = [rs stringForColumn:@"score"];
+//        NSInteger upload = [rs intForColumn:@"upload"];
+//        NSString *mac_address = [rs stringForColumn:@"mac_address"];
+//        
+//        VHSActionData *action = [[VHSActionData alloc] init];
+//        action.actionId = action_id;
+//        action.memberId = member_id;
+//        action.actionType = action_type;
+//        action.distance = distance;
+//        action.calorie = calorie;
+//        action.step = step;
+//        action.startTime = start_time;
+//        action.endTime = end_time;
+//        action.recordTime = record_time;
+//        action.score = score;
+//        action.upload = upload;
+//        action.macAddress = mac_address;
+//        
+//        [unUploadList addObject:action];
+//    }
+//        
+//    [db close];
+//    
+//    return unUploadList;
+    return [@[] mutableCopy];
+}
+
+- (NSInteger)selectSumDayStepsFromActionLst:(NSString *)memberId ymd:(NSString *)recordTime {
+//    NSInteger sum = 0;
+//    
+//    FMDatabase *db = [self getFmdb];
+//    [db open];
+//    
+//    memberId = [memberId aes256_encrypt:KEY_OF_AES];
+//    recordTime = [recordTime aes256_encrypt:KEY_OF_AES];
+//    
+//    NSString *sql = [NSString stringWithFormat:@"SELECT step FROM action_lst WHERE member_id = '%@' AND record_time = '%@'", memberId, recordTime];
+//    FMResultSet *rs = [db executeQuery:sql];
+//    
+//    while ([rs next]) {
+//        sum += [[[rs stringForColumn:@"step"] aes256_decrypt:KEY_OF_AES] integerValue];
+//    }
+//    
+//    [db close];
+//    
+//    return sum;
+    return 10;
+}
+
+- (void)insertOrUpdateBleAction:(VHSActionData *)action {
+    
+//    BOOL flag = [self isExistActionWithMemberId:action.memberId
+//                                        actionType:action.actionType
+//                                        recordTime:action.recordTime];
+//    
+//    
+//    FMDatabase *db = [self getFmdb];
+//    [db open];
+//
+//    
+//    if (flag) {
+//        NSInteger dbStep = [self dbStepWithMemberId:action.memberId actionType:action.actionType recordTime:action.recordTime];
+//        
+//        // 存在该数据 －－ 更新
+//        NSString *destSteps = [@([action.step integerValue] + dbStep) stringValue];
+//        destSteps = [destSteps aes256_encrypt:KEY_OF_AES];
+//        NSString *updateSql = [NSString stringWithFormat:@"update action_lst set step = '%@', upload = 0, end_time = '%@' where record_time = '%@' and action_type = %@ and member_id = '%@'", destSteps, [VHSCommon getDate:[NSDate date]], action.recordTime, action.actionType, action.memberId];
+//        BOOL res = [db executeUpdate:updateSql];
+//        if (res) CLog(@"更新一条数据成功－－－－－success");
+//    }
+//    else {
+//        // 不存在该数据 －－ 插入
+//        action.memberId = [VHSCommon userInfo].memberId.stringValue;
+//        action.distance = @"0.0";
+//        action.seconds = @"0.0";
+//        action.calorie = @"0.0";
+//        action.startTime = [VHSCommon getDate:[NSDate date]];
+//        action.endTime = [VHSCommon getDate:[NSDate date]];
+//        action.score = @"0";
+//        action.upload = 0;
+//        action.macAddress = [VHSCommon getShouHuanMacSddress];
+//        
+//        BOOL res = [self insertAction:action];
+//        if (res)  CLog(@"插入一条数据成功－－－－－success");
+//    }
+//    [db close];
+}
+
+/// 更新数据库中的数据
+- (void)updateSportStepWithActionData:(VHSActionData *)action {
+    
+//    FMDatabase *db = [self getFmdb];
+//    [db open];
+//    
+//    NSString *enMemberId = [action.memberId aes256_encrypt:KEY_OF_AES];
+//    NSString *enRecordTime = [action.recordTime aes256_encrypt:KEY_OF_AES];
+//    
+//    BOOL exsit = [self isExistActionWithMemberId:enMemberId actionType:action.actionType recordTime:enRecordTime];
+//    
+////    NSString *sql = [NSString stringWithFormat:@"select action_id, step from action_lst where record_time = '%@' and action_type = '%@' and member_id = '%@'", enRecordTime, action.actionType, enMemberId];
+////    FMResultSet *rs = [db executeQuery:sql];
+////    BOOL exsit = NO;
+////    NSString *actionId = nil;
+////    NSInteger step = 0;
+////    while ([rs next]) {
+////        actionId = [rs stringForColumn:@"action_id"];
+////        step = [[[rs stringForColumn:@"step"] aes256_decrypt:KEY_OF_AES] integerValue];
+////        if (actionId) {
+////            exsit = YES;
+////        }
+////    }
+//    
+//    // 更新
+//    if (exsit) {
+//        NSInteger dbStep = [self dbStepWithMemberId:enMemberId actionType:action.actionType recordTime:enRecordTime];
+//        // 只有当云端数据大于本地数据是更新
+//        if ([action.step integerValue] > dbStep) {
+//            NSString *sql = [NSString stringWithFormat:@"update action_lst set step = '%@', distance = %@ where mac_address = '%@' and member_id = '%@' and record_time = '%@'", [action.step aes256_encrypt:KEY_OF_AES], action.distance, action.macAddress, enMemberId, enRecordTime];
+//            [db executeUpdate:sql];
+//        }
+//    } else {
+//        action.actionId = [VHSCommon getTimeStamp];
+//        action.actionMode = @"0";
+//        action.seconds = @"0.0";
+//        action.calorie = @"0.0";
+//        action.startTime = [VHSCommon getDate:[NSDate date]];
+//        action.endTime = [VHSCommon getDate:[NSDate date]];
+//        action.score = @"0";
+//        
+//        [self insertAction:action];
+//    }
+//    
+//    [db close];
+}
+
+
+//////// 新的查询存储模块
+
+- (BOOL)insertNewAction:(VHSActionData *)action {
+    
+        if (!action.actionId.length || !action.actionId) {
+            return NO;
+        }
+        else if (!action.memberId.length || !action.memberId) {
+            return NO;
+        }
+    
+        BOOL flag = NO;
+    
+        // 获取DB对象
+        FMDatabase *db = [self getFmdb];
+        [db open];
+    
+        NSString *insertSql = @"INSERT INTO action_lst (action_id, member_id, action_mode, action_type, distance, seconds, calorie, step, start_time, end_time, record_time, score, upload, mac_address) VALUES (? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+        flag = [db executeUpdate:insertSql,
+                action.actionId,
+                action.memberId,
+                action.actionMode,
+                action.actionType,
+                action.distance,
+                action.seconds,
+                action.calorie,
+                action.step,
+                action.startTime,
+                action.endTime,
+                action.recordTime,
+                action.score,
+                @(action.upload),
+                action.macAddress];
+        
+        [db close];
+        
+    return flag;
+}
+
+- (void)updateNewAction:(VHSActionData *)action {
+    if (!action.memberId || !action.recordTime || !action.actionType) return;
+    
+    NSString *sql = @"update action_lst \
+    set \
+    step = '%@', upload = 0, end_time = '%@', mac_address = '%@' \
+    where \
+    record_time = '%@' and action_type = %@  and member_id = '%@'";
+    
+    NSString *updateSql = [NSString stringWithFormat:sql, action.step, action.endTime, action.macAddress, action.recordTime, action.actionType, action.memberId];
+    
+    FMDatabase *db = [self getFmdb];
+    [db open];
+    [db executeUpdate:updateSql];
+    [db close];
+}
+
+- (NSInteger)rownumsWithMemberId:(NSString *)memberId recordTime:(NSString *)recordTime actionType:(NSString *)actionType {
+    NSString *sql = @"select count() as rownums from action_lst \
+    where \
+    member_id = '%@' and action_type = '%@' and record_time = '%@'";
+    
+    NSString *selSql = [NSString stringWithFormat:sql, memberId, actionType, recordTime];
+    
+    FMDatabase *db = [self getFmdb];
+    [db open];
+    FMResultSet *rs = [db executeQuery:selSql];
+    
+    NSInteger rowNums = 0;
+    while ([rs next]) {
+        rowNums = [rs intForColumn:@"rownums"];
+    }
+    [db close];
+    
+    return rowNums;
+}
+
+- (NSString *)dbStepWithMemberId:(NSString *)memberId recordTime:(NSString *)recordTime actionType:(NSString *)actionType {
+    NSString *sql = @"select step from action_lst \
+    where \
+    member_id = '%@' and action_type = '%@' and record_time = '%@' limit 1";
+    
+    NSString *selSql = [NSString stringWithFormat:sql, memberId, actionType, recordTime];
+    
+    FMDatabase *db = [self getFmdb];
+    [db open];
+    FMResultSet *rs = [db executeQuery:selSql];
+    
+    NSString *step = @"";
+    while ([rs next]) {
+        step = [rs stringForColumn:@"step"];
+    }
+    [db close];
+    
+    return step;
+}
+
+- (VHSActionData *)actionWithMemberId:(NSString *)memberId recordTime:(NSString *)recordTime actionType:(NSString *)actionType {
+    NSArray *actionList = [self selectListWithMemberId:memberId recordTime:recordTime actionType:actionType upload:nil];
+    VHSActionData *action = [actionList firstObject];
+    return action;
+}
+
+- (NSArray *)onedayStepWithMemberId:(NSString *)memberId recordTime:(NSString *)recordTime {
+    NSArray *onedayActionList = [self selectListWithMemberId:memberId recordTime:recordTime actionType:nil upload:nil];;
+    return onedayActionList;
+}
+
+- (NSArray *)oneUserActionWithMemberId:(NSString *)memberId actionType:(NSString *)actionType {
+    NSArray *actionList = [self selectListWithMemberId:memberId recordTime:nil actionType:actionType upload:nil];
+    return actionList;
+}
+
+- (NSArray *)oneUserActionListWithMemberId:(NSString *)memberId upload:(NSString *)isUpload {
+    NSArray *actionList = [self selectListWithMemberId:memberId recordTime:nil actionType:nil upload:isUpload];
+    return actionList;
+}
+
+- (NSArray *)selectListWithMemberId:(NSString *)memberId
+                         recordTime:(NSString *)recordTime
+                         actionType:(NSString *)actionType
+                             upload:(NSString *)upload {
+    if (!memberId) return @[];
+    
+    NSString *sql = @"select * from action_lst where ";
+    
+    if (memberId) {
+        sql = [sql stringByAppendingString:[NSString stringWithFormat:@" member_id = '%@' ", memberId]];
+    }
+    if (recordTime) {
+        sql = [sql stringByAppendingString:[NSString stringWithFormat:@" and record_time = '%@' ", recordTime]];
+    }
+    if (actionType) {
+        sql = [sql stringByAppendingString:[NSString stringWithFormat:@" and action_type = '%@' ", actionType]];
+    }
+    if (upload) {
+        sql = [sql stringByAppendingString:[NSString stringWithFormat:@" and upload = %@ ", upload]];
+    }
     
     FMDatabase *db = [self getFmdb];
     [db open];
     
-    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM action_lst WHERE member_id = %@ AND upload = 0 ORDER BY action_id desc", memberId];
-    
     FMResultSet *rs = [db executeQuery:sql];
+    
+    NSMutableArray *arr = [NSMutableArray array];
     while ([rs next]) {
         NSString *action_id = [rs stringForColumn:@"action_id"];
+        NSString *member_id = [rs stringForColumn:@"member_id"];
         NSString *action_type = [rs stringForColumn:@"action_type"];
-        double distance = [rs doubleForColumn:@"distance"];
-        NSInteger calorie = [rs intForColumn:@"calorie"];
-        NSInteger step = [rs intForColumn:@"step"];
+        NSString *distance = [rs stringForColumn:@"distance"];
+        NSString *calorie = [rs stringForColumn:@"calorie"];
+        NSString *step = [rs stringForColumn:@"step"];
         NSString *start_time = [rs stringForColumn:@"start_time"];
         NSString *end_time = [rs stringForColumn:@"end_time"];
-        NSString *record_time = [rs stringForColumn:@"record_time"];
-        NSInteger score = [rs intForColumn:@"score"];
+        NSString *record_time = [rs stringForColumn:@"record_time"];;
+        NSString *score = [rs stringForColumn:@"score"];
         NSInteger upload = [rs intForColumn:@"upload"];
         NSString *mac_address = [rs stringForColumn:@"mac_address"];
         
         VHSActionData *action = [[VHSActionData alloc] init];
         action.actionId = action_id;
+        action.memberId = member_id;
         action.actionType = action_type;
         action.distance = distance;
         action.calorie = calorie;
@@ -261,143 +561,10 @@
         action.upload = upload;
         action.macAddress = mac_address;
         
-        [unUploadList addObject:action];
-    }
-        
-    [db close];
-    
-    return unUploadList;
-}
-
-- (NSInteger)selectSumDayStepsFromActionLst:(NSString *)memberId ymd:(NSString *)ymd {
-    NSInteger sum = 0;
-    
-    FMDatabase *db = [self getFmdb];
-    [db open];
-    
-    NSString *sql = [NSString stringWithFormat:@"SELECT SUM(step) as steps FROM action_lst WHERE member_id = %@ AND record_time = '%@'", memberId, ymd];
-    
-    FMResultSet *rs = [db executeQuery:sql];
-    
-    while ([rs next]) {
-        sum = [rs intForColumn:@"steps"];
+        [arr addObject:action];
     }
     
-    [db close];
-
-    return sum;
-}
-
-- (void)insertOrUpdateBleActionLst:(NSString *)action_id
-                         member_id:(NSString *)member_id
-                       action_mode:(NSInteger) action_mode
-                       action_type:(NSString *)action_type
-                          distance:(float)distance
-                           seconds:(NSInteger)seconds
-                           calorie:(NSInteger)calorie
-                              step:(NSInteger)steps
-                        start_time:(NSString *)start_time
-                          end_time:(NSString *)end_time
-                       record_time:(NSString *)record_time
-                             score:(NSInteger)score
-                            upload:(NSInteger)upload
-                       mac_address:(NSString *)mac_address {
-    
-    FMDatabase *db = [self getFmdb];
-    [db open];
-        
-    NSString *sql = [NSString stringWithFormat:@"select action_id, step from action_lst where record_time = '%@' and action_type = '%@' and member_id = '%@'", record_time, action_type, member_id];
-    FMResultSet *rs = [db executeQuery:sql];
-    BOOL flag = NO;
-    NSString *actionId = nil;
-    NSInteger step = 0;
-    while ([rs next]) {
-        actionId = [rs stringForColumn:@"action_id"];
-        step = [rs intForColumn:@"step"];
-        if (actionId) {
-            flag = YES;
-        }
-    }
-    
-    if (flag) {
-        if (steps > 0) {
-            // 存在该数据 －－ 更新
-            NSString *destSteps = [@(steps + step) stringValue];
-            NSString *updateSql = [NSString stringWithFormat:@"update action_lst set step = %@, upload = 0, end_time = '%@' where record_time = '%@' and action_type = %@ and member_id = '%@'", destSteps, [VHSCommon getDate:[NSDate date]], record_time, action_type, member_id];
-            BOOL res = [db executeUpdate:updateSql];
-            if (res) {
-                CLog(@"更新一条数据成功－－－－－success");
-            }
-        }
-    }
-    else {
-        // 不存在该数据 －－ 插入
-        BOOL res = [self insertActionLst:action_id
-                               member_id:[[VHSCommon userDetailInfo].memberId stringValue]
-                             action_mode:0
-                             action_type:action_type
-                                distance:0.0
-                                 seconds:0
-                                 calorie:0
-                                    step:steps
-                              start_time:[VHSCommon getDate:[NSDate date]]
-                                end_time:[VHSCommon getDate:[NSDate date]]
-                             record_time:record_time
-                                   score:0
-                                  upload:0
-                             mac_address:[k_UserDefaults objectForKey:k_SHOUHUAN_MAC_ADDRESS]];
-        if (res) {
-            CLog(@"插入一条数据成功－－－－－success");
-        }
-    }
-    
-    [db close];
-}
-
-/// 更新数据库中的数据
-- (void)updateSportStepWithActionData:(VHSActionData *)action {
-    
-    FMDatabase *db = [self getFmdb];
-    [db open];
-        
-    NSString *sql = [NSString stringWithFormat:@"select action_id, step from action_lst where record_time = '%@' and action_type = '%@' and member_id = '%@'", action.recordTime, action.actionType, action.memberId];
-    FMResultSet *rs = [db executeQuery:sql];
-    BOOL exsit = NO;
-    NSString *actionId = nil;
-    NSInteger step = 0;
-    while ([rs next]) {
-        actionId = [rs stringForColumn:@"action_id"];
-        step = [rs intForColumn:@"step"];
-        if (actionId) {
-            exsit = YES;
-        }
-    }
-    
-    // 更新
-    if (exsit) {
-        // 只有当云端数据大于本地数据是更新
-        if (action.step > step) {
-            NSString *sql = [NSString stringWithFormat:@"update action_lst set step = '%@', distance = %@ where mac_address = '%@' and member_id = '%@' and record_time = '%@'", @(action.step), @(action.distance), action.macAddress, action.memberId, action.recordTime];
-            [db executeUpdate:sql];
-        }
-    } else {
-        [self insertActionLst:[VHSCommon getTimeStamp]
-                    member_id:action.memberId
-                  action_mode:0
-                  action_type:action.actionType
-                     distance:action.distance
-                      seconds:0
-                      calorie:0
-                         step:action.step
-                   start_time:[VHSCommon getDate:[NSDate date]]
-                     end_time:[VHSCommon getDate:[NSDate date]]
-                  record_time:action.recordTime
-                        score:0
-                       upload:action.upload
-                  mac_address:action.macAddress];
-    }
-    
-    [db close];
+    return arr;
 }
 
 @end

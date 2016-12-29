@@ -29,8 +29,6 @@
 #import "VHSUtils.h"
 #import "VHSDefinition.h"
 #import "Masonry.h"
-//#import <VeryfitSDK/VeryfitSDK.h>
-//#import <VeryfitSDK/GCDAsyncSocket.h>
 #import <AlipaySDK/AlipaySDK.h>
 #import "WXApi.h"
 #import "VHSToast.h"

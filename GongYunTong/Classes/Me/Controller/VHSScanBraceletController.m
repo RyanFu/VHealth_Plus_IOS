@@ -239,7 +239,7 @@
                 // 获取绑定时刻手环的数据
                 [[VHSStepAlgorithm shareAlgorithm] realtimeBraceletDataBlock:^(ProtocolLiveDataModel *liveData) {
                     [VHSCommon setShouHuanBoundSteps:liveData.step];
-                    [VHSCommon setShouHuanLastStepsSync:liveData.step];
+                    [VHSCommon setShouHuanLastStepsSync:[NSString stringWithFormat:@"%u", liveData.step]];
                     [VHSCommon setShouHuanLastTimeSync:[VHSCommon getDate:[NSDate date]]];
                 }];
                 

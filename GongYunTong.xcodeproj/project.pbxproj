@@ -14,8 +14,8 @@
 		3304BB641DED63FB00EDBC6B /* ShortcutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304BB601DED63FB00EDBC6B /* ShortcutItem.m */; };
 		3304BB651DED63FB00EDBC6B /* TabbarItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 3304BB611DED63FB00EDBC6B /* TabbarItem.h */; };
 		3304BB661DED63FB00EDBC6B /* TabbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304BB621DED63FB00EDBC6B /* TabbarItem.m */; };
-		3304BB691DED64F600EDBC6B /* VHSActionData.h in Headers */ = {isa = PBXBuildFile; fileRef = 3304BB671DED64F600EDBC6B /* VHSActionData.h */; };
-		3304BB6A1DED64F600EDBC6B /* VHSActionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304BB681DED64F600EDBC6B /* VHSActionData.m */; };
+		33098DA71E110BA900751A38 /* VHSActionData.h in Headers */ = {isa = PBXBuildFile; fileRef = 33098DA51E110BA900751A38 /* VHSActionData.h */; };
+		33098DA81E110BA900751A38 /* VHSActionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 33098DA61E110BA900751A38 /* VHSActionData.m */; };
 		330C9DF91D90DE25005875FE /* VHSToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 330C9DF81D90DE25005875FE /* VHSToast.m */; };
 		33120C8E1D79738000A006C9 /* VHSLocatServicer.m in Sources */ = {isa = PBXBuildFile; fileRef = 33120C8D1D79738000A006C9 /* VHSLocatServicer.m */; };
 		33120C901D7973A500A006C9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33120C8F1D7973A500A006C9 /* CoreLocation.framework */; };
@@ -32,6 +32,10 @@
 		3342F36C1D9388A300B31317 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3342F36B1D9388A300B31317 /* libz.1.2.5.tbd */; };
 		3342F36E1D9388B400B31317 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3342F36D1D9388B400B31317 /* libstdc++.tbd */; };
 		3343A3251DAC89C900DEF1C2 /* UIColor+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3343A3241DAC89C900DEF1C2 /* UIColor+extension.m */; };
+		334F601C1E0A550E000F06B0 /* JSPatchPlatform.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 334F601B1E0A550E000F06B0 /* JSPatchPlatform.framework */; };
+		334F601E1E0A5939000F06B0 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 334F601D1E0A5939000F06B0 /* main.js */; };
+		334F602D1E0BBABD000F06B0 /* ThirdPartyCoordinator.h in Headers */ = {isa = PBXBuildFile; fileRef = 334F602B1E0BBABD000F06B0 /* ThirdPartyCoordinator.h */; };
+		334F602E1E0BBABD000F06B0 /* ThirdPartyCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 334F602C1E0BBABD000F06B0 /* ThirdPartyCoordinator.m */; };
 		33514BE01D5B034200ECDEA5 /* VeryfitSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33514BDF1D5B034200ECDEA5 /* VeryfitSDK.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		33514BE31D5B848900ECDEA5 /* VHSFitBraceletSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33514BE21D5B848900ECDEA5 /* VHSFitBraceletSettingController.m */; };
 		33514CD31D646A9100ECDEA5 /* VHSAllStepsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33514CD21D646A9100ECDEA5 /* VHSAllStepsController.m */; };
@@ -71,6 +75,8 @@
 		338C61CE1D59D5AE004CFE18 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 338C61CD1D59D5AE004CFE18 /* SystemConfiguration.framework */; };
 		338C61D11D59E06C004CFE18 /* VHSScanBraceletController.m in Sources */ = {isa = PBXBuildFile; fileRef = 338C61D01D59E06C004CFE18 /* VHSScanBraceletController.m */; };
 		338C61D31D59FB47004CFE18 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 338C61D21D59FB47004CFE18 /* CoreBluetooth.framework */; };
+		33A59E191E10EC0300D7BED4 /* DBSafetyCoordinator.h in Headers */ = {isa = PBXBuildFile; fileRef = 33A59E171E10EC0300D7BED4 /* DBSafetyCoordinator.h */; };
+		33A59E1A1E10EC0300D7BED4 /* DBSafetyCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 33A59E181E10EC0300D7BED4 /* DBSafetyCoordinator.m */; };
 		33C5E97E1D94F4D3004814BA /* libBPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C5E97C1D94F4D3004814BA /* libBPush.a */; };
 		33C5E97F1D94F4D3004814BA /* test.caf in Resources */ = {isa = PBXBuildFile; fileRef = 33C5E97D1D94F4D3004814BA /* test.caf */; };
 		33C5E9811D98C272004814BA /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C5E9801D98C272004814BA /* libsqlite3.tbd */; };
@@ -219,8 +225,8 @@
 		3304BB601DED63FB00EDBC6B /* ShortcutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShortcutItem.m; sourceTree = "<group>"; };
 		3304BB611DED63FB00EDBC6B /* TabbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabbarItem.h; sourceTree = "<group>"; };
 		3304BB621DED63FB00EDBC6B /* TabbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabbarItem.m; sourceTree = "<group>"; };
-		3304BB671DED64F600EDBC6B /* VHSActionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSActionData.h; sourceTree = "<group>"; };
-		3304BB681DED64F600EDBC6B /* VHSActionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSActionData.m; sourceTree = "<group>"; };
+		33098DA51E110BA900751A38 /* VHSActionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSActionData.h; sourceTree = "<group>"; };
+		33098DA61E110BA900751A38 /* VHSActionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSActionData.m; sourceTree = "<group>"; };
 		330C9DF71D90DE25005875FE /* VHSToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSToast.h; sourceTree = "<group>"; };
 		330C9DF81D90DE25005875FE /* VHSToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSToast.m; sourceTree = "<group>"; };
 		33120C8C1D79738000A006C9 /* VHSLocatServicer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSLocatServicer.h; sourceTree = "<group>"; };
@@ -248,6 +254,10 @@
 		3342F36D1D9388B400B31317 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		3343A3231DAC89C900DEF1C2 /* UIColor+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+extension.h"; sourceTree = "<group>"; };
 		3343A3241DAC89C900DEF1C2 /* UIColor+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+extension.m"; sourceTree = "<group>"; };
+		334F601B1E0A550E000F06B0 /* JSPatchPlatform.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSPatchPlatform.framework; sourceTree = "<group>"; };
+		334F601D1E0A5939000F06B0 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
+		334F602B1E0BBABD000F06B0 /* ThirdPartyCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdPartyCoordinator.h; sourceTree = "<group>"; };
+		334F602C1E0BBABD000F06B0 /* ThirdPartyCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdPartyCoordinator.m; sourceTree = "<group>"; };
 		33514BDF1D5B034200ECDEA5 /* VeryfitSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VeryfitSDK.framework; sourceTree = "<group>"; };
 		33514BE11D5B848900ECDEA5 /* VHSFitBraceletSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSFitBraceletSettingController.h; sourceTree = "<group>"; };
 		33514BE21D5B848900ECDEA5 /* VHSFitBraceletSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSFitBraceletSettingController.m; sourceTree = "<group>"; };
@@ -318,6 +328,8 @@
 		338C61CF1D59E06C004CFE18 /* VHSScanBraceletController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSScanBraceletController.h; sourceTree = "<group>"; };
 		338C61D01D59E06C004CFE18 /* VHSScanBraceletController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSScanBraceletController.m; sourceTree = "<group>"; };
 		338C61D21D59FB47004CFE18 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		33A59E171E10EC0300D7BED4 /* DBSafetyCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBSafetyCoordinator.h; sourceTree = "<group>"; };
+		33A59E181E10EC0300D7BED4 /* DBSafetyCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBSafetyCoordinator.m; sourceTree = "<group>"; };
 		33C5E97B1D94F4D3004814BA /* BPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPush.h; sourceTree = "<group>"; };
 		33C5E97C1D94F4D3004814BA /* libBPush.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBPush.a; sourceTree = "<group>"; };
 		33C5E97D1D94F4D3004814BA /* test.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.caf; sourceTree = "<group>"; };
@@ -542,6 +554,7 @@
 				33120C901D7973A500A006C9 /* CoreLocation.framework in Frameworks */,
 				338C61CE1D59D5AE004CFE18 /* SystemConfiguration.framework in Frameworks */,
 				3353B9C31D781A2500335815 /* AVFoundation.framework in Frameworks */,
+				334F601C1E0A550E000F06B0 /* JSPatchPlatform.framework in Frameworks */,
 				3353B9C11D781A1C00335815 /* AudioToolbox.framework in Frameworks */,
 				CAD91A3A1D5DB5F100AEF2FB /* CoreMotion.framework in Frameworks */,
 				3353B9BF1D78199F00335815 /* OpenGLES.framework in Frameworks */,
@@ -621,12 +634,12 @@
 		3304BB5E1DED63FB00EDBC6B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3304BB671DED64F600EDBC6B /* VHSActionData.h */,
-				3304BB681DED64F600EDBC6B /* VHSActionData.m */,
 				3304BB5F1DED63FB00EDBC6B /* ShortcutItem.h */,
 				3304BB601DED63FB00EDBC6B /* ShortcutItem.m */,
 				3304BB611DED63FB00EDBC6B /* TabbarItem.h */,
 				3304BB621DED63FB00EDBC6B /* TabbarItem.m */,
+				33098DA51E110BA900751A38 /* VHSActionData.h */,
+				33098DA61E110BA900751A38 /* VHSActionData.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -647,6 +660,15 @@
 				3342F3691D9387AE00B31317 /* libBaiduMobStat.a */,
 			);
 			path = "universal-tongji";
+			sourceTree = "<group>";
+		};
+		334F601A1E0A550E000F06B0 /* JSPatchPlatform */ = {
+			isa = PBXGroup;
+			children = (
+				334F601B1E0A550E000F06B0 /* JSPatchPlatform.framework */,
+				334F601D1E0A5939000F06B0 /* main.js */,
+			);
+			path = JSPatchPlatform;
 			sourceTree = "<group>";
 		};
 		33514BDE1D5B034200ECDEA5 /* FitSDK */ = {
@@ -971,9 +993,9 @@
 			isa = PBXGroup;
 			children = (
 				3304BB5E1DED63FB00EDBC6B /* Model */,
-				673019731D3C6651004A3320 /* ThirdLibrary */,
 				673019751D3C6651004A3320 /* View */,
 				673019701D3C6651004A3320 /* Controller */,
+				673019731D3C6651004A3320 /* ThirdLibrary */,
 				338C618C1D59D2BE004CFE18 /* FitBracelet */,
 				67B4F8EB1D3CDAE100F933F0 /* Network */,
 				6730196F1D3C6651004A3320 /* Category */,
@@ -1070,6 +1092,7 @@
 		673019741D3C6651004A3320 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				334F601A1E0A550E000F06B0 /* JSPatchPlatform */,
 				33CB6EA51DDEB1E2001E470A /* Security */,
 				33514BDE1D5B034200ECDEA5 /* FitSDK */,
 				67E13F541D45D77D001C58D7 /* XLAlertController.h */,
@@ -1082,6 +1105,10 @@
 				330C9DF81D90DE25005875FE /* VHSToast.m */,
 				3327586E1DA8D49D00C285DB /* VHSAlertController.h */,
 				3327586F1DA8D49D00C285DB /* VHSAlertController.m */,
+				334F602B1E0BBABD000F06B0 /* ThirdPartyCoordinator.h */,
+				334F602C1E0BBABD000F06B0 /* ThirdPartyCoordinator.m */,
+				33A59E171E10EC0300D7BED4 /* DBSafetyCoordinator.h */,
+				33A59E181E10EC0300D7BED4 /* DBSafetyCoordinator.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -1387,14 +1414,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				334F602D1E0BBABD000F06B0 /* ThirdPartyCoordinator.h in Headers */,
+				33098DA71E110BA900751A38 /* VHSActionData.h in Headers */,
 				33E14E1F1DFA82CA0021688D /* IconItem.h in Headers */,
 				3304BB651DED63FB00EDBC6B /* TabbarItem.h in Headers */,
 				33F6FAC51DF7E2D9005510D4 /* VHSDynamicConfigurationCell.h in Headers */,
+				33A59E191E10EC0300D7BED4 /* DBSafetyCoordinator.h in Headers */,
 				3304BB5C1DED62F600EDBC6B /* UserInfoModel.h in Headers */,
 				33E14E1B1DFA7D760021688D /* DynamicItemModel.h in Headers */,
 				33F6FAC11DF7DE29005510D4 /* VHSEnterpriseDynamicCell.h in Headers */,
 				333F396C1DFBD52C005A43AA /* OneAlertCaller.h in Headers */,
-				3304BB691DED64F600EDBC6B /* VHSActionData.h in Headers */,
 				3304BB631DED63FB00EDBC6B /* ShortcutItem.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1524,6 +1553,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				334F601E1E0A5939000F06B0 /* main.js in Resources */,
 				33CB6EB61DDEEF28001E470A /* public_key.der in Resources */,
 				671217F21D3F4C71004CFD14 /* Shop.storyboard in Resources */,
 				67C7AE0E1D38AB2A0091F669 /* Assets.xcassets in Resources */,
@@ -1624,6 +1654,7 @@
 				334038F91D8175F800202DDD /* TransferStepModel.m in Sources */,
 				CA254EC21D4AEB1500853D3C /* VHSLoginPersonCell.m in Sources */,
 				338C61BE1D59D2BE004CFE18 /* VHSScanDeviceCell.m in Sources */,
+				334F602E1E0BBABD000F06B0 /* ThirdPartyCoordinator.m in Sources */,
 				33E5B8C01DD9A43200E52A11 /* NSArray+VHSExtension.m in Sources */,
 				33ED43171D4F47B3007B0F30 /* VHSPaymentsDetailCell.m in Sources */,
 				33ED43141D4F33B5007B0F30 /* VHSSettingCell.m in Sources */,
@@ -1673,6 +1704,7 @@
 				33E5B8CE1DDBFEA800E52A11 /* VHSLoginController.m in Sources */,
 				33ED431A1D4F480C007B0F30 /* VHSNormalCell.m in Sources */,
 				33F2BA4F1D658B6E00928976 /* VHSModifyInfoController.m in Sources */,
+				33A59E1A1E10EC0300D7BED4 /* DBSafetyCoordinator.m in Sources */,
 				33CBF3301D73D81400D39452 /* PublicWKWebViewController.m in Sources */,
 				338C61C51D59D2BE004CFE18 /* VHSTimeToast.m in Sources */,
 				3353B9C61D782A8400335815 /* VHSMeScoreCell.m in Sources */,
@@ -1714,7 +1746,6 @@
 				33F2BA431D648CB700928976 /* EveryDayStepModel.m in Sources */,
 				33ED43111D4F3075007B0F30 /* StoryboardHelper.m in Sources */,
 				33E5B8CD1DDBFEA800E52A11 /* VHSForgetPasswordViewController.m in Sources */,
-				3304BB6A1DED64F600EDBC6B /* VHSActionData.m in Sources */,
 				3360B6641D894045005BDB77 /* VHSNoStypeCell.m in Sources */,
 				33FB4B1C1D51E4C300AB8086 /* VHSUtils.m in Sources */,
 				338C61B91D59D2BE004CFE18 /* VHSFitBraceletSettingModel.m in Sources */,
@@ -1736,6 +1767,7 @@
 				33ED43231D502EF1007B0F30 /* VHSFeedbackCell.m in Sources */,
 				3343A3251DAC89C900DEF1C2 /* UIColor+extension.m in Sources */,
 				33FB4B101D50843E00AB8086 /* LoginModel.m in Sources */,
+				33098DA81E110BA900751A38 /* VHSActionData.m in Sources */,
 				67E13F561D45D77D001C58D7 /* XLAlertController.m in Sources */,
 				67AD039F1D40DDE200246667 /* VHSDynamicBigIgvCell.m in Sources */,
 			);
@@ -1906,6 +1938,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/FitSDK",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/AppPay/Alibaba",
+					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/JSPatchPlatform",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GongYunTong/PrefixHeader.pch";
 				INFOPLIST_FILE = GongYunTong/Info.plist;
@@ -1943,6 +1976,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/FitSDK",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/AppPay/Alibaba",
+					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/JSPatchPlatform",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GongYunTong/PrefixHeader.pch";
 				INFOPLIST_FILE = GongYunTong/Info.plist;

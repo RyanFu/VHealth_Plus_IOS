@@ -19,13 +19,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GongYunTong/Classes/Me/Controller/VHSFitBraceletSettingController.m"
-            timestampString = "503820870.4467"
+            filePath = "GongYunTong/Classes/Main/Other/DBManager.m"
+            timestampString = "504496457.243978"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
-            landmarkName = "-unbindBracelet"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "-insertAction:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GongYunTong/Classes/Main/Other/DBManager.m"
+            timestampString = "504496662.439141"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "-insertAction:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

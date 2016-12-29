@@ -156,7 +156,7 @@ CGFloat const settingFooterHeight=106;
             action.memberId = [[VHSCommon userInfo].memberId stringValue];
             action.actionType = @"1";
             action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
-            action.step = liveData.step - lastSyncSteps;
+            action.step = [NSString stringWithFormat:@"%ld", liveData.step - lastSyncSteps];
             action.upload = 0;
             action.endTime = [VHSCommon getDate:[NSDate date]];
             [[VHSStepAlgorithm shareAlgorithm] insertOrUpdateBleAction:action];
@@ -220,14 +220,14 @@ CGFloat const settingFooterHeight=106;
             action.memberId = [[VHSCommon userInfo].memberId stringValue];
             action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
             action.actionType = @"1";
-            action.step = liveData.step - lastSyncSteps;
+            action.step = [NSString stringWithFormat:@"%ld", liveData.step - lastSyncSteps];
             action.upload = 0;
             action.endTime = [VHSCommon getDate:[NSDate date]];
             [[VHSStepAlgorithm shareAlgorithm] insertOrUpdateBleAction:action];
             
             // 更新本地的标志信息
             [VHSCommon setShouHuanLastTimeSync:[VHSCommon getDate:[NSDate date]]];
-            [VHSCommon setShouHuanLastStepsSync:liveData.step];
+            [VHSCommon setShouHuanLastStepsSync:[NSString stringWithFormat:@"%u", liveData.step]];
             
             cell.isDisBinding = NO;
             [VHSToast toast:TOAST_UPLOAD_STEPS_SUCCESS];

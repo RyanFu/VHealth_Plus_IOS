@@ -43,6 +43,7 @@
 #define COLOR_TEXT_PLACEHOLDER  RGBCOLOR(204.0, 204.0, 204.0) // textView 和 textField占位符的字体颜色
 #define COLOR_TEXT              RGBCOLOR(33.0 , 33.0, 33.0)   // 文本的输入颜色，及大部分label的颜色
 #define COLOR_BG_TABLEVIEW      RGBCOLOR(239.0, 239.0, 244.0) // 背景色
+#define COLOR_PROGRESS_BAR      RGBCOLOR(68.0, 187.0, 92.0)   // web的进度条颜色
 
 
 #define k_UserDefaults            [NSUserDefaults standardUserDefaults]     // NSUsetDefault

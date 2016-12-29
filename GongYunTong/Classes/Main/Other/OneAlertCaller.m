@@ -12,44 +12,87 @@
 @interface OneAlertCaller ()
 
 @property (nonatomic, strong) UIAlertController *alerter;
-//@property (nonatomic, strong) XLAlertController *alerter;
 
 @end
+
+static NSString *onekeyTitle = @"好人生健康专家热线";
+static NSString *onekeyContent = @"饮食 养生 运动 疾病防治 就医 用药 康复";
 
 @implementation OneAlertCaller
 
 - (instancetype)initWithPhone:(NSString *)phone {
     self = [super init];
     if (self) {
-        NSString *attriPhone = [NSString stringWithFormat:@"\n%@\n",phone];
-        NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:attriPhone];
-        [title addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:28],
-                               NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#4ec7ee"]}
-                       range:NSMakeRange(0, title.length)];
-        NSMutableAttributedString *message = [[NSMutableAttributedString alloc] initWithString:@"\n好人生健康专家热线"
-                                                                                    attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17],NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#212121"]}];
-        NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:@"\n\n饮食 养生 运动 疾病防治 就医 用药 康复" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:COLORHex(@"#828282")}];
-        [message appendAttributedString:content];
-        
-        XLAlertController *alert = [XLAlertController alertControllerWithAttributedTitle:title attributedMessage:message preferredStyle:UIAlertControllerStyleActionSheet];
-        self.alerter = alert;
-        
-        XLAlertAction *call = [XLAlertAction actionWithTitle:@"呼叫" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            UIApplication *app = [UIApplication sharedApplication];
-            NSString *telUrl = [NSString stringWithFormat:@"tel://%@", phone];
-            if ([app canOpenURL:[NSURL URLWithString:telUrl]]) {
-                [app openURL:[NSURL URLWithString:telUrl]];
-                
-                [self recordPhoneCallWithPhoneNumber:phone];
-            }
-        }];
-        XLAlertAction *cancel = [XLAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-        call.titleColor = COLORHex(@"#212121");
-        cancel.titleColor = COLORHex(@"#212121");
-        [alert addAction:call];
-        [alert addAction:cancel];
+        [self setupWithPhone:phone title:onekeyTitle content:onekeyContent];
     }
     return self;
+}
+
+- (instancetype)initWithPhone:(NSString *)phone title:(NSString *)title content:(NSString *)content {
+    self = [super init];
+    if (self) {
+        [self setupWithPhone:phone title:title content:content];
+    }
+    return self;
+}
+
+- (void)setupWithPhone:(NSString *)aphone title:(NSString *)atitle content:(NSString *)acontent {
+    if ([VHSCommon isNullString:aphone]) {
+        aphone = @"";
+    }
+    
+    NSString *attriPhone = [NSString stringWithFormat:@"\n%@\n",aphone];
+    NSMutableAttributedString *phone = [[NSMutableAttributedString alloc] initWithString:attriPhone];
+    [phone addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:28],
+                           NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#4ec7ee"]}
+                   range:NSMakeRange(0, phone.length)];
+    
+    NSMutableAttributedString *message;
+    
+    if (![VHSCommon isNullString:atitle] && ![VHSCommon isNullString:acontent]) {
+        NSString *dmessage = [NSString stringWithFormat:@"\n%@", atitle];
+        message = [[NSMutableAttributedString alloc] initWithString:dmessage
+                                                         attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17],NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#212121"]}];
+        
+        NSString *dconent = [NSString stringWithFormat:@"\n\n%@", acontent];
+        NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithString:dconent
+                                                                                    attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:COLORHex(@"#828282")}];
+        [message appendAttributedString:content];
+        
+    }
+    else if (![VHSCommon isNullString:atitle] && [VHSCommon isNullString:acontent]) {
+        NSString *dmessage = [NSString stringWithFormat:@"\n%@", atitle];
+        message = [[NSMutableAttributedString alloc] initWithString:dmessage
+                                                         attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17],NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#212121"]}];
+    }
+    else if ([VHSCommon isNullString:atitle] && ![VHSCommon isNullString:acontent]) {
+        NSString *dmessage = [NSString stringWithFormat:@"\n%@", acontent];
+        message = [[NSMutableAttributedString alloc] initWithString:dmessage
+                                                         attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17],NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#212121"]}];
+    }
+    else {
+        message = [[NSMutableAttributedString alloc] initWithString:@""];
+    }
+    
+    XLAlertController *alert = [XLAlertController alertControllerWithAttributedTitle:phone attributedMessage:message preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    __weak typeof(self) weakSelf = self;
+    XLAlertAction *call = [XLAlertAction actionWithTitle:@"呼叫" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIApplication *app = [UIApplication sharedApplication];
+        NSString *telUrl = [NSString stringWithFormat:@"tel://%@", aphone];
+        if ([app canOpenURL:[NSURL URLWithString:telUrl]]) {
+            [app openURL:[NSURL URLWithString:telUrl]];
+            
+            [weakSelf recordWithPhoneNumber:aphone];
+        }
+    }];
+    XLAlertAction *cancel = [XLAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    call.titleColor = COLORHex(@"#212121");
+    cancel.titleColor = COLORHex(@"#212121");
+    [alert addAction:call];
+    [alert addAction:cancel];
+    
+    self.alerter = alert;
 }
 
 - (instancetype)initWithContent:(NSString *)content forceUpgrade:(BOOL)isForce {
@@ -71,6 +114,34 @@
     return self;
 }
 
+- (instancetype)initWithNormalPhone:(NSString *)phone {
+    if (self = [super init]) {
+        UIAlertController *callPhoneSheet = [UIAlertController alertControllerWithTitle:@"点击拨打客服电话"
+                                                                                message:nil
+                                                                         preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        __weak typeof(self) weakSelf = self;
+        UIAlertAction *callAction = [UIAlertAction actionWithTitle:phone style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            NSURL *servicePhoneUrl = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]];
+            if ([[UIApplication sharedApplication] canOpenURL:servicePhoneUrl]) {
+                [[UIApplication sharedApplication] openURL:servicePhoneUrl];
+                
+                [weakSelf recordWithPhoneNumber:phone];
+            }
+        }];
+        UIAlertAction *cancleActionn = [UIAlertAction actionWithTitle:@"取消"
+                                                                style:UIAlertActionStyleCancel
+                                                              handler:^(UIAlertAction * _Nonnull action) {
+                                                                  CLog(@"取消");
+                                                              }];
+        [callPhoneSheet addAction:callAction];
+        [callPhoneSheet addAction:cancleActionn];
+        
+        self.alerter = callPhoneSheet;
+    }
+    return self;
+}
+
 - (void)call {
     UIViewController *controller = [UIApplication sharedApplication].keyWindow.rootViewController;
     [controller presentViewController:self.alerter animated:YES completion:nil];
@@ -80,7 +151,7 @@
 #pragma mark - 记录拨打的电话号码
 
 /// 记录拨打的电话号码
-- (void)recordPhoneCallWithPhoneNumber:(NSString *)phoneNumber {
+- (void)recordWithPhoneNumber:(NSString *)phoneNumber {
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     message.path = URL_ADD_PHONE_CALL;
     message.params = @{@"callNo" : phoneNumber};

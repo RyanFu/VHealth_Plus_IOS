@@ -21,8 +21,9 @@
 #import "MeSumScoreModel.h"
 #import "VHSMeScoreCell.h"
 #import "VHSNoStypeCell.h"
+#import "OneAlertCaller.h"
 
-@interface VHSMeController ()<UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface VHSMeController ()<UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView            *tableView;
 @property (weak, nonatomic) IBOutlet UILabel                *copyright;
@@ -33,7 +34,6 @@
 @property (nonatomic, strong) UserDetailModel               *userDetail;
 
 @property (nonatomic, assign) NSInteger                     todaySteps;
-@property (nonatomic, strong) NSString                      *servicePhoneNumber;
 @property (nonatomic, strong) NSMutableDictionary           *feedbackDict;
 
 @end
@@ -41,7 +41,7 @@
 @implementation VHSMeController
 
 - (NSInteger)todaySteps {
-    return [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userDetailInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
+    return [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
 }
 
 - (void)viewDidLoad {
@@ -278,9 +278,9 @@
         else if (indexPath.row == 1) {
             // 联系客服
             UserInfoCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-            self.servicePhoneNumber = cell.cellInfo;
-            UIActionSheet *callPhoneSheet = [[UIActionSheet alloc] initWithTitle:@"点击拨打客服电话" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:_servicePhoneNumber, nil];
-            [callPhoneSheet showInView:self.view];
+            NSString *phone = cell.cellInfo;
+            OneAlertCaller *caller = [[OneAlertCaller alloc] initWithNormalPhone:phone];
+            [caller call];
         }
     }
     else if (indexPath.section == 4) {
@@ -289,17 +289,6 @@
         [self.navigationController pushViewController:settingVC animated:YES];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        NSURL *servicePhoneUrl = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",_servicePhoneNumber]];
-        if ([[UIApplication sharedApplication] canOpenURL:servicePhoneUrl]) {
-            [[UIApplication sharedApplication] openURL:servicePhoneUrl];
-        }
-    }
 }
 
 @end

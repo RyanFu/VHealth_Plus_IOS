@@ -11,6 +11,7 @@
 #import "VHSFitBraceletStateManager.h"
 #import "NSArray+VHSExtension.h"
 #import "NSDate+VHSExtension.h"
+#import "DBSafetyCoordinator.h"
 
 @interface VHSStepAlgorithm ()
 
@@ -52,13 +53,6 @@
         VHSDataBaseManager *dm = [[VHSDataBaseManager alloc] init];
         [dm createDB];
         [dm createTable];
-        
-        NSDate *nowDate = [NSDate date];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
-        NSString *dateStr = [dateFormatter stringFromDate:nowDate];
-        
-        _stepsData.date = dateStr;
     }
     return self;
 }
@@ -124,7 +118,7 @@
                                                        action.actionType = @"2";
                                                        action.upload = 0;
                                                        action.macAddress = @"0";
-                                                       action.step = [pedometerData.numberOfSteps integerValue];
+                                                       action.step = [pedometerData.numberOfSteps stringValue];
                                                        action.startTime = [NSDate ymdByPastDay:i];
                                                        action.endTime = endTime;
                                                        action.recordTime = [NSDate ymdByPastDay:i];
@@ -156,7 +150,7 @@
                                                    action.actionType = @"2";
                                                    action.upload = 0;
                                                    action.macAddress = @"0";
-                                                   action.step = [pedometerData.numberOfSteps integerValue];
+                                                   action.step = [pedometerData.numberOfSteps stringValue];
                                                    action.startTime = [VHSCommon getDate:[NSDate date]];
                                                    action.endTime = [VHSCommon getDate:[NSDate date]];
                                                    action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
@@ -208,7 +202,7 @@
                                                                                          action.actionType = @"2";
                                                                                          action.upload = 0;
                                                                                          action.macAddress = @"0";
-                                                                                         action.step = pedometerData.numberOfSteps.integerValue;
+                                                                                         action.step = [pedometerData.numberOfSteps stringValue];
                                                                                          action.startTime = [NSDate ymdByPastDay:i];
                                                                                          action.endTime = endTime;
                                                                                          action.recordTime = [NSDate ymdByPastDay:i];
@@ -231,7 +225,7 @@
                                                   action.actionType = @"2";
                                                   action.upload = 0;
                                                   action.macAddress = @"0";
-                                                  action.step = pedometerData.numberOfSteps.integerValue - self.lastSynaM7Steps;
+                                                  action.step = [NSString stringWithFormat:@"%ld", pedometerData.numberOfSteps.integerValue - self.lastSynaM7Steps];
                                                   action.startTime = [VHSCommon getDate:[NSDate date]];
                                                   action.endTime = [VHSCommon getDate:[NSDate date]];
                                                   action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
@@ -278,12 +272,13 @@
                 VHSActionData *action = [[VHSActionData alloc] init];
                 action.memberId = [[VHSCommon userInfo].memberId stringValue];
                 action.actionId = [VHSCommon getTimeStamp];
-                action.step = sportData.total_step - syncSteps;
+                action.step = [@(sportData.total_step - syncSteps) stringValue];
                 action.actionType = @"1";
                 action.recordTime = pastYMD;
+                action.macAddress = [VHSCommon getShouHuanMacSddress];
                 [self insertOrUpdateBleAction:action];
                 
-                [VHSCommon setShouHuanLastStepsSync:sportData.total_step];
+                [VHSCommon setShouHuanLastStepsSync:[NSString stringWithFormat:@"%u", sportData.total_step]];
                 [VHSCommon setShouHuanLastTimeSync:[VHSCommon getDate:[NSDate date]]];
                 if (pastday > 0 && i > 0) {
                     [VHSCommon setShouHuanLastStepsSync:0];
@@ -360,39 +355,52 @@
     __weak typeof(self)weakSelf = self;
     // 实时获取设备信息
     [self realtimeBraceletDataBlock:^(ProtocolLiveDataModel *liveData) {
-        weakSelf.stepsData.step = liveData.step;
-        weakSelf.stepsData.calorie = liveData.calories;
-        weakSelf.stepsData.distance = liveData.distances;
+        weakSelf.stepsData.step = [NSString stringWithFormat:@"%u", liveData.step];
+        weakSelf.stepsData.calorie = [NSString stringWithFormat:@"%u", liveData.calories];
+        weakSelf.stepsData.distance = [NSString stringWithFormat:@"%u", liveData.distances];
         weakSelf.stepsData.macAddress = liveData.smart_device_id;
     }];
 }
 
+#pragma mark - 数据库逻辑操作部分
+
 - (void)insertOrUpdateActionToMobileFromM7:(VHSActionData *)action {
     VHSDataBaseManager *manager = [VHSDataBaseManager shareInstance];
     
-    [manager insertOrUpdateM7ActionLst:action.actionId
-                             member_id:action.memberId
-                           action_mode:action.actionMode
-                           action_type:action.actionType
-                              distance:action.distance
-                               seconds:action.seconds
-                               calorie:action.calorie
-                                  step:action.step
-                            start_time:action.startTime
-                              end_time:action.endTime
-                           record_time:action.recordTime
-                                 score:action.score
-                                upload:action.upload
-                           mac_address:action.macAddress];
+    NSString *step = action.step;
+    DBSafetyCoordinator *safety = [DBSafetyCoordinator shareDBCoordinator];
+    VHSActionData *ac = [safety encryptAction:action];
+    NSInteger rows = [manager rownumsWithMemberId:ac.memberId recordTime:ac.recordTime actionType:ac.actionType];
+    
+    if (rows > 0) {
+        NSString *dbStep = [manager dbStepWithMemberId:ac.memberId recordTime:ac.recordTime actionType:ac.actionType];
+        NSString *steps = [safety decryptStep:dbStep];
+        ac.step = [safety encryptStep:[NSString stringWithFormat:@"%@", @([step integerValue] + [steps integerValue])]];
+        
+        [manager updateNewAction:ac];
+    } else {
+        [manager insertNewAction:action];
+    }
 }
 
-- (NSInteger)selecteSumStepsWithMemberId:(NSString *)memberId date:(NSString *)date {
+- (NSInteger)selecteSumStepsWithMemberId:(NSString *)memberId date:(NSString *)recordTime {
     VHSDataBaseManager *manager = [VHSDataBaseManager shareInstance];
     
-    NSInteger sumSteps = 0;
-    sumSteps = [manager selectSumDayStepsFromActionLst:memberId
-                                                   ymd:date];
-    return sumSteps;
+    DBSafetyCoordinator *safety = [DBSafetyCoordinator shareDBCoordinator];
+    memberId = [safety encryptMemberId:memberId];
+    recordTime = [safety encryptRecordTime:recordTime];
+    
+    NSArray *actionList = [manager onedayStepWithMemberId:memberId recordTime:recordTime];
+    
+    NSInteger sum = 0;
+    for (VHSActionData *action in actionList) {
+        VHSActionData *ac = [safety decryptAction:action];
+        sum += [ac.step integerValue];
+    }
+//    NSInteger sumSteps = 0;
+//    sumSteps = [manager selectSumDayStepsFromActionLst:memberId ymd:recordTime];
+//    return sumSteps;
+    return sum;
 }
 
 - (void)uploadAllUnuploadActionData:(void (^)(NSDictionary *))syncBlock {
@@ -408,7 +416,8 @@
     if (![VHSCommon isNetworkAvailable]) return;
     
     // 获取所有该用户未上传的数据
-    NSArray *unuploadList = [manager selectUnuploadFromActionLst:memberId];
+    memberId = [[DBSafetyCoordinator shareDBCoordinator] encryptMemberId:memberId];
+    NSArray *unuploadList = [manager oneUserActionListWithMemberId:memberId upload:@"0"];
     if (![unuploadList count]) {
         [VHSCommon setUploadServerTime:[VHSCommon getDate:[NSDate date]]];
         if (syncBlock) syncBlock(@{@"result" : @200});
@@ -418,7 +427,8 @@
     // 拼接数据用于上传数据
     NSMutableArray *jsonStepsList = [NSMutableArray new];
     for (VHSActionData *action in unuploadList) {
-        NSDictionary *actionDict = @{@"sportDate" : action.recordTime , @"step" : @(action.step), @"handMac" : action.macAddress};
+        VHSActionData *ac = [[DBSafetyCoordinator shareDBCoordinator] decryptAction:action];
+        NSDictionary *actionDict = @{@"sportDate" : ac.recordTime , @"step" : ac.step, @"handMac" : ac.macAddress};
         [jsonStepsList addObject:actionDict];
     }
 
@@ -436,7 +446,10 @@
             NSArray *kmList = result[@"kmList"];
             // 更新本地数据库中的上传状态
             for (NSDictionary *kmDict in kmList) {
-                [manager updateStatusToActionLst:kmDict[@"sportDate"] macAddress:[NSString stringWithFormat:@"%@", kmDict[@"handMac"]] distance:kmDict[@"km"]];
+                NSString *enRecordTime = [[DBSafetyCoordinator shareDBCoordinator] encryptRecordTime:kmDict[@"sportDate"]];
+                [manager updateStatusToActionLst:enRecordTime
+                                      macAddress:[NSString stringWithFormat:@"%@", kmDict[@"handMac"]]
+                                        distance:kmDict[@"km"]];
             }
             [VHSCommon setUploadServerTime:[VHSCommon getDate:[NSDate date]]];
         }
@@ -450,26 +463,39 @@
 
 - (void)insertOrUpdateBleAction:(VHSActionData *)action {
     VHSDataBaseManager *manager = [VHSDataBaseManager shareInstance];
-    [manager insertOrUpdateBleActionLst:action.actionId
-                              member_id:action.memberId
-                            action_mode:action.actionMode
-                            action_type:action.actionType
-                               distance:action.distance
-                                seconds:action.seconds
-                                calorie:action.calorie
-                                   step:action.step
-                             start_time:action.startTime
-                               end_time:action.endTime
-                            record_time:action.recordTime
-                                  score:action.score
-                                 upload:action.upload
-                            mac_address:action.macAddress];
+    
+    DBSafetyCoordinator *safety = [DBSafetyCoordinator shareDBCoordinator];
+    [safety encryptAction:action];
+    
+    NSInteger rows = [manager rownumsWithMemberId:action.memberId recordTime:action.recordTime actionType:action.actionType];
+    if (rows > 0) {
+        VHSActionData *dbAction = [manager actionWithMemberId:action.memberId
+                                                   recordTime:action.recordTime
+                                                   actionType:action.actionType];
+        [safety decryptAction:dbAction];
+        dbAction.step = [NSString stringWithFormat:@"%@", @([dbAction.step integerValue] + [[safety decryptStep:action.step] integerValue])];
+        [safety encryptAction:dbAction];
+        
+        [manager updateNewAction:dbAction];
+    } else {
+        [manager insertNewAction:action];
+    }
+    
+//    [manager insertOrUpdateBleAction:action];
 }
 
 /// 更新运动步数
 - (void)updateSportStep:(VHSActionData *)action {
     VHSDataBaseManager *manager = [VHSDataBaseManager shareInstance];
-    [manager updateSportStepWithActionData:action];
+    
+    VHSActionData *ac = [[DBSafetyCoordinator shareDBCoordinator] encryptAction:action];
+    
+    NSInteger rows = [manager rownumsWithMemberId:ac.memberId recordTime:ac.recordTime actionType:ac.actionType];
+    if (rows > 0) {
+        [manager updateNewAction:ac];
+    } else {
+        [manager insertNewAction:ac];
+    }
 }
 
 @end

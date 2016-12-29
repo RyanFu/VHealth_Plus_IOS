@@ -10,13 +10,13 @@
 #import "VHSStepAlgorithm.h"
 #import "VHSFitBraceletStateManager.h"
 #import "MBProgressHUD+VHS.h"
-#import <UserNotifications/UserNotifications.h>
 #import "VHSStartController.h"
 #import "NSDate+VHSExtension.h"
 #import "BaiduMobStat.h"
-#import "BPush.h"
 #import "ShortcutItem.h"
 #import "VHSTabBarController.h"
+#import "ThirdPartyCoordinator.h"
+#import "BPush.h"
 
 static BOOL isBackGroundActivateApplication;
 
@@ -26,13 +26,6 @@ static BOOL isBackGroundActivateApplication;
 @property(nonatomic,strong)CBPeripheral *BLEPeripheral;
 
 @end
-
-/***百度统计***/
-static NSString *BaiduMob_APP_KEY = @"a3bd4374ec";
-/***百度推送相关***/
-static NSString *Baidu_Push_AppId = @"8661968";
-static NSString *Baidu_Push_ApiKey = @"VGffpOhKOUU9XHoSms220a93";
-static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
 
 @implementation AppDelegate
 
@@ -45,75 +38,16 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
     return _peripherals;
 }
 
-#pragma mark - 百度统计
-// 启动百度移动统计
-- (void)startBaiduMobileStat{
-    /*若应用是基于iOS 9系统开发，需要在程序的info.plist文件中添加一项参数配置，确保日志正常发送，配置如下：
-     NSAppTransportSecurity(NSDictionary):
-     NSAllowsArbitraryLoads(Boolen):YES
-     详情参考本Demo的BaiduMobStatSample-Info.plist文件中的配置
-     */
-    BaiduMobStat* statTracker = [BaiduMobStat defaultStat];
-    // 此处(startWithAppId之前)可以设置初始化的可选参数，具体有哪些参数，可详见BaiduMobStat.h文件，例如：
-    statTracker.shortAppVersion  = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    statTracker.channelId = @"vhs_gyt_dev";
-    statTracker.enableExceptionLog = YES;
-    statTracker.enableDebugOn = NO;
-    [statTracker startWithAppId:BaiduMob_APP_KEY]; // 设置您在mtj网站上添加的app的appkey,此处AppId即为应用的appKey
-}
-
-#pragma mark - 百度推送
-
-- (void)startBaiDuPush:(UIApplication *)application launchingWithOptions:(NSDictionary *)launchOptions {
-    // iOS10 下需要使用新的 API
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0) {
-#ifdef NSFoundationVersionNumber_iOS_9_x_Max
-        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-        
-        [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound + UNAuthorizationOptionBadge)
-                              completionHandler:^(BOOL granted, NSError * _Nullable error) {
-                                  if (granted) {
-                                      [application registerForRemoteNotifications];
-                                  }
-                              }];
-#endif
-    }
-    else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-        UIUserNotificationType myTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-    }
-    
-    // 在 App 启动时注册百度云推送服务，需要提供 Apikey
-    [BPush registerChannel:launchOptions
-                    apiKey:Baidu_Push_ApiKey
-                  pushMode:BPushModeDevelopment
-           withFirstAction:@"打开"
-          withSecondAction:@"关闭"
-              withCategory:@"test"
-      useBehaviorTextInput:YES
-                   isDebug:YES];
-    
-    // 禁用地理位置推送 需要再绑定接口前调用。
-    [BPush disableLbs];
-    
-    // App 是用户点击推送消息启动
-    NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (userInfo) {
-        [BPush handleNotification:userInfo];
-    }
-    //角标清0
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-}
-
 #pragma mark - UIApplication Did Finish Launching
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    // 开启百度统计
-    [self startBaiduMobileStat];
+    // 百度统计
+    [[ThirdPartyCoordinator shareCoordinator] startBaiduMobileStat];
     // 开启百度推送
-    [self startBaiDuPush:application launchingWithOptions:launchOptions];
+    [[ThirdPartyCoordinator shareCoordinator] startBaiDuPush:application launchingWithOptions:launchOptions];
+    // 使用JSPatch
+    [[ThirdPartyCoordinator shareCoordinator] startJSPatch];
     
     // 创建数据库，开启手机计步
     [[VHSStepAlgorithm shareAlgorithm] start];

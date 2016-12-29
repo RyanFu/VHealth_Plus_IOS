@@ -188,29 +188,30 @@
     message.httpMethod = VHSNetworkPOST;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
-        if ([result[@"result"] integerValue] == 200) {
-            NSMutableArray *netstepList = [NSMutableArray new];
-            if ([result[@"sportList"] isKindOfClass:[NSArray class]]) {
-                for (NSDictionary *dict in result[@"sportList"]) {
-                    TransferStepModel *step = [TransferStepModel yy_modelWithDictionary:dict];
-                    [netstepList addObject:step];
-                }
+        if ([result[@"result"] integerValue] != 200) return;
+        
+        NSMutableArray *netstepList = [NSMutableArray new];
+        if ([result[@"sportList"] isKindOfClass:[NSArray class]]) {
+            for (NSDictionary *dict in result[@"sportList"]) {
+                TransferStepModel *step = [TransferStepModel yy_modelWithDictionary:dict];
+                [netstepList addObject:step];
             }
-            //  服务器端无数据，不需要迁移
-            if (![netstepList count]) return;
-            
-            for (TransferStepModel *net in netstepList) {
-                // 更新数据到本地
-                VHSActionData *ac = [[VHSActionData alloc] init];
-                ac.macAddress = net.handMac;
-                ac.memberId = net.memberId;
-                ac.step = net.step;
-                ac.actionType = [net.handMac isEqualToString:@"0"] ? @"2" : @"1";
-                ac.recordTime = net.sportDate;
-                ac.upload = 1;
-                ac.distance = [net.km floatValue];
-                [[VHSStepAlgorithm shareAlgorithm] updateSportStep:ac];
-            }
+        }
+        //  服务器端无数据，不需要迁移
+        if (![netstepList count]) return;
+        
+        for (TransferStepModel *net in netstepList) {
+            // 更新数据到本地
+            VHSActionData *ac = [[VHSActionData alloc] init];
+            ac.actionId = [VHSCommon getTimeStamp];
+            ac.macAddress = net.handMac;
+            ac.memberId = net.memberId;
+            ac.step = [NSString stringWithFormat:@"%ld", net.step];
+            ac.actionType = [net.handMac isEqualToString:@"0"] ? @"2" : @"1";
+            ac.recordTime = net.sportDate;
+            ac.upload = 1;
+            ac.distance = net.km;
+            [[VHSStepAlgorithm shareAlgorithm] updateSportStep:ac];
         }
     } fail:^(NSError *error) {}];
 }

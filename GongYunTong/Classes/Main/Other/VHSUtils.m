@@ -10,6 +10,19 @@
 
 @implementation VHSUtils
 
++ (NSString *)md5:(NSString *)str {
+    const char *cStr = [str UTF8String];
+    unsigned char digest[CC_MD5_DIGEST_LENGTH];
+    CC_MD5( cStr, (unsigned int)strlen(cStr), digest );
+    
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    
+    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02X", digest[i]];
+    
+    return output;
+}
+
 + (BOOL)validateSimplePhone:(NSString *)phone
 {
     NSString *phoneRegex = @"1[3|5|7|8|][0-9]{9}";
@@ -123,13 +136,17 @@
  *  异步下载图片，存储到沙盒路径汇总
  */
 + (BOOL)saveImageWithPath:(NSString *)urlPath {
-    // http://ste.india.com/sites/default/files/2016/01/21/452974-monkey.jpg
+    NSString *keyPath = [VHSUtils md5:urlPath];
+    
     // 获取沙盒路径
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     
-    // 拼接图片地址
-    NSString *imageName = [[urlPath componentsSeparatedByString:@"/"] lastObject];
-    NSString *currentImagePath = [path stringByAppendingPathComponent:imageName];
+    NSString *imagePath = [path stringByAppendingPathComponent:keyPath];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:imagePath]) {
+        CLog(@"需要下载的图片文件路径已经存在");
+        return YES;
+    }
     
     // 异步下载图片
     __block BOOL isSuccess = NO;
@@ -139,11 +156,23 @@
         UIImage *image = [UIImage imageWithData:data];
        
         // 根据图片的地址保存图片
-        isSuccess = [UIImagePNGRepresentation(image) writeToFile:currentImagePath atomically:YES];
+        isSuccess = [UIImagePNGRepresentation(image) writeToFile:imagePath atomically:YES];
         
-        CLog(@"下载图片 %@ - %@", isSuccess ? @"成功" : @"失败", currentImagePath);
+        CLog(@"下载图片 %@ - %@", isSuccess ? @"成功" : @"失败", imagePath);
     });
     return isSuccess;
+}
+
++ (NSString *)getLocalPathWithPath:(NSString *)urlPath {
+    NSString *keyPath = [VHSUtils md5:urlPath];
+    
+    NSString *sandPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *filePath = [sandPath stringByAppendingPathComponent:keyPath];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+        return filePath;
+    }
+    return @"";
 }
 
 @end

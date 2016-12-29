@@ -384,8 +384,8 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
 + (void)setShouHuanUnbingSteps:(NSString *)steps {
     [self saveUserDefault:steps forKey:k_SHOUHUAN_UNBING_STEPS];
 }
-+ (void)setShouHuanLastStepsSync:(NSInteger)lastSteps {
-    [self saveUserDefault:@(lastSteps) forKey:k_SHOUHUAN_LAST_STEPS_SYNC];
++ (void)setShouHuanLastStepsSync:(NSString *)lastSteps {
+    [self saveUserDefault:lastSteps forKey:k_SHOUHUAN_LAST_STEPS_SYNC];
 }
 + (void)setUploadServerTime:(NSString *)time {
     [self saveUserDefault:time forKey:k_UPLOAD_TO_SERVER_TIME];

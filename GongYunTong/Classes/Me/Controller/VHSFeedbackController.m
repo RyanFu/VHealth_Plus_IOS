@@ -10,6 +10,7 @@
 #import "VHSQuestionPhoneCell.h"
 #import "VHSFeedbackCell.h"
 #import "MBProgressHUD+VHS.h"
+#import "OneAlertCaller.h"
 
 @interface VHSFeedbackController ()<UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate>
 
@@ -154,20 +155,8 @@
 
 - (void)showCall {
     NSString *phoneNumber = [VHSUtils absolutelyString:[[self.feedbackPhoneNmber.text componentsSeparatedByString:@":"] lastObject]];
-    UIActionSheet *callPhoneSheet = [[UIActionSheet alloc] initWithTitle:@"点击拨打客服电话" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:phoneNumber, nil];
-    [callPhoneSheet showInView:self.view];
-}
-
-#pragma mark - UIActionSheetDelegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        NSString *phoneNumber = [actionSheet buttonTitleAtIndex:buttonIndex];
-        NSURL *servicePhoneUrl = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", phoneNumber]];
-        if ([[UIApplication sharedApplication] canOpenURL:servicePhoneUrl]) {
-            [[UIApplication sharedApplication] openURL:servicePhoneUrl];
-        }
-    }
+    OneAlertCaller *caller = [[OneAlertCaller alloc] initWithNormalPhone:phoneNumber];
+    [caller call];
 }
 
 #pragma mark - 提交反馈意见

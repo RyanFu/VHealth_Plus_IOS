@@ -88,7 +88,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        // edited by linpingjun - 2016.8.22
+        // edited by avg - 2016.8.22
         void(^logOut)()=^{
             
             [MBProgressHUD showMessage:@"注销中..."];

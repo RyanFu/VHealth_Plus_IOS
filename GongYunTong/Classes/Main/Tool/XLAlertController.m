@@ -16,7 +16,7 @@
 
 + (instancetype)alertControllerWithAttributedTitle:(nullable NSAttributedString *)attributedTitle attributedMessage:(nullable NSAttributedString *)message preferredStyle:(UIAlertControllerStyle)preferredStyle
 {
-    XLAlertController *alert=[[self alloc]init];
+    XLAlertController *alert=[[self alloc] init];
     
     [alert setValue:attributedTitle forKeyPath:@"_attributedTitle"];
     [alert setValue:message forKeyPath:@"_attributedMessage"];

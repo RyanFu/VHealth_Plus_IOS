@@ -118,7 +118,7 @@ extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环�
 + (void)setShouHuanLastTimeSync:(NSString *)time;
 + (void)setShouHuanBoundSteps:(NSInteger)steps;
 + (void)setShouHuanUnbingSteps:(NSString *)steps;
-+ (void)setShouHuanLastStepsSync:(NSInteger)lastSteps;
++ (void)setShouHuanLastStepsSync:(NSString *)lastSteps;
 + (void)setUploadServerTime:(NSString *)time;
 
 + (NSString *)getShouHuanMacSddress;

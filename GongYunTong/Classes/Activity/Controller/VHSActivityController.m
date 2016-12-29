@@ -104,7 +104,7 @@
     [self loadRequest];
     
     self.progress = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                             CGRectGetHeight(self.navigationController.navigationBar.frame) - 2.5,
+                                                             CGRectGetHeight(self.navigationController.navigationBar.frame) + 0.5,
                                                              self.contentWKWebView.frame.size.width,
                                                              2.5)];
     self.progress.backgroundColor = [UIColor whiteColor];
@@ -164,7 +164,7 @@
                                          self.progress.frame.origin.y,
                                          SCREENW * self.contentWKWebView.estimatedProgress,
                                          self.progress.frame.size.height);
-        self.progress.backgroundColor = [UIColor greenColor];
+        self.progress.backgroundColor = COLOR_PROGRESS_BAR;
     }
 }
 
