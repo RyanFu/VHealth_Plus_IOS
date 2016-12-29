@@ -26,27 +26,6 @@
 /// 更新运动上传状态
 -(void)updateStatusToActionLst:(NSString *)recordTime macAddress:(NSString *)macAddress distance:(NSString *)distance;
 
-/// 获取未上传所有运动（运动一览表）
-//-(NSMutableArray *)selectUnuploadFromActionLst:(NSString *)memberId;
-
-/// 获取用户一天的总步数
-//- (NSInteger)selectSumDayStepsFromActionLst:(NSString *)memberId ymd:(NSString *)ymd;
-
-/// 更新，同步Ble手环数据
-//- (void)insertOrUpdateBleAction:(VHSActionData *)action;
-
-/// 更新，同步HealthKit处理器数据
-//- (void)insertOrUpdateM7Action:(VHSActionData *)action;
-
-/// 更新运动数据
-//- (void)updateSportStepWithActionData:(VHSActionData *)action;
-
-/// 判断某用户指定时间对应的运动类型是否存在数据
-//- (BOOL)isExistActionWithMemberId:(NSString *)memberId actionType:(NSString *)actionType recordTime:(NSString *)recordTime;
-/// 获取某用户指定时间对应的运动类型是否存在数据
-//- (NSInteger)dbStepWithMemberId:(NSString *)memberId actionType:(NSString *)actionType recordTime:(NSString *)recordTime;
-
-
 ////////////////
 
 - (BOOL)insertNewAction:(VHSActionData *)action;

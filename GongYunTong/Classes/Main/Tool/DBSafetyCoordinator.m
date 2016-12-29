@@ -9,7 +9,7 @@
 #import "DBSafetyCoordinator.h"
 #import "NSString+AES256.h"
 
-#define KEY_OF_ASE          @"123456"
+#define KEY_OF_ASE          @"1qaz2wsx3edc4rfv"
 
 @implementation DBSafetyCoordinator
 
