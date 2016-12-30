@@ -7,6 +7,7 @@
 //
 
 #import "VHSUtils.h"
+#import "GTMBase64.h"
 
 @implementation VHSUtils
 
@@ -17,9 +18,21 @@
     
     NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
     
-    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
-        [output appendFormat:@"%02X", digest[i]];
+    for (int i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
+        [output appendFormat:@"%c", digest[i]];
+    }
+    return output;
+}
+
++ (NSString *)md5_base64:(NSString *)str {
+    const char *cStr = [str UTF8String];
+    unsigned char digest[CC_MD5_DIGEST_LENGTH];
+    CC_MD5( cStr, strlen(cStr), digest );
     
+    NSData * base64 = [[NSData alloc] initWithBytes:digest length:CC_MD5_DIGEST_LENGTH];
+    base64 = [GTMBase64 encodeData:base64];
+    
+    NSString * output = [[NSString alloc] initWithData:base64 encoding:NSUTF8StringEncoding];
     return output;
 }
 
@@ -173,6 +186,26 @@
         return filePath;
     }
     return @"";
+}
+
++ (NSString *)generateRandomStr16 {
+    NSArray *chars = @[@"1",@"q",@"a",@"z",@"2",@"w",@"s",@"x",
+                       @"Q",@"A",@"Z",@"W",@"S",@"X",@"E",@"D",
+                       @"3",@"e",@"d",@"c",@"4",@"r",@"f",@"v",
+                       @"X",@"R",@"F",@"V",@"T",@"G",@"B",@"Y",
+                       @"5",@"t",@"g",@"b",@"6",@"y",@"h",@"n",
+                       @"J",@"M",@"I",@"K",@"O",@"L",@"P",@"+",
+                       @"7",@"u",@"j",@"m",@"8",@"k",@"<",@"9",
+                       @"o",@"l",@">",@"!",@"@",@"#",@"$",@"%",@"^",@"&"];
+    
+    NSMutableArray *desStrList = [NSMutableArray arrayWithCapacity:16];
+    for (NSInteger i = 0; i < 16; i++) {
+        NSInteger rac = arc4random() % [chars count];
+        [desStrList addObject:chars[rac]];
+    }
+    NSString *res = [desStrList componentsJoinedByString:@""];
+
+    return res;
 }
 
 @end

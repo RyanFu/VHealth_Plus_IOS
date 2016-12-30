@@ -29,6 +29,7 @@ static NSString *ACTIVITY_MAIN_URL = @"http://vhealthplus.valurise.com/client/ac
 #else
 
 #define kServerURL @"http://118.242.18.199:10000/oauth2"
+//#define kServerURL @"http://192.168.2.24:8000/oauth2"
 static NSString *MAIN_SHOP_URL = @"http://118.242.18.199:10000/index.php"; // 福利地址
 static NSString *ACTIVITY_MAIN_URL = @"http://118.242.18.199:10000/client/activity/index.htm";  // 活动地址
 

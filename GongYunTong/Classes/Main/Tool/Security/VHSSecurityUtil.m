@@ -6,7 +6,7 @@
 //  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
-#import "SecurityUtil.h"
+#import "VHSSecurityUtil.h"
 #import "NSData+AES256.h"
 #import "NSString+AES256.h"
 #import "RSAEncryptor.h"
@@ -42,19 +42,19 @@
 
 #define PUBLIC_KEY_PASSWORD @"0123456789abcdef"
 
-@interface SecurityUtil ()
+@interface VHSSecurityUtil ()
 
 @property (nonatomic, strong) NSString *aesPassword;
 
 @end
 
-@implementation SecurityUtil
+@implementation VHSSecurityUtil
 
-+ (SecurityUtil *)share {
-    static SecurityUtil *securer = nil;
++ (VHSSecurityUtil *)share {
+    static VHSSecurityUtil *securer = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        securer = [[SecurityUtil alloc] init];
+        securer = [[VHSSecurityUtil alloc] init];
     });
     return securer;
 }
@@ -76,9 +76,8 @@
     return jsonStr;
 }
 
-/// 非对称加密加密AES的密码
-- (NSString *)rasEncryptPsd {
-    return [self rsaEncryptStr:PUBLIC_KEY_PASSWORD];
+- (NSString *)rsaGenerateKeyOfRandomStr16WithKey:(NSString *)key {
+    return [self rsaEncryptStr:key];
 }
 
 /// 使用非对称加密RSA加密字符串
@@ -102,8 +101,8 @@
 }
 
 /// AES加密
-- (NSString *)aesEncryptStr:(NSString *)str {
-    return [str aes256_encrypt:PUBLIC_KEY_PASSWORD];
+- (NSString *)aesEncryptStr:(NSString *)str pwd:(NSString *)pwd {
+    return [str aes256_encrypt:pwd];
 }
 
 /// AES解密
@@ -111,38 +110,32 @@
     return [str aes256_decrypt:pwd];
 }
 
-/// 项目参数加密
-- (NSDictionary *)encryptBody:(id)params {
-    NSMutableDictionary *dic = [NSMutableDictionary new];
-    
-    /// 对称加密加密jsonStr
-    NSString *jsonBody = [self toJsonString:params];
-    NSString *jsonEncryptStr = [self aesEncryptStr:jsonBody];
-    
-    /// 非对称加密加密密码
-    NSString *jsonPsd = [self rsaEncryptStr:PUBLIC_KEY_PASSWORD];
-    
-    [dic setObject:jsonPsd forKey:@"key"];
-    [dic setObject:jsonEncryptStr forKey:@"value"];
-    
-    return dic;
+- (NSString *)signWithKeyStr:(NSString *)keystr {
+    return [VHSUtils md5_base64:keystr];
 }
 
-/// 项目参数解密
-- (NSDictionary *)decryptBody:(NSDictionary *)params {
+/// randomPwd : 16位的随机数，data : 需要出给服务器的真正数据，sign : 网络传输签名，防止数据在网络传输中被篡改
+- (NSDictionary *)encryptWithRandomKey:(NSString *)randomPwd data:(NSDictionary *)originParams sign:(NSString *)sign {
     
-    NSString *key = params[@"key"];
-    NSString *value = params[@"value"];
+    VHSSecurityUtil *security = [VHSSecurityUtil share];
     
-    /// RSA对key进行解密
-    NSString *password = [self rsaDecryptStr:key];
-    /// AES+password对value解密
-    NSString *jsonStr = [self aesDecryptStr:value pwd:password];
+    NSString *randomKey = [security rsaGenerateKeyOfRandomStr16WithKey:randomPwd];
+    NSString *encryptdParams = nil;
     
-    /// json字符串转为字典或者数组
-    NSDictionary *dic = [jsonStr convertObject];
+    if ([VHSCommon isNullString:sign]) {
+        NSString *jsonParams = [security toJsonString:originParams];
+        encryptdParams = [security aesEncryptStr:jsonParams pwd:randomPwd];
+    } else {
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:originParams];
+        [params setObject:sign forKey:@"sign"];
+        
+        NSString *jsonParams = [security toJsonString:params];
+        encryptdParams = [security aesEncryptStr:jsonParams pwd:randomPwd];
+    }
     
-    return dic;
+    NSDictionary *destDict = @{@"key" : randomKey, @"data" : encryptdParams};
+    
+    return destDict;
 }
 
 @end

@@ -129,7 +129,7 @@
 
 - (void)downloadScoreList {
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.params = @{@"currentPageNum" : @(_currentPageNum)};
+    message.params = @{@"currentPageNum" : [@(_currentPageNum) stringValue]};
     message.path = URL_GET_MEMBER_SCORE_LIST;
     message.httpMethod = VHSNetworkPOST;
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {

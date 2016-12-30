@@ -139,8 +139,6 @@
 }
 
 
-
-
 #pragma mark - Decrypt
 
 -(NSString*) rsaDecryptString:(NSString*)string {

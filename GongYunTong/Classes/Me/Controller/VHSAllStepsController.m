@@ -93,7 +93,7 @@
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     message.path = URL_GET_MEMBER_STEP_KM_LIST;
     message.httpMethod = VHSNetworkPOST;
-    message.params = @{@"currentPageNum" : @(self.currentPageNum)};
+    message.params = @{@"currentPageNum" : [@(self.currentPageNum) stringValue]};
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         if ([result[@"result"] integerValue] == 200) {
             NSArray *resultList = result[@"resultList"];

@@ -210,7 +210,7 @@
     
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     message.path = URL_GET_INDEX_DYNAMIC;
-    message.params = @{@"currentPageNum" : @(self.currentPageNum)};
+    message.params = @{@"currentPageNum" : [@(self.currentPageNum) stringValue]};
     message.httpMethod = VHSNetworkGET;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {

@@ -32,6 +32,9 @@
 		3342F36C1D9388A300B31317 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3342F36B1D9388A300B31317 /* libz.1.2.5.tbd */; };
 		3342F36E1D9388B400B31317 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3342F36D1D9388B400B31317 /* libstdc++.tbd */; };
 		3343A3251DAC89C900DEF1C2 /* UIColor+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3343A3241DAC89C900DEF1C2 /* UIColor+extension.m */; };
+		334A9B4E1E1513FF008969E4 /* GTMBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = 334A9B4B1E1513FF008969E4 /* GTMBase64.h */; };
+		334A9B4F1E1513FF008969E4 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 334A9B4C1E1513FF008969E4 /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		334A9B501E1513FF008969E4 /* GTMDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 334A9B4D1E1513FF008969E4 /* GTMDefines.h */; };
 		334F601C1E0A550E000F06B0 /* JSPatchPlatform.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 334F601B1E0A550E000F06B0 /* JSPatchPlatform.framework */; };
 		334F601E1E0A5939000F06B0 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 334F601D1E0A5939000F06B0 /* main.js */; };
 		334F602D1E0BBABD000F06B0 /* ThirdPartyCoordinator.h in Headers */ = {isa = PBXBuildFile; fileRef = 334F602B1E0BBABD000F06B0 /* ThirdPartyCoordinator.h */; };
@@ -83,7 +86,7 @@
 		33CB6EAC1DDEB1E2001E470A /* NSData+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CB6EA71DDEB1E2001E470A /* NSData+AES256.m */; };
 		33CB6EAD1DDEB1E2001E470A /* NSString+AES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CB6EA91DDEB1E2001E470A /* NSString+AES256.m */; };
 		33CB6EAE1DDEB1E2001E470A /* RSAEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CB6EAB1DDEB1E2001E470A /* RSAEncryptor.m */; };
-		33CB6EB11DDEC7D4001E470A /* SecurityUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CB6EB01DDEC7D4001E470A /* SecurityUtil.m */; };
+		33CB6EB11DDEC7D4001E470A /* VHSSecurityUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CB6EB01DDEC7D4001E470A /* VHSSecurityUtil.m */; };
 		33CB6EB41DDEE294001E470A /* NSString+VHSExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CB6EB31DDEE294001E470A /* NSString+VHSExtension.m */; };
 		33CB6EB61DDEEF28001E470A /* public_key.der in Resources */ = {isa = PBXBuildFile; fileRef = 33CB6EB51DDEEF28001E470A /* public_key.der */; };
 		33CBF32D1D73C9B500D39452 /* UIButton+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF32C1D73C9B500D39452 /* UIButton+extension.m */; };
@@ -254,6 +257,9 @@
 		3342F36D1D9388B400B31317 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		3343A3231DAC89C900DEF1C2 /* UIColor+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+extension.h"; sourceTree = "<group>"; };
 		3343A3241DAC89C900DEF1C2 /* UIColor+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+extension.m"; sourceTree = "<group>"; };
+		334A9B4B1E1513FF008969E4 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
+		334A9B4C1E1513FF008969E4 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
+		334A9B4D1E1513FF008969E4 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		334F601B1E0A550E000F06B0 /* JSPatchPlatform.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSPatchPlatform.framework; sourceTree = "<group>"; };
 		334F601D1E0A5939000F06B0 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		334F602B1E0BBABD000F06B0 /* ThirdPartyCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdPartyCoordinator.h; sourceTree = "<group>"; };
@@ -340,8 +346,8 @@
 		33CB6EA91DDEB1E2001E470A /* NSString+AES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AES256.m"; sourceTree = "<group>"; };
 		33CB6EAA1DDEB1E2001E470A /* RSAEncryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSAEncryptor.h; sourceTree = "<group>"; };
 		33CB6EAB1DDEB1E2001E470A /* RSAEncryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSAEncryptor.m; sourceTree = "<group>"; };
-		33CB6EAF1DDEC7D4001E470A /* SecurityUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecurityUtil.h; sourceTree = "<group>"; };
-		33CB6EB01DDEC7D4001E470A /* SecurityUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecurityUtil.m; sourceTree = "<group>"; };
+		33CB6EAF1DDEC7D4001E470A /* VHSSecurityUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSSecurityUtil.h; sourceTree = "<group>"; };
+		33CB6EB01DDEC7D4001E470A /* VHSSecurityUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSSecurityUtil.m; sourceTree = "<group>"; };
 		33CB6EB21DDEE294001E470A /* NSString+VHSExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+VHSExtension.h"; sourceTree = "<group>"; };
 		33CB6EB31DDEE294001E470A /* NSString+VHSExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+VHSExtension.m"; sourceTree = "<group>"; };
 		33CB6EB51DDEEF28001E470A /* public_key.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = public_key.der; sourceTree = "<group>"; };
@@ -662,6 +668,16 @@
 			path = "universal-tongji";
 			sourceTree = "<group>";
 		};
+		334A9B4A1E1513FF008969E4 /* GTMBase64 */ = {
+			isa = PBXGroup;
+			children = (
+				334A9B4B1E1513FF008969E4 /* GTMBase64.h */,
+				334A9B4C1E1513FF008969E4 /* GTMBase64.m */,
+				334A9B4D1E1513FF008969E4 /* GTMDefines.h */,
+			);
+			path = GTMBase64;
+			sourceTree = "<group>";
+		};
 		334F601A1E0A550E000F06B0 /* JSPatchPlatform */ = {
 			isa = PBXGroup;
 			children = (
@@ -786,8 +802,8 @@
 				33CB6EA91DDEB1E2001E470A /* NSString+AES256.m */,
 				33CB6EAA1DDEB1E2001E470A /* RSAEncryptor.h */,
 				33CB6EAB1DDEB1E2001E470A /* RSAEncryptor.m */,
-				33CB6EAF1DDEC7D4001E470A /* SecurityUtil.h */,
-				33CB6EB01DDEC7D4001E470A /* SecurityUtil.m */,
+				33CB6EAF1DDEC7D4001E470A /* VHSSecurityUtil.h */,
+				33CB6EB01DDEC7D4001E470A /* VHSSecurityUtil.m */,
 				33CB6EB51DDEEF28001E470A /* public_key.der */,
 			);
 			path = Security;
@@ -1092,6 +1108,7 @@
 		673019741D3C6651004A3320 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				334A9B4A1E1513FF008969E4 /* GTMBase64 */,
 				334F601A1E0A550E000F06B0 /* JSPatchPlatform */,
 				33CB6EA51DDEB1E2001E470A /* Security */,
 				33514BDE1D5B034200ECDEA5 /* FitSDK */,
@@ -1420,10 +1437,12 @@
 				3304BB651DED63FB00EDBC6B /* TabbarItem.h in Headers */,
 				33F6FAC51DF7E2D9005510D4 /* VHSDynamicConfigurationCell.h in Headers */,
 				33A59E191E10EC0300D7BED4 /* DBSafetyCoordinator.h in Headers */,
+				334A9B501E1513FF008969E4 /* GTMDefines.h in Headers */,
 				3304BB5C1DED62F600EDBC6B /* UserInfoModel.h in Headers */,
 				33E14E1B1DFA7D760021688D /* DynamicItemModel.h in Headers */,
 				33F6FAC11DF7DE29005510D4 /* VHSEnterpriseDynamicCell.h in Headers */,
 				333F396C1DFBD52C005A43AA /* OneAlertCaller.h in Headers */,
+				334A9B4E1E1513FF008969E4 /* GTMBase64.h in Headers */,
 				3304BB631DED63FB00EDBC6B /* ShortcutItem.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1685,10 +1704,11 @@
 				33CBF3351D755A5E00D39452 /* UILabel+extension.m in Sources */,
 				CA254ECC1D4B5D4A00853D3C /* VHSActivityRewardCell.m in Sources */,
 				33514BE31D5B848900ECDEA5 /* VHSFitBraceletSettingController.m in Sources */,
+				334A9B4F1E1513FF008969E4 /* GTMBase64.m in Sources */,
 				CA58AABF1D584CAA0076BA42 /* VHSStepAlgorithm.m in Sources */,
 				33CB6EAD1DDEB1E2001E470A /* NSString+AES256.m in Sources */,
 				33E14E201DFA82CA0021688D /* IconItem.m in Sources */,
-				33CB6EB11DDEC7D4001E470A /* SecurityUtil.m in Sources */,
+				33CB6EB11DDEC7D4001E470A /* VHSSecurityUtil.m in Sources */,
 				6704636E1D40C56B0051A9F6 /* SDCycleScrollView.m in Sources */,
 				67AD03A51D40E0B700246667 /* VHSMoreIgvCell.m in Sources */,
 				CAD91A521D5DB69B00AEF2FB /* payRequsestHandler.mm in Sources */,

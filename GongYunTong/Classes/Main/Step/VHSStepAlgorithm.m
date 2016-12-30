@@ -12,6 +12,7 @@
 #import "NSArray+VHSExtension.h"
 #import "NSDate+VHSExtension.h"
 #import "DBSafetyCoordinator.h"
+#import "VHSSecurityUtil.h"
 
 @interface VHSStepAlgorithm ()
 
@@ -435,11 +436,15 @@
     // NSArray convert to Json
     NSString *jsonSteps = [jsonStepsList convertJson];
     
+    NSString *signStr = [NSString stringWithFormat:@"%@%@", [VHSCommon vhstoken], [VHSCommon getTimeStamp]];
+    NSString *sign = [VHSUtils md5_base64:signStr];
+    
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.params = @{@"steps" : jsonSteps,
-                       @"timestamp" : [VHSCommon getTimeStamp]};
     message.path = URL_ADD_STEP;
     message.httpMethod = VHSNetworkPOST;
+    message.sign = sign;
+    message.params = @{@"steps" : jsonSteps,
+                       @"timestamp" : [VHSCommon getTimeStamp]};
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         if ([result[@"result"] integerValue] == 200) {

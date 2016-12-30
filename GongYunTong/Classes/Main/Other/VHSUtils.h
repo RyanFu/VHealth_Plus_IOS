@@ -13,6 +13,7 @@
 @interface VHSUtils : NSObject
 
 + (NSString *)md5:(NSString *)str;
++ (NSString *)md5_base64:(NSString *)str;
 
 /// 校验电话号码 - 简单
 + (BOOL)validateSimplePhone:(NSString *)phone;
@@ -43,4 +44,8 @@
 
 /// 获取本地的图片地址
 + (NSString *)getLocalPathWithPath:(NSString *)urlPath;
+
+/// 生成一个16位数的随机数字符串
++ (NSString *)generateRandomStr16;
+
 @end

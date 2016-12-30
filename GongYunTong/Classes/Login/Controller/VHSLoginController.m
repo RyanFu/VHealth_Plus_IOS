@@ -16,6 +16,7 @@
 #import "VHSActionData.h"
 #import "TransferStepModel.h"
 #import "VHSTabBarController.h"
+#import "VHSSecurityUtil.h"
 
 @interface VHSLoginController ()<UITextFieldDelegate>
 
@@ -86,16 +87,24 @@
     NSString *password = _txtPassword.text;
     
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
+    message.path = URL_LOGIN;
+    message.httpMethod = VHSNetworkPOST;
+    
+    // 签名 用于服务器校对数据是否在网络过程中被篡改
+    NSString *signStr = [NSString stringWithFormat:@"%@%@", account, [VHSCommon getChannelId]];
+    NSString *sign = [VHSUtils md5_base64:signStr];
+    message.sign = sign;
+
     message.params = @{@"loginName" : account,
                        @"password" : password,
                        @"appversion" : [VHSCommon appVersion],
                        @"osversion" : [VHSCommon osNameVersion],
-                       @"channelId" : [VHSCommon getChannelId]};
-    message.path = URL_LOGIN;
-    message.httpMethod = VHSNetworkPOST;
+                       @"channelId" : [VHSCommon getChannelId]};;
     
     [MBProgressHUD showMessage:nil];
+    
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary * result) {
+        
         [MBProgressHUD hiddenHUD];
         if ([result[@"result"] integerValue] != 200) {
             [VHSToast toast:result[@"info"]];
