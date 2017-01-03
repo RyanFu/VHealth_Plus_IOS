@@ -171,10 +171,10 @@
     [MBProgressHUD showMessage:nil];
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         [MBProgressHUD hiddenHUD];
-        if ([result[@"result"] integerValue] != 200) {
-            return;
-        }
         [VHSToast toast:result[@"info"]];
+        
+        if ([result[@"result"] integerValue] != 200) return;
+            
         [self.navigationController popViewControllerAnimated:YES];
     } fail:^(NSError *error) {
         [MBProgressHUD hiddenHUD];

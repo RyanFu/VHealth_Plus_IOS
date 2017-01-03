@@ -48,6 +48,4 @@
 /// 生成一个16位数的随机数字符串
 + (NSString *)generateRandomStr16;
 
-+ (void)toUTF8;
-
 @end

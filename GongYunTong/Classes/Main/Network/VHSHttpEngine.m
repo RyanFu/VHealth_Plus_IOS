@@ -233,8 +233,6 @@ static VHSHttpEngine *_instance = nil;
         [_manager.requestSerializer setValue:@"" forHTTPHeaderField:@"vhstoken"];
     }
     
-    CLog(@"vhstoken = %@", [VHSCommon vhstoken]);
-    
     [_manager.requestSerializer setValue:[VHSCommon deviceToken] forHTTPHeaderField:@"imei"];
     [_manager.requestSerializer setValue:[VHSCommon osVersion] forHTTPHeaderField:@"osversion"];
     [_manager.requestSerializer setValue:[VHSCommon appVersion] forHTTPHeaderField:@"appversion"];
@@ -243,6 +241,8 @@ static VHSHttpEngine *_instance = nil;
     if (message.httpMethod != VHSNetworkUpload) {
         [_manager.requestSerializer setValue:@"ios" forHTTPHeaderField:@"encrypt"];
     }
+    
+    CLog(@"vhstoken = %@", [VHSCommon vhstoken]);
 }
 
 /// 加密传输给服务器的数据

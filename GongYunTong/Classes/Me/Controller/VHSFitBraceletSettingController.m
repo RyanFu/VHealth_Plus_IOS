@@ -153,6 +153,7 @@ CGFloat const settingFooterHeight=106;
         [[VHSStepAlgorithm shareAlgorithm] realtimeBraceletDataBlock:^(ProtocolLiveDataModel *liveData) {
             // 同步数据到本地
             VHSActionData *action = [[VHSActionData alloc] init];
+            action.actionId = [VHSCommon getTimeStamp];
             action.memberId = [[VHSCommon userInfo].memberId stringValue];
             action.actionType = @"1";
             action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
@@ -217,6 +218,7 @@ CGFloat const settingFooterHeight=106;
         [[VHSStepAlgorithm shareAlgorithm] realtimeBraceletDataBlock:^(ProtocolLiveDataModel *liveData) {
             // 同步数据到本地
             VHSActionData *action = [[VHSActionData alloc] init];
+            action.actionId = [VHSCommon getTimeStamp];
             action.memberId = [[VHSCommon userInfo].memberId stringValue];
             action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
             action.actionType = @"1";

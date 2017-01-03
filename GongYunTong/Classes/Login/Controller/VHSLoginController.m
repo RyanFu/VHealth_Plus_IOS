@@ -89,17 +89,16 @@
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     message.path = URL_LOGIN;
     message.httpMethod = VHSNetworkPOST;
+    message.params = @{@"loginName" : account,
+                       @"password" : password,
+                       @"appversion" : [VHSCommon appVersion],
+                       @"osversion" : [VHSCommon osNameVersion],
+                       @"channelId" : [VHSCommon getChannelId]};
     
     // 签名 用于服务器校对数据是否在网络过程中被篡改
     NSString *signStr = [NSString stringWithFormat:@"%@%@", account, [VHSCommon getChannelId]];
     NSString *sign = [VHSUtils md5_base64:signStr];
     message.sign = sign;
-
-    message.params = @{@"loginName" : account,
-                       @"password" : password,
-                       @"appversion" : [VHSCommon appVersion],
-                       @"osversion" : [VHSCommon osNameVersion],
-                       @"channelId" : [VHSCommon getChannelId]};;
     
     [MBProgressHUD showMessage:nil];
     
