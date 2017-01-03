@@ -10,7 +10,6 @@
 #import "VHSCommon.h"
 #import "VHSDefinition.h"
 #import "VHS_Header.h"
-#import "NSString+AES256.h"
 
 /// 手机计步：手机实时数据的回调是在子线程中的，查询数据是在主现场中的，为了避免主线程和子线程同时争抢BD对象，所以每一次数据操作都创建一个新的DB对象
 

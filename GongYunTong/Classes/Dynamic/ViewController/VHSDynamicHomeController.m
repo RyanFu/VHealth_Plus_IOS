@@ -385,7 +385,6 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         cell.iconCallBack = ^(IconItem *item) {
-            CLog(@"%ld", (long)item.iconType);
             
             if (item.iconType == 4) {
                 // 切换tabbar到福利
@@ -422,7 +421,7 @@
             }
             else if (item.iconType == 3) {
                 // 一键呼
-                OneAlertCaller *caller = [[OneAlertCaller alloc] initWithPhone:@"400-620-1800"];
+                OneAlertCaller *caller = [[OneAlertCaller alloc] initWithPhone:item.iconHref];
                 [caller call];
             }
         };

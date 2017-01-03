@@ -17,6 +17,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CommonCrypto/CommonDigest.h>
 #import "GTMDefines.h"
 
 // GTMBase64

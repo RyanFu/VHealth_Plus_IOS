@@ -13,7 +13,6 @@
 #import "PublicWKWebViewController.h"
 #import "NSDate+VHSExtension.h"
 #import "MBProgressHUD+VHS.h"
-#import "NSString+AES256.h"
 
 @interface VHSTestController ()
 
@@ -89,12 +88,6 @@
 }
 
 - (void)encryBtn:(UIButton *)btn {
-    NSString *key = [VHSUtils md5:@"666666"];
-    
-    NSString *aes = [@"123456789" aes256_encrypt:key];
-    NSString *deaes = [aes aes256_decrypt:key];
-    
-    CLog(@"%@---%@", aes, deaes);
 }
 
 - (void)playSandbox {

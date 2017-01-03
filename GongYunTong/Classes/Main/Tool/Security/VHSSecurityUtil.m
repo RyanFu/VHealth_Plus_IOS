@@ -7,12 +7,11 @@
 //
 
 #import "VHSSecurityUtil.h"
-#import "NSData+AES256.h"
-#import "NSString+AES256.h"
 #import "RSAEncryptor.h"
 #import "NSArray+VHSExtension.h"
 #import "NSDictionary+VHSExtension.h"
 #import "NSString+VHSExtension.h"
+#import "AES128Util.h"
 
 /**
  *  项目采用的加密方式是对称加密AES和非对称加密RAS加密结合的方式
@@ -102,12 +101,12 @@
 
 /// AES加密
 - (NSString *)aesEncryptStr:(NSString *)str pwd:(NSString *)pwd {
-    return [str aes256_encrypt:pwd];
+    return [AES128Util AES128Encrypt:str key:pwd];
 }
 
 /// AES解密
 - (NSString *)aesDecryptStr:(NSString *)str pwd:(NSString *)pwd {
-    return [str aes256_decrypt:pwd];
+    return [AES128Util AES128Decrypt:str key:pwd];
 }
 
 - (NSString *)signWithKeyStr:(NSString *)keystr {
@@ -124,13 +123,13 @@
     
     if ([VHSCommon isNullString:sign]) {
         NSString *jsonParams = [security toJsonString:originParams];
-        encryptdParams = [security aesEncryptStr:jsonParams pwd:randomPwd];
+        encryptdParams = [AES128Util AES128Encrypt:jsonParams key:randomPwd];
     } else {
         NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:originParams];
         [params setObject:sign forKey:@"sign"];
         
         NSString *jsonParams = [security toJsonString:params];
-        encryptdParams = [security aesEncryptStr:jsonParams pwd:randomPwd];
+        encryptdParams = [AES128Util AES128Encrypt:jsonParams key:randomPwd];
     }
     
     NSDictionary *destDict = @{@"key" : randomKey, @"data" : encryptdParams};
