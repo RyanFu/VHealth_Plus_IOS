@@ -386,14 +386,27 @@
         
         cell.iconCallBack = ^(IconItem *item) {
             
-            if (item.iconType == 4) {
-                // 切换tabbar到福利
-                [self.tabBarController setSelectedIndex:2];
+            if (item.iconType == 1) {
+                // 跳转到webView
+                PublicWKWebViewController *webView = [[PublicWKWebViewController alloc] init];
+                webView.urlString = item.iconHref;
+                webView.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:webView animated:YES];
             }
             else if (item.iconType == 2) {
                 // 我的积分
                 VHSMyScoreController *scoreVC = (VHSMyScoreController *)[StoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSMyScoreController"];
+                scoreVC.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:scoreVC animated:YES];
+            }
+            else if (item.iconType == 3) {
+                // 一键呼
+                OneAlertCaller *caller = [[OneAlertCaller alloc] initWithPhone:item.iconHref];
+                [caller call];
+            }
+            else if (item.iconType == 4) {
+                // 切换tabbar到福利
+                [self.tabBarController setSelectedIndex:2];
             }
             else if (item.iconType == 5) {
                 // 活动签到
@@ -410,19 +423,8 @@
             else if (item.iconType == 6) {
                 // 计步更新
                 VHSRecordStepController *stepVC = [[VHSRecordStepController alloc] init];
+                stepVC.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:stepVC animated:YES];
-            }
-            else if (item.iconType == 1) {
-                // 跳转到webView
-                PublicWKWebViewController *webView = [[PublicWKWebViewController alloc] init];
-                webView.urlString = item.iconHref;
-                webView.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:webView animated:YES];
-            }
-            else if (item.iconType == 3) {
-                // 一键呼
-                OneAlertCaller *caller = [[OneAlertCaller alloc] initWithPhone:item.iconHref];
-                [caller call];
             }
         };
         return cell;
@@ -470,7 +472,8 @@
     }
     
     [self.dynamicHomeTable deselectRowAtIndexPath:indexPath animated:YES];
-}// 文本超过两行
+}
+
 #pragma mark - SDCycleScrollViewDelegate
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {

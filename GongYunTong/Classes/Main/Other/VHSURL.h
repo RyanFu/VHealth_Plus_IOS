@@ -91,5 +91,7 @@ static NSString *ACTIVITY_MAIN_URL = @"http://118.242.18.199:10000/client/activi
 #define URL_GET_ICON                                @"/getIcon.htm"
 /// 签到
 #define URL_ADD_CHECKIN_DAY                         @"/addCheckinDay.htm"
+/// 支付宝，获取订单签名信息
+#define URL_GET_PAY_SIGN                            @"/getPaySign.htm"
 
 #endif /* VHSURL_h */

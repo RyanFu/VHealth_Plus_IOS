@@ -38,7 +38,7 @@ static NSString *onekeyContent = @"饮食 养生 运动 疾病防治 就医 用�
 
 - (void)setupWithPhone:(NSString *)aphone title:(NSString *)atitle content:(NSString *)acontent {
     if ([VHSCommon isNullString:aphone]) {
-        aphone = @"";
+        aphone = @"400-620-1800";
     }
     
     NSString *attriPhone = [NSString stringWithFormat:@"\n%@\n",aphone];

@@ -297,7 +297,7 @@
 
 // 页面开始加载时调用
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
-    DLog(@"\n\nwebView url == %@\n\n", webView.URL.absoluteString);
+    CLog(@"\n\nwebView url == %@\n\n", webView.URL.absoluteString);
     
     NSString *url = webView.URL.absoluteString;
     

@@ -233,7 +233,7 @@
 
 // 页面开始加载时调用
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
-    DLog(@"\n\nwebView url == %@\n\n", webView.URL.absoluteString);
+    CLog(@"\n\nwebView url == %@\n\n", webView.URL.absoluteString);
 }
 
 // 当内容开始返回时调用
@@ -245,8 +245,12 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     if (self.showTitle) {
         NSString *webTitle = webView.title;
-        if ([VHSCommon isNullString:webTitle] == NO) {
+        NSArray *backList = webView.backForwardList.backList;
+        // 只有在一级界面显示title
+        if (![VHSCommon isNullString:webTitle] && ![backList count]) {
             self.navigationItem.title = webTitle;
+        } else {
+            self.navigationItem.title = @"";
         }
     }
     self.loadedRequestUrl = webView.URL.absoluteString;
@@ -387,7 +391,7 @@
     if (![VHSCommon isNullString:payParam]) {
         message.params = @{@"pay" : payParam};
     }
-    message.path = @"/getPaySign.htm";
+    message.path = URL_GET_PAY_SIGN;
     message.httpMethod = VHSNetworkPOST;
     __weak typeof(self) weakSelf = self;
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {

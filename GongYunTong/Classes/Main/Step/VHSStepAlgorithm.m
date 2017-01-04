@@ -271,8 +271,8 @@
                 NSInteger syncSteps = [VHSCommon getShouHuanLastStepsSync];
                 
                 VHSActionData *action = [[VHSActionData alloc] init];
-                action.memberId = [[VHSCommon userInfo].memberId stringValue];
                 action.actionId = [VHSCommon getTimeStamp];
+                action.memberId = [[VHSCommon userInfo].memberId stringValue];
                 action.step = [@(sportData.total_step - syncSteps) stringValue];
                 action.actionType = @"1";
                 action.recordTime = pastYMD;
@@ -398,9 +398,6 @@
         VHSActionData *ac = [safety decryptAction:action];
         sum += [ac.step integerValue];
     }
-//    NSInteger sumSteps = 0;
-//    sumSteps = [manager selectSumDayStepsFromActionLst:memberId ymd:recordTime];
-//    return sumSteps;
     return sum;
 }
 
@@ -485,8 +482,6 @@
     } else {
         [manager insertNewAction:action];
     }
-    
-//    [manager insertOrUpdateBleAction:action];
 }
 
 /// 更新运动步数
