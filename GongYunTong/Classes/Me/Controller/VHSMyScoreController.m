@@ -38,6 +38,7 @@
     self.tableView.dataSource = self;
     
     [self setupRefresh];
+    [self refreshData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -76,13 +77,13 @@
 
 - (void)setupRefresh {
     
-    MJRefreshNormalHeader *header= [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
-    header.lastUpdatedTimeLabel.hidden = NO;
-    [header setTitle:@"释放更新" forState:MJRefreshStatePulling];
-    [header setTitle:@"加载中..." forState:MJRefreshStateRefreshing];
-    [header setTitle:@"下拉刷新" forState:MJRefreshStateIdle];
-    self.tableView.mj_header = header;
-    [self.tableView.mj_header beginRefreshing];
+//    MJRefreshNormalHeader *header= [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
+//    header.lastUpdatedTimeLabel.hidden = NO;
+//    [header setTitle:@"释放更新" forState:MJRefreshStatePulling];
+//    [header setTitle:@"加载中..." forState:MJRefreshStateRefreshing];
+//    [header setTitle:@"下拉刷新" forState:MJRefreshStateIdle];
+//    self.tableView.mj_header = header;
+//    [self.tableView.mj_header beginRefreshing];
     
     MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     [footer setTitle:@"释放加载" forState:MJRefreshStatePulling];
