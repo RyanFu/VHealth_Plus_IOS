@@ -212,11 +212,13 @@
             // 更新数据到本地
             VHSActionData *ac = [[VHSActionData alloc] init];
             ac.actionId = [VHSCommon getTimeStamp];
-            ac.macAddress = net.handMac;
             ac.memberId = net.memberId;
             ac.step = [NSString stringWithFormat:@"%ld", net.step];
-            ac.actionType = [net.handMac isEqualToString:@"0"] ? @"2" : @"1";
             ac.recordTime = net.sportDate;
+            ac.macAddress = net.handMac;
+            ac.actionType = [net.handMac isEqualToString:@"0"] ? @"2" : @"1";
+            ac.endTime = [VHSCommon getDate:[NSDate date]];
+            ac.startTime = [VHSCommon getDate:[NSDate date]];
             ac.upload = 1;
             ac.distance = net.km;
             [[VHSStepAlgorithm shareAlgorithm] updateSportStep:ac];

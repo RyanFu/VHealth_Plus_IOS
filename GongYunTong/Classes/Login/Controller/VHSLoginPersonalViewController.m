@@ -252,20 +252,20 @@
         tvCell.detailTextLabel.text = @"请选择";
         
         if (indexPath.row == 0) {
-            if (self.model.gender == 1) {
+            if ([self.model.gender integerValue] == 1) {
                 tvCell.detailTextLabel.text = @"男";
-            } else if (self.model.gender == 0) {
+            } else if ([self.model.gender integerValue] == 0) {
                 tvCell.detailTextLabel.text = @"女";
             }
-            [self.dicPage setObject:[NSNumber numberWithInteger:self.model.gender] forKey:@"genderv"];
+            [self.dicPage setObject:self.model.gender forKey:@"genderv"];
         }
-        else if (indexPath.row == 1 && self.model.height > 0) {
-            tvCell.detailTextLabel.text = [NSString stringWithFormat:@"%@ CM", @(self.model.height)];
-            [self.dicPage setObject:[NSNumber numberWithInteger:self.model.height] forKey:@"heightv"];
+        else if (indexPath.row == 1 && [self.model.height integerValue] > 0) {
+            tvCell.detailTextLabel.text = [NSString stringWithFormat:@"%@ CM", self.model.height];
+            [self.dicPage setObject:self.model.height forKey:@"heightv"];
         }
-        else if (indexPath.row == 2 && self.model.weight > 0) {
-            tvCell.detailTextLabel.text = [NSString stringWithFormat:@"%@ KG", @(self.model.weight)];
-            [self.dicPage setObject:[NSNumber numberWithInteger:self.model.weight] forKey:@"weightv"];
+        else if (indexPath.row == 2 && [self.model.weight integerValue] > 0) {
+            tvCell.detailTextLabel.text = [NSString stringWithFormat:@"%@ KG", self.model.weight];
+            [self.dicPage setObject:self.model.weight forKey:@"weightv"];
         }
         else if (indexPath.row == 3 && ![VHSCommon isNullString:self.model.birthday]) {
             tvCell.detailTextLabel.text = [NSString stringWithFormat:@"%@", self.model.birthday];
@@ -517,10 +517,10 @@
         // 修改身高体重，性别，产生新的步幅
         float stride = [result[@"stride"] floatValue];
         if (stride) {
-            [k_UserDefaults setObject:result[@"stride"] forKey:k_Steps_To_Kilometre_Ratio];
+            [VHSCommon saveUserDefault:result[@"stride"] forKey:k_Steps_To_Kilometre_Ratio];
         }
         
-        NSInteger loginNums = [[k_UserDefaults objectForKey:k_LOGIN_NUMBERS] integerValue] + 1;
+        NSInteger loginNums = [[VHSCommon getUserDefautForKey:k_LOGIN_NUMBERS] integerValue] + 1;
         ++loginNums;
         [VHSCommon saveUserDefault:[NSNumber numberWithInteger:loginNums] forKey:k_LOGIN_NUMBERS];
         

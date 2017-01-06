@@ -12,9 +12,9 @@
 
 - (NSDictionary *)transferToDic {
     NSMutableDictionary *dic = [NSMutableDictionary new];
-    [dic setObject:self.iconHref forKey:@"iconHref"];
+    [dic setObject:self.iconHref ? self.iconHref : @"" forKey:@"iconHref"];
     [dic setObject:[NSNumber numberWithInteger:self.iconType] forKey:@"iconType"];
-    [dic setObject:self.imgUrl forKey:@"imgUrl"];
+    [dic setObject:self.imgUrl ? self.imgUrl : @"" forKey:@"imgUrl"];
     
     NSDictionary *desDic = [NSDictionary dictionaryWithDictionary:dic];
     return desDic;

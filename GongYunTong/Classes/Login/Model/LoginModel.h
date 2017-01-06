@@ -11,9 +11,9 @@
 @interface LoginModel : NSObject
 
 @property (nonatomic, assign) NSInteger loginNum;
-@property (nonatomic, assign) NSInteger gender;
-@property (nonatomic, assign) NSInteger height;
-@property (nonatomic, assign) NSInteger weight;
+@property (nonatomic, strong) NSString *gender;
+@property (nonatomic, strong) NSString *height;
+@property (nonatomic, strong) NSString *weight;
 @property (nonatomic, strong) NSString  *birthday;
 @property (nonatomic, assign) NSInteger upgrade;
 @property (nonatomic, assign) NSInteger acceptMsg;
