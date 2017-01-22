@@ -7,6 +7,7 @@
 //  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
+#import <SafariServices/SafariServices.h>
 #import "VHSTestController.h"
 #import "VHSStepAlgorithm.h"
 #import "VHSLocatServicer.h"
@@ -75,6 +76,10 @@
 }
 
 - (void)confirmBtn:(UIButton *)btn {
+    
+//    SFSafariViewController *sfvc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://www.baidu.com/"]];
+//    [self presentViewController:sfvc animated:YES completion:nil];
+    
     NSString *defaultPath = @"http://img.frbiz.com/pic/z70071b-300x300-1/dog.jpg";
     
     NSString *imagePath = [VHSUtils getLocalPathWithPath:defaultPath];
@@ -85,6 +90,9 @@
         NSData *data = [[NSData alloc] initWithContentsOfFile:imagePath];
         _imageView2.image = [UIImage imageWithData:data];
     }
+    
+    /// 开启定时任务
+    [[VHSStepAlgorithm shareAlgorithm] timedTask];
 }
 
 - (void)encryBtn:(UIButton *)btn {

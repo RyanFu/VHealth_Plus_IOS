@@ -295,9 +295,7 @@
         __weak typeof(self) weakSelf = self;
         [self getTokenSuccess:^(NSString *token) {
             NSString *jsMethod = [NSString stringWithFormat:@"%@('%@')", backMethod, token];
-            [weakSelf.contentWKWebView evaluateJavaScript:jsMethod completionHandler:^(id _Nullable any, NSError * _Nullable error) {
-                CLog(@"成功");
-            }];
+            [weakSelf.contentWKWebView evaluateJavaScript:jsMethod completionHandler:^(id _Nullable any, NSError * _Nullable error) {}];
         }];
     }
     else if ([method isEqualToString:@"getLocation"]) {
@@ -407,13 +405,13 @@
     //应用注册scheme,在Info.plist定义URL types
     NSString *appScheme = ALIPAY_APP_SCHEME;
     
-    if (signUrl && signUrl.length > 0) {
-        [[AlipaySDK defaultService] payOrder:signUrl fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-            if (6001 == [[resultDic objectForKey:@"resultStatus"] intValue]) {}
-            else if (9000 == [[resultDic objectForKey:@"resultStatus"] intValue]) {}
-            else {}
-        }];
-    }
+    if (!signUrl || !signUrl.length) return;
+    
+    [[AlipaySDK defaultService] payOrder:signUrl fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+        if (6001 == [[resultDic objectForKey:@"resultStatus"] intValue]) {}
+        else if (9000 == [[resultDic objectForKey:@"resultStatus"] intValue]) {}
+        else {}
+    }];
 }
 
 #pragma mark - 支付信息回调处理
@@ -447,7 +445,7 @@
     }
     else if (status == 9000) {
         [self.contentWKWebView evaluateJavaScript:@"backPay('支付成功')" completionHandler:^(id _Nullable any, NSError * _Nullable error) {
-            CLog(@"调用成功");
+            CLog(@"支付宝支付成功");
         }];
     }
 }

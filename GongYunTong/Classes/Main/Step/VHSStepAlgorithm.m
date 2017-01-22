@@ -226,7 +226,7 @@
                                                   action.actionType = @"2";
                                                   action.upload = 0;
                                                   action.macAddress = @"0";
-                                                  action.step = [NSString stringWithFormat:@"%ld", pedometerData.numberOfSteps.integerValue - self.lastSynaM7Steps];
+                                                  action.step = [NSString stringWithFormat:@"%d", pedometerData.numberOfSteps.integerValue - self.lastSynaM7Steps];
                                                   action.startTime = [VHSCommon getDate:[NSDate date]];
                                                   action.endTime = [VHSCommon getDate:[NSDate date]];
                                                   action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
@@ -499,6 +499,17 @@
     } else {
         [manager insertNewAction:ac];
     }
+}
+
+#pragma mark - 定时活动任务
+
+- (void)timedTask {
+    NSDate *startTime = [VHSCommon dateWithDateStr:@"2017-01-09 07:30:00"];
+    NSDate *endTime = [VHSCommon dateWithDateStr:@"2017-01-09 09:30:00"];
+    
+    [self.pedometer queryPedometerDataFromDate:startTime toDate:endTime withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
+        
+    }];
 }
 
 @end

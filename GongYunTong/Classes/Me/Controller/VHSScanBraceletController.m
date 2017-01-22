@@ -92,20 +92,20 @@
     // 倒计时结束判断
     self.nodevice.hidden = YES;
     [VHSTimeToast toastShow:5.0 success:^{
-        if (![self.peripheralArray count]) {
-            self.nodevice.hidden = NO;
-            [self.view addSubview:self.nodevice];
-            self.nodevice.center = self.view.center;
-            
-            __weak typeof(self) weakSelf = self;
-            self.nodevice.getHelpBlock = ^(){
-                VHSFitBraceletHelpController *helpVC = [[VHSFitBraceletHelpController alloc] init];
-                [weakSelf.navigationController pushViewController:helpVC animated:YES];
-            };
-            
-            UITapGestureRecognizer *tapResearch = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(researchBle)];
-            [self.view addGestureRecognizer:tapResearch];
-        }
+        if ([self.peripheralArray count] > 0) return;
+        
+        self.nodevice.hidden = NO;
+        [self.view addSubview:self.nodevice];
+        self.nodevice.center = self.view.center;
+        
+        __weak typeof(self) weakSelf = self;
+        self.nodevice.getHelpBlock = ^(){
+            VHSFitBraceletHelpController *helpVC = [[VHSFitBraceletHelpController alloc] init];
+            [weakSelf.navigationController pushViewController:helpVC animated:YES];
+        };
+        
+        UITapGestureRecognizer *tapResearch = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(researchBle)];
+        [self.view addGestureRecognizer:tapResearch];
     }];
     //先断开正在连接的设备
     if ([ShareDataSdk shareInstance].peripheral.state == CBPeripheralStateConnected) {

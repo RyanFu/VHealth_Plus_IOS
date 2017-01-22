@@ -55,20 +55,13 @@
 /// 上传所有的未上传的数据
 - (void)uploadAllUnuploadActionData:(void (^)(NSDictionary *result))syncBlock;
 
-/**
- *  插入或者更新一个数据
- *
- *  @param steps      增量步数
- *  @param recordTime 记录时间
- *  @param actionType 活动类型 1:手环 2:手机
- */
+/// 插入或者更新手环数据
 - (void)insertOrUpdateBleAction:(VHSActionData *)action;
 
-/**
- *  更新运动步数
- *
- *  @param action 运动数据
- */
+/// 更新运动步数
 - (void)updateSportStep:(VHSActionData *)action;
+
+#pragma mark - 定时活动任务
+- (void)timedTask;
 
 @end

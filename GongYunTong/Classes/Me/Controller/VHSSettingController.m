@@ -66,15 +66,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (VHEALTH_BUILD_FOR_RELEASE) return;
     
-//    VHSTestController *testController = [[VHSTestController alloc] init];
-//    [self.navigationController pushViewController:testController animated:YES];
+    VHSTestController *testController = [[VHSTestController alloc] init];
+    [self.navigationController pushViewController:testController animated:YES];
 }
 
 
 #pragma mark - 登出
 
 - (IBAction)logout:(id)sender {
-    NSString *strMessage = @"您确定要退出V健康+吗?";
+    NSString *strMessage = [NSString stringWithFormat:@"您确定要退出%@吗?", [VHSCommon appName]];
     if ([VHSFitBraceletStateManager nowBLEState] != FitBLEStateDisbind) {
         //已经绑定手环
         strMessage = @"退出后将解绑手环，确定退出吗?";

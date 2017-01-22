@@ -10,8 +10,9 @@
 #import <JSPatchPlatform/JSPatch.h>
 #import "BPush.h"
 #import <UserNotifications/UserNotifications.h>
+#import <RongIMKit/RongIMKit.h>
 
-@interface ThirdPartyCoordinator ()
+@interface ThirdPartyCoordinator ()<RCIMUserInfoDataSource>
 
 @end
 
@@ -110,6 +111,48 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
     }
     //角标清0
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+}
+
+#pragma mark - 融云
+
+static NSString *RCIM_APPKEY = @"8brlm7uf8bxo3";
+static NSString *RCIM_APPSECRET = @"4Q4pRmePoTX";
+// userID : 10010
+// name : lpj
+static NSString *RCIM_TEST_TOKEN = @"0Wr5CmP36NlgahphGrR/FADEDeqoan8wYrwGeIAq9v83ZPOkfHhX493l9sFS+hYsoyUTM7Z2+evdWdCAd7SlaQ==";
+
+- (void)setupRCKit {
+    [[RCIM sharedRCIM] initWithAppKey:RCIM_APPKEY];
+    [[RCIM sharedRCIM] connectWithToken:RCIM_TEST_TOKEN success:^(NSString *userId) {
+        [[RCIM sharedRCIM] setUserInfoDataSource:self];
+        NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
+    } error:^(RCConnectErrorCode status) {
+        NSLog(@"登陆的错误码为:%d", (int)status);
+    } tokenIncorrect:^{
+        //token过期或者不正确。
+        //如果设置了token有效期并且token过期，请重新请求您的服务器获取新的token
+        //如果没有设置token有效期却提示token错误，请检查您客户端和服务器的appkey是否匹配，还有检查您获取token的流程。
+        NSLog(@"token错误");
+    }];
+}
+
+- (void)getUserInfoWithUserId:(NSString *)userId
+                   completion:(void (^)(RCUserInfo *userInfo))completion{
+    if ([userId isEqualToString:@"10010"]) {
+        RCUserInfo *info = [[RCUserInfo alloc] init];
+        info.userId = userId;
+        info.name = @"测试10010";
+        info.portraitUri = @"http://118.242.18.199:10000/uploadFile/header/PLT3Z1483432327758.jpg";
+        completion(info);
+    }
+    else if ([userId isEqualToString:@"100001"]) {
+        RCUserInfo *info = [[RCUserInfo alloc] init];
+        info.userId = userId;
+        info.name = @"测试100001";
+        info.portraitUri = @"http://118.242.18.199:10000/uploadFile/header/PLT3Z1483432327758.jpg";
+        completion(info);
+    }
+    return completion(nil);
 }
 
 @end

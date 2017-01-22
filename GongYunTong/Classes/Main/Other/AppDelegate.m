@@ -48,6 +48,8 @@ static BOOL isBackGroundActivateApplication;
     [[ThirdPartyCoordinator shareCoordinator] startBaiDuPush:application launchingWithOptions:launchOptions];
     // 使用JSPatch
     [[ThirdPartyCoordinator shareCoordinator] startJSPatch];
+    // 融云
+    [[ThirdPartyCoordinator shareCoordinator] setupRCKit];
     
     // 创建数据库，开启手机计步
     [[VHSStepAlgorithm shareAlgorithm] start];

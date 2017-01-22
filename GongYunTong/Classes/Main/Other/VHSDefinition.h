@@ -98,6 +98,11 @@
 
 #define k_BPush_Channel_id                              @"k_BPush_Channel_id"               /// 百度推送的channel id
 
+#define k_TIMETASK_START_DAY                            @"k_TIMETASK_START_DAY"             /// 开始日期
+#define k_TIMETASK_END_DAY                              @"k_TIMETASK_END_DAY"               /// 结束日期
+#define k_TIMETASK_START_TIME                           @"k_TIMETASK_START_TIME"            /// 每天开始的时间
+#define k_TIMETASK_END_TIME                             @"k_TIMETASK_END_TIME"              /// 每天结束的时间
+
 
 
 #endif /* VHSDefinition_h */

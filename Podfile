@@ -14,5 +14,7 @@ pod 'MJRefresh'
 pod 'YYModel'
 pod 'Masonry'
 pod 'Base64nl', '~> 1.2'
+#pod 'RongCloudIM/IMLib', '2.8.0'
+#pod 'RongCloudIM/IMKit', '2.8.0'
 
 end

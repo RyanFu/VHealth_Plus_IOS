@@ -43,6 +43,8 @@ extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环�
 
 @interface VHSCommon : NSObject
 
+/// app的应用名称
++ (NSString *)appName;
 ///  app 版本
 + (NSString *)appVersion;
 /// 系统版本

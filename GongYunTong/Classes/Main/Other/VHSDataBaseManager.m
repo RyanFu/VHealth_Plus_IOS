@@ -54,35 +54,52 @@
 }
 
 - (void)createTable {
-    
+    [self createTableOfActionList];
+    [self createTableOfActionSpecialList];
+}
+
+- (void)createTableOfActionList {
     FMDatabase *db = [self getFmdb];
     [db open];
     //  创建 运动信息一览表
     NSString *createSportTableSql = @"CREATE TABLE IF NOT EXISTS 'action_lst' \
     (   'action_id'             VARCHAR(36), \
-        'member_id'             VARCHAR(36),\
-        'action_mode'           VARCHAR(8),\
-        'action_type'           VARCHAR(8),\
-        'distance'              VARCHAR(36),\
-        'seconds'               VARCHAR(36),\
-        'calorie'               VARCHAR(36),\
-        'step'                  VARCHAR(36),\
-        'start_time'            VARCHAR(36),\
-        'end_time'              VARCHAR(36),\
-        'record_time'           VARCHAR(36),\
-        'score'                 VARCHAR(36),\
-        'upload'                INTEGER,\
-        'mac_address'           VARCHAR(36)\
+    'member_id'             VARCHAR(36),\
+    'action_mode'           VARCHAR(8),\
+    'action_type'           VARCHAR(8),\
+    'distance'              VARCHAR(36),\
+    'seconds'               VARCHAR(36),\
+    'calorie'               VARCHAR(36),\
+    'step'                  VARCHAR(36),\
+    'start_time'            VARCHAR(36),\
+    'end_time'              VARCHAR(36),\
+    'record_time'           VARCHAR(36),\
+    'score'                 VARCHAR(36),\
+    'upload'                INTEGER,\
+    'mac_address'           VARCHAR(36)\
     )";
-    
-    BOOL flag = [db executeUpdate:createSportTableSql];
-    
-    if (flag) {
-        CLog(@"创建－－－运动信息一览表－－－成功");
-    } else {
-        CLog(@"创建－－－运动信息一览表－－－失败");
-    }
-    
+    [db executeUpdate:createSportTableSql];
+    [db close];
+}
+
+- (void)createTableOfActionSpecialList {
+    FMDatabase *db = [self getFmdb];
+    [db open];
+    NSString *createSpecialTableSql = @"CREATE TABLE IF NOT EXISTS 'action_special_lst' (\
+        action_id VARCHAR(36),\
+        member_id VARCHAR(36),\
+        action_type VARCHAR(36),\
+        step VARCHAR(36),\
+        distance VARCHAR(36),\
+        floor_asc VARCHAR(36),\
+        floor_des VARCHAR(36),\
+        start_time VARCHAR(36),\
+        end_time VARCHAR(36),\
+        record_time VARCHAR(36),\
+        upload INTEGER,\
+        mac_address VARCHAR(36)\
+    )";
+    [db executeUpdate:createSpecialTableSql];
     [db close];
 }
 
@@ -108,13 +125,9 @@
 
 - (BOOL)insertNewAction:(VHSActionData *)action {
     
-        if (!action.actionId.length || !action.actionId) {
+        if (!action.actionId.length || !action.actionId || !action.memberId.length || !action.memberId) {
             return NO;
         }
-        else if (!action.memberId.length || !action.memberId) {
-            return NO;
-        }
-    
         BOOL flag = NO;
     
         // 获取DB对象

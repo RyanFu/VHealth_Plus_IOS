@@ -61,6 +61,7 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
     NSArray *listOfNavTab = [VHSCommon getUserDefautForKey:Cache_Config_NavOrTabbar];
     [self configNavOrTabWith:listOfNavTab];
     
+    self.delegate = self;
     
     // 监听系统信息进入前台的通知
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -185,6 +186,25 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIApplicationWillEnterForegroundNotification
                                                   object:nil];
+}
+
+#pragma mark - UITabBarControllerDelegate
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    return YES;
+}
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
+    NSInteger index = tabBarController.selectedIndex;
+    
+    static NSTimeInterval lastClickTime = 0;
+    
+    NSTimeInterval currentTime = [NSDate date].timeIntervalSince1970;
+    if (currentTime - lastClickTime < 0.5) {
+        NSLog(@"double click");
+    } else {
+        lastClickTime = currentTime;
+    }
 }
 
 @end
