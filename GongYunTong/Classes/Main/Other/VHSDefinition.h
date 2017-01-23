@@ -65,6 +65,7 @@
 #define k_NOTI_WXPAY_CALLBACK_INFO                      @"k_NOTI_WXPAY_CALLBACK_INFO"           // 微信支付后回调信息
 #define k_NOTI_DIDBINDED_BLE                            @"k_NOTI_DIDBINDED_BLE"                 // 手机已经绑定手环
 #define k_NOTI_SYNCSTEPS_TO_NET                         @"k_NOTI_SYNCSTEPS_TO_NET"              // 自动同步步数数据到云端
+#define k_NOTI_DOUBLE_CLICK_TABBAR                      @"k_NOTI_DOUBLE_CLICK_TABBAR"           // 双击tabbar的item
 
 
 #pragma mark - NSUserDefault =============================本地存储=================================

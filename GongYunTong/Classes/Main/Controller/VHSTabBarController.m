@@ -195,13 +195,11 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-    NSInteger index = tabBarController.selectedIndex;
-    
     static NSTimeInterval lastClickTime = 0;
     
     NSTimeInterval currentTime = [NSDate date].timeIntervalSince1970;
     if (currentTime - lastClickTime < 0.5) {
-        NSLog(@"double click");
+        [k_NotificationCenter postNotificationName:k_NOTI_DOUBLE_CLICK_TABBAR object:self];
     } else {
         lastClickTime = currentTime;
     }

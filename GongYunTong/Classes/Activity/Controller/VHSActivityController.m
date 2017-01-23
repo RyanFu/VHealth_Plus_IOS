@@ -305,7 +305,7 @@
     }
 }
 
-#pragma mark - App Notification 
+#pragma mark - Notification
 
 - (void)appWillEnterForeground {
     if (!self.isVisible) {
@@ -313,5 +313,6 @@
     }
     [self webViewIfNeededRefresh];
 }
+
 
 @end

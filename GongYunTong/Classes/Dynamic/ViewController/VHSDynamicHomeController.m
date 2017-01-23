@@ -108,6 +108,10 @@
                              selector:@selector(relogin:)
                                  name:k_NOTIFICATION_TOKEN_INVALID
                                object:nil];
+    [k_NotificationCenter addObserver:self
+                             selector:@selector(doubleClickTabbarItemAction)
+                                 name:k_NOTI_DOUBLE_CLICK_TABBAR
+                               object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -484,7 +488,27 @@
     [self.navigationController pushViewController:publicWebVC animated:YES];
 }
 
-#pragma mark - UIApplicationWillResignActiveNotification
+#pragma mark - Notification
+
+/// token 失效 重新登录
+- (void)relogin:(NSNotification *)noti {
+    if (self.isRelogining) {
+        return;
+    }
+    self.isRelogining = YES;
+    // 先注销信息
+    // 用户信息清除
+    [VHSCommon removeLocationUserInfo];
+    
+    [VHSToast toast:[noti.userInfo objectForKey:@"info"]];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
+        UIViewController *vc = [storyboard instantiateInitialViewController];
+        UIWindow *wind = [UIApplication sharedApplication].delegate.window;
+        wind.rootViewController = vc;
+    });
+}
 
 - (void)appWillResignActive {
     // 缓存列表信息
@@ -510,26 +534,12 @@
     [self tableViewIfNeededRefresh];
 }
 
-#pragma mark - token 失效 重新登录
-
-- (void)relogin:(NSNotification *)noti {
-    if (self.isRelogining) {
-        return;
+- (void)doubleClickTabbarItemAction {
+    if (self.isVisible) {
+        [self.dynamicHomeTable setContentOffset:CGPointZero animated:YES];
     }
-    self.isRelogining = YES;
-    // 先注销信息
-    // 用户信息清除
-    [VHSCommon removeLocationUserInfo];
-    
-    [VHSToast toast:[noti.userInfo objectForKey:@"info"]];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
-        UIViewController *vc = [storyboard instantiateInitialViewController];
-        UIWindow *wind = [UIApplication sharedApplication].delegate.window;
-        wind.rootViewController = vc;
-    });
 }
+
 
 - (void)dealloc {
     CLog(@"dynamic - dealloc");
