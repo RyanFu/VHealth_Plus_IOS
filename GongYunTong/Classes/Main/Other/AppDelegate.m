@@ -10,7 +10,6 @@
 #import "VHSStepAlgorithm.h"
 #import "VHSFitBraceletStateManager.h"
 #import "MBProgressHUD+VHS.h"
-#import "VHSStartController.h"
 #import "NSDate+VHSExtension.h"
 #import "BaiduMobStat.h"
 #import "ShortcutItem.h"
@@ -367,28 +366,16 @@ static BOOL isBackGroundActivateApplication;
     
     NSString *adTime = [VHSCommon getUserDefautForKey:k_Launch_Time];
     
-    // 没有公司编号，没有启动页
     NSString *companyId = [[VHSCommon userInfo].companyId stringValue];
-    if (!companyId) return;
-    
-    // 显示启动页的时间小于一个小时
-    if ([VHSCommon intervalSinceNow:adTime] < k_Late_Duration(1.0)) return;
+    // 没有公司编号 显示启动页的时间小于一个小时
+    if (!companyId || [VHSCommon intervalSinceNow:adTime] < k_Late_Duration(1.0)) return;
     
     NSString *luanchUrl = [VHSCommon getUserDefautForKey:k_LaunchUrl];
     if (!luanchUrl) {
-        [self downloadLaunchUrl:^(NSString *url) { [self showLaunchPage:url]; }];
+        [self downloadLaunchUrl:^(NSString *url) {[VHSCommon showADPageWithUrl:url duration:2.0];}];
     } else {
-        [self showLaunchPage:luanchUrl];
+        [VHSCommon showADPageWithUrl:luanchUrl duration:2.0];
     }
-}
-
-- (void)showLaunchPage:(NSString *)url {
-    UIViewController *controller = self.window.rootViewController;
-    // 展示广告页
-    VHSStartController *startVC = (VHSStartController *)[StoryboardHelper controllerWithStoryboardName:@"Main" controllerId:@"VHSStartController"];
-    startVC.launchUrl = url;
-    startVC.durationTime = 2.0;
-    [controller presentViewController:startVC animated:NO completion:^{}];
 }
 
 - (void)downloadLaunchUrl:(void (^)(NSString *url))success {

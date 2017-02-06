@@ -158,7 +158,6 @@
 		33F2BA431D648CB700928976 /* EveryDayStepModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 33F2BA421D648CB700928976 /* EveryDayStepModel.m */; };
 		33F2BA461D65506B00928976 /* VHSPersonInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33F2BA451D65506B00928976 /* VHSPersonInfoController.m */; };
 		33F2BA491D65671D00928976 /* VHSLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33F2BA481D65671D00928976 /* VHSLaunchViewController.m */; };
-		33F2BA4C1D65684800928976 /* VHSStartController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33F2BA4B1D65684800928976 /* VHSStartController.m */; };
 		33F2BA4F1D658B6E00928976 /* VHSModifyInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33F2BA4E1D658B6E00928976 /* VHSModifyInfoController.m */; };
 		33F2BA521D658E7300928976 /* VHSModifyNormalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 33F2BA511D658E7300928976 /* VHSModifyNormalCell.m */; };
 		33F2BA551D658E8900928976 /* VHSModifyMobileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 33F2BA541D658E8900928976 /* VHSModifyMobileCell.m */; };
@@ -482,8 +481,6 @@
 		33F2BA451D65506B00928976 /* VHSPersonInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSPersonInfoController.m; sourceTree = "<group>"; };
 		33F2BA471D65671D00928976 /* VHSLaunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSLaunchViewController.h; sourceTree = "<group>"; };
 		33F2BA481D65671D00928976 /* VHSLaunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSLaunchViewController.m; sourceTree = "<group>"; };
-		33F2BA4A1D65684800928976 /* VHSStartController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSStartController.h; sourceTree = "<group>"; };
-		33F2BA4B1D65684800928976 /* VHSStartController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSStartController.m; sourceTree = "<group>"; };
 		33F2BA4D1D658B6E00928976 /* VHSModifyInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSModifyInfoController.h; sourceTree = "<group>"; };
 		33F2BA4E1D658B6E00928976 /* VHSModifyInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSModifyInfoController.m; sourceTree = "<group>"; };
 		33F2BA501D658E7300928976 /* VHSModifyNormalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSModifyNormalCell.h; sourceTree = "<group>"; };
@@ -1253,8 +1250,6 @@
 				67B4F8DC1D3CAAB900F933F0 /* VHSBaseViewController.m */,
 				33F2BA471D65671D00928976 /* VHSLaunchViewController.h */,
 				33F2BA481D65671D00928976 /* VHSLaunchViewController.m */,
-				33F2BA4A1D65684800928976 /* VHSStartController.h */,
-				33F2BA4B1D65684800928976 /* VHSStartController.m */,
 				33CBF32E1D73D81400D39452 /* PublicWKWebViewController.h */,
 				33CBF32F1D73D81400D39452 /* PublicWKWebViewController.m */,
 			);
@@ -1961,7 +1956,6 @@
 				338C61C21D59D2BE004CFE18 /* VHSSettingBraceletCell.m in Sources */,
 				338C61BB1D59D2BE004CFE18 /* SharePeripheral.m in Sources */,
 				338B24C11D864B3200E62838 /* VHSTestController.m in Sources */,
-				33F2BA4C1D65684800928976 /* VHSStartController.m in Sources */,
 				6730197D1D3C6850004A3320 /* main.m in Sources */,
 				338C61C71D59D2BE004CFE18 /* VHSUnBindCell.m in Sources */,
 				33E5B8C11DD9A43200E52A11 /* NSDate+VHSExtension.m in Sources */,

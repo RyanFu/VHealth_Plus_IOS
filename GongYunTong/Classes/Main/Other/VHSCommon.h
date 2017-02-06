@@ -155,5 +155,7 @@ extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环�
 + (NSString *)getChannelId;
 /// 用户是否登陆
 + (BOOL)isLogined;
+/// 广告页展示
++ (void)showADPageWithUrl:(NSString *)adUrl duration:(NSInteger)duration;
 
 @end
