@@ -13,8 +13,6 @@
 		3301A7D31E2868CA0035CDA3 /* VHSClubSessionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3301A7D01E2868CA0035CDA3 /* VHSClubSessionCell.xib */; };
 		3301A7D61E2886DB0035CDA3 /* VHSReddotButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 3301A7D41E2886DB0035CDA3 /* VHSReddotButton.h */; };
 		3301A7D71E2886DB0035CDA3 /* VHSReddotButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3301A7D51E2886DB0035CDA3 /* VHSReddotButton.m */; };
-		3301A7DB1E28B1270035CDA3 /* KxMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 3301A7D91E28B1270035CDA3 /* KxMenu.h */; };
-		3301A7DC1E28B1270035CDA3 /* KxMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 3301A7DA1E28B1270035CDA3 /* KxMenu.m */; };
 		3302FF7F1E275A7000295493 /* Emoji.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3302FF751E275A7000295493 /* Emoji.plist */; };
 		3302FF801E275A7000295493 /* RongCloudKit.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3302FF761E275A7000295493 /* RongCloudKit.strings */; };
 		3302FF811E275A7000295493 /* RongCloud.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3302FF781E275A7000295493 /* RongCloud.bundle */; };
@@ -35,8 +33,6 @@
 		3302FF9B1E27643E00295493 /* VHSClubController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3302FF991E27643E00295493 /* VHSClubController.m */; };
 		3302FF9E1E276DD900295493 /* ClubModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3302FF9C1E276DD900295493 /* ClubModel.h */; };
 		3302FF9F1E276DD900295493 /* ClubModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3302FF9D1E276DD900295493 /* ClubModel.m */; };
-		3302FFA21E276E4B00295493 /* ClubSectionModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3302FFA01E276E4B00295493 /* ClubSectionModel.h */; };
-		3302FFA31E276E4B00295493 /* ClubSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3302FFA11E276E4B00295493 /* ClubSectionModel.m */; };
 		3304BB5C1DED62F600EDBC6B /* UserInfoModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3304BB5A1DED62F600EDBC6B /* UserInfoModel.h */; };
 		3304BB5D1DED62F600EDBC6B /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304BB5B1DED62F600EDBC6B /* UserInfoModel.m */; };
 		3304BB631DED63FB00EDBC6B /* ShortcutItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 3304BB5F1DED63FB00EDBC6B /* ShortcutItem.h */; };
@@ -84,6 +80,32 @@
 		3362F3061E30CAF500F69477 /* UIView+extension.h in Headers */ = {isa = PBXBuildFile; fileRef = 3362F3041E30CAF500F69477 /* UIView+extension.h */; };
 		3362F3071E30CAF500F69477 /* UIView+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3362F3051E30CAF500F69477 /* UIView+extension.m */; };
 		33640B5E1D9224BC00B34C8B /* KeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 33640B5D1D9224BC00B34C8B /* KeyChainStore.m */; };
+		3364900D1E484AE5006F0570 /* VHSCommentController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3364900B1E484AE5006F0570 /* VHSCommentController.h */; };
+		3364900E1E484AE5006F0570 /* VHSCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3364900C1E484AE5006F0570 /* VHSCommentController.m */; };
+		3364904D1E4874BC006F0570 /* HUAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = 336490391E4874BC006F0570 /* HUAlbum.h */; };
+		3364904E1E4874BC006F0570 /* HUAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 3364903A1E4874BC006F0570 /* HUAlbum.m */; };
+		3364904F1E4874BC006F0570 /* HUAlbumCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 3364903B1E4874BC006F0570 /* HUAlbumCell.h */; };
+		336490501E4874BC006F0570 /* HUAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3364903C1E4874BC006F0570 /* HUAlbumCell.m */; };
+		336490511E4874BC006F0570 /* HUAlbumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3364903D1E4874BC006F0570 /* HUAlbumCell.xib */; };
+		336490521E4874BC006F0570 /* HUAlbumsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3364903E1E4874BC006F0570 /* HUAlbumsViewController.h */; };
+		336490531E4874BC006F0570 /* HUAlbumsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3364903F1E4874BC006F0570 /* HUAlbumsViewController.m */; };
+		336490541E4874BC006F0570 /* HUImageItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 336490401E4874BC006F0570 /* HUImageItem.h */; };
+		336490551E4874BC006F0570 /* HUImageItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 336490411E4874BC006F0570 /* HUImageItem.m */; };
+		336490561E4874BC006F0570 /* HUImagePickerCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 336490421E4874BC006F0570 /* HUImagePickerCell.h */; };
+		336490571E4874BC006F0570 /* HUImagePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 336490431E4874BC006F0570 /* HUImagePickerCell.m */; };
+		336490581E4874BC006F0570 /* HUImagePickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 336490441E4874BC006F0570 /* HUImagePickerCell.xib */; };
+		336490591E4874BC006F0570 /* HUImagePickerRootViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 336490451E4874BC006F0570 /* HUImagePickerRootViewController.h */; };
+		3364905A1E4874BC006F0570 /* HUImagePickerRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 336490461E4874BC006F0570 /* HUImagePickerRootViewController.m */; };
+		3364905B1E4874BC006F0570 /* HUImagePickerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 336490471E4874BC006F0570 /* HUImagePickerViewController.h */; };
+		3364905C1E4874BC006F0570 /* HUImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 336490481E4874BC006F0570 /* HUImagePickerViewController.m */; };
+		3364905D1E4874BC006F0570 /* HUPhotoHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 336490491E4874BC006F0570 /* HUPhotoHelper.h */; };
+		3364905E1E4874BC006F0570 /* HUPhotoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3364904A1E4874BC006F0570 /* HUPhotoHelper.m */; };
+		3364905F1E4874BC006F0570 /* pick_checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3364904B1E4874BC006F0570 /* pick_checked@2x.png */; };
+		336490601E4874BC006F0570 /* pick_checked@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3364904C1E4874BC006F0570 /* pick_checked@3x.png */; };
+		336490631E48777C006F0570 /* VHSImagePickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 336490611E48777C006F0570 /* VHSImagePickerView.h */; };
+		336490641E48777C006F0570 /* VHSImagePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 336490621E48777C006F0570 /* VHSImagePickerView.m */; };
+		336490671E49ACD0006F0570 /* MomentPhotoModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 336490651E49ACD0006F0570 /* MomentPhotoModel.h */; };
+		336490681E49ACD0006F0570 /* MomentPhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 336490661E49ACD0006F0570 /* MomentPhotoModel.m */; };
 		3364D1EC1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3364D1EA1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m */; };
 		3364D1ED1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3364D1EB1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib */; };
 		3371B3801E1B6265007A285A /* AES128Util.h in Headers */ = {isa = PBXBuildFile; fileRef = 3371B37E1E1B6265007A285A /* AES128Util.h */; };
@@ -263,8 +285,6 @@
 		3301A7D01E2868CA0035CDA3 /* VHSClubSessionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VHSClubSessionCell.xib; sourceTree = "<group>"; };
 		3301A7D41E2886DB0035CDA3 /* VHSReddotButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSReddotButton.h; sourceTree = "<group>"; };
 		3301A7D51E2886DB0035CDA3 /* VHSReddotButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSReddotButton.m; sourceTree = "<group>"; };
-		3301A7D91E28B1270035CDA3 /* KxMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KxMenu.h; sourceTree = "<group>"; };
-		3301A7DA1E28B1270035CDA3 /* KxMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KxMenu.m; sourceTree = "<group>"; };
 		3302FF751E275A7000295493 /* Emoji.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Emoji.plist; sourceTree = "<group>"; };
 		3302FF771E275A7000295493 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/RongCloudKit.strings; sourceTree = "<group>"; };
 		3302FF781E275A7000295493 /* RongCloud.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RongCloud.bundle; sourceTree = "<group>"; };
@@ -286,8 +306,6 @@
 		3302FF991E27643E00295493 /* VHSClubController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSClubController.m; sourceTree = "<group>"; };
 		3302FF9C1E276DD900295493 /* ClubModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClubModel.h; sourceTree = "<group>"; };
 		3302FF9D1E276DD900295493 /* ClubModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClubModel.m; sourceTree = "<group>"; };
-		3302FFA01E276E4B00295493 /* ClubSectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClubSectionModel.h; sourceTree = "<group>"; };
-		3302FFA11E276E4B00295493 /* ClubSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClubSectionModel.m; sourceTree = "<group>"; };
 		3304BB5A1DED62F600EDBC6B /* UserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = "<group>"; };
 		3304BB5B1DED62F600EDBC6B /* UserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
 		3304BB5F1DED63FB00EDBC6B /* ShortcutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShortcutItem.h; sourceTree = "<group>"; };
@@ -352,6 +370,32 @@
 		3362F3051E30CAF500F69477 /* UIView+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+extension.m"; sourceTree = "<group>"; };
 		33640B5C1D9224BC00B34C8B /* KeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyChainStore.h; sourceTree = "<group>"; };
 		33640B5D1D9224BC00B34C8B /* KeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainStore.m; sourceTree = "<group>"; };
+		3364900B1E484AE5006F0570 /* VHSCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSCommentController.h; sourceTree = "<group>"; };
+		3364900C1E484AE5006F0570 /* VHSCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSCommentController.m; sourceTree = "<group>"; };
+		336490391E4874BC006F0570 /* HUAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbum.h; sourceTree = "<group>"; };
+		3364903A1E4874BC006F0570 /* HUAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUAlbum.m; sourceTree = "<group>"; };
+		3364903B1E4874BC006F0570 /* HUAlbumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbumCell.h; sourceTree = "<group>"; };
+		3364903C1E4874BC006F0570 /* HUAlbumCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUAlbumCell.m; sourceTree = "<group>"; };
+		3364903D1E4874BC006F0570 /* HUAlbumCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HUAlbumCell.xib; sourceTree = "<group>"; };
+		3364903E1E4874BC006F0570 /* HUAlbumsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbumsViewController.h; sourceTree = "<group>"; };
+		3364903F1E4874BC006F0570 /* HUAlbumsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUAlbumsViewController.m; sourceTree = "<group>"; };
+		336490401E4874BC006F0570 /* HUImageItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUImageItem.h; sourceTree = "<group>"; };
+		336490411E4874BC006F0570 /* HUImageItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUImageItem.m; sourceTree = "<group>"; };
+		336490421E4874BC006F0570 /* HUImagePickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUImagePickerCell.h; sourceTree = "<group>"; };
+		336490431E4874BC006F0570 /* HUImagePickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUImagePickerCell.m; sourceTree = "<group>"; };
+		336490441E4874BC006F0570 /* HUImagePickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HUImagePickerCell.xib; sourceTree = "<group>"; };
+		336490451E4874BC006F0570 /* HUImagePickerRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUImagePickerRootViewController.h; sourceTree = "<group>"; };
+		336490461E4874BC006F0570 /* HUImagePickerRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUImagePickerRootViewController.m; sourceTree = "<group>"; };
+		336490471E4874BC006F0570 /* HUImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUImagePickerViewController.h; sourceTree = "<group>"; };
+		336490481E4874BC006F0570 /* HUImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUImagePickerViewController.m; sourceTree = "<group>"; };
+		336490491E4874BC006F0570 /* HUPhotoHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUPhotoHelper.h; sourceTree = "<group>"; };
+		3364904A1E4874BC006F0570 /* HUPhotoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUPhotoHelper.m; sourceTree = "<group>"; };
+		3364904B1E4874BC006F0570 /* pick_checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_checked@2x.png"; sourceTree = "<group>"; };
+		3364904C1E4874BC006F0570 /* pick_checked@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_checked@3x.png"; sourceTree = "<group>"; };
+		336490611E48777C006F0570 /* VHSImagePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSImagePickerView.h; sourceTree = "<group>"; };
+		336490621E48777C006F0570 /* VHSImagePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSImagePickerView.m; sourceTree = "<group>"; };
+		336490651E49ACD0006F0570 /* MomentPhotoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentPhotoModel.h; sourceTree = "<group>"; };
+		336490661E49ACD0006F0570 /* MomentPhotoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MomentPhotoModel.m; sourceTree = "<group>"; };
 		3364D1E91DC7668D00E8A3FF /* VHSFitBraceletHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSFitBraceletHelpController.h; sourceTree = "<group>"; };
 		3364D1EA1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSFitBraceletHelpController.m; sourceTree = "<group>"; };
 		3364D1EB1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VHSFitBraceletHelpController.xib; sourceTree = "<group>"; };
@@ -731,10 +775,11 @@
 		3301A7D81E28B1270035CDA3 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				3301A7D91E28B1270035CDA3 /* KxMenu.h */,
-				3301A7DA1E28B1270035CDA3 /* KxMenu.m */,
+				336490381E4874BC006F0570 /* HUPhotoPicker */,
 				3362F3001E30BC9D00F69477 /* VHSMoreMenu.h */,
 				3362F3011E30BC9D00F69477 /* VHSMoreMenu.m */,
+				336490611E48777C006F0570 /* VHSImagePickerView.h */,
+				336490621E48777C006F0570 /* VHSImagePickerView.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -754,10 +799,12 @@
 		3302FF6E1E2757B000295493 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				33D073701E2784BF00A89E0E /* VHSChatController.h */,
-				33D073711E2784BF00A89E0E /* VHSChatController.m */,
 				3302FF981E27643E00295493 /* VHSClubController.h */,
 				3302FF991E27643E00295493 /* VHSClubController.m */,
+				33D073701E2784BF00A89E0E /* VHSChatController.h */,
+				33D073711E2784BF00A89E0E /* VHSChatController.m */,
+				3364900B1E484AE5006F0570 /* VHSCommentController.h */,
+				3364900C1E484AE5006F0570 /* VHSCommentController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -767,10 +814,10 @@
 			children = (
 				3302FF9C1E276DD900295493 /* ClubModel.h */,
 				3302FF9D1E276DD900295493 /* ClubModel.m */,
-				3302FFA01E276E4B00295493 /* ClubSectionModel.h */,
-				3302FFA11E276E4B00295493 /* ClubSectionModel.m */,
 				3362F2FC1E309D6400F69477 /* ChatMoreModel.h */,
 				3362F2FD1E309D6400F69477 /* ChatMoreModel.m */,
+				336490651E49ACD0006F0570 /* MomentPhotoModel.h */,
+				336490661E49ACD0006F0570 /* MomentPhotoModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -880,6 +927,33 @@
 				33514BDF1D5B034200ECDEA5 /* VeryfitSDK.framework */,
 			);
 			path = FitSDK;
+			sourceTree = "<group>";
+		};
+		336490381E4874BC006F0570 /* HUPhotoPicker */ = {
+			isa = PBXGroup;
+			children = (
+				336490391E4874BC006F0570 /* HUAlbum.h */,
+				3364903A1E4874BC006F0570 /* HUAlbum.m */,
+				3364903B1E4874BC006F0570 /* HUAlbumCell.h */,
+				3364903C1E4874BC006F0570 /* HUAlbumCell.m */,
+				3364903D1E4874BC006F0570 /* HUAlbumCell.xib */,
+				3364903E1E4874BC006F0570 /* HUAlbumsViewController.h */,
+				3364903F1E4874BC006F0570 /* HUAlbumsViewController.m */,
+				336490401E4874BC006F0570 /* HUImageItem.h */,
+				336490411E4874BC006F0570 /* HUImageItem.m */,
+				336490421E4874BC006F0570 /* HUImagePickerCell.h */,
+				336490431E4874BC006F0570 /* HUImagePickerCell.m */,
+				336490441E4874BC006F0570 /* HUImagePickerCell.xib */,
+				336490451E4874BC006F0570 /* HUImagePickerRootViewController.h */,
+				336490461E4874BC006F0570 /* HUImagePickerRootViewController.m */,
+				336490471E4874BC006F0570 /* HUImagePickerViewController.h */,
+				336490481E4874BC006F0570 /* HUImagePickerViewController.m */,
+				336490491E4874BC006F0570 /* HUPhotoHelper.h */,
+				3364904A1E4874BC006F0570 /* HUPhotoHelper.m */,
+				3364904B1E4874BC006F0570 /* pick_checked@2x.png */,
+				3364904C1E4874BC006F0570 /* pick_checked@3x.png */,
+			);
+			path = HUPhotoPicker;
 			sourceTree = "<group>";
 		};
 		337408161DE5405900D142DA /* Resource */ = {
@@ -1618,22 +1692,30 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3301A7DB1E28B1270035CDA3 /* KxMenu.h in Headers */,
 				3362F3061E30CAF500F69477 /* UIView+extension.h in Headers */,
 				334F602D1E0BBABD000F06B0 /* ThirdPartyCoordinator.h in Headers */,
 				33098DA71E110BA900751A38 /* VHSActionData.h in Headers */,
 				33E14E1F1DFA82CA0021688D /* IconItem.h in Headers */,
+				3364904D1E4874BC006F0570 /* HUAlbum.h in Headers */,
 				3304BB651DED63FB00EDBC6B /* TabbarItem.h in Headers */,
 				33F6FAC51DF7E2D9005510D4 /* VHSDynamicConfigurationCell.h in Headers */,
 				3362F3021E30BC9D00F69477 /* VHSMoreMenu.h in Headers */,
 				33A59E191E10EC0300D7BED4 /* DBSafetyCoordinator.h in Headers */,
 				3301A7D61E2886DB0035CDA3 /* VHSReddotButton.h in Headers */,
+				336490541E4874BC006F0570 /* HUImageItem.h in Headers */,
 				334A9B501E1513FF008969E4 /* GTMDefines.h in Headers */,
 				3362F2FE1E309D6400F69477 /* ChatMoreModel.h in Headers */,
+				3364905D1E4874BC006F0570 /* HUPhotoHelper.h in Headers */,
 				3302FF9A1E27643E00295493 /* VHSClubController.h in Headers */,
 				3301A7D11E2868CA0035CDA3 /* VHSClubSessionCell.h in Headers */,
+				3364905B1E4874BC006F0570 /* HUImagePickerViewController.h in Headers */,
 				3302FF9E1E276DD900295493 /* ClubModel.h in Headers */,
-				3302FFA21E276E4B00295493 /* ClubSectionModel.h in Headers */,
+				3364900D1E484AE5006F0570 /* VHSCommentController.h in Headers */,
+				336490591E4874BC006F0570 /* HUImagePickerRootViewController.h in Headers */,
+				336490631E48777C006F0570 /* VHSImagePickerView.h in Headers */,
+				336490521E4874BC006F0570 /* HUAlbumsViewController.h in Headers */,
+				3364904F1E4874BC006F0570 /* HUAlbumCell.h in Headers */,
+				336490561E4874BC006F0570 /* HUImagePickerCell.h in Headers */,
 				3304BB5C1DED62F600EDBC6B /* UserInfoModel.h in Headers */,
 				33E14E1B1DFA7D760021688D /* DynamicItemModel.h in Headers */,
 				33F6FAC11DF7DE29005510D4 /* VHSEnterpriseDynamicCell.h in Headers */,
@@ -1642,6 +1724,7 @@
 				334A9B4E1E1513FF008969E4 /* GTMBase64.h in Headers */,
 				3371B3801E1B6265007A285A /* AES128Util.h in Headers */,
 				3304BB631DED63FB00EDBC6B /* ShortcutItem.h in Headers */,
+				336490671E49ACD0006F0570 /* MomentPhotoModel.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1770,6 +1853,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3364905F1E4874BC006F0570 /* pick_checked@2x.png in Resources */,
 				334F601E1E0A5939000F06B0 /* main.js in Resources */,
 				33CB6EB61DDEEF28001E470A /* public_key.der in Resources */,
 				671217F21D3F4C71004CFD14 /* Shop.storyboard in Resources */,
@@ -1780,6 +1864,7 @@
 				CA4C0A991D5034140039765C /* SimplePassword.txt in Resources */,
 				671217EE1D3F4C53004CFD14 /* Dynamic.storyboard in Resources */,
 				3302FF7F1E275A7000295493 /* Emoji.plist in Resources */,
+				336490581E4874BC006F0570 /* HUImagePickerCell.xib in Resources */,
 				CAD91A4C1D5DB69B00AEF2FB /* AlipaySDK.bundle in Resources */,
 				33E7F55D1DC7272700642D5D /* ScanNoDevice.xib in Resources */,
 				338C61C81D59D2BE004CFE18 /* VHSUnBindCell.xib in Resources */,
@@ -1796,7 +1881,9 @@
 				CA7F12211D42025D00C7F145 /* Login.storyboard in Resources */,
 				6704636C1D40C56B0051A9F6 /* placeholder@2x.png in Resources */,
 				3302FF841E275A7000295493 /* RCConfig.plist in Resources */,
+				336490511E4874BC006F0570 /* HUAlbumCell.xib in Resources */,
 				3364D1ED1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib in Resources */,
+				336490601E4874BC006F0570 /* pick_checked@3x.png in Resources */,
 				67E13FC41D460C54001C58D7 /* Me.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1880,11 +1967,12 @@
 				33E5B8C01DD9A43200E52A11 /* NSArray+VHSExtension.m in Sources */,
 				33ED43171D4F47B3007B0F30 /* VHSPaymentsDetailCell.m in Sources */,
 				33ED43141D4F33B5007B0F30 /* VHSSettingCell.m in Sources */,
+				336490681E49ACD0006F0570 /* MomentPhotoModel.m in Sources */,
 				33F2BA3F1D648C6C00928976 /* UserDetailModel.m in Sources */,
 				67B4F8D11D3CA8EC00F933F0 /* UIBarButtonItem+VHS_extension.m in Sources */,
 				67B4F8E71D3CC2A900F933F0 /* UIView+animation.m in Sources */,
+				336490571E4874BC006F0570 /* HUImagePickerCell.m in Sources */,
 				3317AFE71DD5C294003CFEBB /* MBProgressHUD+VHS.m in Sources */,
-				3302FFA31E276E4B00295493 /* ClubSectionModel.m in Sources */,
 				CA7F122D1D42028C00C7F145 /* VHSPasswordCell.m in Sources */,
 				33514CD61D64708200ECDEA5 /* VHSAllStepCell.m in Sources */,
 				67B4F8D71D3CAA5500F933F0 /* VHSNavigationController.m in Sources */,
@@ -1906,6 +1994,7 @@
 				6704636F1D40C56B0051A9F6 /* UIView+SDExtension.m in Sources */,
 				671217DA1D3F3F99004CFD14 /* VHSCommon.m in Sources */,
 				33640B5E1D9224BC00B34C8B /* KeyChainStore.m in Sources */,
+				336490501E4874BC006F0570 /* HUAlbumCell.m in Sources */,
 				338171871DAC985A00ACB4A0 /* TAAnimatedDotView.m in Sources */,
 				33CBF3351D755A5E00D39452 /* UILabel+extension.m in Sources */,
 				CA254ECC1D4B5D4A00853D3C /* VHSActivityRewardCell.m in Sources */,
@@ -1913,6 +2002,7 @@
 				334A9B4F1E1513FF008969E4 /* GTMBase64.m in Sources */,
 				CA58AABF1D584CAA0076BA42 /* VHSStepAlgorithm.m in Sources */,
 				33E14E201DFA82CA0021688D /* IconItem.m in Sources */,
+				336490641E48777C006F0570 /* VHSImagePickerView.m in Sources */,
 				33CB6EB11DDEC7D4001E470A /* VHSSecurityUtil.m in Sources */,
 				6704636E1D40C56B0051A9F6 /* SDCycleScrollView.m in Sources */,
 				3302FF9B1E27643E00295493 /* VHSClubController.m in Sources */,
@@ -1925,6 +2015,7 @@
 				333F396D1DFBD52C005A43AA /* OneAlertCaller.m in Sources */,
 				33E5B8CF1DDBFEA800E52A11 /* VHSLoginPersonalViewController.m in Sources */,
 				CA254EC61D4B5CEB00853D3C /* VHSActivityTitleCell.m in Sources */,
+				3364905A1E4874BC006F0570 /* HUImagePickerRootViewController.m in Sources */,
 				33E5B8DD1DDC54AA00E52A11 /* VHSShopController.m in Sources */,
 				CA7F122E1D42028C00C7F145 /* VHSPhoneNumberCell.m in Sources */,
 				338171861DAC985A00ACB4A0 /* TAAbstractDotView.m in Sources */,
@@ -1943,13 +2034,13 @@
 				33ED431D1D4F4A88007B0F30 /* VHSMyScoreController.m in Sources */,
 				673248321D46F1C200194DE3 /* XLAlertManager.m in Sources */,
 				33ED430E1D4F296F007B0F30 /* VHSSettingController.m in Sources */,
-				3301A7DC1E28B1270035CDA3 /* KxMenu.m in Sources */,
 				67E13FCA1D460E6E001C58D7 /* VHSMeController.m in Sources */,
 				33E14E1C1DFA7D760021688D /* DynamicItemModel.m in Sources */,
 				33E5B8D61DDC543100E52A11 /* VHSActivityController.m in Sources */,
 				3304BB641DED63FB00EDBC6B /* ShortcutItem.m in Sources */,
 				33F2BA461D65506B00928976 /* VHSPersonInfoController.m in Sources */,
 				3304BB661DED63FB00EDBC6B /* TabbarItem.m in Sources */,
+				336490531E4874BC006F0570 /* HUAlbumsViewController.m in Sources */,
 				3325E0A01D6C2EFF0045AC33 /* MeSumScoreModel.m in Sources */,
 				67E13FD31D460E81001C58D7 /* UserInfoCell.m in Sources */,
 				67B4F8E01D3CAB0300F933F0 /* XLTextView.m in Sources */,
@@ -1967,10 +2058,12 @@
 				330C9DF91D90DE25005875FE /* VHSToast.m in Sources */,
 				338C61C01D59D2BE004CFE18 /* VHSScanNoDevice.m in Sources */,
 				338C61D11D59E06C004CFE18 /* VHSScanBraceletController.m in Sources */,
+				3364905C1E4874BC006F0570 /* HUImagePickerViewController.m in Sources */,
 				6730197C1D3C6850004A3320 /* AppDelegate.m in Sources */,
 				3304BB5D1DED62F600EDBC6B /* UserInfoModel.m in Sources */,
 				CA254EC91D4B5D1800853D3C /* VHSActivityNoticeCell.m in Sources */,
 				33FB4B251D52EA3C00AB8086 /* BannerItemModel.m in Sources */,
+				336490551E4874BC006F0570 /* HUImageItem.m in Sources */,
 				33F2BA431D648CB700928976 /* EveryDayStepModel.m in Sources */,
 				33ED43111D4F3075007B0F30 /* StoryboardHelper.m in Sources */,
 				33E5B8CD1DDBFEA800E52A11 /* VHSForgetPasswordViewController.m in Sources */,
@@ -1987,6 +2080,7 @@
 				67E13FD21D460E81001C58D7 /* UserHeadCell.m in Sources */,
 				6704636D1D40C56B0051A9F6 /* SDCollectionViewCell.m in Sources */,
 				33E5B8C21DD9A43200E52A11 /* NSDictionary+VHSExtension.m in Sources */,
+				3364904E1E4874BC006F0570 /* HUAlbum.m in Sources */,
 				338C61BC1D59D2BE004CFE18 /* VHSBindDoneMessage.m in Sources */,
 				3325E09D1D6AA9F00045AC33 /* BalanceItemModel.m in Sources */,
 				CAD91A501D5DB69B00AEF2FB /* ApiXml.mm in Sources */,
@@ -1995,10 +2089,12 @@
 				332758701DA8D49D00C285DB /* VHSAlertController.m in Sources */,
 				338171881DAC985A00ACB4A0 /* TADotView.m in Sources */,
 				33ED43231D502EF1007B0F30 /* VHSFeedbackCell.m in Sources */,
+				3364900E1E484AE5006F0570 /* VHSCommentController.m in Sources */,
 				3343A3251DAC89C900DEF1C2 /* UIColor+extension.m in Sources */,
 				3301A7D71E2886DB0035CDA3 /* VHSReddotButton.m in Sources */,
 				33FB4B101D50843E00AB8086 /* LoginModel.m in Sources */,
 				33098DA81E110BA900751A38 /* VHSActionData.m in Sources */,
+				3364905E1E4874BC006F0570 /* HUPhotoHelper.m in Sources */,
 				67E13F561D45D77D001C58D7 /* XLAlertController.m in Sources */,
 				67AD039F1D40DDE200246667 /* VHSDynamicBigIgvCell.m in Sources */,
 			);

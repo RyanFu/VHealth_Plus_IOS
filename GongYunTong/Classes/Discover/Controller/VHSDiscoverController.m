@@ -15,8 +15,9 @@
 #import "OneAlertCaller.h"
 #import "VHSClubController.h"
 
-//一行显示的个数
-NSInteger const ROWCOUNT = 3;
+// 一行显示的个数
+NSInteger const ROW_COUNT = 3;
+
 @interface VHSDiscoverController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
@@ -78,7 +79,7 @@ NSInteger const ROWCOUNT = 3;
 }
 
 - (void)setupFlowLayout {
-    self.flowLayout.itemSize = CGSizeMake(SCREENW / ROWCOUNT, 101.0 / 375 * SCREENW);
+    self.flowLayout.itemSize = CGSizeMake(SCREENW / ROW_COUNT, 0.8 * SCREENW / ROW_COUNT);
     self.flowLayout.minimumLineSpacing = 0.0f;
     self.flowLayout.minimumInteritemSpacing = 0.0f;
     self.flowLayout.headerReferenceSize = CGSizeMake(self.view.bounds.size.width, 12);
@@ -106,10 +107,10 @@ NSInteger const ROWCOUNT = 3;
         }
         
         //  补齐collection中cell
-        NSInteger m = [self.bannerList count] % 3;
-        if (m) {
-            NSInteger needAdd = 3 - m;
-            for (NSInteger i = 0; i < needAdd; i++) {
+        NSInteger surplus = [self.bannerList count] % ROW_COUNT;
+        if (surplus) {
+            NSInteger completionNums = ROW_COUNT - surplus;
+            for (NSInteger i = 0; i < completionNums; i++) {
                 BannerItemModel *model = [[BannerItemModel alloc] init];
                 [self.bannerList addObject:model];
             }
@@ -122,19 +123,20 @@ NSInteger const ROWCOUNT = 3;
     }];
 
 }
-#pragma mark -UICollectionViewDataSource
+#pragma mark - UICollectionViewDataSource
 
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [self.bannerList count];
 }
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    VHSDiscoverCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([VHSDiscoverCell class]) forIndexPath:indexPath];
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    VHSDiscoverCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([VHSDiscoverCell class])
+                                                                      forIndexPath:indexPath];
     cell.bannerItem = self.bannerList[indexPath.row];
     return cell;
 }
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     
     BannerItemModel *model = self.bannerList[indexPath.row];

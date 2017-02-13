@@ -24,7 +24,7 @@
     if (_club != club) {
         _club = club;
         
-        [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:_club.headerUrl]
+        [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:_club.clubUrl]
                                 placeholderImage:[UIImage imageNamed:@"icon_onlogin"]];
         self.titleLabel.text = _club.title;
         self.reddot.hidden = _club.isRead;

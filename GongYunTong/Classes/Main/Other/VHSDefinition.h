@@ -35,6 +35,10 @@
 #define TOAST_SIGN_SUCCESS                              @"签到成功"
 #define TOAST_SIGN_FAILURE                              @"签到失败"
 
+#pragma mark - 全局使用的汉字文本
+
+static NSString const *CLUB_MOMENT_POST_PLACEHOLDER =         @"说点什么吧...";
+
 
 #pragma mark - 状态码的定义 ==============================状态码=====================================
 

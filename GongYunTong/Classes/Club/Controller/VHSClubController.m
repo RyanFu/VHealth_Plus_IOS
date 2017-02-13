@@ -7,7 +7,6 @@
 //
 
 #import "VHSClubController.h"
-#import "ClubSectionModel.h"
 #import "ClubModel.h"
 #import "VHSChatController.h"
 #import "VHSClubSessionCell.h"
@@ -16,10 +15,8 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 
-@property (nonatomic, strong) NSMutableArray *clubList;
-
-@property (nonatomic, strong) NSString *targetId;
-@property (nonatomic, strong) NSString *discusstionName;
+@property (nonatomic, strong, nonnull) NSMutableArray<ClubModel *> *myClubList;       // 我的俱乐部
+@property (nonatomic, strong, nonnull) NSMutableArray<ClubModel *> *allClubList;      // 所有俱乐部
 
 @end
 
@@ -27,30 +24,48 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
 
 @implementation VHSClubController
 
-- (NSMutableArray *)clubList {
-    if (!_clubList) {
-        _clubList = [NSMutableArray array];
+#pragma mark - override getter or setter method
+
+- (NSMutableArray *)myClubList {
+    if (!_myClubList) {
+        _myClubList = [NSMutableArray array];
         
-        for (NSInteger i = 0; i < 3; i++) {
-            ClubSectionModel *sectionClubModel = [[ClubSectionModel alloc] initWithIndex:i];
-            [_clubList addObject:sectionClubModel];
+        for (NSInteger i = 0; i < 4; i++) {
+            ClubModel *club = [[ClubModel alloc] initWithIndex:i];
+            [_myClubList addObject:club];
         }
     }
-    return _clubList;
+    return _myClubList;
 }
+
+- (NSMutableArray *)allClubList {
+    if (!_allClubList) {
+        _allClubList = [NSMutableArray array];
+        for (NSInteger i = 0; i < 4; i++) {
+            ClubModel *club = [[ClubModel alloc] initWithIndex:i];
+            [_allClubList addObject:club];
+        }
+    }
+    return _allClubList;
+}
+
+#pragma mark - controller life cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"VHSClubSessionCell" bundle:nil]
-         forCellReuseIdentifier:reuse_identifier];
+    [self.tableView registerNib:[UINib nibWithNibName:@"VHSClubSessionCell" bundle:nil] forCellReuseIdentifier:reuse_identifier];
     
     [self setupTableView];
     [self setupNavigationBarBtn];
     
     self.tableView.tableHeaderView = [self tableHeaderView];
+    
+    [self remoteUserClubs];
 }
+
+#pragma mark - 初始化试图
 
 - (void)setupTableView {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREENW, SCREENH - NAVIAGTION_HEIGHT)
@@ -76,22 +91,55 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
     [super didReceiveMemoryWarning];
 }
 
+#pragma mark - 服务器获取信息
+
+/// 获取用户俱乐部所在的俱乐部信息
+- (void)remoteUserClubs {
+    VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
+    message.path = @"";
+    message.httpMethod = VHSNetworkPOST;
+    message.params = @{};
+    
+    [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
+        if ([result[@"result"] integerValue] != 200) return;
+        
+        for (NSDictionary *dict in result[@"myClubList"]) {
+            ClubModel *club = [ClubModel yy_modelWithDictionary:dict];
+            [self.myClubList addObject:club];
+        }
+    } fail:^(NSError *error) {
+        
+    }];
+}
+
 #pragma mark - UITableViewDelegate,Source 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.clubList count];
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    ClubSectionModel *sectionClubModel = self.clubList[section];
-    return [sectionClubModel.clubList count];
+    if (0 == section) {
+        return [self.myClubList count];
+    }
+    else if (1 == section) {
+        return [self.allClubList count];
+    }
+    else {
+        return 0;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    ClubSectionModel *clubSection = self.clubList[indexPath.section];
-    ClubModel *club = clubSection.clubList[indexPath.row];
 
+    ClubModel *club = nil;
+    if (0 == indexPath.section) {
+        club = self.myClubList[indexPath.row];
+    }
+    else if (1 == indexPath.section) {
+        club = self.allClubList[indexPath.row];
+    }
+    
     VHSClubSessionCell *cell = (VHSClubSessionCell *)[tableView dequeueReusableCellWithIdentifier:reuse_identifier];
     if (nil == cell) {
         cell = (VHSClubSessionCell *)[[[NSBundle mainBundle] loadNibNamed:@"VHSClubSessionCell"
@@ -106,14 +154,18 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    ClubSectionModel *clubSection = self.clubList[indexPath.section];
-    ClubModel *club = clubSection.clubList[indexPath.row];
+    ClubModel *club = nil;
+    if (0 == indexPath.section) {
+        club = self.myClubList[indexPath.row];
+    }
+    else if (1 == indexPath.section) {
+        club = self.allClubList[indexPath.row];
+    }
     
     VHSChatController *chatVC = [[VHSChatController alloc] init];
     chatVC.conversationType = ConversationType_DISCUSSION;
-    chatVC.targetId = self.targetId;
-//    chatVC.title = club.title;
-    chatVC.title = self.discusstionName;
+    chatVC.targetId = club.targetId; // 目标会话ID - 当前为聊天室ID
+    chatVC.title = club.title;
     [self.navigationController pushViewController:chatVC animated:YES];
 }
 
@@ -137,8 +189,12 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
     footline.backgroundColor = COLORHex(@"#BBBBBB");
     [bgView addSubview:footline];
     
-    ClubSectionModel *clubSection = self.clubList[section];
-    headerLabel.text = clubSection.title;
+    if (0 == section) {
+        headerLabel.text = @"我的俱乐部";
+    }
+    else if (1 == section) {
+        headerLabel.text = @"所有俱乐部";
+    }
     
     return bgView;
 }
@@ -177,12 +233,14 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
     [[RCIMClient sharedRCIMClient] createDiscussion:[userIdList componentsJoinedByString:@","]
                                          userIdList:userIdList
                                             success:^(RCDiscussion *discussion) {
-                                             self.discusstionName = discussion.discussionName;
-                                             self.targetId = discussion.discussionId;
                                              NSLog(@"创建讨论组成功，成员ID是: %@, 讨论组ID: %@", [discussion.memberIdList componentsJoinedByString:@"-"], discussion.discussionId);
                                          } error:^(RCErrorCode status) {
                                              NSLog(@"创建讨论组失败，错误码是: %@", @(status));
                                          }];
+}
+
+- (void)dealloc {
+    CLog(@"VHSClubController be dealloc");
 }
 
 @end

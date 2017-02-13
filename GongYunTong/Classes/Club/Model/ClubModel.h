@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ClubModel : NSObject
+@interface ClubModel<ClubModelType> : NSObject
 
-@property (nonatomic, strong) NSString *headerUrl;
+@property (nonatomic, strong) NSString *clubUrl;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *desc;
 @property (nonatomic, strong) NSString *members;

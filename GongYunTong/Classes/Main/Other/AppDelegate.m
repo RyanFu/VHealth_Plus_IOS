@@ -72,11 +72,8 @@ static BOOL isBackGroundActivateApplication;
         [SharePeripheral sharePeripheral].bleMolue = [[ASDKBleModule alloc] init];
         [SharePeripheral sharePeripheral].bleMolue.delegate = self;
         [[SharePeripheral sharePeripheral] setCallBackJump:^(CBPeripheral *peripheral){
-            CLog(@"连接成功======");
             if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindConnected) {
                 //绑定且连接状态
-                CLog(@"手环链接－－－并且已经绑定");
-                // 证明 - 已经绑定过手环
                 NSString *mac = [k_UserDefaults objectForKey:k_SHOUHUAN_MAC_ADDRESS];
                 [ShareDataSdk shareInstance].smart_device_id = mac;
                 [k_NotificationCenter postNotificationName:DeviceDidConnectedBLEsNotification

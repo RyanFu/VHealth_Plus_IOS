@@ -14,7 +14,7 @@
     self = [super init];
     
     if (self) {
-        self.headerUrl = @"http://118.242.18.199:10000/uploadFile/header/PLT3Z1483432327758.jpg";
+        self.clubUrl = @"http://118.242.18.199:10000/uploadFile/header/PLT3Z1483432327758.jpg";
         self.title = [NSString stringWithFormat:@"title--%@", @(index)];
         self.desc = [NSString stringWithFormat:@"desc--%@", @(index)];
         self.members = [NSString stringWithFormat:@"have--%@", @(index)];

@@ -18,6 +18,7 @@
 
 /***百度统计***/
 static NSString *BaiduMob_APP_KEY = @"a3bd4374ec";
+static NSString *BaiduMob_ChannelId = @"vhs_vhealth_plus_release";
 /***JSPatch热修复***/
 static NSString *JSPatch_APPKey = @"1b4681673bab1e48";
 /***百度推送相关***/
@@ -48,7 +49,7 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
     BaiduMobStat* statTracker = [BaiduMobStat defaultStat];
     // 此处(startWithAppId之前)可以设置初始化的可选参数，具体有哪些参数，可详见BaiduMobStat.h文件，例如：
     statTracker.shortAppVersion  = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    statTracker.channelId = @"vhs_gyt_dev";
+    statTracker.channelId = BaiduMob_ChannelId;
     statTracker.enableExceptionLog = YES;
     statTracker.enableDebugOn = NO;
     [statTracker startWithAppId:BaiduMob_APP_KEY]; // 设置您在mtj网站上添加的app的appkey,此处AppId即为应用的appKey

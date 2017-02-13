@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GongYunTong/Classes/Main/Other/AppDelegate.m"
-            timestampString = "506851028.165147"
+            filePath = "Pods/MLeaksFinder/MLeaksFinder/UIViewController+MemoryLeak.m"
+            timestampString = "508401422.242938"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "291"
-            endingLineNumber = "291"
-            landmarkName = "-application:didReceiveRemoteNotification:fetchCompletionHandler:"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "-swizzled_viewWillAppear:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,13 +35,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GongYunTong/Classes/Discover/Controller/VHSDiscoverController.m"
-            timestampString = "506852767.83642"
+            filePath = "Pods/MLeaksFinder/MLeaksFinder/UIViewController+MemoryLeak.m"
+            timestampString = "508401430.958258"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
-            landmarkName = "-collectionView:didSelectItemAtIndexPath:"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "-swizzled_viewDidDisappear:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

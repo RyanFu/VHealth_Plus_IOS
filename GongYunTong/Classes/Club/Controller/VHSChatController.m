@@ -8,10 +8,10 @@
 
 #import "VHSChatController.h"
 #import "VHSReddotButton.h"
-#import "KxMenu.h"
 #import "PublicWKWebViewController.h"
 #import "ChatMoreModel.h"
 #import "VHSMoreMenu.h"
+#import "VHSCommentController.h"
 
 @interface VHSChatController ()
 
@@ -61,20 +61,12 @@
 -(void)pluginBoardView:(RCPluginBoardView *)pluginBoardView clickedItemWithTag:(NSInteger)tag {
     [super pluginBoardView:pluginBoardView clickedItemWithTag:tag];
 
+    // 发公告
     if (tag == 20000) {
-        NSLog(@"自定义输入面板事件回调");
-        
-//        RCMessageContent *msgContent = [[RCMessageContent alloc] init];
-//        msgContent.senderUserInfo = [[RCUserInfo alloc] initWithUserId:@"10012" name:@"jjjj" portrait:nil];
-//        msgContent.mentionedInfo = [[RCMentionedInfo alloc] initWithMentionedType:RC_Mentioned_All
-//                                                                       userIdList:@[@"10012"]
-//                                                                 mentionedContent:@"起床了"];
-//        [self sendMessage:msgContent pushContent:@"啊啊啊啊"];
-        
-        PublicWKWebViewController *noticeBoardWebVC = [[PublicWKWebViewController alloc] init];
-        noticeBoardWebVC.title = @"公告";
-        noticeBoardWebVC.urlString = @"https://www.baidu.com/";
-        [self.navigationController pushViewController:noticeBoardWebVC animated:YES];
+        VHSCommentController *commentVC = [[VHSCommentController alloc] init];
+        commentVC.title = @"公告";
+        commentVC.commentType = VHSCommentOfMomentAnnouncementType;
+        [self presentViewController:commentVC animated:YES completion:nil];
     }
 }
 
@@ -130,7 +122,7 @@
             
             switch (i) {
                 case 0:
-                    more.title = @"公告";
+                    more.title = @"帖子   ";
                     more.isRead = NO;
                     break;
                 case 1:
@@ -161,26 +153,31 @@
 }
 
 - (void)showMoreMenu {
+    __weak typeof(self) weakSelf = self;
     [VHSMoreMenu showMoreMenuWithMenuList:self.moreMenuItems tapItemBlock:^(ChatMoreModel *model) {
-        PublicWKWebViewController *webVC = [[PublicWKWebViewController alloc] init];
-        webVC.title = model.title;
-        webVC.urlString = @"https://www.baidu.com/";
         if (model.moreType == ChatMoreType_Card) {
             // 帖子
+            VHSCommentController *tipVC = [[VHSCommentController alloc] init];
+            tipVC.commentType = VHSCommentOfMomentPublishPostType;
+            [weakSelf.navigationController pushViewController:tipVC animated:YES];
+            return;
         }
         else if (model.moreType == ChatMoreType_NewMemberApply) {
             // 新用户申请
+            [VHSToast toast:@"新用户申请"];
         }
         else if (model.moreType == ChatMoreType_ClubIntro) {
             // 俱乐部简介
+            [VHSToast toast:@"俱乐部简介"];
         }
         else if (model.moreType == ChatMoreType_ClubMember) {
             // 俱乐部成员
+            [VHSToast toast:@"俱乐部成员"];
         }
         else if (model.moreType == ChatMoreType_QuitClub) {
             // 退出俱乐部
+            [VHSToast toast:@"退出俱乐部"];
         }
-        [self.navigationController pushViewController:webVC animated:YES];
     }];
 }
 
@@ -220,11 +217,12 @@
     [noticeBoardBg addGestureRecognizer:tap];
 }
 
+// 公告列表 -> 编辑公告
 - (void)tapOfNoticeBoard:(UIGestureRecognizer *)tap {
-    PublicWKWebViewController *noticeBoardWeb = [[PublicWKWebViewController alloc] init];
-    noticeBoardWeb.title = @"公告";
-    noticeBoardWeb.urlString = @"https://www.baidu.com/";
-    [self.navigationController pushViewController:noticeBoardWeb animated:YES];
+    VHSCommentController *commentVC = [[VHSCommentController alloc] init];
+    commentVC.title = @"公告";
+    commentVC.commentType = VHSCommentOfMomentAnnouncementType;
+    [self presentViewController:commentVC animated:YES completion:nil];
 }
 
 @end
