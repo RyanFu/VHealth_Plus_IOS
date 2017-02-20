@@ -11,7 +11,7 @@
 typedef NS_ENUM(NSUInteger, VHSImagePickerOfImageType) {
     VHSImagePickerOfImageAlbumType,         // 从相册选择
     VHSImagePickerOfImagePhotoType,         // 拍照选择
-    VHSImagePickerOfImagePlaceHolderType,   // 站位选择图片
+    VHSImagePickerOfImagePlaceHolderType,   // 占位选择图片
 };
 
 @interface MomentPhotoModel : NSObject

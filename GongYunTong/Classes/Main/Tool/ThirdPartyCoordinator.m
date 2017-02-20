@@ -17,14 +17,14 @@
 @end
 
 /***百度统计***/
-static NSString *BaiduMob_APP_KEY = @"a3bd4374ec";
-static NSString *BaiduMob_ChannelId = @"vhs_vhealth_plus_release";
+static NSString * const BaiduMob_APP_KEY = @"a3bd4374ec";
+static NSString * const BaiduMob_ChannelId = @"vhs_vhealth_plus_release";
 /***JSPatch热修复***/
-static NSString *JSPatch_APPKey = @"1b4681673bab1e48";
+static NSString * const JSPatch_APPKey = @"1b4681673bab1e48";
 /***百度推送相关***/
-static NSString *Baidu_Push_AppId = @"8661968";
-static NSString *Baidu_Push_ApiKey = @"VGffpOhKOUU9XHoSms220a93";
-static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
+static NSString * const Baidu_Push_AppId = @"8661968";
+static NSString * const Baidu_Push_ApiKey = @"VGffpOhKOUU9XHoSms220a93";
+static NSString * const Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
 
 @implementation ThirdPartyCoordinator
 
@@ -116,17 +116,18 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
 
 #pragma mark - 融云
 
-static NSString *RCIM_APPKEY = @"8brlm7uf8bxo3";
-static NSString *RCIM_APPSECRET = @"4Q4pRmePoTX";
-// userID : 10010
-// name : lpj
-static NSString *RCIM_TEST_TOKEN = @"0Wr5CmP36NlgahphGrR/FADEDeqoan8wYrwGeIAq9v83ZPOkfHhX493l9sFS+hYsoyUTM7Z2+evdWdCAd7SlaQ==";
+static NSString * const RCIM_APPKEY = @"8w7jv4qb7ts0y";
+static NSString * const RCIM_APPSECRET = @"texpEY9NNk2ZT";
 
 - (void)setupRCKit {
+    NSString *rongcloudToken = [VHSCommon userInfo].rongcloudToken;
+    if ([VHSCommon isNullString:rongcloudToken]) {
+        return;
+    }
+    
     [[RCIM sharedRCIM] initWithAppKey:RCIM_APPKEY];
-    [[RCIM sharedRCIM] connectWithToken:RCIM_TEST_TOKEN success:^(NSString *userId) {
+    [[RCIM sharedRCIM] connectWithToken:rongcloudToken success:^(NSString *userId) {
         [[RCIM sharedRCIM] setUserInfoDataSource:self];
-        NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
     } error:^(RCConnectErrorCode status) {
         NSLog(@"登陆的错误码为:%d", (int)status);
     } tokenIncorrect:^{
@@ -139,19 +140,19 @@ static NSString *RCIM_TEST_TOKEN = @"0Wr5CmP36NlgahphGrR/FADEDeqoan8wYrwGeIAq9v8
 
 - (void)getUserInfoWithUserId:(NSString *)userId
                    completion:(void (^)(RCUserInfo *userInfo))completion{
-    if ([userId isEqualToString:@"10010"]) {
-        RCUserInfo *info = [[RCUserInfo alloc] init];
-        info.userId = userId;
-        info.name = @"测试10010";
-        info.portraitUri = @"http://118.242.18.199:10000/uploadFile/header/PLT3Z1483432327758.jpg";
-        completion(info);
-    }
-    else if ([userId isEqualToString:@"100001"]) {
-        RCUserInfo *info = [[RCUserInfo alloc] init];
-        info.userId = userId;
-        info.name = @"测试100001";
-        info.portraitUri = @"http://118.242.18.199:10000/uploadFile/header/PLT3Z1483432327758.jpg";
-        completion(info);
+    
+    NSArray *clubMemberList = [VHSCommon getUserDefautForKey:k_CLUB_MEMBERS_LIST];
+    
+    if ([clubMemberList count] <= 0) return completion(nil);
+    
+    for (NSDictionary *dict in clubMemberList) {
+        if ([userId isEqualToString:[dict[@"memberId"] stringValue]]) {
+            RCUserInfo *info = [[RCUserInfo alloc] init];
+            info.userId = userId;
+            info.name = dict[@"name"];
+            info.portraitUri = dict[@"headerUrl"];
+            return completion(info);
+        }
     }
     return completion(nil);
 }

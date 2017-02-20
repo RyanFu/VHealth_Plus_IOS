@@ -59,8 +59,10 @@ extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环�
 + (NSString *)deviceToken;
 /// 获取手机型号
 + (NSString *)phoneModel;
-/// AppStore更新应用
-+ (void)toAppStoreForUpgrade;
+/// 跳转AppStore
++ (void)toAppStore;
+/// 跳转到Safari
++ (void)toSafariWithUrl:(NSString *)urlAddress;
 /// 获取vhstoken
 + (NSString *)vhstoken;
 /// 获取本地经纬度
@@ -72,6 +74,8 @@ extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环�
 + (void)saveUserDefault:(id)value forKey:(NSString *)key;
 /// 从UserDefault中获取信息
 + (id)getUserDefautForKey:(NSString *)key;
+/// 从NSUserDefault中移除为key的数据
++ (void)removeUserDefaultForKey:(NSString *)key;
 
 // 校验简单密码
 + (BOOL)validatePassword:(NSString *)passWord;

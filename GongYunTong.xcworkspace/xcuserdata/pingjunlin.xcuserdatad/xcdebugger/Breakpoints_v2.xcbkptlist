@@ -19,29 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Pods/MLeaksFinder/MLeaksFinder/UIViewController+MemoryLeak.m"
-            timestampString = "508401422.242938"
+            filePath = "GongYunTong/Classes/Login/Controller/VHSLoginController.m"
+            timestampString = "509010977.295695"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "-swizzled_viewWillAppear:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Pods/MLeaksFinder/MLeaksFinder/UIViewController+MemoryLeak.m"
-            timestampString = "508401430.958258"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "-swizzled_viewDidDisappear:"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "-butClickPush:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

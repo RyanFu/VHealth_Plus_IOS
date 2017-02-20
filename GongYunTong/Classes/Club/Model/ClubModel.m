@@ -10,19 +10,4 @@
 
 @implementation ClubModel
 
-- (instancetype)initWithIndex:(NSInteger)index {
-    self = [super init];
-    
-    if (self) {
-        self.clubUrl = @"http://118.242.18.199:10000/uploadFile/header/PLT3Z1483432327758.jpg";
-        self.title = [NSString stringWithFormat:@"title--%@", @(index)];
-        self.desc = [NSString stringWithFormat:@"desc--%@", @(index)];
-        self.members = [NSString stringWithFormat:@"have--%@", @(index)];
-        self.isRead = [@(arc4random() % 2) boolValue];
-        self.targetId = [@(arc4random() % 100) stringValue];
-    }
-    
-    return self;
-}
-
 @end

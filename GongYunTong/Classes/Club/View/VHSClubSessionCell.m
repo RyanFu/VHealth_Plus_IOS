@@ -24,12 +24,12 @@
     if (_club != club) {
         _club = club;
         
-        [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:_club.clubUrl]
+        [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:_club.coverUrl]
                                 placeholderImage:[UIImage imageNamed:@"icon_onlogin"]];
-        self.titleLabel.text = _club.title;
-        self.reddot.hidden = _club.isRead;
-        self.describeLabel.text = _club.desc;
-        self.peopleLabel.text = _club.members;
+        self.titleLabel.text = _club.clubName;
+        self.reddot.hidden = !_club.newMsg;
+        self.describeLabel.text = _club.slogan;
+        self.peopleLabel.text = _club.memberCount;
     }
 }
 

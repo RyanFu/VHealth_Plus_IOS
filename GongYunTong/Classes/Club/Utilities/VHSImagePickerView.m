@@ -148,14 +148,14 @@ static NSString *reuseIdentifier = @"VHSImagePickerCollectionCell";
 
 - (void)imagePickerController:(HUImagePickerViewController *)picker didFinishPickingImagesWithInfo:(NSDictionary *)info{
     NSLog(@"images info: %@", info);
-    NSArray *thumbnailImages = info[kHUImagePickerThumbnailImage];
+    NSArray *thumbnailImages = info[kHUImagePickerOriginalImage];
     // 移除最后一张占位符图片
     [self.photos removeLastObject];
     
     for (UIImage *img in thumbnailImages) {
         MomentPhotoModel *model = [[MomentPhotoModel alloc] init];
-        model.photoImage = img;
-        model.imageType = VHSImagePickerOfImagePhotoType;
+        model.photoImage = [VHSUtils image:img scaleToSize:CGSizeMake(124, 124)];
+        model.imageType = VHSImagePickerOfImageAlbumType;
         
         [self.photos addObject:model];
     }

@@ -9,7 +9,7 @@
 #import "VHSHttpEngine.h"
 #import "AFNetworking.h"
 #import "VHSSecurityUtil.h"
-#import "NSString+VHSExtension.h"
+#import "NSString+extension.h"
 
 @interface VHSHttpEngine ()
 
@@ -60,6 +60,8 @@ static VHSHttpEngine *_instance = nil;
     return self;
 }
 
+#pragma mark - Get, Post, Upload Request Method
+
 - (void)getRequestWithResquestMessage:(VHSRequestMessage *)message success:(RequestSuccess)success failure:(RequestFailure)failure {
     
     if (![VHSCommon isNetworkAvailable]) {
@@ -76,7 +78,7 @@ static VHSHttpEngine *_instance = nil;
    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSString *urlString = [NSString stringWithFormat:@"%@%@", kServerURL, message.path];
-    DLog(@"URL %@", urlString);
+    CLog(@"URL %@", urlString);
     
     [_manager GET:urlString parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -116,7 +118,7 @@ static VHSHttpEngine *_instance = nil;
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:message.params];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSString *urlString = [NSString stringWithFormat:@"%@%@", kServerURL, message.path];
-    DLog(@"URL %@", urlString);
+    CLog(@"URL %@", urlString);
     
     [_manager POST:urlString parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -164,21 +166,20 @@ static VHSHttpEngine *_instance = nil;
              */
             
             //多张图片
-            for(NSInteger i = 0; i < [message.imageArray count]; i++)
-            {
+            for(NSInteger i = 0; i < [message.imageArray count]; i++) {
                 // 取出图片
                 UIImage *image = [message.imageArray objectAtIndex:i];
                 // 转成二进制
                 NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
                 // 上传的参数名
-                NSString * name = [NSString stringWithFormat:@"pictureFile%ld", (long)i];
+                NSString * name = [NSString stringWithFormat:@"pictrueFile%ld", (long)i];
                 // 上传fileName
                 NSString * fileName = [NSString stringWithFormat:@"%@.jpg", name];
                 
                 [formData appendPartWithFileData:imageData name:name fileName:fileName mimeType:@"image/jpeg"];
             }
             
-        } else {
+        } else if ([message.imageArray count] == 1){
             
             //单张图片
             UIImage *image = [message.imageArray firstObject];//获得一张Image
@@ -244,6 +245,8 @@ static VHSHttpEngine *_instance = nil;
     
     CLog(@"vhstoken = %@", [VHSCommon vhstoken]);
 }
+
+#pragma mark - 加密和解密服务器数据
 
 /// 加密传输给服务器的数据
 - (void)encryptedMessage:(VHSRequestMessage *)message {

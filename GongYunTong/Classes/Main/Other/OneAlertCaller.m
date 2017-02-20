@@ -95,17 +95,20 @@ static NSString *onekeyContent = @"饮食 养生 运动 疾病防治 就医 用�
     self.alerter = alert;
 }
 
-- (instancetype)initWithContent:(NSString *)content forceUpgrade:(BOOL)isForce {
+- (instancetype)initWithContent:(NSString *)content forceUpgrade:(BOOL)isForce downloadUrl:(NSString *)loadUrl {
     self = [super init];
     if (self) {
         UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"版本更新" message:content preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"暂不更新" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            if (isForce) { exit(0); }
+            if (isForce) exit(0);
         }];
         [alertVC addAction:cancelAction];
         UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"马上更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            // 跳转到appStore
-            [VHSCommon toAppStoreForUpgrade];
+            if (loadUrl) {
+                [VHSCommon toSafariWithUrl:loadUrl];
+            } else {
+                [VHSCommon toAppStore];
+            }
         }];
         [alertVC addAction:confirmAction];
         

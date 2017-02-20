@@ -12,16 +12,30 @@
 #import "ChatMoreModel.h"
 #import "VHSMoreMenu.h"
 #import "VHSCommentController.h"
+#import "ClubMember.h"
 
 @interface VHSChatController ()
 
-@property (nonatomic, strong) NSMutableArray *moreMenuItems;
+@property (nonatomic, strong) NSMutableArray<ChatMoreModel *> *moreMenuItems;
+@property (nonatomic, strong) NSMutableArray<ClubMember *> *clubMemberList;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSString *> *latestNoticeMsg;
 
 @property (nonatomic, strong) VHSMoreMenu *moreMenu;
 
 @end
 
 @implementation VHSChatController
+
+#pragma mark - override getter or setter method
+
+- (NSMutableArray<ClubMember *> *)clubMemberList {
+    if (!_clubMemberList) {
+        _clubMemberList = [NSMutableArray array];
+    }
+    return _clubMemberList;
+}
+
+#pragma mark - view contrller life cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,7 +56,34 @@
 //    [self registerClass:[SimpleMessageCell class] forCellWithReuseIdentifier:@"SimpleMessageCell"];
     
     /// 显示聊天上方的公告栏
-    [self showNoticeBoard];
+//    [self showLatestNotice];
+    
+    /// 获取俱乐部成员列表
+    [self remoteClubMemberList];
+    /// 获取更多列表
+    [self remoteMoreInfo];
+    [self remoteLatestNotice];
+}
+
+/// 获取俱乐部成员列表
+- (void)remoteClubMemberList {
+    /// memberType : 1 管理员，memberType : 2 成员
+    VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
+    message.path = URL_GET_CLUB_MEMBER_LIST;
+    message.params = @{@"rongGroupId" : self.club.rongGroupId,
+                       @"currentPageNum" : @"1",
+                       @"everyPageNum" : @"500"};
+    message.httpMethod = VHSNetworkPOST;
+    
+    [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
+        if ([result[@"result"] integerValue] != 200) return;
+        
+        NSArray *clubMemberList = [NSArray arrayWithArray:result[@"clubMemberList"]];
+        [VHSCommon saveUserDefault:clubMemberList forKey:k_CLUB_MEMBERS_LIST];
+        
+    } fail:^(NSError *error) {
+        CLog(@"%@", error.description);
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,10 +93,12 @@
 #pragma mark - 自定义输入面板
 
 - (void)setupPluginBoardView {
-    RCPluginBoardView *pluginBoardView = self.chatSessionInputBarControl.pluginBoardView;
-    [pluginBoardView insertItemWithImage:[UIImage imageNamed:@"icon_onlogin"]
-                                   title:@"公告"
-                                     tag:20000];
+    if ([self.club.memberType isEqualToString:@"1"]) {
+        RCPluginBoardView *pluginBoardView = self.chatSessionInputBarControl.pluginBoardView;
+        [pluginBoardView insertItemWithImage:[UIImage imageNamed:@"club_chat_board_notice_add"]
+                                       title:@"公告"
+                                         tag:20000];
+    }
 }
 
 -(void)pluginBoardView:(RCPluginBoardView *)pluginBoardView clickedItemWithTag:(NSInteger)tag {
@@ -65,6 +108,7 @@
     if (tag == 20000) {
         VHSCommentController *commentVC = [[VHSCommentController alloc] init];
         commentVC.title = @"公告";
+        commentVC.clubId = _club.clubId;
         commentVC.commentType = VHSCommentOfMomentAnnouncementType;
         [self presentViewController:commentVC animated:YES completion:nil];
     }
@@ -72,10 +116,11 @@
 
 #pragma mark - 消息将要显示的时候调用
 
+/// 定制消息显示
 - (void)willDisplayMessageCell:(RCMessageBaseCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     if ([cell isKindOfClass:[RCTextMessageCell class]]) {
-        RCTextMessageCell *textMsgCell = (RCTextMessageCell *)cell;
-        textMsgCell.textLabel.textColor = [UIColor redColor];
+//        RCTextMessageCell *textMsgCell = (RCTextMessageCell *)cell;
+//        textMsgCell.textLabel.textColor = [UIColor redColor];
     }
 }
 
@@ -87,6 +132,7 @@
     [moreBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [moreBtn setBackgroundColor:[UIColor whiteColor]];
     [moreBtn addTarget:self action:@selector(actionRorMore:) forControlEvents:UIControlEventTouchUpInside];
+    moreBtn.isShowReddot = NO;
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
 }
@@ -103,51 +149,24 @@
 - (void)remoteMoreInfo {
     VHSRequestMessage *msg = [[VHSRequestMessage alloc] init];
     msg.httpMethod = VHSNetworkPOST;
-    msg.params = @{};
-    msg.path = @"";
+    msg.params = @{@"clubId" : self.club.clubId};
+    msg.path = URL_GET_CLUB_MORE;
     
-    [[VHSHttpEngine sharedInstance] sendMessage:msg success:^(id result) {
+    [[VHSHttpEngine sharedInstance] sendMessage:msg success:^(NSDictionary *result) {
+        if ([result[@"result"] integerValue] != 200) return;
         
+        for (NSDictionary *dict in result[@"moreList"]) {
+            ChatMoreModel *model = [ChatMoreModel yy_modelWithDictionary:dict];
+            [self.moreMenuItems addObject:model];
+        }
     } fail:^(NSError *error) {
-        
+        CLog(@"%@", error.description);
     }];
 }
 
-- (NSMutableArray *)moreMenuItems {
+- (NSMutableArray<ChatMoreModel *> *)moreMenuItems {
     if (!_moreMenuItems) {
-        _moreMenuItems = [NSMutableArray arrayWithCapacity:4];
-        
-        for (NSInteger i = 0; i < 5; i++) {
-            ChatMoreModel *more = [[ChatMoreModel alloc] init];
-            
-            switch (i) {
-                case 0:
-                    more.title = @"帖子   ";
-                    more.isRead = NO;
-                    break;
-                case 1:
-                    more.title = @"新成员申请";
-                    more.isRead = NO;
-                    break;
-                case 2:
-                    more.title = @"俱乐部简介";
-                    more.isRead = YES;
-                    break;
-                case 3:
-                    more.title = @"俱乐部成员";
-                    more.isRead = NO;
-                    break;
-                case 4:
-                    more.title = @"退出俱乐部";
-                    more.isRead = YES;
-                    break;
-                    
-                default:
-                    break;
-            }
-            
-            [_moreMenuItems addObject:more];
-        }
+        _moreMenuItems = [NSMutableArray arrayWithCapacity:5];
     }
     return _moreMenuItems;
 }
@@ -155,56 +174,77 @@
 - (void)showMoreMenu {
     __weak typeof(self) weakSelf = self;
     [VHSMoreMenu showMoreMenuWithMenuList:self.moreMenuItems tapItemBlock:^(ChatMoreModel *model) {
-        if (model.moreType == ChatMoreType_Card) {
-            // 帖子
-            VHSCommentController *tipVC = [[VHSCommentController alloc] init];
-            tipVC.commentType = VHSCommentOfMomentPublishPostType;
-            [weakSelf.navigationController pushViewController:tipVC animated:YES];
-            return;
+        if ([model.moreType isEqualToString:@"url"]) {
+            PublicWKWebViewController *webVC = [[PublicWKWebViewController alloc] init];
+            webVC.title = model.moreName;
+            webVC.urlString = model.url;
+            [weakSelf.navigationController pushViewController:webVC animated:YES];
         }
-        else if (model.moreType == ChatMoreType_NewMemberApply) {
-            // 新用户申请
-            [VHSToast toast:@"新用户申请"];
-        }
-        else if (model.moreType == ChatMoreType_ClubIntro) {
-            // 俱乐部简介
-            [VHSToast toast:@"俱乐部简介"];
-        }
-        else if (model.moreType == ChatMoreType_ClubMember) {
-            // 俱乐部成员
-            [VHSToast toast:@"俱乐部成员"];
-        }
-        else if (model.moreType == ChatMoreType_QuitClub) {
-            // 退出俱乐部
-            [VHSToast toast:@"退出俱乐部"];
+        else if ([model.moreType isEqualToString:@"localQuit"]) {
+            [VHSAlertController alertMessage:CONST_CLUB_CONFIRM_DO_QUIT title:CONST_PROMPT_MESSAGE confirmHandler:^(UIAlertAction *action) {
+                [weakSelf doQuitClub];
+            } cancleHandler:^(UIAlertAction *action) {}];
         }
     }];
 }
 
+- (void)doQuitClub {
+    VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
+    message.path = URL_DO_CLUB_QUIT;
+    message.params = @{@"clubId" : self.club.clubId};
+    message.httpMethod = VHSNetworkPOST;
+    
+    [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary  *result) {
+        [VHSToast toast:result[@"info"]];
+        
+        if ([result[@"result"] integerValue] != 200) return;
+        
+        if (self.clubChatCallBack) self.clubChatCallBack(self.club);
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    } fail:^(NSError *error) {
+        CLog(@"%@", error.description);
+    }];
+}
 
 #pragma mark - 显示"公告"
-
-- (void)remoteNoticeBoard {
+/// 获取最新公告
+- (void)remoteLatestNotice {
     VHSRequestMessage *msg = [[VHSRequestMessage alloc] init];
-    msg.path = @"";
-    msg.params = @{};
+    msg.path = URL_GET_NEW_CLUB_NOTICE;
+    msg.params = @{@"clubId" : self.club.clubId};
     msg.httpMethod = VHSNetworkPOST;
     
-    [[VHSHttpEngine sharedInstance] sendMessage:msg success:^(id result) {
+    //noticeId,noticeContent,noticeUrl
+    [[VHSHttpEngine sharedInstance] sendMessage:msg success:^(NSDictionary *result) {
+        if ([result[@"result"] integerValue] != 200) return;
         
+        self.latestNoticeMsg = [NSMutableDictionary dictionaryWithCapacity:3];
+        [self.latestNoticeMsg setObject:result[@"noticeId"] forKey:@"noticeId"];
+        [self.latestNoticeMsg setObject:result[@"noticeContent"] forKey:@"noticeContent"];
+        [self.latestNoticeMsg setObject:result[@"noticeUrl"] forKey:@"noticeUrl"];
+        
+        [self showLatestNotice];
     } fail:^(NSError *error) {
         
     }];
 }
 
-- (void)showNoticeBoard {
+/// 显示最新公告
+- (void)showLatestNotice {
     UIView *noticeBoardBg = [[UIView alloc] initWithFrame:CGRectMake(0, NAVIAGTION_HEIGHT, SCREENW, 35)];
     noticeBoardBg.backgroundColor = COLORHex(@"#99d5fd");
     noticeBoardBg.userInteractionEnabled = YES;
     [self.view addSubview:noticeBoardBg];
     
     UILabel *noticeBoardLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, CGRectGetWidth(noticeBoardBg.frame) - 44 - 10, CGRectGetHeight(noticeBoardBg.frame))];
-    noticeBoardLabel.text = @"公告:6月1号儿童节，大家都带你的娃娃过来喝稀饭";
+    NSString *noticeContent = self.latestNoticeMsg[@"noticeContent"];
+    if (noticeContent) {
+        noticeContent = [NSString stringWithFormat:@"公告: %@", noticeContent];
+    } else {
+        noticeContent = [NSString stringWithFormat:@"公告: 无"];
+    }
+    noticeBoardLabel.text = noticeContent;
     [noticeBoardBg addSubview:noticeBoardLabel];
     
     UIImageView *noticeBoardNav = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(noticeBoardLabel.frame) + 10, (CGRectGetHeight(noticeBoardBg.frame) - 24) / 2.0, 24, 24)];
@@ -213,16 +253,21 @@
 
     [self.view bringSubviewToFront:noticeBoardBg];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapOfNoticeBoard:)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapLatestNotice:)];
     [noticeBoardBg addGestureRecognizer:tap];
 }
 
 // 公告列表 -> 编辑公告
-- (void)tapOfNoticeBoard:(UIGestureRecognizer *)tap {
-    VHSCommentController *commentVC = [[VHSCommentController alloc] init];
-    commentVC.title = @"公告";
-    commentVC.commentType = VHSCommentOfMomentAnnouncementType;
-    [self presentViewController:commentVC animated:YES completion:nil];
+- (void)tapLatestNotice:(UIGestureRecognizer *)tap {
+    PublicWKWebViewController *webVC = [[PublicWKWebViewController alloc] init];
+    webVC.urlString = self.latestNoticeMsg[@"noticeUrl"];
+    [self.navigationController pushViewController:webVC animated:YES];
+}
+
+#pragma mark - dealloc 
+
+- (void)dealloc {
+    CLog(@"\n%@ be dealloc", NSStringFromClass([self class]));
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (VHSExtension)
+@interface NSString (extension)
 
 /// json转换为数组或字典
 - (id)convertObject;

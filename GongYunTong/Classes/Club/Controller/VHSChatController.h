@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <RongIMKit/RongIMKit.h>
+#import "ClubModel.h"
 
 @interface VHSChatController : RCConversationViewController
+
+@property (nonatomic, strong) ClubModel *club;
+
+@property (nonatomic, copy) void (^clubChatCallBack)(ClubModel *club);
 
 @end

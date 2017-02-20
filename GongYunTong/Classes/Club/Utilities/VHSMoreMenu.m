@@ -7,7 +7,7 @@
 //
 
 #import "VHSMoreMenu.h"
-#import "NSString+VHSExtension.h"
+#import "NSString+extension.h"
 #import "UIView+extension.h"
 
 
@@ -138,12 +138,12 @@ static CGFloat moreItemHeight = 44;
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         
-        CGFloat labelW = [item.title computerWithSize:CGSizeMake(CGFLOAT_MAX, frame.size.height - 1)
+        CGFloat labelW = [item.moreName computerWithSize:CGSizeMake(CGFLOAT_MAX, frame.size.height - 1)
                                                 font:[UIFont systemFontOfSize:15]].width + 10;
         
         CGFloat marginX = (frame.size.width - labelW) / 2.0;
         UILabel *moreLabel = [[UILabel alloc] initWithFrame:CGRectMake(marginX, 0, labelW, frame.size.height - 1)];
-        moreLabel.text = item.title;
+        moreLabel.text = item.moreName;
         moreLabel.textAlignment = NSTextAlignmentCenter;
         moreLabel.textColor = [UIColor whiteColor];
         moreLabel.font = [UIFont systemFontOfSize:15];
@@ -151,7 +151,7 @@ static CGFloat moreItemHeight = 44;
         
         UIView *reddot = [[UIView alloc] initWithFrame:CGRectMake(moreLabel.frame.size.width - 3, 10, 8, 8)];
         reddot.backgroundColor = [UIColor redColor];
-        reddot.hidden = item.isRead;
+        reddot.hidden = !item.newMsg;
         [reddot vhs_drawCornerRadius];
         [moreLabel addSubview:reddot];
         

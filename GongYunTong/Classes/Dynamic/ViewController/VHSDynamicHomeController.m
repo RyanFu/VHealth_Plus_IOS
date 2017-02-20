@@ -22,7 +22,7 @@
 #import "VHSEnterpriseDynamicCell.h"
 #import "VHSDynamicConfigurationCell.h"
 #import "IconItem.h"
-#import "NSString+VHSExtension.h"
+#import "NSString+extension.h"
 #import "OneAlertCaller.h"
 #import "VHSRecordStepController.h"
 #import "VHSMyScoreController.h"
@@ -261,10 +261,12 @@
         BOOL isForceUpgrade = [result[@"isForce"] boolValue];
         float serverVersion = [result[@"upgradeVersion"] floatValue];
         float appVersion = [[VHSCommon appVersion] floatValue];
+        NSString *loadUrl = result[@"url"];
+        loadUrl = @"http://download.mbesthealth.com/cdn/vhealthZXYH1.74.ipa";
         
         if (serverVersion <= appVersion) return;
         
-        OneAlertCaller *caller = [[OneAlertCaller alloc] initWithContent:content forceUpgrade:isForceUpgrade];
+        OneAlertCaller *caller = [[OneAlertCaller alloc] initWithContent:content forceUpgrade:isForceUpgrade downloadUrl:loadUrl];
         [caller call];
         
     } fail:^(NSError *error) {}];

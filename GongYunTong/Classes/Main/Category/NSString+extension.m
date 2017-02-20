@@ -6,9 +6,9 @@
 //  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
-#import "NSString+VHSExtension.h"
+#import "NSString+extension.h"
 
-@implementation NSString (VHSExtension)
+@implementation NSString (extension)
 
 - (id)convertObject {
     NSData *jsonData = [self dataUsingEncoding:NSUTF8StringEncoding];

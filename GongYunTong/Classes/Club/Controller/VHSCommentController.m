@@ -9,11 +9,12 @@
 #import "VHSCommentController.h"
 #import "VHSImagePickerView.h"
 #import "MBProgressHUD+VHS.h"
+#import "MomentPhotoModel.h"
 
 @interface VHSCommentController ()<UITextViewDelegate>
 
-@property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, copy) NSArray *photosMomentItems;
+@property (nonatomic, strong)   UILabel     *titleLabel;
+@property (nonatomic, copy)     NSArray     *photosMomentItems;
 
 @end
 
@@ -62,10 +63,14 @@
     [backBtn setTitle:@"返回" forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:backBtn];
-    
+
     UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREENW - 15 - 60, 30, 60, 24)];
     [rightBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    [rightBtn setTitle:@"发布" forState:UIControlStateNormal];
+    if (self.commentType == VHSCommentOfMomentAnnouncementType) {
+        [rightBtn setTitle:@"发布" forState:UIControlStateNormal];
+    } else if (self.commentType == VHSCommentOfMomentReplyPostType) {
+        [rightBtn setTitle:@"发送" forState:UIControlStateNormal];
+    }
     [rightBtn addTarget:self action:@selector(pulishAction:) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:rightBtn];
     
@@ -79,8 +84,44 @@
 }
 
 - (void)pulishAction:(UIButton *)btn {
-    [VHSToast toast:@"发布"];
-    CLog(@"-----%@", self.photosMomentItems);
+    
+    VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
+    
+    // 帖子回复/点赞: addClubbbsReply.htm  参数名:clubId,bbsId, replyType(1文字2点赞),replyContent(回复内容，点赞可不传)
+    if (self.commentType == VHSCommentOfMomentReplyPostType) {
+        message.path = URL_ADD_CLUB_BBS_REPLY;
+        message.params = @{@"clubId" : self.clubId,
+                           @"bbsId" : self.bbsId,
+                           @"replyType" : @"1",
+                           @"replyContent" : self.content};
+        message.httpMethod = VHSNetworkPOST;
+        
+        [MBProgressHUD showMessage:TOAST_CLUB_REPLYING];
+    } else if (self.commentType == VHSCommentOfMomentAnnouncementType){
+        // 发布公告
+        message.path = URL_ADD_CLUB_NOTICE;
+        message.params = @{@"clubId" : self.clubId,
+                           @"noticeContent" : self.content ? self.content : @""};
+        message.httpMethod = VHSNetworkPOST;
+        
+        [MBProgressHUD showMessage:TOAST_CLUB_NOTICE_POSTING];
+    } else if (self.commentType == VHSCommentOfMomentUpdateAnnouncementType) {
+        message.path = URL_UP_CLUB_NOTICE;
+        message.params = @{@"clubId" : self.clubId,
+                           @"noticeId" : self.noticeId,
+                           @"noticeContent" : self.content};
+        message.httpMethod = VHSNetworkPOST;
+    }
+    
+    
+    [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
+        [MBProgressHUD hiddenHUD];
+        [VHSToast toast:result[@"info"]];
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } fail:^(NSError *error) {
+        CLog(@"%@", error.description);
+    }];
 }
 
 #pragma mark - 文本编辑框
@@ -97,7 +138,7 @@
     
     [self.view addSubview:commentTextView];
     
-    commentTextView.text = CLUB_MOMENT_POST_PLACEHOLDER;
+    commentTextView.text = CONST_CLUB_MOMENT_POST_PLACEHOLDER;
     commentTextView.textColor = COLOR_TEXT_PLACEHOLDER;
 }
 
@@ -122,11 +163,30 @@
 // 帖子发布按钮
 - (void)publishPostAction:(UIButton *)btn {
     // 网络请求
-    [MBProgressHUD showMessage:@"帖子发送中"];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [MBProgressHUD showMessage:TOAST_CLUB_BBS_POSTING];
+
+    NSMutableArray *momentImageArray = [NSMutableArray new];
+    for (MomentPhotoModel *moment in self.photosMomentItems) {
+        [momentImageArray addObject:moment.photoImage];
+    }
+    
+    VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
+    message.path = URL_ADD_CLUB_BBS;
+    message.params = @{@"bbsContent" : self.content ? self.content : @"",
+                       @"clubId" : self.clubId};
+    message.imageArray = momentImageArray;
+    message.httpMethod = VHSNetworkUpload;
+    
+    [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         [MBProgressHUD hiddenHUD];
-        [self.navigationController popViewControllerAnimated:YES];
-    });
+        [VHSToast toast:result[@"info"]];
+        
+        if ([result[@"result"] integerValue] != 200) return;
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } fail:^(NSError *error) {
+        CLog(@"%@", error.description);
+    }];
 }
 
 - (void)handleSingleTouch {
@@ -135,7 +195,7 @@
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     NSString *text = textView.text;
-    if ([CLUB_MOMENT_POST_PLACEHOLDER isEqualToString:text]) {
+    if ([CONST_CLUB_MOMENT_POST_PLACEHOLDER isEqualToString:text]) {
         textView.text = @"";
         textView.textColor = COLOR_TEXT;
     }
@@ -143,9 +203,11 @@
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
     NSString *text = textView.text;
-    if ([VHSCommon isNullString:text] || [text isEqualToString:CLUB_MOMENT_POST_PLACEHOLDER]) {
-        textView.text = CLUB_MOMENT_POST_PLACEHOLDER;
+    if ([VHSCommon isNullString:text] || [text isEqualToString:CONST_CLUB_MOMENT_POST_PLACEHOLDER]) {
+        textView.text = CONST_CLUB_MOMENT_POST_PLACEHOLDER;
         textView.textColor = COLOR_TEXT_PLACEHOLDER;
+    } else {
+        self.content = text;
     }
 }
 

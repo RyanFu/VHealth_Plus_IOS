@@ -28,9 +28,6 @@ const void *const kHasBeenPoppedKey = &kHasBeenPoppedKey;
 - (void)swizzled_viewDidDisappear:(BOOL)animated {
     [self swizzled_viewDidDisappear:animated];
     
-    BOOL hasBeenPopped = [objc_getAssociatedObject(self, kHasBeenPoppedKey) boolValue];
-    NSLog(@"%@ has been poped %@", NSStringFromClass([self class]), hasBeenPopped ? @"yes" : @"no");
-    
     if ([objc_getAssociatedObject(self, kHasBeenPoppedKey) boolValue]) {
         [self willDealloc];
     }

@@ -125,7 +125,6 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
     message.httpMethod = VHSNetworkPOST;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(id response) {
-        CLog(@"%@", response);
         
         NSDictionary *result = response;
         if ([result[@"result"] integerValue] != 200) return;

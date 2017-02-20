@@ -10,6 +10,7 @@
 #import "VHSLocatServicer.h"
 #import "MBProgressHUD+VHS.h"
 #import "OneAlertCaller.h"
+#import "VHSCommentController.h"
 
 @interface PublicWKWebViewController ()
 
@@ -282,6 +283,7 @@
 
 #pragma mark - WKScriptMessageHandler
 
+/// JS和Native之间的调用
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     NSDictionary *bodyDict = (NSDictionary<NSString *, NSString *> *)message.body;
     NSString *method = bodyDict[@"method"];
@@ -327,6 +329,42 @@
         NSString *content = bodyDict[@"content"];
         OneAlertCaller *caller = [[OneAlertCaller alloc] initWithPhone:phone title:title content:content];
         [caller call];
+    }
+    else if ([method isEqualToString:@"addClubNote"]) {
+        self.shouldCloseBGMusic = NO;
+        // 俱乐部发帖子
+        NSString *clubId = bodyDict[@"clubId"];
+        VHSCommentController *commentVC = [[VHSCommentController alloc] init];
+        commentVC.title = CONST_CLUB_ADD_BBS;
+        commentVC.clubId = clubId;
+        commentVC.commentType = VHSCommentOfMomentPublishPostType;
+        [self presentViewController:commentVC animated:YES completion:nil];
+    }
+    else if ([method isEqualToString:@"addClubbbsReply"]) {
+        self.shouldCloseBGMusic = NO;
+        // 帖子回复
+        NSString *clubId = bodyDict[@"clubId"];
+        NSString *bbsId = bodyDict[@"bbsId"];
+        VHSCommentController *commentVC = [[VHSCommentController alloc] init];
+        commentVC.title = CONST_REPLY;
+        commentVC.clubId = clubId;
+        commentVC.bbsId = bbsId;
+        commentVC.commentType = VHSCommentOfMomentReplyPostType;
+        [self presentViewController:commentVC animated:YES completion:nil];
+    }
+    else if ([method isEqualToString:@"editClubNotice"]) {
+        self.shouldCloseBGMusic = NO;
+        // 编辑公告
+        NSString *clubId = bodyDict[@"clubId"];
+        NSString *noticeId = bodyDict[@"noticeId"];
+        NSString *noticeContent = bodyDict[@"noticeContent"];
+        VHSCommentController *commentVC = [[VHSCommentController alloc] init];
+        commentVC.title = CONST_EDIT_NOTICE;
+        commentVC.clubId = clubId;
+        commentVC.noticeId = noticeId;
+        commentVC.content = noticeContent;
+        commentVC.commentType = VHSCommentOfMomentUpdateAnnouncementType;
+        [self presentViewController:commentVC animated:YES completion:nil];
     }
 }
 

@@ -680,7 +680,6 @@
         photoImage = self.headImage;
         
         VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-        message.params = @{};
         if (photoImage) {
             message.imageArray = @[photoImage];
         }
@@ -688,11 +687,13 @@
         message.httpMethod = VHSNetworkUpload;
         
         [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
-            if ([result[@"result"] integerValue] == 200) {
-                NSString *headerUrl = result[@"headerUrl"];
-                if (self.uploadHeadBlock) self.uploadHeadBlock(headerUrl);
-            }
             [VHSToast toast:result[@"info"]];
+            
+            if ([result[@"result"] integerValue] != 200) return;
+            
+            NSString *headerUrl = result[@"headerUrl"];
+            if (self.uploadHeadBlock) self.uploadHeadBlock(headerUrl);
+            
         } fail:^(NSError *error) {}];
     }];
 }

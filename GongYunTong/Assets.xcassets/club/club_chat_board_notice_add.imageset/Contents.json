@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "common_back_arrow.png",
+      "filename" : "club_chat_board_notice_add.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "common_back_arrow@2x.png",
+      "filename" : "club_chat_board_notice_add@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "common_back_arrow@3x.png",
+      "filename" : "club_chat_board_notice_add@3x.png",
       "scale" : "3x"
     }
   ],

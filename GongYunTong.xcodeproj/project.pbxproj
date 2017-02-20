@@ -108,6 +108,8 @@
 		336490681E49ACD0006F0570 /* MomentPhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 336490661E49ACD0006F0570 /* MomentPhotoModel.m */; };
 		3364D1EC1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3364D1EA1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m */; };
 		3364D1ED1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3364D1EB1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib */; };
+		33661D141E51766F00B38D8B /* ClubMember.h in Headers */ = {isa = PBXBuildFile; fileRef = 33661D121E51766F00B38D8B /* ClubMember.h */; };
+		33661D151E51766F00B38D8B /* ClubMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 33661D131E51766F00B38D8B /* ClubMember.m */; };
 		3371B3801E1B6265007A285A /* AES128Util.h in Headers */ = {isa = PBXBuildFile; fileRef = 3371B37E1E1B6265007A285A /* AES128Util.h */; };
 		3371B3811E1B6265007A285A /* AES128Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 3371B37F1E1B6265007A285A /* AES128Util.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		338171861DAC985A00ACB4A0 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3381717F1DAC985A00ACB4A0 /* TAAbstractDotView.m */; };
@@ -144,7 +146,7 @@
 		33C5E9811D98C272004814BA /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C5E9801D98C272004814BA /* libsqlite3.tbd */; };
 		33CB6EAE1DDEB1E2001E470A /* RSAEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CB6EAB1DDEB1E2001E470A /* RSAEncryptor.m */; };
 		33CB6EB11DDEC7D4001E470A /* VHSSecurityUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CB6EB01DDEC7D4001E470A /* VHSSecurityUtil.m */; };
-		33CB6EB41DDEE294001E470A /* NSString+VHSExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CB6EB31DDEE294001E470A /* NSString+VHSExtension.m */; };
+		33CB6EB41DDEE294001E470A /* NSString+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CB6EB31DDEE294001E470A /* NSString+extension.m */; };
 		33CB6EB61DDEEF28001E470A /* public_key.der in Resources */ = {isa = PBXBuildFile; fileRef = 33CB6EB51DDEEF28001E470A /* public_key.der */; };
 		33CBF32D1D73C9B500D39452 /* UIButton+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF32C1D73C9B500D39452 /* UIButton+extension.m */; };
 		33CBF3301D73D81400D39452 /* PublicWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF32F1D73D81400D39452 /* PublicWKWebViewController.m */; };
@@ -399,6 +401,8 @@
 		3364D1E91DC7668D00E8A3FF /* VHSFitBraceletHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSFitBraceletHelpController.h; sourceTree = "<group>"; };
 		3364D1EA1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSFitBraceletHelpController.m; sourceTree = "<group>"; };
 		3364D1EB1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VHSFitBraceletHelpController.xib; sourceTree = "<group>"; };
+		33661D121E51766F00B38D8B /* ClubMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClubMember.h; sourceTree = "<group>"; };
+		33661D131E51766F00B38D8B /* ClubMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClubMember.m; sourceTree = "<group>"; };
 		3371B37E1E1B6265007A285A /* AES128Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AES128Util.h; sourceTree = "<group>"; };
 		3371B37F1E1B6265007A285A /* AES128Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AES128Util.m; sourceTree = "<group>"; };
 		337408171DE5405900D142DA /* GongYunTong.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = GongYunTong.entitlements; sourceTree = "<group>"; };
@@ -462,8 +466,8 @@
 		33CB6EAB1DDEB1E2001E470A /* RSAEncryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSAEncryptor.m; sourceTree = "<group>"; };
 		33CB6EAF1DDEC7D4001E470A /* VHSSecurityUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSSecurityUtil.h; sourceTree = "<group>"; };
 		33CB6EB01DDEC7D4001E470A /* VHSSecurityUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSSecurityUtil.m; sourceTree = "<group>"; };
-		33CB6EB21DDEE294001E470A /* NSString+VHSExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+VHSExtension.h"; sourceTree = "<group>"; };
-		33CB6EB31DDEE294001E470A /* NSString+VHSExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+VHSExtension.m"; sourceTree = "<group>"; };
+		33CB6EB21DDEE294001E470A /* NSString+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+extension.h"; sourceTree = "<group>"; };
+		33CB6EB31DDEE294001E470A /* NSString+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+extension.m"; sourceTree = "<group>"; };
 		33CB6EB51DDEEF28001E470A /* public_key.der */ = {isa = PBXFileReference; lastKnownFileType = file; path = public_key.der; sourceTree = "<group>"; };
 		33CBF32B1D73C9B500D39452 /* UIButton+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+extension.h"; sourceTree = "<group>"; };
 		33CBF32C1D73C9B500D39452 /* UIButton+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+extension.m"; sourceTree = "<group>"; };
@@ -818,6 +822,8 @@
 				3362F2FD1E309D6400F69477 /* ChatMoreModel.m */,
 				336490651E49ACD0006F0570 /* MomentPhotoModel.h */,
 				336490661E49ACD0006F0570 /* MomentPhotoModel.m */,
+				33661D121E51766F00B38D8B /* ClubMember.h */,
+				33661D131E51766F00B38D8B /* ClubMember.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1305,8 +1311,8 @@
 				33CBF3341D755A5E00D39452 /* UILabel+extension.m */,
 				3343A3231DAC89C900DEF1C2 /* UIColor+extension.h */,
 				3343A3241DAC89C900DEF1C2 /* UIColor+extension.m */,
-				33CB6EB21DDEE294001E470A /* NSString+VHSExtension.h */,
-				33CB6EB31DDEE294001E470A /* NSString+VHSExtension.m */,
+				33CB6EB21DDEE294001E470A /* NSString+extension.h */,
+				33CB6EB31DDEE294001E470A /* NSString+extension.m */,
 				3362F3041E30CAF500F69477 /* UIView+extension.h */,
 				3362F3051E30CAF500F69477 /* UIView+extension.m */,
 			);
@@ -1704,6 +1710,7 @@
 				3301A7D61E2886DB0035CDA3 /* VHSReddotButton.h in Headers */,
 				336490541E4874BC006F0570 /* HUImageItem.h in Headers */,
 				334A9B501E1513FF008969E4 /* GTMDefines.h in Headers */,
+				33661D141E51766F00B38D8B /* ClubMember.h in Headers */,
 				3362F2FE1E309D6400F69477 /* ChatMoreModel.h in Headers */,
 				3364905D1E4874BC006F0570 /* HUPhotoHelper.h in Headers */,
 				3302FF9A1E27643E00295493 /* VHSClubController.h in Headers */,
@@ -1978,7 +1985,7 @@
 				67B4F8D71D3CAA5500F933F0 /* VHSNavigationController.m in Sources */,
 				33CB6EAE1DDEB1E2001E470A /* RSAEncryptor.m in Sources */,
 				33F2BA401D648C6C00928976 /* UserScoreModel.m in Sources */,
-				33CB6EB41DDEE294001E470A /* NSString+VHSExtension.m in Sources */,
+				33CB6EB41DDEE294001E470A /* NSString+extension.m in Sources */,
 				338C61C41D59D2BE004CFE18 /* VHSSyscnTimeLabel.m in Sources */,
 				6793203E1D41E406004B0CEA /* VHSDiscoverCell.m in Sources */,
 				33514CD31D646A9100ECDEA5 /* VHSAllStepsController.m in Sources */,
@@ -2025,6 +2032,7 @@
 				33A59E1A1E10EC0300D7BED4 /* DBSafetyCoordinator.m in Sources */,
 				33CBF3301D73D81400D39452 /* PublicWKWebViewController.m in Sources */,
 				338C61C51D59D2BE004CFE18 /* VHSTimeToast.m in Sources */,
+				33661D151E51766F00B38D8B /* ClubMember.m in Sources */,
 				3302FF9F1E276DD900295493 /* ClubModel.m in Sources */,
 				3353B9C61D782A8400335815 /* VHSMeScoreCell.m in Sources */,
 				33F2BA491D65671D00928976 /* VHSLaunchViewController.m in Sources */,

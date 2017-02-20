@@ -10,14 +10,16 @@
 
 @interface ClubModel<ClubModelType> : NSObject
 
+@property (nonatomic, strong) NSString *clubId;
+@property (nonatomic, strong) NSString *coverUrl;
+@property (nonatomic, strong) NSString *clubName;
+@property (nonatomic, strong) NSString *slogan;
+@property (nonatomic, strong) NSString *memberCount;
+@property (nonatomic, assign) BOOL newMsg;
+@property (nonatomic, strong) NSString *memberType; // 1: 管理员 2: 成员 0: 未加入
 @property (nonatomic, strong) NSString *clubUrl;
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *desc;
-@property (nonatomic, strong) NSString *members;
-@property (nonatomic, assign) BOOL isRead;
-/// 目标会话的ID，单聊为toUserId,讨论组为DiscusstionId
-@property (nonatomic, strong) NSString *targetId;
 
-- (instancetype)initWithIndex:(NSInteger)index;
+/// 目标会话的ID，单聊为toUserId,讨论组为DiscusstionId
+@property (nonatomic, strong) NSString *rongGroupId;
 
 @end

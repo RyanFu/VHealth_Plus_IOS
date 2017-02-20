@@ -64,7 +64,10 @@
     self.kilometre = [[VHSCommon getUserDefautForKey:k_Steps_To_Kilometre_Ratio] doubleValue] * self.sumSteps;
     [self setLabel:_stepsLabel labelText:_stepsLabel.text attriText:[NSString stringWithFormat:@"%ld", (long)self.sumSteps]];
     // 步数同步到云端
-    [k_NotificationCenter addObserver:self selector:@selector(autosyncStepsToCloud) name:k_NOTI_SYNCSTEPS_TO_NET object:nil];
+    [k_NotificationCenter addObserver:self
+                             selector:@selector(autosyncStepsToCloud)
+                                 name:k_NOTI_SYNCSTEPS_TO_NET
+                               object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

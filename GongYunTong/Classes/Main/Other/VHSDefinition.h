@@ -34,10 +34,21 @@
 #define TOAST_UNFINISH_FEEDBACK_INFO                    @"请填写您的反馈内容"
 #define TOAST_SIGN_SUCCESS                              @"签到成功"
 #define TOAST_SIGN_FAILURE                              @"签到失败"
+static NSString * const TOAST_CLUB_BBS_POSTING          = @"帖子发送中";
+static NSString * const TOAST_CLUB_NOTICE_POSTING       = @"公告发布中";
+static NSString * const TOAST_CLUB_REPLYING             = @"回复中";
 
 #pragma mark - 全局使用的汉字文本
 
-static NSString const *CLUB_MOMENT_POST_PLACEHOLDER =         @"说点什么吧...";
+static NSString * const CONST_CLUB_MOMENT_POST_PLACEHOLDER          = @"说点什么吧...";
+static NSString * const CONST_CLUB_CONFIRM_DO_QUIT                  = @"确定退出俱乐部";
+static NSString * const CONST_PROMPT_MESSAGE                        = @"提示";
+static NSString * const CONST_CONFIRM                               = @"确定";
+static NSString * const CONST_CANCLE                                = @"取消";
+static NSString * const CONST_CLUB_ADD_BBS                          = @"发帖子";
+static NSString * const CONST_CLUB_ADD_NOTICE                       = @"发公告";
+static NSString * const CONST_REPLY                                 = @"回复";
+static NSString * const CONST_EDIT_NOTICE                           = @"编辑公告";
 
 
 #pragma mark - 状态码的定义 ==============================状态码=====================================
@@ -56,6 +67,9 @@ static NSString const *CLUB_MOMENT_POST_PLACEHOLDER =         @"说点什么吧.
 #define k_Late_Show_Activity_Time                       @"k_Late_Show_Activity_Time"        // 活动上次显示时间
 #define k_Late_Show_Shop_Time                           @"k_Late_Show_Shop_Time"            // 福利上次显示时间
 #define k_REFRESH_TIME_OUT                              10                                  // 下拉刷新超时时间
+
+/// 俱乐部
+#define k_CLUB_MEMBERS_LIST                             @"k_CLUB_MEMBERS_LIST"              // 俱乐部成员列表
 
 #pragma mark - URL =====================================HTML的URL===============================
 

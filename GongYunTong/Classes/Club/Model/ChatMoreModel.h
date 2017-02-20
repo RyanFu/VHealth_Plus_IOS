@@ -8,18 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, ChatMoreType) {
-    ChatMoreType_Card,
-    ChatMoreType_NewMemberApply,
-    ChatMoreType_ClubIntro,
-    ChatMoreType_ClubMember,
-    ChatMoreType_QuitClub
-};
-
 @interface ChatMoreModel : NSObject
 
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, assign) BOOL isRead;
-@property (nonatomic, assign) ChatMoreType moreType;
+@property (nonatomic, strong) NSString *moreName;
+@property (nonatomic, assign) BOOL newMsg;
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSString *moreType;
 
 @end

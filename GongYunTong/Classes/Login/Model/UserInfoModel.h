@@ -21,5 +21,6 @@
 @property (nonatomic, strong) NSNumber *memberId;           // 用户ID
 @property (nonatomic, strong) NSString *account;            // 用户账户
 @property (nonatomic, strong) NSNumber *companyId;          // 公司ID
+@property (nonatomic, strong) NSString *rongcloudToken;     // 连接融云的token
 
 @end

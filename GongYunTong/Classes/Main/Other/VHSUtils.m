@@ -111,7 +111,7 @@
 }
 
 + (NSString *)absolutelyString:(NSString *)originString {
-    return [originString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    return [NSString stringWithFormat:@"%@", [originString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
 }
 
 + (UIImage *)imageFromColor:(UIColor *)color {

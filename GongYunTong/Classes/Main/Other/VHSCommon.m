@@ -70,11 +70,20 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
     return phoneModel;
 }
 
-+ (void)toAppStoreForUpgrade {
++ (void)toAppStore {
     // 应用ID信息可以直接从AppStore拿到
     NSURL *url = [NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1084589981"];
     if ([[UIApplication sharedApplication] canOpenURL:url]) {
         [[UIApplication sharedApplication] openURL:url];
+    }
+}
+
++ (void)toSafariWithUrl:(NSString *)urlAddress {
+    if (!urlAddress) return;
+    
+    BOOL isExsit = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:urlAddress]];
+    if(isExsit) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlAddress]];
     }
 }
 
@@ -104,6 +113,11 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
 
 + (void)saveUserDefault:(id)value forKey:(NSString *)key {
     [k_UserDefaults setObject:value forKey:key];
+    [k_UserDefaults synchronize];
+}
+
++ (void)removeUserDefaultForKey:(NSString *)key {
+    [k_UserDefaults removeObjectForKey:key];
     [k_UserDefaults synchronize];
 }
 

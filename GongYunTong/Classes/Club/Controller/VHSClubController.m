@@ -10,6 +10,13 @@
 #import "ClubModel.h"
 #import "VHSChatController.h"
 #import "VHSClubSessionCell.h"
+#import "PublicWKWebViewController.h"
+#import "ThirdPartyCoordinator.h"
+
+typedef NS_ENUM(NSUInteger, VHSClubType) {
+    VHSClubOfMeType,        // 我的俱乐部
+    VHSClubOfOtherType      // 其他俱乐部
+};
 
 @interface VHSClubController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -21,6 +28,7 @@
 @end
 
 static NSString *reuse_identifier = @"VHSClubSessionCell";
+static NSInteger load_club_numbers = 0;
 
 @implementation VHSClubController
 
@@ -29,11 +37,6 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
 - (NSMutableArray *)myClubList {
     if (!_myClubList) {
         _myClubList = [NSMutableArray array];
-        
-        for (NSInteger i = 0; i < 4; i++) {
-            ClubModel *club = [[ClubModel alloc] initWithIndex:i];
-            [_myClubList addObject:club];
-        }
     }
     return _myClubList;
 }
@@ -41,10 +44,6 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
 - (NSMutableArray *)allClubList {
     if (!_allClubList) {
         _allClubList = [NSMutableArray array];
-        for (NSInteger i = 0; i < 4; i++) {
-            ClubModel *club = [[ClubModel alloc] initWithIndex:i];
-            [_allClubList addObject:club];
-        }
     }
     return _allClubList;
 }
@@ -55,14 +54,20 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
+    // 没有初始化过融云SDK
+    if (load_club_numbers == 0) {
+        [[ThirdPartyCoordinator shareCoordinator] setupRCKit];
+        load_club_numbers = 1;
+    }
+    
     [self.tableView registerNib:[UINib nibWithNibName:@"VHSClubSessionCell" bundle:nil] forCellReuseIdentifier:reuse_identifier];
     
     [self setupTableView];
-    [self setupNavigationBarBtn];
     
     self.tableView.tableHeaderView = [self tableHeaderView];
     
-    [self remoteUserClubs];
+    [self remoteUserClubsWithClubType:VHSClubOfMeType];
+    [self remoteUserClubsWithClubType:VHSClubOfOtherType];
 }
 
 #pragma mark - 初始化试图
@@ -94,21 +99,42 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
 #pragma mark - 服务器获取信息
 
 /// 获取用户俱乐部所在的俱乐部信息
-- (void)remoteUserClubs {
+- (void)remoteUserClubsWithClubType:(VHSClubType)type {
+    NSString *clubType = nil;
+    if (VHSClubOfMeType == type) {
+        clubType = @"me";
+    } else if (VHSClubOfOtherType == type) {
+        clubType = @"other";
+    }
+    
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = @"";
+    message.path = URL_GET_CLUB_LIST;
     message.httpMethod = VHSNetworkPOST;
-    message.params = @{};
+    message.params = @{@"type" : clubType, @"currentPageNum" : @"1"};
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         if ([result[@"result"] integerValue] != 200) return;
         
-        for (NSDictionary *dict in result[@"myClubList"]) {
-            ClubModel *club = [ClubModel yy_modelWithDictionary:dict];
-            [self.myClubList addObject:club];
-        }
-    } fail:^(NSError *error) {
+        if (VHSClubOfMeType == type) [self.myClubList removeAllObjects];
         
+        for (NSDictionary *dict in result[@"clubList"]) {
+            ClubModel *club = [ClubModel yy_modelWithDictionary:dict];
+        
+            if (VHSClubOfMeType == type) {
+                [self.myClubList addObject:club];
+            } else if (VHSClubOfOtherType == type) {
+                [self.allClubList addObject:club];
+            }
+        }
+        
+        if (VHSClubOfMeType == type) {
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+        } else if (VHSClubOfOtherType == type) {
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
+        }
+        
+    } fail:^(NSError *error) {
+        CLog(@"error - %@", error.description);
     }];
 }
 
@@ -157,16 +183,28 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
     ClubModel *club = nil;
     if (0 == indexPath.section) {
         club = self.myClubList[indexPath.row];
+        
+        VHSChatController *chatVC = [[VHSChatController alloc] init];
+        chatVC.conversationType = ConversationType_GROUP;
+        chatVC.targetId = club.rongGroupId; // 目标会话ID - 当前为群组ID
+        chatVC.title = club.clubName;
+        chatVC.club = club;
+        chatVC.clubChatCallBack = ^(ClubModel *club){
+            [self.myClubList removeObject:club];
+            [self.allClubList insertObject:club atIndex:0];
+            [self.tableView reloadData];
+        };
+        [self.navigationController pushViewController:chatVC animated:YES];
     }
     else if (1 == indexPath.section) {
         club = self.allClubList[indexPath.row];
-    }
     
-    VHSChatController *chatVC = [[VHSChatController alloc] init];
-    chatVC.conversationType = ConversationType_DISCUSSION;
-    chatVC.targetId = club.targetId; // 目标会话ID - 当前为聊天室ID
-    chatVC.title = club.title;
-    [self.navigationController pushViewController:chatVC animated:YES];
+        // "所有俱乐部"点击跳转到俱乐部详情页面
+        PublicWKWebViewController *publicWeb = [[PublicWKWebViewController alloc] init];
+        publicWeb.urlString = club.clubUrl;
+        publicWeb.title = club.clubName;
+        [self.navigationController pushViewController:publicWeb animated:YES];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -216,27 +254,6 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
     [bgView addSubview:footline];
     
     return bgView;
-}
-
-#pragma mark - 定义导航栏
-
-- (void)setupNavigationBarBtn {
-    self.navigationItem.rightBarButtonItem
-    = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                                    target:self
-                                                    action:@selector(rightAddChat)];
-}
-
-- (void)rightAddChat {
-    NSArray *userIdList = @[@"10010", @"10012", @"10013", @"100001"];
-    
-    [[RCIMClient sharedRCIMClient] createDiscussion:[userIdList componentsJoinedByString:@","]
-                                         userIdList:userIdList
-                                            success:^(RCDiscussion *discussion) {
-                                             NSLog(@"创建讨论组成功，成员ID是: %@, 讨论组ID: %@", [discussion.memberIdList componentsJoinedByString:@"-"], discussion.discussionId);
-                                         } error:^(RCErrorCode status) {
-                                             NSLog(@"创建讨论组失败，错误码是: %@", @(status));
-                                         }];
 }
 
 - (void)dealloc {
