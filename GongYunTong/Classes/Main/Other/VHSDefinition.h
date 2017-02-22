@@ -20,20 +20,20 @@
 
 #pragma mark - Toast -=========================Toast 提示语===================
 
-#define TOAST_NO_NETWORK                                @"网络未连接"
-#define TOAST_NETWORK_SUSPEND                           @"连接超时，请重试"
-#define TOAST_NOMORE_DATA                               @"已全部显示"
-#define TOAST_UPLOAD_STEPS_SUCCESS                      @"同步成功"
-#define TOAST_UPLOAD_SETPS_FAIL                         @"同步失败"
-#define TOAST_BLE_BIND_NO_NOTWORK                       @"绑定手环需要网络"
-#define TOAST_BLE_BIND_SUCCESS                          @"绑定成功"
-#define TOAST_BLE_BIND_FAIL                             @"绑定失败，请重试"
-#define TOAST_BLE_UNBIND_SUCCESS                        @"解绑成功"
-#define TOAST_BLE_UNBIND_FAIL                           @"解绑失败"
-#define TOAST_UNFINISH_USER_INFO                        @"请完善所有信息"
-#define TOAST_UNFINISH_FEEDBACK_INFO                    @"请填写您的反馈内容"
-#define TOAST_SIGN_SUCCESS                              @"签到成功"
-#define TOAST_SIGN_FAILURE                              @"签到失败"
+static NSString * const TOAST_NO_NETWORK                = @"网络未连接";
+static NSString * const TOAST_NETWORK_SUSPEND           = @"连接超时，请重试";
+static NSString * const TOAST_NOMORE_DATA               = @"已全部显示";
+static NSString * const TOAST_UPLOAD_STEPS_SUCCESS      = @"同步成功";
+static NSString * const TOAST_UPLOAD_SETPS_FAIL         = @"同步失败";
+static NSString * const TOAST_BLE_BIND_NO_NOTWORK       = @"绑定手环需要网络";
+static NSString * const TOAST_BLE_BIND_SUCCESS          = @"绑定成功";
+static NSString * const TOAST_BLE_BIND_FAIL             = @"绑定失败，请重试";
+static NSString * const TOAST_BLE_UNBIND_SUCCESS        = @"解绑成功";
+static NSString * const TOAST_BLE_UNBIND_FAIL           = @"解绑失败";
+static NSString * const TOAST_UNFINISH_USER_INFO        = @"请完善所有信息";
+static NSString * const TOAST_UNFINISH_FEEDBACK_INFO    = @"请填写您的反馈内容";
+static NSString * const TOAST_SIGN_SUCCESS              = @"签到成功";
+static NSString * const TOAST_SIGN_FAILURE              = @"签到失败";
 static NSString * const TOAST_CLUB_BBS_POSTING          = @"帖子发送中";
 static NSString * const TOAST_CLUB_NOTICE_POSTING       = @"公告发布中";
 static NSString * const TOAST_CLUB_REPLYING             = @"回复中";
