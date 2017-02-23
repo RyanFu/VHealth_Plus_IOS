@@ -10,7 +10,7 @@
 #import "GlassView.h"
 #import "BaiduMobStat.h"
 #import "VHSNavigationController.h"
-#import "TabbarItem.h"
+#import "VHSTabConfigurationItem.h"
 
 @interface VHSBaseViewController : UIViewController
 
@@ -27,6 +27,6 @@
 @property(nonatomic,copy)NSString *nextVcBackTitle;
 
 
-@property (nonatomic, strong) TabbarItem *barItem;
+@property (nonatomic, strong) VHSTabConfigurationItem *tabConfigurationItem;
 
 @end

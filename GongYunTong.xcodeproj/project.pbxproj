@@ -37,8 +37,8 @@
 		3304BB5D1DED62F600EDBC6B /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304BB5B1DED62F600EDBC6B /* UserInfoModel.m */; };
 		3304BB631DED63FB00EDBC6B /* ShortcutItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 3304BB5F1DED63FB00EDBC6B /* ShortcutItem.h */; };
 		3304BB641DED63FB00EDBC6B /* ShortcutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304BB601DED63FB00EDBC6B /* ShortcutItem.m */; };
-		3304BB651DED63FB00EDBC6B /* TabbarItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 3304BB611DED63FB00EDBC6B /* TabbarItem.h */; };
-		3304BB661DED63FB00EDBC6B /* TabbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304BB621DED63FB00EDBC6B /* TabbarItem.m */; };
+		3304BB651DED63FB00EDBC6B /* VHSTabConfigurationItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 3304BB611DED63FB00EDBC6B /* VHSTabConfigurationItem.h */; };
+		3304BB661DED63FB00EDBC6B /* VHSTabConfigurationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304BB621DED63FB00EDBC6B /* VHSTabConfigurationItem.m */; };
 		33098DA71E110BA900751A38 /* VHSActionData.h in Headers */ = {isa = PBXBuildFile; fileRef = 33098DA51E110BA900751A38 /* VHSActionData.h */; };
 		33098DA81E110BA900751A38 /* VHSActionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 33098DA61E110BA900751A38 /* VHSActionData.m */; };
 		330C9DF91D90DE25005875FE /* VHSToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 330C9DF81D90DE25005875FE /* VHSToast.m */; };
@@ -316,8 +316,8 @@
 		3304BB5B1DED62F600EDBC6B /* UserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
 		3304BB5F1DED63FB00EDBC6B /* ShortcutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShortcutItem.h; sourceTree = "<group>"; };
 		3304BB601DED63FB00EDBC6B /* ShortcutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShortcutItem.m; sourceTree = "<group>"; };
-		3304BB611DED63FB00EDBC6B /* TabbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabbarItem.h; sourceTree = "<group>"; };
-		3304BB621DED63FB00EDBC6B /* TabbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabbarItem.m; sourceTree = "<group>"; };
+		3304BB611DED63FB00EDBC6B /* VHSTabConfigurationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSTabConfigurationItem.h; sourceTree = "<group>"; };
+		3304BB621DED63FB00EDBC6B /* VHSTabConfigurationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSTabConfigurationItem.m; sourceTree = "<group>"; };
 		33098DA51E110BA900751A38 /* VHSActionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSActionData.h; sourceTree = "<group>"; };
 		33098DA61E110BA900751A38 /* VHSActionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSActionData.m; sourceTree = "<group>"; };
 		330C9DF71D90DE25005875FE /* VHSToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSToast.h; sourceTree = "<group>"; };
@@ -890,8 +890,8 @@
 			children = (
 				3304BB5F1DED63FB00EDBC6B /* ShortcutItem.h */,
 				3304BB601DED63FB00EDBC6B /* ShortcutItem.m */,
-				3304BB611DED63FB00EDBC6B /* TabbarItem.h */,
-				3304BB621DED63FB00EDBC6B /* TabbarItem.m */,
+				3304BB611DED63FB00EDBC6B /* VHSTabConfigurationItem.h */,
+				3304BB621DED63FB00EDBC6B /* VHSTabConfigurationItem.m */,
 				33098DA51E110BA900751A38 /* VHSActionData.h */,
 				33098DA61E110BA900751A38 /* VHSActionData.m */,
 			);
@@ -1716,6 +1716,7 @@
 				33E14E1F1DFA82CA0021688D /* IconItem.h in Headers */,
 				3364904D1E4874BC006F0570 /* HUAlbum.h in Headers */,
 				3304BB651DED63FB00EDBC6B /* TabbarItem.h in Headers */,
+				3304BB651DED63FB00EDBC6B /* VHSTabConfigurationItem.h in Headers */,
 				33F6FAC51DF7E2D9005510D4 /* VHSDynamicConfigurationCell.h in Headers */,
 				3362F3021E30BC9D00F69477 /* VHSMoreMenu.h in Headers */,
 				33A59E191E10EC0300D7BED4 /* DBSafetyCoordinator.h in Headers */,
@@ -2062,8 +2063,9 @@
 				33E5B8D61DDC543100E52A11 /* VHSActivityController.m in Sources */,
 				3304BB641DED63FB00EDBC6B /* ShortcutItem.m in Sources */,
 				33F2BA461D65506B00928976 /* VHSPersonInfoController.m in Sources */,
-				3304BB661DED63FB00EDBC6B /* TabbarItem.m in Sources */,
+				3304BB651DED63FB00EDBC6B /* TabbarItem.m in Sources */,
 				336490531E4874BC006F0570 /* HUAlbumsViewController.m in Sources */,
+				3304BB661DED63FB00EDBC6B /* VHSTabConfigurationItem.m in Sources */,
 				3325E0A01D6C2EFF0045AC33 /* MeSumScoreModel.m in Sources */,
 				67E13FD31D460E81001C58D7 /* UserInfoCell.m in Sources */,
 				67B4F8E01D3CAB0300F933F0 /* XLTextView.m in Sources */,

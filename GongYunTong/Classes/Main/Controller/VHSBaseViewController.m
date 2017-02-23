@@ -48,7 +48,7 @@
     if ([self.navigationController.viewControllers count] > 1) {
         self.navigationController.navigationBarHidden = NO;
     }
-    else if (self.barItem && [self.navigationController.viewControllers count] == 1 && [self.barItem.topType integerValue] == 0) {
+    else if (self.tabConfigurationItem && [self.navigationController.viewControllers count] == 1 && [self.tabConfigurationItem.topType integerValue] == 0) {
         self.navigationController.navigationBarHidden = YES;
     }
 }
@@ -91,21 +91,22 @@
 
 #pragma mark -  配置导航栏
 
-- (void)setBarItem:(TabbarItem *)barItem {
-    _barItem = barItem;
+- (void)setTabConfigurationItem:(VHSTabConfigurationItem *)tabConfigurationItem {
+    _tabConfigurationItem = tabConfigurationItem;
+    
     // 0: 图片 1: 文字
-    self.navigationController.navigationBarHidden = ![_barItem.topType boolValue];
-    if ([_barItem.topType integerValue] == 0) {
+    self.navigationController.navigationBarHidden = ![_tabConfigurationItem.topType boolValue];
+    if ([_tabConfigurationItem.topType integerValue] == 0) {
         // 使用ImageView替代导航栏
         [self.view addSubview:self.navigationBar];
-        [self.navigationBar sd_setImageWithURL:[NSURL URLWithString:_barItem.topUrl]];
+        [self.navigationBar sd_setImageWithURL:[NSURL URLWithString:_tabConfigurationItem.topUrl]];
         
     } else {
-        self.navigationItem.title = _barItem.topUrl;
+        self.navigationItem.title = _tabConfigurationItem.topUrl;
     }
     
     // 配置TabbarItem
-    self.tabBarItem.title = _barItem.footerName;
+    self.tabBarItem.title = _tabConfigurationItem.footerName;
 }
 
 @end
