@@ -6,9 +6,9 @@
 //  Copyright © 2016年 vhs_health. All rights reserved.
 //
 
-#import "TabbarItem.h"
+#import "VHSTabConfigurationItem.h"
 
-@implementation TabbarItem
+@implementation VHSTabConfigurationItem
 
 
 @end

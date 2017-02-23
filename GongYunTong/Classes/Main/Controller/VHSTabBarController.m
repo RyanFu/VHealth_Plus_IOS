@@ -8,7 +8,7 @@
 
 #import "VHSTabBarController.h"
 #import "VHSNavigationController.h"
-#import "TabbarItem.h"
+#import "VHSTabConfigurationItem.h"
 
 typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
 {
@@ -123,11 +123,11 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
     message.path = URL_GET_NAVIGATION;
     message.httpMethod = VHSNetworkPOST;
     
-    [[VHSHttpEngine sharedInstance] sendMessage:message success:^(id response) {
-        CLog(@"%@", response);
-        
-        NSDictionary *result = response;
+    [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
+    
         if ([result[@"result"] integerValue] != 200) return;
+        
+        if (![result[@"resultList"] isKindOfClass:[NSArray class]]) return;
         
         NSArray *resultList = result[@"resultList"];
         [VHSCommon saveUserDefault:resultList forKey:Cache_Config_NavOrTabbar];
@@ -143,22 +143,20 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
 /// 配置标签栏和导航栏
 - (void)configNavOrTabWith:(NSArray *)dictList {
     
-    if (![dictList isKindOfClass:[NSArray class]]) return;
-    
     NSMutableArray *tabbarList = [NSMutableArray new];
     // 获取缓存数据源
     for (NSDictionary *dic in dictList) {
-        TabbarItem *item = [TabbarItem yy_modelWithDictionary:dic];
+        VHSTabConfigurationItem *item = [VHSTabConfigurationItem yy_modelWithDictionary:dic];
         [tabbarList addObject:item];
     }
     
     // 根据后端返回的nindex去对应的改变controller
-    [tabbarList enumerateObjectsUsingBlock:^(TabbarItem *item, NSUInteger idx, BOOL * _Nonnull stop) {
+    [tabbarList enumerateObjectsUsingBlock:^(VHSTabConfigurationItem *item, NSUInteger idx, BOOL * _Nonnull stop) {
         NSInteger index = [item.nindex integerValue];
         
         VHSNavigationController *nav = (VHSNavigationController *)self.viewControllers[index - 1];
         VHSBaseViewController *baseVC = nav.viewControllers[0];
-        baseVC.barItem = item;
+        baseVC.tabConfigurationItem = item;
     }];
 }
 

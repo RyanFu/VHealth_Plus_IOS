@@ -7,7 +7,7 @@
 //
 
 #import "VHSNavigationController.h"
-#import "TabbarItem.h"
+#import "VHSTabConfigurationItem.h"
 
 @interface VHSNavigationController ()
 

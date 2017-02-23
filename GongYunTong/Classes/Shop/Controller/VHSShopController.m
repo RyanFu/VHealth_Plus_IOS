@@ -24,7 +24,7 @@
 
 @end
 
-#define VHSTOKEN           @"vhstoken"
+static NSString * const VHSTOKEN = @"vhstoken";
 
 @implementation VHSShopController
 
@@ -320,12 +320,14 @@
     NSString *url = webView.URL.absoluteString;
     NSString *theTitle = webView.title;
     
-    if ([VHSCommon isNullString:theTitle] == NO && [theTitle isEqualToString:@"index"] == NO) {
-        if ([url containsString:VHSTOKEN]) {
-            self.navigationItem.title = @"福利";
+    if ([url containsString:VHSTOKEN]) {
+        if (![VHSCommon isNullString:self.tabConfigurationItem.topUrl]) {
+            self.navigationItem.title = self.tabConfigurationItem.topUrl;
         } else {
-            self.navigationItem.title = theTitle;
+            self.navigationItem.title = @"福利";
         }
+    } else {
+        self.navigationItem.title = theTitle;
     }
     
     // 页面加载结束后判断是否为主页面

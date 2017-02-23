@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TabbarItem : NSObject
+@interface VHSTabConfigurationItem : NSObject
 
 @property (nonatomic, strong) NSString *topUrl;
 @property (nonatomic, strong) NSNumber *topType;
