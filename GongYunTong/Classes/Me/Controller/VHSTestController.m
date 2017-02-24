@@ -14,6 +14,8 @@
 #import "PublicWKWebViewController.h"
 #import "NSDate+VHSExtension.h"
 #import "MBProgressHUD+VHS.h"
+#import "VHSBraceletCoodinator.h"
+#import "VHSBraceletController.h"
 
 @interface VHSTestController ()
 
@@ -80,47 +82,60 @@
 //    SFSafariViewController *sfvc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://www.baidu.com/"]];
 //    [self presentViewController:sfvc animated:YES completion:nil];
     
-    NSString *defaultPath = @"http://img.frbiz.com/pic/z70071b-300x300-1/dog.jpg";
-    
-    NSString *imagePath = [VHSUtils getLocalPathWithPath:defaultPath];
-    
-    CLog(@"%@", imagePath);
-    
-    if (![VHSCommon isNullString:imagePath]) {
-        NSData *data = [[NSData alloc] initWithContentsOfFile:imagePath];
-        _imageView2.image = [UIImage imageWithData:data];
-    }
-    
-    /// 开启定时任务
-    [[VHSStepAlgorithm shareAlgorithm] timedTask];
-    
-    __block NSInteger ex = 100;
-    CLog(@"定义block之前的值:%ld，地址 %p", ex, &ex);
-    
-    void (^testBlock)() = ^void(){
-//        NSInteger ex = 150;
-        CLog(@"__block改变值之前的值:%ld，地址 %p", ex, &ex);
-        ex = 120;
-        CLog(@"__block调用之后的值:%ld, 地址 %p", ex, &ex);
-    };
-    CLog(@"block调用之前的值:%ld，地址 %p", ex, &ex);
-    
-    testBlock();
-    
-    
-    
-    NSMutableString *a = [NSMutableString stringWithFormat:@"aaaaa"];
-    CLog(@"block定义之前的值:%@，地址 %p", a, &a);
-    
-    void (^testStringBlock)() = ^void(){
-        CLog(@"block中改变值之前的值:%@，地址 %p", a, &a);
-        a.string = @"bbbbb";
-//        a = [NSMutableString stringWithFormat:@"ccccc"];
-        CLog(@"block中改变值之后的值:%@，地址 %p", a, &a);
-    };
-    CLog(@"block定义之后的值:%@，地址 %p", a, &a);
-    
-    testStringBlock();
+//    NSString *defaultPath = @"http://img.frbiz.com/pic/z70071b-300x300-1/dog.jpg";
+//    
+//    NSString *imagePath = [VHSUtils getLocalPathWithPath:defaultPath];
+//    
+//    CLog(@"%@", imagePath);
+//    
+//    if (![VHSCommon isNullString:imagePath]) {
+//        NSData *data = [[NSData alloc] initWithContentsOfFile:imagePath];
+//        _imageView2.image = [UIImage imageWithData:data];
+//    }
+//    
+//    /// 开启定时任务
+//    [[VHSStepAlgorithm shareAlgorithm] timedTask];
+//    
+//    __block NSInteger ex = 100;
+//    CLog(@"定义block之前的值:%ld，地址 %p", ex, &ex);
+//    
+//    void (^testBlock)() = ^void(){
+////        NSInteger ex = 150;
+//        CLog(@"__block改变值之前的值:%ld，地址 %p", ex, &ex);
+//        ex = 120;
+//        CLog(@"__block调用之后的值:%ld, 地址 %p", ex, &ex);
+//    };
+//    CLog(@"block调用之前的值:%ld，地址 %p", ex, &ex);
+//    
+//    testBlock();
+//    
+//    
+//    
+//    NSMutableString *a = [NSMutableString stringWithFormat:@"aaaaa"];
+//    CLog(@"block定义之前的值:%@，地址 %p", a, &a);
+//    
+//    void (^testStringBlock)() = ^void(){
+//        CLog(@"block中改变值之前的值:%@，地址 %p", a, &a);
+//        a.string = @"bbbbb";
+////        a = [NSMutableString stringWithFormat:@"ccccc"];
+//        CLog(@"block中改变值之后的值:%@，地址 %p", a, &a);
+//    };
+//    CLog(@"block定义之后的值:%@，地址 %p", a, &a);
+//    
+//    testStringBlock();
+
+//    NSString *defaultPath = @"http://img.frbiz.com/pic/z70071b-300x300-1/dog.jpg";
+//    
+//    NSString *imagePath = [VHSUtils getLocalPathWithPath:defaultPath];
+//    
+//    CLog(@"%@", imagePath);
+//    
+//    if (![VHSCommon isNullString:imagePath]) {
+//        NSData *data = [[NSData alloc] initWithContentsOfFile:imagePath];
+//        _imageView2.image = [UIImage imageWithData:data];
+//    }
+    VHSBraceletController *bleVC = [[VHSBraceletController alloc] init];
+    [self.navigationController pushViewController:bleVC animated:YES];
 }
 
 - (void)encryBtn:(UIButton *)btn {

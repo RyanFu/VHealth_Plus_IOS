@@ -100,8 +100,9 @@ static BOOL isBackGroundActivateApplication;
 
 // 扫描到外围手环设备回调
 - (void)ASDKBLEManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI{
+    CLog(@"------>>> 2 ------>>> %@ --->>>%@ --->>>%@ --->>>%@", central, peripheral, advertisementData, RSSI);
     PeripheralModel *model = [[PeripheralModel alloc] init];
-    if (ABS([RSSI integerValue]) < 80 && [[advertisementData objectForKey:@"kCBAdvDataLocalName"] length]>0) {
+    if (ABS([RSSI integerValue]) < 80 && [[advertisementData objectForKey:@"kCBAdvDataLocalName"] length] > 0) {
         for (PeripheralModel *pm in self.peripherals) {
             if ([pm.UUID isEqualToString:peripheral.identifier.UUIDString]) {
                 return;
