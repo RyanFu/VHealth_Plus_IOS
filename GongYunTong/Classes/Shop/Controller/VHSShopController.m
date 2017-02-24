@@ -338,6 +338,9 @@ static NSString * const VHSTOKEN = @"vhstoken";
         if ([url containsString:VHSTOKEN]) {
             res = YES;
         }
+        if (res && ![VHSCommon isNullString:self.tabConfigurationItem.topUrl]) {
+            self.navigationItem.title = self.tabConfigurationItem.topUrl;
+        }
     
         [self showBottomBar:res];
     }];
