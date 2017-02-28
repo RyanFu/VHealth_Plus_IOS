@@ -13,13 +13,5 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (nonatomic, strong) NSMutableArray *peripherals;
-
-
-// 初始化外围设备
--(void)initConnectPeripheralSuccess:(void (^)())success;
-// 同步手环数据
-- (void)syncFitBleData:(void (^)(int errorCode))syncBlock;
-
 @end
 

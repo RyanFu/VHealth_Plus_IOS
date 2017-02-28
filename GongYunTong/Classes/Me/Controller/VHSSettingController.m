@@ -146,34 +146,34 @@
     message.httpMethod = VHSNetworkPOST;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *resultObject) {
-        if ([resultObject[@"result"] integerValue] == 200) {
-            if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindConnected) {
-                //连接状态下解绑
-                [MBProgressHUD showMessage:@"正在解绑..."];
-                ASDKSetting *ASDK = [[ASDKSetting alloc] init];
-                [ASDK ASDKSendDeviceBindingWithCMDType:ASDKDeviceUnbundling withUpdateBlock:^(int errorCode) {
-                    [MBProgressHUD hiddenHUD];
-                    if (errorCode == SUCCESS) {
-                        [VHSToast toast:TOAST_BLE_UNBIND_SUCCESS];
-                        [VHSFitBraceletStateManager BLEUnbindSuccess]; // 解绑成功后本地存储
-                        if (unbindSuccessBlock) unbindSuccessBlock(YES);
-                    } else {
-                        if (unbindSuccessBlock) unbindSuccessBlock(NO);
-                        [VHSToast toast:TOAST_BLE_UNBIND_FAIL];
-                    }
-                }];
-            }
-            else if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindDisConnected) {
-                [VHSToast toast:TOAST_BLE_UNBIND_SUCCESS];
-                [VHSFitBraceletStateManager BLEUnbindSuccess]; // 解绑成功后本地存储
-                if (unbindSuccessBlock) unbindSuccessBlock(NO);
-            }
-            else {
-                if (unbindSuccessBlock) unbindSuccessBlock(NO);
-            }
-        } else {
+        if ([resultObject[@"result"] integerValue] != 200) {
             if (unbindSuccessBlock) unbindSuccessBlock(NO);
             [VHSToast toast:resultObject[@"info"]];
+            return;
+        }
+        
+        if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindConnected) {
+            //连接状态下解绑
+            [MBProgressHUD showMessage:@"正在解绑..."];
+            [[SharePeripheral sharePeripheral] braceletorGotoBindWithCallBack:^(int errorCode) {
+                [MBProgressHUD hiddenHUD];
+                if (errorCode == SUCCESS) {
+                    [VHSToast toast:TOAST_BLE_UNBIND_SUCCESS];
+                    [VHSFitBraceletStateManager BLEUnbindSuccess]; // 解绑成功后本地存储
+                    if (unbindSuccessBlock) unbindSuccessBlock(YES);
+                } else {
+                    if (unbindSuccessBlock) unbindSuccessBlock(NO);
+                    [VHSToast toast:TOAST_BLE_UNBIND_FAIL];
+                }
+            }];
+        }
+        else if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindDisConnected) {
+            [VHSToast toast:TOAST_BLE_UNBIND_SUCCESS];
+            [VHSFitBraceletStateManager BLEUnbindSuccess]; // 解绑成功后本地存储
+            if (unbindSuccessBlock) unbindSuccessBlock(NO);
+        }
+        else {
+            if (unbindSuccessBlock) unbindSuccessBlock(NO);
         }
     } fail:^(NSError *error) {
         if (unbindSuccessBlock) unbindSuccessBlock(NO);
@@ -196,6 +196,10 @@
     } fail:^(NSError *error) {
         if (successBlock) successBlock(NO);
     }];
+}
+
+- (void)dealloc {
+    CLog(@"%@ be dealloc", NSStringFromClass([self class]));
 }
 
 @end

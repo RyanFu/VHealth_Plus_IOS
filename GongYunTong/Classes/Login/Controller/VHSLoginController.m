@@ -219,8 +219,8 @@
             // 更新数据到本地
             VHSActionData *ac = [[VHSActionData alloc] init];
             ac.actionId = [VHSCommon getTimeStamp];
-            ac.memberId = net.memberId;
-            ac.step = [NSString stringWithFormat:@"%ld", (long)net.step];
+            ac.memberId = [[VHSCommon userInfo].memberId stringValue];
+            ac.step = [NSString stringWithFormat:@"%ld", net.step];
             ac.recordTime = net.sportDate;
             ac.macAddress = net.handMac;
             ac.actionType = [net.handMac isEqualToString:@"0"] ? @"2" : @"1";

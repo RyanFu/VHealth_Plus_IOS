@@ -13,11 +13,9 @@
 
 @interface VHSStepAlgorithm : NSObject
 
-@property (nonatomic, assign) CBManagerState CBState;
 
 @property (nonatomic, strong) CMPedometer *pedometer;
 
-@property (assign, nonatomic) NSInteger stepIncreaseCount;//步数增量
 @property (retain, nonatomic) VHSActionData *stepsData;
 
 + (VHSStepAlgorithm *)shareAlgorithm;
@@ -29,12 +27,7 @@
 /// 失效监听器
 - (void)invalidateTimer;
 
-/// 尝试重新连接手环
-- (void)tryReconnectedBracelet;
-
 #pragma mark - 手环SDK
-/// 初始化手环
-- (void)shareBLE;
 
 /// 获取手环中指定一天的数据 - @param : date yyyymmdd
 - (void)sportDayWithDate:(NSString *)date sportBlock:(void (^)(ProtocolSportDataModel *sportData))sportDataBlock;

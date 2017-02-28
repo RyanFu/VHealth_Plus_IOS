@@ -34,24 +34,26 @@
 @property (nonatomic, strong) UserScoreModel                *userScore;
 @property (nonatomic, strong) UserDetailModel               *userDetail;
 
-@property (nonatomic, assign) NSInteger                     todaySteps;
+@property (nonatomic, assign) NSInteger                     recordAllSteps;
 @property (nonatomic, strong) NSMutableDictionary           *feedbackDict;
 
 @end
 
 @implementation VHSMeController
 
-- (NSInteger)todaySteps {
-    return [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
+/// 数据库用户的步数
+- (void)getMemberStep {
+    self.recordAllSteps = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    self.navigationItem.title = @"我";
     self.headerViewLineHeight.constant = 0.5;
     // 获取版本信息
     self.copyright.text = [NSString stringWithFormat:@"版本%@ 由好人生集团提供", [VHSCommon appVersion]];
+    
+    [self getMemberStep];
     
     // 先从缓存中读取数据
     self.userDetail = [VHSCommon userDetailInfo];

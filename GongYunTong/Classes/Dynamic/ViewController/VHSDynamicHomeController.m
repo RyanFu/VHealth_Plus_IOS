@@ -429,6 +429,7 @@
             else if (item.iconType == 6) {
                 // 计步更新
                 VHSRecordStepController *stepVC = [[VHSRecordStepController alloc] init];
+                stepVC.sumSteps = [VHSGlobalDataManager shareGlobalDataManager].recordAllSteps;
                 stepVC.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:stepVC animated:YES];
             }

@@ -7,12 +7,15 @@
 //
 
 #import "SharePeripheral.h"
-#import "MBProgressHUD.h"
+#import "VHSStepAlgorithm.h"
+#import "VHSFitBraceletStateManager.h"
 
 @interface SharePeripheral()<AsdkBleModuleDelegate>
-{
-    ASDKBleModule *asdkBleModule;
-}
+
+@property (nonatomic, strong) NSMutableArray<PeripheralModel *> *peripherals;
+// 扫描结束成功回调 - 多次，每扫描到一个设备，回调一次
+@property (nonatomic, copy, nullable) void (^scanBleCompletionHandler)(NSArray *braceletorList);
+
 @end
 
 @implementation SharePeripheral
@@ -23,77 +26,228 @@ static SharePeripheral*sharePeripheral = nil;
     static dispatch_once_t once;
     dispatch_once( &once, ^{
         sharePeripheral = [[self alloc] init];
+        
+        [sharePeripheral startUpBraceletorResourceOnce];
     });
     return sharePeripheral;
 }
-- (id)init{
-    self = [super init];
-    if (self) {
-        asdkBleModule  = [[ASDKBleModule alloc] init];
-        self.bleName = [ShareDataSdk shareInstance].peripheral.name;
-        asdkBleModule.delegate = self;
-    }
-    return self;
+
+// 初始初始化手环SDK
+- (void)startUpBraceletorResourceOnce {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-variable"
+    ASDKShareFunction *asdk = [[ASDKShareFunction alloc] init];
+#pragma clang diagnostic pop
+    
+    _bleMolue = [[ASDKBleModule alloc] init];
+    _bleMolue.delegate = self;
+    
+    _bleHandringDataer = [[ASDKGetHandringData alloc] init];
+    _bleSetter = [[ASDKSetting alloc] init];
 }
 
--(void)setSyscnTime:(NSString *)syscnTime {
-    _syscnTime = syscnTime;
-    if (![VHSCommon isNullString:syscnTime]) {
-        [VHSCommon setShouHuanLastTimeSync:syscnTime];
-        self.systimeLabel.text = [NSString stringWithFormat:@"最近一次获取手环数据：%@", syscnTime];
+
+- (NSString *)recentlySyncTime {
+    NSString *recentlyTime = [VHSCommon getShouHuanLastTimeSync];
+    if (![VHSCommon isNullString:recentlyTime]) {
+        return recentlyTime;
     }
+    return @"";
 }
-- (NSString *)syscnTime {
-    if (!_syscnTime) {
-        NSString *time = [VHSCommon getShouHuanLastTimeSync];
-        if (![VHSCommon isNullString:time]) {
-            return time;
+
+#pragma mark - 手环操作
+
+- (void)scanBraceletorDuration:(NSTimeInterval)time process:(void (^)())processHandler completion:(void (^)(NSArray<PeripheralModel *> *braceletorList))completionHandler {
+    self.peripherals = [NSMutableArray new];
+    self.scanBleCompletionHandler = completionHandler;
+    // 绑定手环前先断开手环连接信息
+    [[SharePeripheral sharePeripheral] disconnectBraceletorWithPeripheral:[ShareDataSdk shareInstance].peripheral];
+    
+    if (processHandler) processHandler();
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.bleMolue ASDKSendScanDevice];
+    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.bleMolue ASDKSendStopScanDevice];
+    });
+}
+
+- (void)connectBraceletorWithBleUUID:(NSString *)uuid {
+    if (!uuid) return;
+    
+    [self.bleMolue ASDKSendConnectDevice:uuid];
+}
+
+- (void)disconnectBraceletorWithPeripheral:(CBPeripheral *)peripheral {
+    if (!peripheral) return;
+    [self.bleMolue ASDKSendDisConnectDevice:peripheral];
+}
+
+#pragma mark - 手环数据获取
+
+- (void)getBraceletorDeviceInfoWithCallback:(BLEDataAcceptCallBack)deviceInfoBlock {
+    [self.bleHandringDataer ASDKSendGetDeviceInfoWithUpdateBlock:^(id object, int errorCode) {
+        if (deviceInfoBlock) deviceInfoBlock(object, errorCode);
+    }];
+}
+
+- (void)getBraceletorSendSportDataForThedayWithCallBack:(BLEDataAcceptCallBack)resultBlock {
+    [self.bleHandringDataer ASDKSendRequestSportDataForTodayWithUpdateBlock:^(id object, int errorCode) {
+        if (resultBlock) resultBlock(object, errorCode);
+    }];
+}
+
+- (ProtocolSportDataModel *)getBraceletorSportBySpecifiedDay:(NSString *)specifiedDay andHandMac:(NSString *)macAddress {
+    return [self.bleHandringDataer ASDKSendGetSportData:specifiedDay AndDevicePkId:macAddress];
+}
+
+- (void)getBraceletorRealtimeDataWithCallBack:(BLEDataAcceptCallBack)resultBlock {
+    [self.bleHandringDataer ASDKSendDataToAcceptRealTimeDataWithUpdateBlock:^(id object, int errorCode) {
+        if (resultBlock) resultBlock(object, errorCode);
+    }];
+}
+
+#pragma mark - 手环绑定-解绑
+
+- (void)braceletorGotoBindWithCallBack:(void (^)(int errorCode))resultBlock {
+    [self.bleSetter ASDKSendDeviceBindingWithCMDType:ASDKDeviceBinding withUpdateBlock:^(int errorCode) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (resultBlock) resultBlock(errorCode);
+        });
+    }];
+}
+
+- (void)braceletorGotoUnbindWithCallBack:(void (^)(int errorCode))resultBlock {
+    [self.bleSetter ASDKSendDeviceBindingWithCMDType:ASDKDeviceUnbundling withUpdateBlock:^(int errorCode) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (resultBlock) resultBlock(errorCode);
+        });
+    }];
+}
+
+#pragma mark - 手环代理-AsdkBleModuleDelegate
+
+// 扫描到外围手环设备回调
+- (void)ASDKBLEManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
+    
+    if (ABS([RSSI integerValue]) > 100 || ![advertisementData[@"kCBAdvDataLocalName"] length]) {
+        return;
+    }
+    
+    for (PeripheralModel *pm in self.peripherals) {
+        if ([pm.UUID isEqualToString:peripheral.identifier.UUIDString]) {
+            return;
         }
-        return nil;
     }
-    return _syscnTime;
-}
-//发现服务
-- (void)DiscoerService{
-    [asdkBleModule ASDKSendDiscoverServices:[ShareDataSdk shareInstance].peripheral];
+    
+    PeripheralModel *model = [[PeripheralModel alloc] init];
+    model.UUID = peripheral.identifier.UUIDString;
+    model.RSSI = ABS([RSSI integerValue]);
+    model.name = advertisementData[@"kCBAdvDataLocalName"];
+    [self.peripherals addObject:model];
+    
+    [self.peripherals sortUsingComparator:^NSComparisonResult(PeripheralModel *obj1, PeripheralModel *obj2) {
+        NSComparisonResult result = [[NSNumber numberWithInteger:obj1.RSSI] compare:[NSNumber numberWithInteger:obj2.RSSI]];
+        return result;
+    }];
+    
+    if (self.scanBleCompletionHandler) self.scanBleCompletionHandler(self.peripherals);
 }
 
+// 连接外围手环设备回调
+- (void)ASDKBLEManagerConnectWithState:(BOOL)success andCBCentral:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error{
+    if (success) {
+        [[SharePeripheral sharePeripheral].bleMolue ASDKSendDiscoverServices:peripheral];
+        if (peripheral.state == CBPeripheralStateConnected) {
+            // 本地保存手环连接时间
+            [VHSCommon setShouHuanConnectedTime:[VHSCommon getYmdFromDate:[NSDate date]]];
+            [self upToDateBraceletData];
+        }
+    } else {
+        CLog(@"连接失败：%@",error);
+    }
+}
+
+// 断开外围手环设备回调
+- (void)ASDKBLEManagerDisConnectWithCBCentral:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
+    CLog(@"--->>> 断开手环和手机的连接");
+}
+
+// 发现外围设备的服务
 - (void)ASDKBLEManagerDisCoverServices:(BOOL)success Peripheral:(CBPeripheral *)peripheral error:(NSError *)error{
     if (success) {
-        for (CBService *service in peripheral.services)
-        {
-            CLog(@"Service found with UUID: %@", service.UUID);  //查找特征
-            [asdkBleModule ASDKSendDiscoverCharcristic:peripheral];
-        }
-    }
-    else{
-        CLog(@"%@",@"获取失败哦");
+        // 根据外围服务去查找特征
+        [[SharePeripheral sharePeripheral].bleMolue ASDKSendDiscoverCharcristic:peripheral];
+    } else {
+        CLog(@"---->>> 发现外围服务失败");
     }
 }
 
+// 发现外围服务特征 - 绑定手环时候会回调
 - (void)ASDKBLEManagerDisCoverCharacteristics:(BOOL)success Peripheral:(CBPeripheral *)peripheral service:(CBService *)service error:(NSError *)error{
-    if (!self.needToJump) {
-      [SharePeripheral sharePeripheral].callBackJump(peripheral);
+    if (!success) return;
+    
+    if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindConnected) {
+        //绑定且连接状态
+        CLog(@"手环链接－－－并且已经绑定");
+        // 证明 - 已经绑定过手环
+        NSString *mac = [k_UserDefaults objectForKey:k_SHOUHUAN_MAC_ADDRESS];
+        [ShareDataSdk shareInstance].smart_device_id = mac;
+    } else {
+        CLog(@"手环链接－－－未绑定  macid====%@",[ShareDataSdk shareInstance].smart_device_id);
     }
+    
+    [k_NotificationCenter postNotificationName:DeviceDidConnectedBLEsNotification object:nil userInfo:@{DeviceDidConnectedBLEsUserInfoPeripheral : peripheral}];
 }
- 
+
+/// 外围设备和手机数据交互回调
 - (void)ASDKBLEManagerHaveReceivedData:(BOOL)success Peripheral:(CBPeripheral *)peripheral Characteristic:(CBCharacteristic *)charac error:(NSError *)error{
     if (success) {
-    }
-    else{
-        CLog(@"%@",@"获取失败");
+        CLog(@"手环-手机数据信息--交互成功");
+    } else {
+        CLog(@"手环-手机数据信息--交互失败");
     }
 }
+
+// 判断蓝牙是否开启
+- (void)callBackBleManagerState:(CBCentralManagerState)powerState {
+    // 开启蓝牙
+    if (CBCentralManagerStatePoweredOn == powerState) {
+        self.blueToothState = CBManagerStatePoweredOn;
+    }
+    // 蓝牙关闭
+    else if (CBCentralManagerStatePoweredOff == powerState) {
+        self.blueToothState = CBManagerStatePoweredOff;
+        
+        CBPeripheral *peripheral = [ShareDataSdk shareInstance].peripheral;
+        [[SharePeripheral sharePeripheral] disconnectBraceletorWithPeripheral:peripheral];
+    }
+}
+
 // 此方法是已经绑定手环，下次进入会调用此方法
-//- (void)callBackReconect:(NSString *)uuidString{
-//    _needBand = YES;
-//    //加上这2句代码，防止多次连接设备 （多次弹出下个页面）   not by xulong 
-//    CBPeripheral *peri=[ShareDataSdk shareInstance].peripheral;
-//    if (peri && peri.state ==CBPeripheralStateConnecting) {
-//        return;
-//    }
-//    [[SharePeripheral sharePeripheral].bleMolue ASDKSendConnectDevice:[[NSUserDefaults standardUserDefaults] objectForKey:@"lanya"]];
-//    [SharePeripheral sharePeripheral].bleName = [[NSUserDefaults standardUserDefaults] objectForKey:@"BLE_NAME"];
-//    
-//}
+- (void)callBackReconect:(NSString *)uuidString{
+    //加上这2句代码，防止多次连接设备
+    CBPeripheral *peripheral = [ShareDataSdk shareInstance].peripheral;
+    if (peripheral.state == CBPeripheralStateConnected) {
+        return;
+    }
+    
+    NSString *uuid = [k_UserDefaults objectForKey:k_SHOUHUAN_UUID];
+    NSString *name = [k_UserDefaults objectForKey:k_SHOUHUAN_NAME];
+    [[SharePeripheral sharePeripheral].bleMolue ASDKSendConnectDevice:uuid];
+    [SharePeripheral sharePeripheral].bleName = name;
+}
+
+#pragma mark - 蓝牙状态切换后同步手环数据
+///  同步手环数据
+- (void)upToDateBraceletData {
+    [[VHSStepAlgorithm shareAlgorithm] asynDataFromBraceletToMobileDB:^{
+        [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
+        [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
+    }];
+}
+
+
+
 @end

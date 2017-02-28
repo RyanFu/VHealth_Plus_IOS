@@ -53,6 +53,10 @@ static NSString * const CONST_REPLY                                 = @"回复";
 static NSString * const CONST_EDIT_NOTICE                           = @"编辑公告";
 static NSString * const CONST_OPEN_ACCOUNT_SUCCESS                  = @"开通账号成功";
 
+#pragma mark - App中的常量
+
+static NSString *const CONST_GET_DATA_FROM_BRACELET             = @"获取设备数据到手机";
+
 
 #pragma mark - 状态码的定义 ==============================状态码=====================================
 

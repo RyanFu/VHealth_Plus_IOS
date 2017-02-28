@@ -30,9 +30,7 @@ CGFloat const settingFooterHeight=106;
 @property (weak, nonatomic) IBOutlet UIButton *unbindBtn;
 @property (weak, nonatomic) IBOutlet UITableView *mainTableView;
 
-@property (nonatomic, strong) ASDKGetHandringData *handler;
 
-@property(nonatomic,strong)NSArray *data;  //保存表中的模型数据
 @end
 
 @implementation VHSFitBraceletSettingController
@@ -46,8 +44,6 @@ CGFloat const settingFooterHeight=106;
     [super viewDidLoad];
     self.title = @"手环设置";
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    self.handler = [[ASDKGetHandringData alloc] init];
     
     self.mainTableView.delegate = self;
     self.mainTableView.dataSource = self;
@@ -87,7 +83,7 @@ CGFloat const settingFooterHeight=106;
     }
     __weak typeof(self)weakSelf = self;
     // 获取设备信息
-    [self.handler ASDKSendGetDeviceInfoWithUpdateBlock:^(id object, int errorCode) {
+    [[SharePeripheral sharePeripheral] getBraceletorDeviceInfoWithCallback:^(id object, int errorCode) {
         if (errorCode == SUCCESS) {
             ProtocolDeviceInfoModel *model = object;
             if (model.batt_level) {
@@ -99,14 +95,6 @@ CGFloat const settingFooterHeight=106;
             weakSelf.batteryFlow.text = @"--%";
         }
     }];
-}
-
-- (NSArray *)data {
-    if (!_data) {
-        VHSFitBraceletSettingModel *model= [VHSFitBraceletSettingModel settingModelWithImage:@"icon_update_date" operation:@"获取设备数据到手机" operationDetail:[SharePeripheral sharePeripheral].syscnTime];
-        _data = @[model];
-    }
-    return _data;
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -162,14 +150,12 @@ CGFloat const settingFooterHeight=106;
             action.endTime = [VHSCommon getDate:[NSDate date]];
             [[VHSStepAlgorithm shareAlgorithm] insertOrUpdateBleAction:action];
             
-            // 解绑
-            ASDKSetting *ASDK = [[ASDKSetting alloc] init];
-            [ASDK ASDKSendDeviceBindingWithCMDType:ASDKDeviceUnbundling withUpdateBlock:^(int errorCode) {
+            [[SharePeripheral sharePeripheral] braceletorGotoUnbindWithCallBack:^(int errorCode) {
                 [MBProgressHUD hiddenHUD];
                 if (errorCode == SUCCESS) {
                     [VHSToast toast:TOAST_BLE_UNBIND_SUCCESS];
                     [VHSFitBraceletStateManager BLEUnbindSuccess]; // 解绑成功后本地存储
-                    [weakSelf disConnecDevice];  // 解除设备连接
+                    [weakSelf disconnectBraceletor];  // 解除设备连接
                     [weakSelf popUpViewController]; // 返回到前一个页面
                     // 解绑后开启手机记步服务
                     [[VHSStepAlgorithm shareAlgorithm] start];
@@ -183,10 +169,10 @@ CGFloat const settingFooterHeight=106;
     }
 }
 
-- (void)disConnecDevice {
+- (void)disconnectBraceletor {
     if ([ShareDataSdk shareInstance].peripheral.state == CBPeripheralStateConnected) {
-        [[SharePeripheral sharePeripheral].bleMolue ASDKSendDisConnectDevice:[ShareDataSdk shareInstance].peripheral];
-        [self disConnecDevice];
+        [[SharePeripheral sharePeripheral] disconnectBraceletorWithPeripheral:[ShareDataSdk shareInstance].peripheral];
+        [self disconnectBraceletor];
     }
 }
 
@@ -204,7 +190,8 @@ CGFloat const settingFooterHeight=106;
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"VHSSettingBraceletCell" owner:nil options:nil]firstObject];
     }
-    cell.model = self.data[indexPath.row];
+    VHSFitBraceletSettingModel *model = [[VHSFitBraceletSettingModel alloc] initWithImageName:@"icon_update_date" settingOperation:CONST_GET_DATA_FROM_BRACELET operationTime:[SharePeripheral sharePeripheral].recentlySyncTime];
+    cell.model = model;
     return cell;
 }
 

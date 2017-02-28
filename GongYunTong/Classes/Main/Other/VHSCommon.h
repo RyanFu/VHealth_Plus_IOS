@@ -36,7 +36,6 @@
 #define APP_DELEGATE (AppDelegate *)[[UIApplication sharedApplication] delegate]
 
 ///const 通知key
-extern NSString *const DeviceDidScanBLEsNotification;    //扫描到手环通知
 extern NSString *const DeviceDidScanBLEsUserInfoKey;     //扫描到手环通知里userinfo的key
 extern NSString *const DeviceDidConnectedBLEsNotification;   //与手环连接成功通知
 extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环连接成功通知里userinfo的key

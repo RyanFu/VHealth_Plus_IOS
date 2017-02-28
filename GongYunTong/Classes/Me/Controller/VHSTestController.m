@@ -14,8 +14,6 @@
 #import "PublicWKWebViewController.h"
 #import "NSDate+VHSExtension.h"
 #import "MBProgressHUD+VHS.h"
-#import "VHSBraceletCoodinator.h"
-#import "VHSBraceletController.h"
 
 @interface VHSTestController ()
 
@@ -134,8 +132,6 @@
 //        NSData *data = [[NSData alloc] initWithContentsOfFile:imagePath];
 //        _imageView2.image = [UIImage imageWithData:data];
 //    }
-    VHSBraceletController *bleVC = [[VHSBraceletController alloc] init];
-    [self.navigationController pushViewController:bleVC animated:YES];
 }
 
 - (void)encryBtn:(UIButton *)btn {

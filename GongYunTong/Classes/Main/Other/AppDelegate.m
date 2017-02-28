@@ -19,23 +19,11 @@
 
 static BOOL isBackGroundActivateApplication;
 
-@interface AppDelegate ()<AsdkBleModuleDelegate>
-
-// 外围设备对象
-@property(nonatomic,strong)CBPeripheral *BLEPeripheral;
+@interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
-
-#pragma mark - override getter method 
-
--(NSMutableArray *)peripherals {
-    if (!_peripherals) {
-        _peripherals = [NSMutableArray array];
-    }
-    return _peripherals;
-}
 
 #pragma mark - UIApplication Did Finish Launching
 
@@ -52,6 +40,8 @@ static BOOL isBackGroundActivateApplication;
     
     // 创建数据库，开启手机计步
     [[VHSStepAlgorithm shareAlgorithm] start];
+    // 连接了手环，初始化手环设备
+    if ([VHSFitBraceletStateManager nowBLEState] != FitBLEStateDisbind) [SharePeripheral sharePeripheral];
     
     // 启动时间
     [VHSCommon saveLaunchTime:[VHSCommon getDate:[NSDate date]]];
@@ -62,128 +52,6 @@ static BOOL isBackGroundActivateApplication;
 //    }
     
     return YES;
-}
-
-#pragma mark - 手环相关
-
--(void)initConnectPeripheralSuccess:(void (^)())success {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        [SharePeripheral sharePeripheral].bleMolue = [[ASDKBleModule alloc] init];
-        [SharePeripheral sharePeripheral].bleMolue.delegate = self;
-        [[SharePeripheral sharePeripheral] setCallBackJump:^(CBPeripheral *peripheral){
-            if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindConnected) {
-                //绑定且连接状态
-                NSString *mac = [k_UserDefaults objectForKey:k_SHOUHUAN_MAC_ADDRESS];
-                [ShareDataSdk shareInstance].smart_device_id = mac;
-                [k_NotificationCenter postNotificationName:DeviceDidConnectedBLEsNotification
-                                                    object:nil
-                                                  userInfo:@{DeviceDidConnectedBLEsUserInfoPeripheral : peripheral}];
-            } else {
-                CLog(@"手环链接－－－未绑定  macid====%@",[ShareDataSdk shareInstance].smart_device_id);
-                //扫描页面绑定设备
-                [k_NotificationCenter postNotificationName:DeviceDidConnectedBLEsNotification
-                                                    object:nil
-                                                  userInfo:@{DeviceDidConnectedBLEsUserInfoPeripheral : peripheral}];
-            }
-        }];
-    });
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if ([SharePeripheral sharePeripheral].bleMolue && success) {
-            [self.peripherals removeAllObjects];
-            success();
-        }
-    });
-}
-
-#pragma mark - AsdkBleModuleDelegate
-
-// 扫描到外围手环设备回调
-- (void)ASDKBLEManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI{
-    CLog(@"------>>> 2 ------>>> %@ --->>>%@ --->>>%@ --->>>%@", central, peripheral, advertisementData, RSSI);
-    PeripheralModel *model = [[PeripheralModel alloc] init];
-    if (ABS([RSSI integerValue]) < 80 && [[advertisementData objectForKey:@"kCBAdvDataLocalName"] length] > 0) {
-        for (PeripheralModel *pm in self.peripherals) {
-            if ([pm.UUID isEqualToString:peripheral.identifier.UUIDString]) {
-                return;
-            }
-        }
-        model.UUID = peripheral.identifier.UUIDString;
-        model.RSSI = ABS([RSSI integerValue]);
-        model.name = [advertisementData objectForKey:@"kCBAdvDataLocalName"];
-        [self.peripherals addObject:model];
-        // 根据RSSI重新排序
-        NSArray *resultArray= [self.peripherals sortedArrayUsingComparator:^NSComparisonResult(PeripheralModel *obj1, PeripheralModel *obj2) {
-            NSString *num1=[NSString stringWithFormat:@"%ld",(long)obj1.RSSI];
-            NSString *num2=[NSString stringWithFormat:@"%ld",(long)obj2.RSSI];
-            [num1 integerValue]<10 ? num1=[NSString stringWithFormat:@"0%@",num1] : nil;
-            [num2 integerValue]<10 ? num2=[NSString stringWithFormat:@"0%@",num2] : nil;
-            NSComparisonResult result = [num1 compare:num2];
-            return result;
-        }];
-        self.peripherals = [resultArray mutableCopy];
-        //发送通知 ，VHSScanFitBraceletController页面刷新设备列表
-        [[NSNotificationCenter defaultCenter] postNotificationName:DeviceDidScanBLEsNotification object:nil userInfo:@{DeviceDidScanBLEsUserInfoKey: self.peripherals}];
-    }
-}
-
-// 连接外围手环设备回调
-- (void)ASDKBLEManagerConnectWithState:(BOOL)success andCBCentral:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error{
-    if (success) {
-        [[SharePeripheral sharePeripheral] DiscoerService];
-        // 本地保存手环连接时间
-        [VHSCommon setShouHuanConnectedTime:[VHSCommon getYmdFromDate:[NSDate date]]];
-    } else {
-        CLog(@"连接失败：%@",error);
-    }
-}
-
-// 断开外围手环设备回调
-- (void)ASDKBLEManagerDisConnectWithCBCentral:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
-    CLog(@"xl断开连接：%@",error);
-}
-
-// 判断蓝牙是否开启
-- (void)callBackBleManagerState:(CBCentralManagerState)powerState {
-    // 开启蓝牙
-    if (CBCentralManagerStatePoweredOn == powerState) {
-        [VHSStepAlgorithm shareAlgorithm].CBState = CBManagerStatePoweredOn;
-    }
-    // 蓝牙关闭
-    else if (CBCentralManagerStatePoweredOff == powerState) {
-        [VHSStepAlgorithm shareAlgorithm].CBState = CBManagerStatePoweredOff;
-    }
-}
-
-//此方法是已经绑定手环，下次进入会调用此方法
-- (void)callBackReconect:(NSString *)uuidString{
-    //加上这2句代码，防止多次连接设备   note by xulong
-    CBPeripheral *peri = [ShareDataSdk shareInstance].peripheral;
-    if (peri && peri.state == CBPeripheralStateDisconnected) return;
-    
-    NSString *uuid = [k_UserDefaults objectForKey:k_SHOUHUAN_UUID];
-    NSString *name = [k_UserDefaults objectForKey:k_SHOUHUAN_NAME];
-    [[SharePeripheral sharePeripheral].bleMolue ASDKSendConnectDevice:uuid];
-    [SharePeripheral sharePeripheral].bleName = name;
-}
-
-- (void)syncFitBleData:(void (^)(int errorCode))syncBlock {
-    // 设备未连接
-    if ([ShareDataSdk shareInstance].peripheral.state != CBPeripheralStateConnected) {
-        if (syncBlock) syncBlock(100);
-        return;
-    }
-    
-    ASDKGetHandringData *ASDKHandler = [[ASDKGetHandringData alloc] init];
-    [ASDKHandler ASDKSendRequestSportDataForTodayWithUpdateBlock:^(id object, int errorCode) {
-        // 同步成功
-        if (errorCode == SUCCESS) {
-            // 插入一条数据到当前数据库中
-        }
-        if (syncBlock) {
-            syncBlock(errorCode);
-        }
-    }];
 }
 
 #pragma mark - AppPay
@@ -402,24 +270,11 @@ static BOOL isBackGroundActivateApplication;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStateDisbind) {
-        [[ShareDataSdk shareInstance].peripheral removeObserver:self forKeyPath:@"state"];
-    }
+
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // 监测手环连接状态的变化
-    if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindDisConnected) {
-        [[VHSStepAlgorithm shareAlgorithm] shareBLE];
-        [self initConnectPeripheralSuccess:^{
-            if ([VHSStepAlgorithm shareAlgorithm].CBState != CBManagerStatePoweredOn) return;
-            
-            [[VHSStepAlgorithm shareAlgorithm] tryReconnectedBracelet];
-            // 监测蓝牙状态改变
-            [[ShareDataSdk shareInstance].peripheral addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-        }];
-    }
-    else if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindConnected) {
+    if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindConnected) {
         // 同步手环数据
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [[VHSStepAlgorithm shareAlgorithm] asynDataFromBraceletToMobileDB:^{
@@ -441,20 +296,6 @@ static BOOL isBackGroundActivateApplication;
 //内存警告
 -(void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
     DLog(@"内存警告");
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"state"]) {
-        NSInteger changeValue = [[change objectForKey:@"new"] integerValue];
-        if (changeValue == CBPeripheralStateConnected) {
-            // 同步手环数据
-            [[VHSStepAlgorithm shareAlgorithm] asynDataFromBraceletToMobileDB:^{
-                [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
-                [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
-            }];
-        }
-        
-    }
 }
 
 #pragma mark - UIApplicationShortcut Item Handle

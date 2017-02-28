@@ -17,22 +17,12 @@
 @interface VHSStepAlgorithm ()
 
 @property (nonatomic, strong) NSTimer *bleTimer;
-@property (nonatomic, strong) ASDKGetHandringData *ASDKHandler;
 
 @property (nonatomic, assign) NSInteger lastSynaM7Steps;
 
 @end
 
 @implementation VHSStepAlgorithm
-
-#pragma mark - override getter method 
-
--(ASDKGetHandringData *)ASDKHandler {
-    if (!_ASDKHandler) {
-        _ASDKHandler = [[ASDKGetHandringData alloc] init];
-    }
-    return _ASDKHandler;
-}
 
 #pragma mark - 初始化
 
@@ -56,30 +46,6 @@
         [dm createTable];
     }
     return self;
-}
-
-- (void)shareBLE {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        // 手环初始化
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunused-variable"
-        ASDKShareFunction *asdk = [[ASDKShareFunction alloc] init];
-#pragma clang diagnostic pop
-        [SharePeripheral sharePeripheral].bleMolue = [[ASDKBleModule alloc] init];
-    });
-}
-
-#pragma mark - 尝试重新绑定手环
-
-- (void)tryReconnectedBracelet {
-    AppDelegate *delegate = APP_DELEGATE;
-    [delegate initConnectPeripheralSuccess:nil];
-    if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindDisConnected) {
-        NSString *uuid = [k_UserDefaults objectForKey:k_SHOUHUAN_UUID];
-        if (!uuid) return;
-        [[SharePeripheral sharePeripheral].bleMolue ASDKSendConnectDevice:uuid];
-    }
 }
 
 - (void)start {
@@ -248,10 +214,6 @@
     return _pedometer;
 }
 
-- (void)printCurrentVC {
-    CLog(@"%@", NSStringFromClass([self class]));
-}
-
 #pragma mark - 同步手环数据到手机
 
 - (void)asynDataFromBraceletToMobileDB:(void (^)())syncSuccess {
@@ -309,27 +271,22 @@
 }
 
 - (void)asynDataMySelfTable:(void (^)(int errorCode))syncBlock {
-    [self.ASDKHandler ASDKSendRequestSportDataForTodayWithUpdateBlock:^(id object, int errorCode) {
-        if (!syncBlock) return;
-        syncBlock(errorCode);
+    [[SharePeripheral sharePeripheral] getBraceletorSendSportDataForThedayWithCallBack:^(id object, int errorCode) {
+        if (syncBlock) syncBlock(errorCode);
     }];
 }
 
 /// 获取手环中指定一天的数据
 - (void)sportDayWithDate:(NSString *)date sportBlock:(void (^)(ProtocolSportDataModel *sportData))sportDataBlock {
-    ASDKGetHandringData *handler = [[ASDKGetHandringData alloc] init];
-    ProtocolSportDataModel *daySport = [handler ASDKSendGetSportData:date
-                                                       AndDevicePkId:[k_UserDefaults objectForKey:k_SHOUHUAN_MAC_ADDRESS]];
+    ProtocolSportDataModel *daySport = [[SharePeripheral sharePeripheral] getBraceletorSportBySpecifiedDay:date andHandMac:[VHSCommon getShouHuanMacSddress]];;
     if (sportDataBlock) {
         sportDataBlock(daySport);
     }
 }
 /// 获取手环实时的信息
 - (void)realtimeBraceletDataBlock:(void (^)(ProtocolLiveDataModel *liveData))realtimeBlock {
-    [self.ASDKHandler ASDKSendDataToAcceptRealTimeDataWithUpdateBlock:^(ProtocolLiveDataModel *object, int errorCode) {
-        if (realtimeBlock) {
-            realtimeBlock(object);
-        }
+    [[SharePeripheral sharePeripheral] getBraceletorRealtimeDataWithCallBack:^(ProtocolLiveDataModel *object, int errorCode) {
+        if (realtimeBlock) realtimeBlock(object);
     }];
 }
 

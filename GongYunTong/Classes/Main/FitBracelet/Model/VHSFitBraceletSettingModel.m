@@ -10,13 +10,16 @@
 
 @implementation VHSFitBraceletSettingModel
 
-
-+(instancetype)settingModelWithImage:(NSString *)settinImage operation:(NSString *)settingOperation operationDetail:(NSString *)settingOperationDetail
-{
-    VHSFitBraceletSettingModel *model=[[VHSFitBraceletSettingModel alloc]init];
-    model.settingImage=settinImage;
-    model.settingOperation=settingOperation;
-    model.settingOperationDetail=settingOperationDetail;
-    return model;
+- (instancetype)initWithImageName:(NSString *)imgName settingOperation:(NSString *)settingOperation operationTime:(NSString *)operationTime {
+    self = [super init];
+    if (!self) return nil;
+    
+    _settingImage = imgName;
+    _settingOperation = settingOperation;
+    _settingOperationDetail = operationTime;
+    
+    return self;
 }
+
+
 @end

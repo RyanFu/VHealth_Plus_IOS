@@ -81,8 +81,7 @@
 }
 
 //设置状态栏中字体颜色为白色
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
+- (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
 
@@ -317,7 +316,6 @@
 - (void)stepsTap:(UIGestureRecognizer *)tap {
     VHSAllStepsController *stepsVC = (VHSAllStepsController *)[StoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSAllStepsController"];
     [self.navigationController pushViewController:stepsVC animated:YES];
-    CLog(@"点击了所有步数");
 }
 
 #pragma mark - kvo
@@ -333,30 +331,27 @@
         // 手环跨天时候，可能在获取实时手环数据未获取，但是上次同步数据有，导致了负数
         self.sumSteps = self.sumSteps > 0 ? self.sumSteps : 0;
         
-        CLog(@"--real-%@--db-%ld--last-%ld--sum-%ld", realtimeSteps, (long)dbSteps, (long)lastSyncSteps, (long)self.sumSteps);
+        [VHSGlobalDataManager shareGlobalDataManager].recordAllSteps = self.sumSteps;
         
         NSString *stepTotal = [NSString stringWithFormat:@"%@", @(self.sumSteps)];
-        // 步数转为公里数据
-        self.kilometre = [[VHSCommon getUserDefautForKey:k_Steps_To_Kilometre_Ratio] doubleValue] * self.sumSteps;
-       
+        self.kilometre = [[VHSCommon getUserDefautForKey:k_Steps_To_Kilometre_Ratio] doubleValue] * self.sumSteps; // 步数转为公里数据
         _stepsLabel.text =  [NSString stringWithFormat:@"%@步",stepTotal];
 
         [self setLabel:_stepsLabel labelText:_stepsLabel.text attriText:stepTotal];
+        
+        CLog(@"--real-%@--db-%ld--last-%ld--sum-%ld", realtimeSteps, (long)dbSteps, (long)lastSyncSteps, (long)self.sumSteps);
     }
 }
 
 /// 从谐处理器中获取数据
 - (void)stepLabelDataChange {
-    NSInteger steps = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue]
-                                                                                date:[VHSCommon getYmdFromDate:[NSDate date]]];
+    NSInteger steps = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
+    [VHSGlobalDataManager shareGlobalDataManager].recordAllSteps = steps;
     self.sumSteps = steps;
     // 步数转为公里数据
     self.kilometre = [[VHSCommon getUserDefautForKey:k_Steps_To_Kilometre_Ratio] doubleValue] * self.sumSteps;
-
-    NSString *str = [NSString stringWithFormat:@"%ld",(long)self.sumSteps];
-    _stepsLabel.text =  [NSString stringWithFormat:@"%@步",str];
-
-    [self setLabel:_stepsLabel labelText:_stepsLabel.text attriText:str];
+    _stepsLabel.text =  [NSString stringWithFormat:@"%@步",@(self.sumSteps)];
+    [self setLabel:_stepsLabel labelText:_stepsLabel.text attriText:[@(self.sumSteps) stringValue]];
 }
 /// 设置label的属性化
 - (void)setLabel:(UILabel *)label labelText:(NSString *)text attriText:(NSString *)attriText {

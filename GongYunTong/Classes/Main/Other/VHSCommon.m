@@ -14,7 +14,6 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "KeyChainStore.h"
 
-NSString *const DeviceDidScanBLEsNotification = @"DeviceDidScanBLEsNotificationKey";
 NSString *const DeviceDidScanBLEsUserInfoKey = @"DeviceDidScanBLEsUserInfoKey";
 NSString *const DeviceDidConnectedBLEsNotification = @"DeviceDidConnectedBLEsNotificationKey";
 NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedBLEsUserInfoPeripheral";
