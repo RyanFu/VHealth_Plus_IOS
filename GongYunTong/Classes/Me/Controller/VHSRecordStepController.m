@@ -56,7 +56,10 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [self sumStepsFromDB];
+    if (!self.sumSteps) {
+        self.sumSteps = [self getStepsFromDB];
+    }
+    [VHSGlobalDataManager shareGlobalDataManager].recordAllSteps = self.sumSteps;
     
     [self initUI];
     
@@ -369,8 +372,9 @@
 
 #pragma mark - 从本地获取一天的的所有步数
 
-- (void)sumStepsFromDB {
+- (NSInteger)getStepsFromDB {
     self.sumStepsOnDB = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userDetailInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
+    return self.sumStepsOnDB;
 }
 
 #pragma mark - 手动同步到服务段

@@ -34,6 +34,8 @@
 
 @end
 
+static NSTimeInterval VHS_BLE_BIND_DURATION     = 15;
+
 @implementation VHSScanBraceletController
 
 #pragma mark - override getter method 
@@ -202,7 +204,7 @@
 }
 
 - (void)showAlertAfterBind {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"绑定手环后，手环数据将作为计步数据的唯一来源" delegate:self cancelButtonTitle:nil otherButtonTitles:@"知道了", nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:CONST_BRACELTE_BIND_SUCESS_TIP delegate:self cancelButtonTitle:nil otherButtonTitles:@"知道了", nil];
     [alertView show];
 }
 
@@ -273,11 +275,9 @@
 }
 
 - (void)toSendConnectDevice:(PeripheralModel *)model {
-    [MBProgressHUD showMessage:nil];
-    
+    [MBProgressHUD showDelay:VHS_BLE_BIND_DURATION];
     [[SharePeripheral sharePeripheral] connectBraceletorWithBleUUID:model.UUID];
 }
-
 /// 还原Cell的状态
 - (void)recoverCell {
     [self.bindCell.bingButton setTitle:@"点击绑定" forState:UIControlStateNormal];

@@ -56,6 +56,7 @@ static NSString * const CONST_OPEN_ACCOUNT_SUCCESS                  = @"开通�
 #pragma mark - App中的常量
 
 static NSString *const CONST_GET_DATA_FROM_BRACELET             = @"获取设备数据到手机";
+static NSString *const CONST_BRACELTE_BIND_SUCESS_TIP           = @"绑定手环后，手环数据将作为计步数据的唯一来源";
 
 
 #pragma mark - 状态码的定义 ==============================状态码=====================================
