@@ -209,7 +209,7 @@ CGFloat const settingFooterHeight=106;
             action.memberId = [[VHSCommon userInfo].memberId stringValue];
             action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
             action.actionType = @"1";
-            action.step = [NSString stringWithFormat:@"%u", liveData.step - lastSyncSteps];
+            action.step = [NSString stringWithFormat:@"%ld", liveData.step - lastSyncSteps];
             action.upload = 0;
             action.endTime = [VHSCommon getDate:[NSDate date]];
             [[VHSStepAlgorithm shareAlgorithm] insertOrUpdateBleAction:action];

@@ -288,6 +288,8 @@
         action.recordTime = record_time;
         action.score = score;
         action.upload = upload;
+        // 没有mac地址，表示手机
+        if ([VHSCommon isNullString:mac_address]) mac_address = @"0";
         action.macAddress = mac_address;
         
         [arr addObject:action];

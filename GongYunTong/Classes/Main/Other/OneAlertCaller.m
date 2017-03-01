@@ -15,8 +15,8 @@
 
 @end
 
-static NSString *onekeyTitle = @"好人生健康专家热线";
-static NSString *onekeyContent = @"饮食 养生 运动 疾病防治 就医 用药 康复";
+static NSString *const onekeyTitle = @"好人生健康专家热线";
+static NSString *const onekeyContent = @"饮食 养生 运动 疾病防治 就医 用药 康复";
 
 @implementation OneAlertCaller
 

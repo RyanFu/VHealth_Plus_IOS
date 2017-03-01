@@ -154,5 +154,9 @@
     CLog(@"tempPath:\n%@", tempPath);
 }
 
+- (void)dealloc {
+    CLog(@"%@ be dealloc", NSStringFromClass([self class]));
+}
+
 
 @end

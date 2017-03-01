@@ -192,7 +192,7 @@
                                                   action.actionType = @"2";
                                                   action.upload = 0;
                                                   action.macAddress = @"0";
-                                                  action.step = [NSString stringWithFormat:@"%d", pedometerData.numberOfSteps.integerValue - self.lastSynaM7Steps];
+                                                  action.step = [NSString stringWithFormat:@"%ld", pedometerData.numberOfSteps.integerValue - self.lastSynaM7Steps];
                                                   action.startTime = [VHSCommon getDate:[NSDate date]];
                                                   action.endTime = [VHSCommon getDate:[NSDate date]];
                                                   action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];

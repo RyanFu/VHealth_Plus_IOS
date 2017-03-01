@@ -192,7 +192,7 @@
             UserInfoCell *cell = (UserInfoCell *)[tableView dequeueReusableCellWithIdentifier:@"UserInfoCell" forIndexPath:indexPath];
             cell.headerImageUrl = @"icon_steps";
             cell.cellTitle = @"计步";
-            cell.cellInfo = [NSString stringWithFormat:@"今日%@步", @(self.todaySteps)];
+            cell.cellInfo = [NSString stringWithFormat:@"今日%@步", @(self.recordAllSteps)];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             return cell;
         }
@@ -274,9 +274,9 @@
             recordStepVC.callback = ^(NSInteger steps) {
                 UserInfoCell *cell = [tableView cellForRowAtIndexPath:indexPath];
                 cell.cellInfo = [NSString stringWithFormat:@"今日%ld步", (long)steps];
-                weakSelf.todaySteps = steps;
+                weakSelf.recordAllSteps = steps;
             };
-            recordStepVC.sumSteps = self.todaySteps;
+            recordStepVC.sumSteps = self.recordAllSteps;
             [self.navigationController pushViewController:recordStepVC animated:YES];
         }
         else if (indexPath.row == 1) {
