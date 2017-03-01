@@ -37,6 +37,8 @@ static NSString * const TOAST_SIGN_FAILURE              = @"签到失败";
 static NSString * const TOAST_CLUB_BBS_POSTING          = @"帖子发送中";
 static NSString * const TOAST_CLUB_NOTICE_POSTING       = @"公告发布中";
 static NSString * const TOAST_CLUB_REPLYING             = @"回复中";
+static NSString * const TOAST_NEED_INPUT_MOBILE         = @"请输入手机号";
+static NSString * const TOAST_NEED_INPUT_VERCODE        = @"请输入验证码";
 
 #pragma mark - 全局使用的汉字文本
 
@@ -49,6 +51,7 @@ static NSString * const CONST_CLUB_ADD_BBS                          = @"发帖�
 static NSString * const CONST_CLUB_ADD_NOTICE                       = @"发公告";
 static NSString * const CONST_REPLY                                 = @"回复";
 static NSString * const CONST_EDIT_NOTICE                           = @"编辑公告";
+static NSString * const CONST_OPEN_ACCOUNT_SUCCESS                  = @"开通账号成功";
 
 
 #pragma mark - 状态码的定义 ==============================状态码=====================================

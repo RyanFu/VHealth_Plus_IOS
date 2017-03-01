@@ -22,6 +22,7 @@
 #import "VHSMeScoreCell.h"
 #import "VHSNoStypeCell.h"
 #import "OneAlertCaller.h"
+#import "VHSInvitationController.h"
 
 @interface VHSMeController ()<UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -146,7 +147,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 3) {
+    if (section == 3 || section == 2) {
         return 2;
     } else {
         return 1;
@@ -185,12 +186,22 @@
         return cell;
     }
     else if (indexPath.section == 2) {
-        UserInfoCell *cell = (UserInfoCell *)[tableView dequeueReusableCellWithIdentifier:@"UserInfoCell" forIndexPath:indexPath];
-        cell.headerImageUrl = @"icon_steps";
-        cell.cellTitle = @"计步";
-        cell.cellInfo = [NSString stringWithFormat:@"今日%@步", @(self.todaySteps)];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        return cell;
+        if (indexPath.row == 0) {
+            UserInfoCell *cell = (UserInfoCell *)[tableView dequeueReusableCellWithIdentifier:@"UserInfoCell" forIndexPath:indexPath];
+            cell.headerImageUrl = @"icon_steps";
+            cell.cellTitle = @"计步";
+            cell.cellInfo = [NSString stringWithFormat:@"今日%@步", @(self.todaySteps)];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            return cell;
+        }
+        else if (indexPath.row == 1) {
+            UserInfoCell *cell = (UserInfoCell *)[tableView dequeueReusableCellWithIdentifier:@"UserInfoCell" forIndexPath:indexPath];
+            cell.headerImageUrl = @"vhs_me_invation";
+            cell.cellTitle = @"邀请开通";
+            cell.cellInfo = @"";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            return cell;
+        }
     }
     else if (indexPath.section == 3) {
         if (indexPath.row == 0) {
@@ -252,18 +263,26 @@
         };
         [self.navigationController pushViewController:scoreVC animated:YES];
     }
-    else if (indexPath.section == 2 && indexPath.row == 0) {
+    else if (indexPath.section == 2) {
         // 计步
-        __weak __typeof(self)weakSelf = self;
-        VHSRecordStepController *recordStepVC = [[VHSRecordStepController alloc] init];
-        recordStepVC.hidesBottomBarWhenPushed = YES;
-        recordStepVC.callback = ^(NSInteger steps) {
-            UserInfoCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-            cell.cellInfo = [NSString stringWithFormat:@"今日%ld步", (long)steps];
-            weakSelf.todaySteps = steps;
-        };
-        recordStepVC.sumSteps = self.todaySteps;
-        [self.navigationController pushViewController:recordStepVC animated:YES];
+        if (indexPath.row == 0) {
+            __weak __typeof(self)weakSelf = self;
+            VHSRecordStepController *recordStepVC = [[VHSRecordStepController alloc] init];
+            recordStepVC.hidesBottomBarWhenPushed = YES;
+            recordStepVC.callback = ^(NSInteger steps) {
+                UserInfoCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                cell.cellInfo = [NSString stringWithFormat:@"今日%ld步", (long)steps];
+                weakSelf.todaySteps = steps;
+            };
+            recordStepVC.sumSteps = self.todaySteps;
+            [self.navigationController pushViewController:recordStepVC animated:YES];
+        }
+        else if (indexPath.row == 1) {
+            // 邀请开通
+            VHSInvitationController *invitationVC = [[VHSInvitationController alloc] init];
+            invitationVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:invitationVC animated:YES];
+        }
     }
     else if (indexPath.section == 3) {
         if (indexPath.row == 0) {

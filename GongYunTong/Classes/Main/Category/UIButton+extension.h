@@ -17,4 +17,6 @@
  */
 - (void)countDownWithSeconds:(NSInteger)seconds;
 
+- (void)countdownDonotChangeWithSeconds:(NSInteger)seconds;
+
 @end

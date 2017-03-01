@@ -112,6 +112,10 @@
 		33661D151E51766F00B38D8B /* ClubMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 33661D131E51766F00B38D8B /* ClubMember.m */; };
 		3371B3801E1B6265007A285A /* AES128Util.h in Headers */ = {isa = PBXBuildFile; fileRef = 3371B37E1E1B6265007A285A /* AES128Util.h */; };
 		3371B3811E1B6265007A285A /* AES128Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 3371B37F1E1B6265007A285A /* AES128Util.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		337E0BBA1E656D4100C31C43 /* VHSInvitationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 337E0BB81E656D4100C31C43 /* VHSInvitationController.h */; };
+		337E0BBB1E656D4100C31C43 /* VHSInvitationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 337E0BB91E656D4100C31C43 /* VHSInvitationController.m */; };
+		337E0BBE1E65882700C31C43 /* VHSAccountNiceView.h in Headers */ = {isa = PBXBuildFile; fileRef = 337E0BBC1E65882700C31C43 /* VHSAccountNiceView.h */; };
+		337E0BBF1E65882700C31C43 /* VHSAccountNiceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 337E0BBD1E65882700C31C43 /* VHSAccountNiceView.m */; };
 		338171861DAC985A00ACB4A0 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3381717F1DAC985A00ACB4A0 /* TAAbstractDotView.m */; };
 		338171871DAC985A00ACB4A0 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 338171811DAC985A00ACB4A0 /* TAAnimatedDotView.m */; };
 		338171881DAC985A00ACB4A0 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 338171831DAC985A00ACB4A0 /* TADotView.m */; };
@@ -407,6 +411,10 @@
 		3371B37F1E1B6265007A285A /* AES128Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AES128Util.m; sourceTree = "<group>"; };
 		337408171DE5405900D142DA /* GongYunTong.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = GongYunTong.entitlements; sourceTree = "<group>"; };
 		337408181DE5416B00D142DA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		337E0BB81E656D4100C31C43 /* VHSInvitationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSInvitationController.h; sourceTree = "<group>"; };
+		337E0BB91E656D4100C31C43 /* VHSInvitationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSInvitationController.m; sourceTree = "<group>"; };
+		337E0BBC1E65882700C31C43 /* VHSAccountNiceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSAccountNiceView.h; sourceTree = "<group>"; };
+		337E0BBD1E65882700C31C43 /* VHSAccountNiceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSAccountNiceView.m; sourceTree = "<group>"; };
 		3381717E1DAC985A00ACB4A0 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
 		3381717F1DAC985A00ACB4A0 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
 		338171801DAC985A00ACB4A0 /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
@@ -1564,6 +1572,8 @@
 				3364D1E91DC7668D00E8A3FF /* VHSFitBraceletHelpController.h */,
 				3364D1EA1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m */,
 				3364D1EB1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib */,
+				337E0BB81E656D4100C31C43 /* VHSInvitationController.h */,
+				337E0BB91E656D4100C31C43 /* VHSInvitationController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1600,6 +1610,8 @@
 				33E7F5591DC7270C00642D5D /* ScanNoDevice.h */,
 				33E7F55A1DC7270C00642D5D /* ScanNoDevice.m */,
 				33E7F55C1DC7272700642D5D /* ScanNoDevice.xib */,
+				337E0BBC1E65882700C31C43 /* VHSAccountNiceView.h */,
+				337E0BBD1E65882700C31C43 /* VHSAccountNiceView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1716,6 +1728,7 @@
 				3302FF9A1E27643E00295493 /* VHSClubController.h in Headers */,
 				3301A7D11E2868CA0035CDA3 /* VHSClubSessionCell.h in Headers */,
 				3364905B1E4874BC006F0570 /* HUImagePickerViewController.h in Headers */,
+				337E0BBE1E65882700C31C43 /* VHSAccountNiceView.h in Headers */,
 				3302FF9E1E276DD900295493 /* ClubModel.h in Headers */,
 				3364900D1E484AE5006F0570 /* VHSCommentController.h in Headers */,
 				336490591E4874BC006F0570 /* HUImagePickerRootViewController.h in Headers */,
@@ -1724,6 +1737,7 @@
 				3364904F1E4874BC006F0570 /* HUAlbumCell.h in Headers */,
 				336490561E4874BC006F0570 /* HUImagePickerCell.h in Headers */,
 				3304BB5C1DED62F600EDBC6B /* UserInfoModel.h in Headers */,
+				337E0BBA1E656D4100C31C43 /* VHSInvitationController.h in Headers */,
 				33E14E1B1DFA7D760021688D /* DynamicItemModel.h in Headers */,
 				33F6FAC11DF7DE29005510D4 /* VHSEnterpriseDynamicCell.h in Headers */,
 				333F396C1DFBD52C005A43AA /* OneAlertCaller.h in Headers */,
@@ -2001,6 +2015,7 @@
 				6704636F1D40C56B0051A9F6 /* UIView+SDExtension.m in Sources */,
 				671217DA1D3F3F99004CFD14 /* VHSCommon.m in Sources */,
 				33640B5E1D9224BC00B34C8B /* KeyChainStore.m in Sources */,
+				337E0BBF1E65882700C31C43 /* VHSAccountNiceView.m in Sources */,
 				336490501E4874BC006F0570 /* HUAlbumCell.m in Sources */,
 				338171871DAC985A00ACB4A0 /* TAAnimatedDotView.m in Sources */,
 				33CBF3351D755A5E00D39452 /* UILabel+extension.m in Sources */,
@@ -2082,6 +2097,7 @@
 				670463751D40C7940051A9F6 /* VHSDynamicHomeController.m in Sources */,
 				3301A7D21E2868CA0035CDA3 /* VHSClubSessionCell.m in Sources */,
 				338C61571D59837F004CFE18 /* VHSDataBaseManager.m in Sources */,
+				337E0BBB1E656D4100C31C43 /* VHSInvitationController.m in Sources */,
 				CA58AAC21D586C3B0076BA42 /* ActivityIndicatorView.m in Sources */,
 				338C61BA1D59D2BE004CFE18 /* VHSFitBraceletStateManager.m in Sources */,
 				6793203B1D41D1A5004B0CEA /* VHSDiscoverController.m in Sources */,
