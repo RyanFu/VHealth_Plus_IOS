@@ -8,7 +8,6 @@
 
 #import "VHSScanBraceletController.h"
 #import "VHSScanDeviceCell.h"
-#import "SharePeripheral.h"
 #import "MBProgressHUD+VHS.h"
 #import "UIView+animation.h"
 #import "VHSFitBraceletStateManager.h"
@@ -53,15 +52,16 @@ static NSTimeInterval VHS_BLE_BIND_DURATION     = 15;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 
-    [[SharePeripheral sharePeripheral] scanBraceletorDuration:5.0 process:^{
-        [self scanBracelet];
+    __weak VHSScanBraceletController *weakSelf = self;
+    [[VHSBraceletCoodinator sharePeripheral] scanBraceletorDuration:5.0 process:^{
+        [weakSelf scanBracelet];
     } completion:^(NSArray<PeripheralModel *> *braceletorList) {
-        self.peripheralArray = braceletorList;
-        [self.tableView reloadData];
+        weakSelf.peripheralArray = braceletorList;
+        [weakSelf.tableView reloadData];
         
-        if ([self.peripheralArray count] > 0) {
-            self.footerViewTip.hidden = NO;
-            self.footerView.hidden = NO;
+        if ([weakSelf.peripheralArray count] > 0) {
+            weakSelf.footerViewTip.hidden = NO;
+            weakSelf.footerView.hidden = NO;
         }
     }];
     
@@ -139,7 +139,7 @@ static NSTimeInterval VHS_BLE_BIND_DURATION     = 15;
 - (void)netWorkJudgeIsBindBLE:(CBPeripheral *)peripheral {
     if (![VHSCommon isNetworkAvailable]) {
         [VHSToast toast:TOAST_BLE_BIND_NO_NOTWORK];
-        [[SharePeripheral sharePeripheral] disconnectBraceletorWithPeripheral:peripheral];
+        [[VHSBraceletCoodinator sharePeripheral] disconnectBraceletorWithPeripheral:peripheral];
         return;
     }
     // 预绑定
@@ -156,7 +156,7 @@ static NSTimeInterval VHS_BLE_BIND_DURATION     = 15;
                 }
             }];
         } else {
-            [[SharePeripheral sharePeripheral] disconnectBraceletorWithPeripheral:peripheral];
+            [[VHSBraceletCoodinator sharePeripheral] disconnectBraceletorWithPeripheral:peripheral];
             [MBProgressHUD hiddenHUD];
             [VHSToast toast:result[@"info"]];
             [weakSelf recoverCell];
@@ -170,7 +170,7 @@ static NSTimeInterval VHS_BLE_BIND_DURATION     = 15;
     
     __weak VHSScanBraceletController *weakSelf = self;
     // 已经连接成功,开始绑定
-    [[SharePeripheral sharePeripheral] braceletorGotoBindWithCallBack:^(int errorCode) {
+    [[VHSBraceletCoodinator sharePeripheral] braceletorGotoBindWithCallBack:^(int errorCode) {
         CLog(@"----->>>> 手环绑定成功");
         [MBProgressHUD hiddenHUD];
         if (errorCode == SUCCESS) {
@@ -178,7 +178,7 @@ static NSTimeInterval VHS_BLE_BIND_DURATION     = 15;
             [weakSelf showAlertAfterBind];
             // 绑定成功后本地存储
             ShareDataSdk *shareData = [ShareDataSdk shareInstance];
-            [SharePeripheral sharePeripheral].bleName = shareData.peripheral.name;
+            [VHSBraceletCoodinator sharePeripheral].bleName = shareData.peripheral.name;
             [VHSFitBraceletStateManager BLEbindSuccessWithBLEName:shareData.peripheral.name UUID:shareData.uuidString macAddress:shareData.smart_device_id];
             
             // 获取绑定时刻手环的数据
@@ -276,7 +276,7 @@ static NSTimeInterval VHS_BLE_BIND_DURATION     = 15;
 
 - (void)toSendConnectDevice:(PeripheralModel *)model {
     [MBProgressHUD showDelay:VHS_BLE_BIND_DURATION];
-    [[SharePeripheral sharePeripheral] connectBraceletorWithBleUUID:model.UUID];
+    [[VHSBraceletCoodinator sharePeripheral] connectBraceletorWithBleUUID:model.UUID];
 }
 /// 还原Cell的状态
 - (void)recoverCell {

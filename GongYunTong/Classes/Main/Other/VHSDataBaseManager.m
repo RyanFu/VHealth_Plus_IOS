@@ -38,13 +38,17 @@
 
 // 用户数据库创建处理
 - (void)createDB {
-    // 用户数据库不存在时，新建
+    // 用户数据库不存在时，新建 - 第一次安装
     if (![[NSFileManager defaultManager] fileExistsAtPath:[self dbPath]]) {
+        [self createTable];
         [VHSCommon saveDataBaseVersion];
     } else {
+        // 覆盖安装
         NSInteger version = [VHSCommon getDatabaseVersion];
-        // 当前数据库版本和定义的数据库版本不一致
-        if (version != k_VHS_DataBase_Version) {}
+        if (version == k_VHS_DataBase_Version) return;
+        
+        [self alterTableToAddColumn];
+        [VHSCommon saveDataBaseVersion];
     }
 }
 
@@ -76,7 +80,9 @@
     'record_time'           VARCHAR(36),\
     'score'                 VARCHAR(36),\
     'upload'                INTEGER,\
-    'mac_address'           VARCHAR(36)\
+    'mac_address'           VARCHAR(36),\
+    'floor_asc'             VARCHAR(36),\
+    'floor_des'             VARCHAR(36)\
     )";
     [db executeUpdate:createSportTableSql];
     [db close];
@@ -103,6 +109,17 @@
     [db close];
 }
 
+- (void)alterTableToAddColumn {
+    NSString *alterAddFloorAscSql = @"alter table action_lst add floor_asc varchar(36);";
+    NSString *alterAddFloorDesSql = @"alter table action_lst add floor_des varchar(36);";
+    
+    FMDatabase *db = [self getFmdb];
+    [db open];
+    [db executeUpdate:alterAddFloorAscSql];
+    [db executeUpdate:alterAddFloorDesSql];
+    [db close];
+}
+
 // 更新用户运动信息的上传状态
 -(void)updateStatusToActionLst:(NSString *)recordTime macAddress:(NSString *)macAddress distance:(NSString *)distance {
     
@@ -113,9 +130,9 @@
     
     BOOL res = [db executeUpdate:sql];
     if (res) {
-        DLog(@"更新－－－运动信息一览表－－－状态－－－成功");
+        CLog(@"更新－－－运动信息一览表－－－状态－－－成功");
     } else {
-        DLog(@"更新－－－运动信息一览表－－－状态－－－失败");
+        CLog(@"更新－－－运动信息一览表－－－状态－－－失败");
     }
     
     [db close];
@@ -134,7 +151,7 @@
         FMDatabase *db = [self getFmdb];
         [db open];
     
-        NSString *insertSql = @"INSERT INTO action_lst (action_id, member_id, action_mode, action_type, distance, seconds, calorie, step, start_time, end_time, record_time, score, upload, mac_address) VALUES (? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        NSString *insertSql = @"INSERT INTO action_lst (action_id, member_id, action_mode, action_type, distance, seconds, calorie, step, start_time, end_time, record_time, score, upload, mac_address, floor_asc, floor_des) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
         flag = [db executeUpdate:insertSql,
                 action.actionId,
@@ -150,7 +167,9 @@
                 action.recordTime,
                 action.score,
                 @(action.upload),
-                action.macAddress];
+                action.macAddress,
+                action.floorAes,
+                action.floorDes];
         
         [db close];
         

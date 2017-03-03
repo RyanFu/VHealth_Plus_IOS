@@ -18,7 +18,6 @@
 #import "VHSFitBraceletStateManager.h"
 #import "VHSStepAlgorithm.h"
 #import "PublicWKWebViewController.h"
-#import "SharePeripheral.h"
 #import "VHSEnterpriseDynamicCell.h"
 #import "VHSDynamicConfigurationCell.h"
 #import "IconItem.h"

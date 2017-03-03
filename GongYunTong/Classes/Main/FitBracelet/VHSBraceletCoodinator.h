@@ -12,9 +12,9 @@
 
 typedef void(^BLEDataAcceptCallBack)(id object, int errorCode);
 
-@interface SharePeripheral : NSObject
+@interface VHSBraceletCoodinator : NSObject
 
-+ (SharePeripheral *)sharePeripheral;
++ (VHSBraceletCoodinator *)sharePeripheral;
 
 @property (nonatomic, strong, readonly) ASDKBleModule *bleMolue;
 @property (nonatomic, strong, readonly) ASDKGetHandringData *bleHandringDataer;

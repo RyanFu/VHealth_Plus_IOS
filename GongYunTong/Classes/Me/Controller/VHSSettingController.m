@@ -155,7 +155,7 @@
         if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindConnected) {
             //连接状态下解绑
             [MBProgressHUD showMessage:@"正在解绑..."];
-            [[SharePeripheral sharePeripheral] braceletorGotoBindWithCallBack:^(int errorCode) {
+            [[VHSBraceletCoodinator sharePeripheral] braceletorGotoUnbindWithCallBack:^(int errorCode) {
                 [MBProgressHUD hiddenHUD];
                 if (errorCode == SUCCESS) {
                     [VHSToast toast:TOAST_BLE_UNBIND_SUCCESS];

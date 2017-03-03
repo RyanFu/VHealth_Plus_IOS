@@ -12,6 +12,8 @@
 
 @property (nonatomic, assign) NSInteger recordAllSteps;
 
+@property (nonatomic, strong) NSNumber *phoneAllSteps;
+
 + (VHSGlobalDataManager *)shareGlobalDataManager;
 
 @end

@@ -19,7 +19,6 @@
 
 /// 创建数据库
 - (void)createDB;
-
 /// 创建表
 - (void)createTable;
 

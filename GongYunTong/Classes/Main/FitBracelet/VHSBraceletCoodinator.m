@@ -6,11 +6,11 @@
 //  Copyright © 2016年 aiju_huangjing1. All rights reserved.
 //
 
-#import "SharePeripheral.h"
+#import "VHSBraceletCoodinator.h"
 #import "VHSStepAlgorithm.h"
 #import "VHSFitBraceletStateManager.h"
 
-@interface SharePeripheral()<AsdkBleModuleDelegate>
+@interface VHSBraceletCoodinator()<AsdkBleModuleDelegate>
 
 @property (nonatomic, strong) NSMutableArray<PeripheralModel *> *peripherals;
 // 扫描结束成功回调 - 多次，每扫描到一个设备，回调一次
@@ -18,11 +18,11 @@
 
 @end
 
-@implementation SharePeripheral
+@implementation VHSBraceletCoodinator
 
-static SharePeripheral*sharePeripheral = nil;
+static VHSBraceletCoodinator *sharePeripheral = nil;
 
-+ (SharePeripheral *)sharePeripheral{
++ (VHSBraceletCoodinator *)sharePeripheral {
     static dispatch_once_t once;
     dispatch_once( &once, ^{
         sharePeripheral = [[self alloc] init];
@@ -61,7 +61,7 @@ static SharePeripheral*sharePeripheral = nil;
     self.peripherals = [NSMutableArray new];
     self.scanBleCompletionHandler = completionHandler;
     // 绑定手环前先断开手环连接信息
-    [[SharePeripheral sharePeripheral] disconnectBraceletorWithPeripheral:[ShareDataSdk shareInstance].peripheral];
+    [[VHSBraceletCoodinator sharePeripheral] disconnectBraceletorWithPeripheral:[ShareDataSdk shareInstance].peripheral];
     
     if (processHandler) processHandler();
     
@@ -158,7 +158,7 @@ static SharePeripheral*sharePeripheral = nil;
 // 连接外围手环设备回调
 - (void)ASDKBLEManagerConnectWithState:(BOOL)success andCBCentral:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error{
     if (success) {
-        [[SharePeripheral sharePeripheral].bleMolue ASDKSendDiscoverServices:peripheral];
+        [[VHSBraceletCoodinator sharePeripheral].bleMolue ASDKSendDiscoverServices:peripheral];
         if (peripheral.state == CBPeripheralStateConnected) {
             // 本地保存手环连接时间
             [VHSCommon setShouHuanConnectedTime:[VHSCommon getYmdFromDate:[NSDate date]]];
@@ -178,7 +178,7 @@ static SharePeripheral*sharePeripheral = nil;
 - (void)ASDKBLEManagerDisCoverServices:(BOOL)success Peripheral:(CBPeripheral *)peripheral error:(NSError *)error{
     if (success) {
         // 根据外围服务去查找特征
-        [[SharePeripheral sharePeripheral].bleMolue ASDKSendDiscoverCharcristic:peripheral];
+        [[VHSBraceletCoodinator sharePeripheral].bleMolue ASDKSendDiscoverCharcristic:peripheral];
     } else {
         CLog(@"---->>> 发现外围服务失败");
     }
@@ -221,7 +221,7 @@ static SharePeripheral*sharePeripheral = nil;
         self.blueToothState = CBManagerStatePoweredOff;
         
         CBPeripheral *peripheral = [ShareDataSdk shareInstance].peripheral;
-        [[SharePeripheral sharePeripheral] disconnectBraceletorWithPeripheral:peripheral];
+        [[VHSBraceletCoodinator sharePeripheral] disconnectBraceletorWithPeripheral:peripheral];
     }
 }
 
@@ -235,8 +235,8 @@ static SharePeripheral*sharePeripheral = nil;
     
     NSString *uuid = [k_UserDefaults objectForKey:k_SHOUHUAN_UUID];
     NSString *name = [k_UserDefaults objectForKey:k_SHOUHUAN_NAME];
-    [[SharePeripheral sharePeripheral].bleMolue ASDKSendConnectDevice:uuid];
-    [SharePeripheral sharePeripheral].bleName = name;
+    [[VHSBraceletCoodinator sharePeripheral].bleMolue ASDKSendConnectDevice:uuid];
+    [VHSBraceletCoodinator sharePeripheral].bleName = name;
 }
 
 #pragma mark - 蓝牙状态切换后同步手环数据

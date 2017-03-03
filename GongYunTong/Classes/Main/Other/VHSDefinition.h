@@ -61,13 +61,13 @@ static NSString *const CONST_BRACELTE_BIND_SUCESS_TIP           = @"绑定手环
 
 #pragma mark - 状态码的定义 ==============================状态码=====================================
 
-#define GYT_CODE_SUCCESS                            200
-#define GYT_CODE_TOKEN_INVALID                      4000
+static NSInteger const GYT_CODE_SUCCESS                         = 200;
+static NSInteger const GYT_CODE_TOKEN_INVALID                   = 4000;
 
 #pragma mark - APP全局字段 ==============================字段=====================================
 
-#define k_VHS_DataBase_Version_Key                      @"database_version"
-#define k_VHS_DataBase_Version                          1
+static NSString *const k_VHS_DataBase_Version_Key               = @"database_version";
+static NSInteger const k_VHS_DataBase_Version                   = 2;
 #define k_LATITUDE_LONGITUDE                            @"k_LATITUDE_LONGITUDE"             // 经纬度
 #define k_Launch_Time                                   @"k_Launch_Time"                    // 记录启动的时间
 #define k_Late_Duration(x)                              x * 3600                                    

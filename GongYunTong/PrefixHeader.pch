@@ -16,14 +16,14 @@
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
+    #import <UIImageView+WebCache.h>
+    #import <AlipaySDK/AlipaySDK.h>
     #import "AppDelegate.h"
     #import "VHSBaseViewController.h"
     #import "VHS_Header.h"
     #import "VHSHttpEngine.h"
     #import "VHSCommon.h"
     #import "UIColor+extension.h"
-    #import <UIImageView+WebCache.h>
-    #import <AlipaySDK/AlipaySDK.h>
     #import "MJRefresh.h"
     #import "StoryboardHelper.h"
     #import "YYModel.h"
@@ -35,6 +35,7 @@
     #import "VHSAlertController.h"
     #import "VHSURL.h"
     #import "VHSGlobalDataManager.h"
+    #import "VHSBraceletCoodinator.h"
 #endif
 
 

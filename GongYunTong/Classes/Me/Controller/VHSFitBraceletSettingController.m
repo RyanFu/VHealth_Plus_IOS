@@ -7,10 +7,8 @@
 //
 
 #import "VHSFitBraceletSettingController.h"
-#import "SharePeripheral.h"
 #import "VHSFitBraceletSettingModel.h"
 #import "VHSSettingBraceletCell.h"
-#import "VHSUnBindCell.h"
 #import "VHSFitBraceletStateManager.h"
 #import "MBProgressHUD+VHS.h"
 #import "NSDate+VHSExtension.h"
@@ -83,7 +81,7 @@ CGFloat const settingFooterHeight=106;
     }
     __weak typeof(self)weakSelf = self;
     // 获取设备信息
-    [[SharePeripheral sharePeripheral] getBraceletorDeviceInfoWithCallback:^(id object, int errorCode) {
+    [[VHSBraceletCoodinator sharePeripheral] getBraceletorDeviceInfoWithCallback:^(id object, int errorCode) {
         if (errorCode == SUCCESS) {
             ProtocolDeviceInfoModel *model = object;
             if (model.batt_level) {
@@ -150,7 +148,7 @@ CGFloat const settingFooterHeight=106;
             action.endTime = [VHSCommon getDate:[NSDate date]];
             [[VHSStepAlgorithm shareAlgorithm] insertOrUpdateBleAction:action];
             
-            [[SharePeripheral sharePeripheral] braceletorGotoUnbindWithCallBack:^(int errorCode) {
+            [[VHSBraceletCoodinator sharePeripheral] braceletorGotoUnbindWithCallBack:^(int errorCode) {
                 [MBProgressHUD hiddenHUD];
                 if (errorCode == SUCCESS) {
                     [VHSToast toast:TOAST_BLE_UNBIND_SUCCESS];
@@ -158,7 +156,7 @@ CGFloat const settingFooterHeight=106;
                     [weakSelf disconnectBraceletor];  // 解除设备连接
                     [weakSelf popUpViewController]; // 返回到前一个页面
                     // 解绑后开启手机记步服务
-                    [[VHSStepAlgorithm shareAlgorithm] start];
+                    [[VHSStepAlgorithm shareAlgorithm] setupStepRecorder];
                 } else {
                     [VHSToast toast:TOAST_BLE_UNBIND_FAIL];
                 }
@@ -171,7 +169,7 @@ CGFloat const settingFooterHeight=106;
 
 - (void)disconnectBraceletor {
     if ([ShareDataSdk shareInstance].peripheral.state == CBPeripheralStateConnected) {
-        [[SharePeripheral sharePeripheral] disconnectBraceletorWithPeripheral:[ShareDataSdk shareInstance].peripheral];
+        [[VHSBraceletCoodinator sharePeripheral] disconnectBraceletorWithPeripheral:[ShareDataSdk shareInstance].peripheral];
         [self disconnectBraceletor];
     }
 }
@@ -190,7 +188,7 @@ CGFloat const settingFooterHeight=106;
     if (!cell) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"VHSSettingBraceletCell" owner:nil options:nil]firstObject];
     }
-    VHSFitBraceletSettingModel *model = [[VHSFitBraceletSettingModel alloc] initWithImageName:@"icon_update_date" settingOperation:CONST_GET_DATA_FROM_BRACELET operationTime:[SharePeripheral sharePeripheral].recentlySyncTime];
+    VHSFitBraceletSettingModel *model = [[VHSFitBraceletSettingModel alloc] initWithImageName:@"icon_update_date" settingOperation:CONST_GET_DATA_FROM_BRACELET operationTime:[VHSBraceletCoodinator sharePeripheral].recentlySyncTime];
     cell.model = model;
     return cell;
 }

@@ -91,9 +91,7 @@
 //        _imageView2.image = [UIImage imageWithData:data];
 //    }
 //    
-//    /// 开启定时任务
-//    [[VHSStepAlgorithm shareAlgorithm] timedTask];
-//    
+//
 //    __block NSInteger ex = 100;
 //    CLog(@"定义block之前的值:%ld，地址 %p", ex, &ex);
 //    

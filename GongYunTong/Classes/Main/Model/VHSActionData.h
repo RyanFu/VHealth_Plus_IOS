@@ -51,5 +51,9 @@
 
 /// mac 地址 用于记录手环的地址 －－ 从HealthKit中获取的纪录 Mac地址为000000(随意定义)
 @property (nonatomic, strong) NSString * macAddress;
+/// 爬楼
+@property (nonatomic, strong) NSString * floorAes;
+/// 下楼
+@property (nonatomic, strong) NSString * floorDes;
 
 @end

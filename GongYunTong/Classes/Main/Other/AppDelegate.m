@@ -38,10 +38,8 @@ static BOOL isBackGroundActivateApplication;
     // 融云
 //    [[ThirdPartyCoordinator shareCoordinator] setupRCKit];
     
-    // 创建数据库，开启手机计步
-    [[VHSStepAlgorithm shareAlgorithm] start];
-    // 连接了手环，初始化手环设备
-    if ([VHSFitBraceletStateManager nowBLEState] != FitBLEStateDisbind) [SharePeripheral sharePeripheral];
+    // 创建数据库，开启计步模式
+    [[VHSStepAlgorithm shareAlgorithm] setupStepRecorder];
     
     // 启动时间
     [VHSCommon saveLaunchTime:[VHSCommon getDate:[NSDate date]]];

@@ -35,29 +35,30 @@
     return algorithm;
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         _stepsData = [[VHSActionData alloc]init];
         
         VHSDataBaseManager *dm = [[VHSDataBaseManager alloc] init];
         [dm createDB];
-        [dm createTable];
     }
     return self;
 }
 
-- (void)start {
-    [self acce];
+- (void)setupStepRecorder {
+    // 连接了手环，初始化手环设备
+    if ([VHSFitBraceletStateManager nowBLEState] != FitBLEStateDisbind) {
+        [VHSBraceletCoodinator sharePeripheral];
+        return;
+    }
+    // 手机计步
+    [self recordStepByPhone];
 }
 
 // 手机计步
-- (void)acce {
-    
-    if ([VHSFitBraceletStateManager nowBLEState] != FitBLEStateDisbind) {
-        return;
-    }
+- (void)recordStepByPhone {
+    if (![CMPedometer isStepCountingAvailable]) return;
     
     __block NSString *lastSyncM7DateStr = [VHSCommon getUserDefautForKey:k_M7_MOBILE_SYNC_TIME];
     if ([VHSCommon isNullString:lastSyncM7DateStr]) {
@@ -72,139 +73,124 @@
             if (i == 0) {
                 endTime = [VHSCommon getDate:[NSDate date]];
             }
-            if ([CMPedometer isStepCountingAvailable]) {
-                [self.pedometer queryPedometerDataFromDate:[VHSCommon dateWithDateStr:lastSyncM7DateStr]
-                                                    toDate:[VHSCommon dateWithDateStr:endTime]
-                                               withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
-                                                   
-                                                   dispatch_async(dispatch_get_main_queue(), ^{
-                                                       VHSActionData *action = [[VHSActionData alloc] init];
-                                                       action.actionId = [VHSCommon getTimeStamp];
-                                                       action.memberId = [[VHSCommon userInfo].memberId stringValue];
-                                                       action.actionMode = 0;
-                                                       action.actionType = @"2";
-                                                       action.upload = 0;
-                                                       action.macAddress = @"0";
-                                                       action.step = [pedometerData.numberOfSteps stringValue];
-                                                       action.startTime = [NSDate ymdByPastDay:i];
-                                                       action.endTime = endTime;
-                                                       action.recordTime = [NSDate ymdByPastDay:i];
-                                                       
-                                                       [self insertOrUpdateActionToMobileFromM7:action];
-                                                   });
-                                               }];
-                if (i != 0) {
-                    lastSyncM7DateStr = [[NSDate yyyymmddhhmmssStartByPastDays:i - 1] copy];
-                } else {
-                    [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]] forKey:k_M7_MOBILE_SYNC_TIME];
-                    
-                    // 开启手机步数实时更新
-                    [self beginM7RealtimeStepLive];
-                }
+            
+            [self.pedometer queryPedometerDataFromDate:[VHSCommon dateWithDateStr:lastSyncM7DateStr] toDate:[VHSCommon dateWithDateStr:endTime] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
+                
+                VHSActionData *action = [[VHSActionData alloc] init];
+                action.actionId = [VHSCommon getTimeStamp];
+                action.memberId = [[VHSCommon userInfo].memberId stringValue];
+                action.actionMode = 0;
+                action.actionType = @"2";
+                action.upload = 0;
+                action.macAddress = @"0";
+                action.step = [pedometerData.numberOfSteps stringValue];
+                action.startTime = [NSDate ymdByPastDay:i];
+                action.endTime = endTime;
+                action.recordTime = [NSDate ymdByPastDay:i];
+                
+                [self insertOrUpdateActionToMobileFromM7:action];
+            }];
+            if (i != 0) {
+                lastSyncM7DateStr = [[NSDate yyyymmddhhmmssStartByPastDays:i - 1] copy];
+            } else {
+                [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]] forKey:k_M7_MOBILE_SYNC_TIME];
+                
+                // 开启手机步数实时更新
+                [self beginM7RealtimeStepLive];
             }
         }
     } else {
-        if ([CMPedometer isStepCountingAvailable]) {
-            [self.pedometer queryPedometerDataFromDate:[VHSCommon dateWithDateStr:lastSyncM7DateStr]
-                                                toDate:[NSDate date]
-                                           withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
-                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                   if ([VHSCommon userInfo].memberId) {
-                                                       VHSActionData *action = [[VHSActionData alloc] init];
-                                                       action.actionId = [VHSCommon getTimeStamp];
-                                                       action.memberId = [[VHSCommon userInfo].memberId stringValue];
-                                                       action.actionMode = 0;
-                                                       action.actionType = @"2";
-                                                       action.upload = 0;
-                                                       action.macAddress = @"0";
-                                                       action.step = [pedometerData.numberOfSteps stringValue];
-                                                       action.startTime = [VHSCommon getDate:[NSDate date]];
-                                                       action.endTime = [VHSCommon getDate:[NSDate date]];
-                                                       action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
-                                                       
-                                                       [self insertOrUpdateActionToMobileFromM7:action];
-                                                   }
-                                                   // 更新手机同步时间
-                                                   [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]]
-                                                                       forKey:k_M7_MOBILE_SYNC_TIME];
-                                                   // 开启实时步数实时更新
-                                                   [self beginM7RealtimeStepLive];
-                                               });
-                                           }];
-        }
+        [self.pedometer queryPedometerDataFromDate:[VHSCommon dateWithDateStr:lastSyncM7DateStr] toDate:[NSDate date] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
+            
+            if ([VHSCommon userInfo].memberId) {
+                VHSActionData *action = [[VHSActionData alloc] init];
+                action.actionId = [VHSCommon getTimeStamp];
+                action.memberId = [[VHSCommon userInfo].memberId stringValue];
+                action.actionMode = 0;
+                action.actionType = @"2";
+                action.upload = 0;
+                action.macAddress = @"0";
+                action.step = [pedometerData.numberOfSteps stringValue];
+                action.startTime = [VHSCommon getDate:[NSDate date]];
+                action.endTime = [VHSCommon getDate:[NSDate date]];
+                action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
+                
+                [self insertOrUpdateActionToMobileFromM7:action];
+            }
+            // 更新手机同步时间
+            [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]] forKey:k_M7_MOBILE_SYNC_TIME];
+            // 开启实时步数实时更新
+            [self beginM7RealtimeStepLive];
+        }];
     }
 }
 
 // 获取实时手机产生的运动数据
 - (void)beginM7RealtimeStepLive {
-    CLog(@"-------beginM7RealtimeStepLive");
-    [self.pedometer startPedometerUpdatesFromDate:[NSDate date]
-                                      withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
-                                              
-                                              CLog(@"shouji-steps:%@", pedometerData.numberOfSteps);
-                                              if ([VHSFitBraceletStateManager nowBLEState] != FitBLEStateDisbind) {
-                                                  [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]]
-                                                                      forKey:k_M7_MOBILE_SYNC_TIME];
-                                                  self.lastSynaM7Steps = pedometerData.numberOfSteps.integerValue;
-                                                  return;
-                                              }
-                                              
-                                              __block NSString *lastSyncTime = [k_UserDefaults objectForKey:k_M7_MOBILE_SYNC_TIME];
-                                              if ([VHSCommon isNullString:lastSyncTime]) {
-                                                  lastSyncTime = [VHSCommon getDate:[NSDate date]];
-                                              }
-                                              
-                                              NSInteger lastDays = [NSDate pastOfNowWithPastDateStr:lastSyncTime];
-                                              
-                                              if (lastDays > 0) {
-                                                  for (NSInteger i = lastDays; i >= 0; i--) {
-                                                      NSString *endTime = [NSDate yyyymmddhhmmssEndByPastDays:i];
-                                                      [self.pedometer queryPedometerDataFromDate:[VHSCommon dateWithDateStr:lastSyncTime]
-                                                                                          toDate:[VHSCommon dateWithDateStr:endTime]
-                                                                                     withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
-                                                                                         VHSActionData *action = [[VHSActionData alloc] init];
-                                                                                         action.actionId = [VHSCommon getTimeStamp];
-                                                                                         action.memberId = [[VHSCommon userInfo].memberId stringValue];
-                                                                                         action.actionMode = 0;
-                                                                                         action.actionType = @"2";
-                                                                                         action.upload = 0;
-                                                                                         action.macAddress = @"0";
-                                                                                         action.step = [pedometerData.numberOfSteps stringValue];
-                                                                                         action.startTime = [NSDate ymdByPastDay:i];
-                                                                                         action.endTime = endTime;
-                                                                                         action.recordTime = [NSDate ymdByPastDay:i];
-                                                                                         
-                                                                                         // 主线程更新数据
-                                                                                         [self insertOrUpdateActionToMobileFromM7:action];
-                                                                                     }];
-                                                      if (i != 0) {
-                                                          lastSyncTime = [NSDate yyyymmddhhmmssStartByPastDays:i - 1];
-                                                      } else {
-                                                          [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]]
-                                                                              forKey:k_M7_MOBILE_SYNC_TIME];
-                                                      }
-                                                  }
-                                              } else {
-                                                  VHSActionData *action = [[VHSActionData alloc] init];
-                                                  action.actionId = [VHSCommon getTimeStamp];
-                                                  action.memberId = [[VHSCommon userInfo].memberId stringValue];
-                                                  action.actionMode = 0;
-                                                  action.actionType = @"2";
-                                                  action.upload = 0;
-                                                  action.macAddress = @"0";
-                                                  action.step = [NSString stringWithFormat:@"%ld", pedometerData.numberOfSteps.integerValue - self.lastSynaM7Steps];
-                                                  action.startTime = [VHSCommon getDate:[NSDate date]];
-                                                  action.endTime = [VHSCommon getDate:[NSDate date]];
-                                                  action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
-                                                  
-                                                  [self insertOrUpdateActionToMobileFromM7:action];
-                                                  // 更新手机同步时间
-                                                  [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]]
-                                                                      forKey:k_M7_MOBILE_SYNC_TIME];
-                                              }
-                                              self.lastSynaM7Steps = pedometerData.numberOfSteps.integerValue;
-                                      }];
-    
+    [self.pedometer startPedometerUpdatesFromDate:[NSDate date] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
+        CLog(@"---->>>> shouji-steps:%@", pedometerData.numberOfSteps);
+        
+        if ([VHSFitBraceletStateManager nowBLEState] != FitBLEStateDisbind) {
+            [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]]  forKey:k_M7_MOBILE_SYNC_TIME];
+            self.lastSynaM7Steps = pedometerData.numberOfSteps.integerValue;
+            return;
+        }
+      
+        __block NSString *lastSyncTime = [k_UserDefaults objectForKey:k_M7_MOBILE_SYNC_TIME];
+        if ([VHSCommon isNullString:lastSyncTime]) {
+            lastSyncTime = [VHSCommon getDate:[NSDate date]];
+        }
+      
+        NSInteger lastDays = [NSDate pastOfNowWithPastDateStr:lastSyncTime];
+      
+        if (lastDays > 0) {
+            for (NSInteger i = lastDays; i >= 0; i--) {
+                NSString *endTime = [NSDate yyyymmddhhmmssEndByPastDays:i];
+                [self.pedometer queryPedometerDataFromDate:[VHSCommon dateWithDateStr:lastSyncTime] toDate:[VHSCommon dateWithDateStr:endTime] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
+                    VHSActionData *action = [[VHSActionData alloc] init];
+                    action.actionId = [VHSCommon getTimeStamp];
+                    action.memberId = [[VHSCommon userInfo].memberId stringValue];
+                    action.actionMode = 0;
+                    action.actionType = @"2";
+                    action.upload = 0;
+                    action.macAddress = @"0";
+                    action.step = [pedometerData.numberOfSteps stringValue];
+                    action.startTime = [NSDate ymdByPastDay:i];
+                    action.endTime = endTime;
+                    action.recordTime = [NSDate ymdByPastDay:i];
+                                                 
+                    // 主线程更新数据
+                    [self insertOrUpdateActionToMobileFromM7:action];
+                }];
+                if (i != 0) {
+                    lastSyncTime = [NSDate yyyymmddhhmmssStartByPastDays:i - 1];
+                } else {
+                    [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]] forKey:k_M7_MOBILE_SYNC_TIME];
+              }
+        }
+    } else {
+        VHSActionData *action = [[VHSActionData alloc] init];
+        action.actionId = [VHSCommon getTimeStamp];
+        action.memberId = [[VHSCommon userInfo].memberId stringValue];
+        action.actionMode = @"0";
+        action.actionType = @"2";
+        action.upload = 0;
+        action.distance = @"0";
+        action.calorie = @"0";
+        action.macAddress = @"0";
+        action.step = [NSString stringWithFormat:@"%@", @(pedometerData.numberOfSteps.integerValue - self.lastSynaM7Steps)];
+        action.startTime = [VHSCommon getDate:[NSDate date]];
+        action.endTime = [VHSCommon getDate:[NSDate date]];
+        action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
+        action.floorDes = pedometerData.floorsDescended.stringValue;
+        action.floorAes = pedometerData.floorsAscended.stringValue;
+          
+        [self insertOrUpdateActionToMobileFromM7:action];
+        // 更新手机同步时间
+        [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]] forKey:k_M7_MOBILE_SYNC_TIME];
+    }
+    self.lastSynaM7Steps = pedometerData.numberOfSteps.integerValue;
+    }];
 }
 
 - (CMPedometer *)pedometer {
@@ -271,21 +257,21 @@
 }
 
 - (void)asynDataMySelfTable:(void (^)(int errorCode))syncBlock {
-    [[SharePeripheral sharePeripheral] getBraceletorSendSportDataForThedayWithCallBack:^(id object, int errorCode) {
+    [[VHSBraceletCoodinator sharePeripheral] getBraceletorSendSportDataForThedayWithCallBack:^(id object, int errorCode) {
         if (syncBlock) syncBlock(errorCode);
     }];
 }
 
 /// 获取手环中指定一天的数据
 - (void)sportDayWithDate:(NSString *)date sportBlock:(void (^)(ProtocolSportDataModel *sportData))sportDataBlock {
-    ProtocolSportDataModel *daySport = [[SharePeripheral sharePeripheral] getBraceletorSportBySpecifiedDay:date andHandMac:[VHSCommon getShouHuanMacSddress]];;
+    ProtocolSportDataModel *daySport = [[VHSBraceletCoodinator sharePeripheral] getBraceletorSportBySpecifiedDay:date andHandMac:[VHSCommon getShouHuanMacSddress]];;
     if (sportDataBlock) {
         sportDataBlock(daySport);
     }
 }
 /// 获取手环实时的信息
 - (void)realtimeBraceletDataBlock:(void (^)(ProtocolLiveDataModel *liveData))realtimeBlock {
-    [[SharePeripheral sharePeripheral] getBraceletorRealtimeDataWithCallBack:^(ProtocolLiveDataModel *object, int errorCode) {
+    [[VHSBraceletCoodinator sharePeripheral] getBraceletorRealtimeDataWithCallBack:^(ProtocolLiveDataModel *object, int errorCode) {
         if (realtimeBlock) realtimeBlock(object);
     }];
 }
@@ -458,15 +444,5 @@
     }
 }
 
-#pragma mark - 定时活动任务
-
-- (void)timedTask {
-    NSDate *startTime = [VHSCommon dateWithDateStr:@"2017-01-09 07:30:00"];
-    NSDate *endTime = [VHSCommon dateWithDateStr:@"2017-01-09 09:30:00"];
-    
-    [self.pedometer queryPedometerDataFromDate:startTime toDate:endTime withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
-        
-    }];
-}
 
 @end

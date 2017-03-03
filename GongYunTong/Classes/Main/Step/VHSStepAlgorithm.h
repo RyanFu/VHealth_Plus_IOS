@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreLocation/CoreLocation.h>
 #import <CoreMotion/CoreMotion.h>
 #import "VHSActionData.h"
+#import "VHSBraceletCoodinator.h"
 
 @interface VHSStepAlgorithm : NSObject
 
@@ -20,7 +20,7 @@
 
 + (VHSStepAlgorithm *)shareAlgorithm;
 
-- (void)start;
+- (void)setupStepRecorder;
 
 /// 开启监测手环的定时器
 - (void)fireTimer;
@@ -53,8 +53,5 @@
 
 /// 更新运动步数
 - (void)updateSportStep:(VHSActionData *)action;
-
-#pragma mark - 定时活动任务
-- (void)timedTask;
 
 @end
