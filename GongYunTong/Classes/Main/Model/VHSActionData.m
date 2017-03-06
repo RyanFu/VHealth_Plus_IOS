@@ -94,10 +94,10 @@
     _macAddress = macAddress;
 }
 
-- (void)setFloorAes:(NSString *)floorAes {
-    if (!floorAes) floorAes = @"0";
+- (void)setFloorAsc:(NSString *)floorAsc {
+    if (!floorAsc) floorAsc = @"0";
     
-    _floorAes = floorAes;
+    _floorAsc = floorAsc;
 }
 
 - (void)setFloorDes:(NSString *)floorDes {

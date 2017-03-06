@@ -59,7 +59,6 @@
 
 - (void)createTable {
     [self createTableOfActionList];
-    [self createTableOfActionSpecialList];
 }
 
 - (void)createTableOfActionList {
@@ -85,27 +84,6 @@
     'floor_des'             VARCHAR(36)\
     )";
     [db executeUpdate:createSportTableSql];
-    [db close];
-}
-
-- (void)createTableOfActionSpecialList {
-    FMDatabase *db = [self getFmdb];
-    [db open];
-    NSString *createSpecialTableSql = @"CREATE TABLE IF NOT EXISTS 'action_special_lst' (\
-        action_id VARCHAR(36),\
-        member_id VARCHAR(36),\
-        action_type VARCHAR(36),\
-        step VARCHAR(36),\
-        distance VARCHAR(36),\
-        floor_asc VARCHAR(36),\
-        floor_des VARCHAR(36),\
-        start_time VARCHAR(36),\
-        end_time VARCHAR(36),\
-        record_time VARCHAR(36),\
-        upload INTEGER,\
-        mac_address VARCHAR(36)\
-    )";
-    [db executeUpdate:createSpecialTableSql];
     [db close];
 }
 
@@ -168,7 +146,7 @@
                 action.score,
                 @(action.upload),
                 action.macAddress,
-                action.floorAes,
+                action.floorAsc,
                 action.floorDes];
         
         [db close];
@@ -315,6 +293,56 @@
     }
     
     return arr;
+}
+
+#pragma mark - 定时任务 任务表
+
+- (void)createTimingTaskTable {
+    FMDatabase *db = [self getFmdb];
+    [db open];
+    NSString *sql = @"create table if not exists 't_action_timing_task'(\
+    a_id varchar(36),\
+    member_id varchar(36),\
+    task_type varchar(36),\
+    action_type varchar(36),\
+    record_time varchar(36),\
+    start_time varchar(36),\
+    end_time varchar(36),\
+    step varchar(36),\
+    distance varchar(10),\
+    floor_asc varchar(10),\
+    floor_des varchar(10),\
+    upload varchar(10)\
+    )";
+    [db executeUpdate:sql];
+    [db close];
+}
+
+- (void)insertTimingTaskWith:(VHSActionData *)action {
+    if (!action.actionId || !action.memberId || !action.taskType) return;
+    
+    FMDatabase *db = [self getFmdb];
+    [db open];
+    
+    NSString *sql = @"insert into t_action_timing_task(a_id, member_id, task_type, action_type, record_time, start_time, end_time, step, distance, floor_asc, floor_des, upload) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    BOOL flag = [db executeUpdate:sql,
+         action.actionId,
+         action.memberId,
+         action.taskType,
+         action.actionType,
+         action.recordTime,
+         action.startTime,
+         action.endTime,
+         action.step,
+         action.distance,
+         action.floorAsc,
+         action.floorDes,
+         @(action.upload).stringValue];
+    if (flag) {
+        CLog(@"---->>>>定时任务完成数据插入完成");
+    } else {
+        CLog(@"---->>>>定时任务插入数据失败");
+    }
 }
 
 @end

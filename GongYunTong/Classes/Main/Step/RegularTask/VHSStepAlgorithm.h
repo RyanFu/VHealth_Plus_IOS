@@ -31,8 +31,6 @@
 
 /// 获取手环中指定一天的数据 - @param : date yyyymmdd
 - (void)sportDayWithDate:(NSString *)date sportBlock:(void (^)(ProtocolSportDataModel *sportData))sportDataBlock;
-/// 获取手环实时的信息
-- (void)realtimeBraceletDataBlock:(void (^)(ProtocolLiveDataModel *liveData))realtimeBlock;
 
 #pragma mark - 同步手环数据到手机
 /// 同步手环到手机本地数据库

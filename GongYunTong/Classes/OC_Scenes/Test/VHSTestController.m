@@ -14,6 +14,7 @@
 #import "PublicWKWebViewController.h"
 #import "NSDate+VHSExtension.h"
 #import "MBProgressHUD+VHS.h"
+#import "VHSTimingTasker.h"
 
 @interface VHSTestController ()
 
@@ -76,6 +77,11 @@
 }
 
 - (void)confirmBtn:(UIButton *)btn {
+    
+    VHSTimingTasker *tasker = [[VHSTimingTasker alloc] init];
+    tasker.startTime = @"2017-03-01 00:00:00";
+    tasker.endTime = [VHSCommon getDate:[NSDate date]];
+    [tasker startTimingTask];
     
 //    SFSafariViewController *sfvc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://www.baidu.com/"]];
 //    [self presentViewController:sfvc animated:YES completion:nil];

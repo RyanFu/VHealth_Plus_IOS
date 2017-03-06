@@ -136,7 +136,7 @@ CGFloat const settingFooterHeight=106;
         [MBProgressHUD showMessage:nil];
         
         NSInteger lastSyncSteps = [VHSCommon getShouHuanLastStepsSync];
-        [[VHSStepAlgorithm shareAlgorithm] realtimeBraceletDataBlock:^(ProtocolLiveDataModel *liveData) {
+        [[VHSBraceletCoodinator sharePeripheral] getBraceletorRealtimeDataWithCallBack:^(ProtocolLiveDataModel *liveData, int errorCode) {
             // 同步数据到本地
             VHSActionData *action = [[VHSActionData alloc] init];
             action.actionId = [VHSCommon getTimeStamp];
@@ -200,7 +200,7 @@ CGFloat const settingFooterHeight=106;
         cell.isDisBinding = YES;
         
         NSInteger lastSyncSteps = [VHSCommon getShouHuanLastStepsSync];
-        [[VHSStepAlgorithm shareAlgorithm] realtimeBraceletDataBlock:^(ProtocolLiveDataModel *liveData) {
+        [[VHSBraceletCoodinator sharePeripheral] getBraceletorRealtimeDataWithCallBack:^(ProtocolLiveDataModel *liveData, int errorCode) {
             // 同步数据到本地
             VHSActionData *action = [[VHSActionData alloc] init];
             action.actionId = [VHSCommon getTimeStamp];

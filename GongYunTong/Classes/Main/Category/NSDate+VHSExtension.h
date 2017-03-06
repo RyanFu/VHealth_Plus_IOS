@@ -56,6 +56,14 @@
  *  @return 时间字符串
  */
 + (NSString *)ymdByPastDay:(NSInteger)pastDays;
+/**
+ *  获取格式为yyyy-MM-dd HH:mm:ss格式的过去时间字符串，通过传入一个距离当前时间点几天值
+ *
+ *  @param pastDays 过去的天数
+ *
+ *  @return 时间字符串
+ */
++ (NSString *)yyyymmddhhmmssPastDay:(NSInteger)pastDays;
 
 /**
  *  获取格式为yyyy-MM-dd HH:mm:dd 的一天的开始 如 2016-02-01 23:59:59
@@ -92,4 +100,7 @@
  *  @return bool值
  */
 + (BOOL)time:(NSString *)time onBetweenStartTime:(NSString *)startTime toEndTime:(NSString *)endTime;
+
+/// 通过给定日期，获取出指定时间点
++ (NSDate *)designatDate:(NSString *)date hour:(NSString *)hour minute:(NSString *)minute;
 @end

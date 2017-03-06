@@ -96,6 +96,24 @@
     return ymd;
 }
 
++ (NSString *)yyyymmddhhmmssPastDay:(NSInteger)pastDays {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *cmps = [calendar components:NSCalendarUnitSecond | NSCalendarUnitMinute | NSCalendarUnitHour | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    cmps.day = cmps.day - pastDays;
+    NSDate *date = [calendar dateFromComponents:cmps];
+    NSString *ymd = [VHSCommon getDate:date];
+    return ymd;
+}
+
++ (NSDate *)designatDate:(NSString *)date hour:(NSString *)hour minute:(NSString *)minute {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *cmps = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[VHSCommon dateWithDateStr:date]];
+    cmps.hour = hour.integerValue;
+    cmps.minute = minute.integerValue;
+    NSDate *designatDate = [calendar dateFromComponents:cmps];
+    return designatDate;
+}
+
 + (NSString *)yyyymmddhhmmssEndByPastDays:(NSInteger)pastDays {
     
     NSCalendar *calendar = [NSCalendar currentCalendar];

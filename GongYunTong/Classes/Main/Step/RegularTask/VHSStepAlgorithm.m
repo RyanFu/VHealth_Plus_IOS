@@ -38,7 +38,8 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _stepsData = [[VHSActionData alloc]init];
+        _stepsData = [[VHSActionData alloc] init];
+        _pedometer = [[CMPedometer alloc] init];
         
         VHSDataBaseManager *dm = [[VHSDataBaseManager alloc] init];
         [dm createDB];
@@ -183,7 +184,7 @@
         action.endTime = [VHSCommon getDate:[NSDate date]];
         action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
         action.floorDes = pedometerData.floorsDescended.stringValue;
-        action.floorAes = pedometerData.floorsAscended.stringValue;
+        action.floorAsc = pedometerData.floorsAscended.stringValue;
           
         [self insertOrUpdateActionToMobileFromM7:action];
         // 更新手机同步时间
@@ -191,13 +192,6 @@
     }
     self.lastSynaM7Steps = pedometerData.numberOfSteps.integerValue;
     }];
-}
-
-- (CMPedometer *)pedometer {
-    if (!_pedometer) {
-        _pedometer = [[CMPedometer alloc] init];
-    }
-    return _pedometer;
 }
 
 #pragma mark - 同步手环数据到手机
@@ -269,12 +263,6 @@
         sportDataBlock(daySport);
     }
 }
-/// 获取手环实时的信息
-- (void)realtimeBraceletDataBlock:(void (^)(ProtocolLiveDataModel *liveData))realtimeBlock {
-    [[VHSBraceletCoodinator sharePeripheral] getBraceletorRealtimeDataWithCallBack:^(ProtocolLiveDataModel *object, int errorCode) {
-        if (realtimeBlock) realtimeBlock(object);
-    }];
-}
 
 #pragma mark - 手环相关
 
@@ -300,8 +288,7 @@
     }
     
     __weak typeof(self)weakSelf = self;
-    // 实时获取设备信息
-    [self realtimeBraceletDataBlock:^(ProtocolLiveDataModel *liveData) {
+    [[VHSBraceletCoodinator sharePeripheral] getBraceletorRealtimeDataWithCallBack:^(ProtocolLiveDataModel *liveData, int errorCode) {
         weakSelf.stepsData.step = [NSString stringWithFormat:@"%u", liveData.step];
         weakSelf.stepsData.calorie = [NSString stringWithFormat:@"%u", liveData.calories];
         weakSelf.stepsData.distance = [NSString stringWithFormat:@"%u", liveData.distances];
