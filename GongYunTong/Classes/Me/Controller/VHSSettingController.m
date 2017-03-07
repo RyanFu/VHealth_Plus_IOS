@@ -77,7 +77,7 @@
     NSString *strMessage = @"您确定要退出V健康+吗?";
     if ([VHSFitBraceletStateManager nowBLEState] != FitBLEStateDisbind) {
         //已经绑定手环
-        strMessage = @"退出后将解绑手环，确定退出吗?";i
+        strMessage = @"退出后将解绑手环，确定退出吗?";
     }
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:strMessage delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
     [alert show];

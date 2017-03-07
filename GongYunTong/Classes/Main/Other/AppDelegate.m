@@ -287,26 +287,26 @@ static BOOL isBackGroundActivateApplication;
 // 此方法是 用户点击了通知，应用在前台 或者开启后台并且应用在后台 时调起
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
-    CLog(@"run+++++++++didReceiveRemoteNotification");
+    CLog(@"---->>>> didReceiveRemoteNotification ---->>> %@", userInfo);
     
     if (completionHandler) {
-        CLog(@"apns-UIBackgroundFetchResultNewData");
+        CLog(@"------>>>>> apns-UIBackgroundFetchResultNewData");
         completionHandler(UIBackgroundFetchResultNewData);
     }
     
     // 应用在前台，不跳转页面，让用户选择。
     if (application.applicationState == UIApplicationStateActive) {
-        CLog(@"acitve = %@", userInfo);
+        CLog(@"----->>>>> acitve = %@", userInfo);
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
     }
     //杀死状态下，直接跳转到跳转页面。
     if (application.applicationState == UIApplicationStateInactive && !isBackGroundActivateApplication) {
-        CLog(@"applacation is unactive ===== %@",userInfo);
+        CLog(@"------->>>>> applacation is unactive ===== %@",userInfo);
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
     }
     // 应用在后台。当后台设置aps字段里的 content-available 值为 1 并开启远程通知激活应用的选项
     if (application.applicationState == UIApplicationStateBackground) {
-        CLog(@"background is Activated Application - %@", userInfo);
+        CLog(@"------->>>>> background is Activated Application - %@", userInfo);
         // 此处可以选择激活应用提前下载邮件图片等内容。
         isBackGroundActivateApplication = YES;
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
