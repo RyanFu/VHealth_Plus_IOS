@@ -57,19 +57,15 @@ static BOOL isBackGroundActivateApplication;
  支付结果回调
  照微信SDK Sample，在类实现onResp函数，支付完成后，微信APP会返回到商户APP并回调onResp函数，开发者需要在该函数中接收通知，判断返回错误码，如果支付成功则去后台查询支付结果再展示用户实际支付结果。注意	一定不能以客户端返回作为用户支付的结果，应以服务器端的接收的支付通知或查询API返回的结果为准。
  */
--(void) onResp:(BaseResp*)resp
-{
-    if ([resp isKindOfClass:[PayResp class]])
-    {
+-(void) onResp:(BaseResp*)resp {
+    if ([resp isKindOfClass:[PayResp class]]) {
         PayResp* payResp = (PayResp*)resp;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"PayNotification" object:self userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%d",payResp.errCode] forKey:@"status"]];
     }
 }
 
--(void) onReq:(BaseReq*)req
-{
-    if([req isKindOfClass:[GetMessageFromWXReq class]])
-    {
+-(void)onReq:(BaseReq *)req {
+    if([req isKindOfClass:[GetMessageFromWXReq class]]) {
         // 微信请求App提供内容， 需要app提供内容后使用sendRsp返回
         NSString *strTitle = [NSString stringWithFormat:NSLocalizedString(@"weixin_req_title01", nil)];
         NSString *strMsg = NSLocalizedString(@"weixin_req_content01", nil);
@@ -78,8 +74,7 @@ static BOOL isBackGroundActivateApplication;
         alert.tag = 1000;
         [alert show];
     }
-    else if([req isKindOfClass:[ShowMessageFromWXReq class]])
-    {
+    else if([req isKindOfClass:[ShowMessageFromWXReq class]]) {
         ShowMessageFromWXReq *temp = (ShowMessageFromWXReq*)req;
         WXMediaMessage *msg = temp.message;
         
@@ -91,8 +86,7 @@ static BOOL isBackGroundActivateApplication;
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle message:strMsg delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
-    else if([req isKindOfClass:[LaunchFromWXReq class]])
-    {
+    else if([req isKindOfClass:[LaunchFromWXReq class]]) {
         //从微信启动App
         NSString *strTitle = [NSString stringWithFormat:NSLocalizedString(@"weixin_start_title", nil)];
         NSString *strMsg = NSLocalizedString(@"weixin_start_content", nil);
@@ -105,17 +99,11 @@ static BOOL isBackGroundActivateApplication;
  处理支付宝或分享结果
  */
 /// iOS4.x - iOS9.0
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation
-{
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     if ([ALIPAY_APP_SCHEME isEqualToString:url.scheme]) {
         //跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-            [k_NotificationCenter postNotificationName:k_NOTI_ALIPAY_CALLBACK_INFO
-                                                object:self
-                                              userInfo:resultDic];
+            [k_NotificationCenter postNotificationName:k_NOTI_ALIPAY_CALLBACK_INFO object:self userInfo:resultDic];
         }];
         return YES;
     }
@@ -128,14 +116,12 @@ static BOOL isBackGroundActivateApplication;
 }
 
 // iOS9 之后出现app之间进行跳转到api
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options NS_AVAILABLE_IOS(9_0){
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options NS_AVAILABLE_IOS(9_0) {
     
     if ([ALIPAY_APP_SCHEME isEqualToString:url.scheme]) {
         //跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-            [k_NotificationCenter postNotificationName:k_NOTI_ALIPAY_CALLBACK_INFO
-                                                object:self
-                                              userInfo:resultDic];
+            [k_NotificationCenter postNotificationName:k_NOTI_ALIPAY_CALLBACK_INFO object:self userInfo:resultDic];
         }];
         return YES;
     }

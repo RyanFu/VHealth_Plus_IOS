@@ -61,20 +61,17 @@
 }
 
 + (NSInteger)pastOfNowWithPastDateStr:(NSString *)pastDateStr {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *nowComps = [calendar components:NSCalendarUnitSecond | NSCalendarUnitMinute | NSCalendarUnitHour| NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
-    NSDateComponents *lastComps = [calendar components:NSCalendarUnitSecond | NSCalendarUnitMinute | NSCalendarUnitHour |NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[VHSCommon dateWithDateStr:pastDateStr]];
-    
-    NSInteger pastDays = nowComps.day - lastComps.day;
-    if (nowComps.month == lastComps.month && nowComps.year == lastComps.year) {
-        // 同月
-        pastDays = nowComps.day - lastComps.day;
-    } else if (nowComps.month != lastComps.month) {
-        // 跨月
-        NSUInteger days = [self daysForMonthDateStr:pastDateStr];
-        pastDays = nowComps.day + days - lastComps.day;
-    }
-    return pastDays;
+    //获得当前时间
+    NSDate *now = [NSDate date];
+    //实例化一个NSDateFormatter对象
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //设定时间格式
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *oldDate = [dateFormatter dateFromString:pastDateStr];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    unsigned int unitFlags = NSCalendarUnitDay;
+    NSDateComponents *comps = [gregorian components:unitFlags fromDate:oldDate  toDate:now  options:0];
+    return [comps day];
 }
 
 + (NSString *)yyyymmddByPastDays:(NSInteger)pastDays {

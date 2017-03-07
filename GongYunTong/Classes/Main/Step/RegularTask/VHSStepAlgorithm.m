@@ -366,7 +366,8 @@
     // NSArray convert to Json
     NSString *jsonSteps = [jsonStepsList convertJson];
     
-    NSString *signStr = [NSString stringWithFormat:@"%@%@", [VHSCommon vhstoken], [VHSCommon getTimeStamp]];
+    NSString *signTimeStamp = [VHSCommon getTimeStamp];
+    NSString *signStr = [NSString stringWithFormat:@"%@%@", [VHSCommon vhstoken], signTimeStamp];
     NSString *sign = [VHSUtils md5_base64:signStr];
     
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
@@ -374,7 +375,7 @@
     message.httpMethod = VHSNetworkPOST;
     message.sign = sign;
     message.params = @{@"steps" : jsonSteps,
-                       @"timestamp" : [VHSCommon getTimeStamp]};
+                       @"timestamp" : signTimeStamp};
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         if ([result[@"result"] integerValue] == 200) {

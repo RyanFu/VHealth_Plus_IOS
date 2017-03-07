@@ -101,7 +101,7 @@
         self.lastTimeLabel.text = @"未绑定";
     } else {
         // 显示上一次同步时间
-        self.lastTimeLabel.text = [NSString stringWithFormat:@"上次获取手环数据-%@",[VHSCommon timeInfoWithDateString:[VHSCommon getShouHuanLastTimeSync]]];
+        self.lastTimeLabel.text = [NSString stringWithFormat:@"上次获取手环数据%@",[VHSCommon timeInfoWithDateString:[VHSCommon getShouHuanLastTimeSync]]];
     }
     
     // 开启同步数据定时器，30秒检测一次数据是否同步

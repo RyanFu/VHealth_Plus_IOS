@@ -76,6 +76,20 @@
     [super viewDidDisappear:animated];
 }
 
+- (NSInteger)getDifferenceByDate:(NSString *)date {
+    //获得当前时间
+    NSDate *now = [NSDate date];
+    //实例化一个NSDateFormatter对象
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    //设定时间格式
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *oldDate = [dateFormatter dateFromString:date];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    unsigned int unitFlags = NSCalendarUnitDay;
+    NSDateComponents *comps = [gregorian components:unitFlags fromDate:oldDate  toDate:now  options:0];
+    return [comps day];
+}
+
 - (void)confirmBtn:(UIButton *)btn {
     
     VHSTimingTasker *tasker = [[VHSTimingTasker alloc] init];

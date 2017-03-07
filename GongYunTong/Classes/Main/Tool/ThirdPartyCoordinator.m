@@ -78,12 +78,11 @@ static NSString * const Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMm
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         
-        [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound + UNAuthorizationOptionBadge)
-                              completionHandler:^(BOOL granted, NSError * _Nullable error) {
-                                  if (granted) {
-                                      [application registerForRemoteNotifications];
-                                  }
-                              }];
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound + UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if (granted) {
+                [application registerForRemoteNotifications];
+            }
+        }];
 #endif
     }
     else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
@@ -98,9 +97,9 @@ static NSString * const Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMm
                   pushMode:BPushModeDevelopment
            withFirstAction:@"打开"
           withSecondAction:@"关闭"
-              withCategory:@"test"
+              withCategory:@"Production"
       useBehaviorTextInput:YES
-                   isDebug:YES];
+                   isDebug:NO];
     
     // 禁用地理位置推送 需要再绑定接口前调用。
     [BPush disableLbs];
