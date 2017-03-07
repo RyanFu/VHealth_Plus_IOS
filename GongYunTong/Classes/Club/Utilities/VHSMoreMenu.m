@@ -88,6 +88,13 @@ static CGFloat moreItemHeight = 44;
 - (MoreMenuView *)showMoreMenuWithMenuList:(NSArray *)moreMenuList {
     
     if (_contentView) {
+        for (NSInteger i = 0; i < self.subviews.count; i++) {
+            UIView *view = self.subviews[i];
+            if ([view isKindOfClass:[MoreItemBtn class]]) {
+                MoreItemBtn *btn = (MoreItemBtn *)view;
+                btn.moreModel = moreMenuList[i];
+            }
+        }
         _contentView.hidden = NO;
         return self;
     }
