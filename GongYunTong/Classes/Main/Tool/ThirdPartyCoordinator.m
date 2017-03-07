@@ -93,12 +93,12 @@ static NSString *Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
     // 在 App 启动时注册百度云推送服务，需要提供 Apikey
     [BPush registerChannel:launchOptions
                     apiKey:Baidu_Push_ApiKey
-                  pushMode:BPushModeProduction
+                  pushMode:BPushModeDevelopment
            withFirstAction:@"打开"
           withSecondAction:@"关闭"
               withCategory:@"test"
       useBehaviorTextInput:YES
-                   isDebug:YES];
+                   isDebug:NO];
     
     // 禁用地理位置推送 需要再绑定接口前调用。
     [BPush disableLbs];

@@ -321,24 +321,25 @@ static BOOL isBackGroundActivateApplication;
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [BPush registerDeviceToken:deviceToken];
     [BPush bindChannelWithCompleteHandler:^(id result, NSError *error) {
-        // 需要在绑定成功后进行 settag listtag deletetag unbind 操作否则会失败
+        // 需要在绑定成功后进行 settag listtag delete tag unbind 操作否则会失败
         // 网络错误
-        if (error) { return; }
+        if (error) return;
+        
         if (result) {
             // 确认绑定成功
             if ([result[@"error_code"] intValue] != 0) { return; }
             // 获取channel_id
-            CLog(@"Channel_id == %@",[BPush getChannelId]);
+            CLog(@"---->>>> Channel_id == %@",[BPush getChannelId]);
             [VHSCommon saveBPushChannelId:[BPush getChannelId]];
             
             [BPush listTagsWithCompleteHandler:^(id result, NSError *error) {
                 if (result) {
-                    CLog(@"result ============== %@",result);
+                    CLog(@"---->>>>listTagsWithCompleteHandler %@",result);
                 }
             }];
             [BPush setTag:@"vhs_gyt_tags" withCompleteHandler:^(id result, NSError *error) {
                 if (result) {
-                    CLog(@"设置tag成功");
+                    CLog(@"---->>>> 设置tag成功");
                 }
             }];
         }
