@@ -87,18 +87,6 @@ static CGFloat moreItemHeight = 44;
 
 - (MoreMenuView *)showMoreMenuWithMenuList:(NSArray *)moreMenuList {
     
-    if (_contentView) {
-        for (NSInteger i = 0; i < self.subviews.count; i++) {
-            UIView *view = self.subviews[i];
-            if ([view isKindOfClass:[MoreItemBtn class]]) {
-                MoreItemBtn *btn = (MoreItemBtn *)view;
-                btn.moreModel = moreMenuList[i];
-            }
-        }
-        _contentView.hidden = NO;
-        return self;
-    }
-    
     [[UIApplication sharedApplication].keyWindow addSubview:self.contentView];
     
     moreMenuHeight = [moreMenuList count] * moreItemHeight;
@@ -107,6 +95,10 @@ static CGFloat moreItemHeight = 44;
     frame.size.height = moreMenuHeight;
     self.frame = frame;
     [self.contentView addSubview:self];
+    
+    for (UIView *view in self.subviews) {
+        if ([view isKindOfClass:[MoreItemBtn class]]) [view removeFromSuperview];
+    }
     
     for (NSInteger i = 0; i < [moreMenuList count]; i++) {
         ChatMoreModel *model = moreMenuList[i];
@@ -119,13 +111,13 @@ static CGFloat moreItemHeight = 44;
 }
 
 - (void)moreItemAction:(MoreItemBtn *)btn {
-    self.contentView.hidden = YES;
+    [self.contentView removeFromSuperview];
     
     if (self.callBack) self.callBack(btn.moreModel);
 }
 
 - (void)tapMoreMenu {
-    self.contentView.hidden = YES;
+    [self.contentView removeFromSuperview];
 }
 
 - (void)dealloc {

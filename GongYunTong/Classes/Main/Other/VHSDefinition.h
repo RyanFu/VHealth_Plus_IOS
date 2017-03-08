@@ -86,12 +86,13 @@ static NSInteger const k_VHS_DataBase_Version                   = 2;
 
 #pragma mark - NSNotification ============================通知=====================================
 
-#define k_NOTIFICATION_TOKEN_INVALID                    @"k_NOTIFICATION_TOKEN_INVALID"         // token 失效通知
-#define k_NOTI_ALIPAY_CALLBACK_INFO                     @"k_NOTIFICATION_ALIPAY_CALLBACK_INFO"  // 调用支付客户端后的回调信息
-#define k_NOTI_WXPAY_CALLBACK_INFO                      @"k_NOTI_WXPAY_CALLBACK_INFO"           // 微信支付后回调信息
-#define k_NOTI_DIDBINDED_BLE                            @"k_NOTI_DIDBINDED_BLE"                 // 手机已经绑定手环
-#define k_NOTI_SYNCSTEPS_TO_NET                         @"k_NOTI_SYNCSTEPS_TO_NET"              // 自动同步步数数据到云端
-#define k_NOTI_DOUBLE_CLICK_TABBAR                      @"k_NOTI_DOUBLE_CLICK_TABBAR"           // 双击tabbar的item
+static NSString * const k_NOTIFICATION_TOKEN_INVALID    = @"k_NOTIFICATION_TOKEN_INVALID";          // token 失效通知
+static NSString * const k_NOTI_ALIPAY_CALLBACK_INFO     = @"k_NOTIFICATION_ALIPAY_CALLBACK_INFO";   // 调用支付客户端后的回调信息
+static NSString * const k_NOTI_WXPAY_CALLBACK_INFO      = @"k_NOTI_WXPAY_CALLBACK_INFO";            // 微信支付后回调信息
+static NSString * const k_NOTI_DIDBINDED_BLE            = @"k_NOTI_DIDBINDED_BLE";                  // 手机已经绑定手环
+static NSString * const k_NOTI_SYNCSTEPS_TO_NET         = @"k_NOTI_SYNCSTEPS_TO_NET";               // 自动同步步数数据到云端
+static NSString * const k_NOTI_DOUBLE_CLICK_TABBAR      = @"k_NOTI_DOUBLE_CLICK_TABBAR";            // 双击tabbar的item
+static NSString * const k_NOTI_APP_PAGE_REFRESH         = @"k_NOTI_APP_PAGE_REFRESH";               // 用于刷新H5刷新
 
 
 #pragma mark - NSUserDefault =============================本地存储=================================

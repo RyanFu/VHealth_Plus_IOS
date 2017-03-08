@@ -58,9 +58,8 @@
     [bgView addSubview:self.titleLabel];
     
     UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, 30, 60, 24)];
-    [backBtn setImage:[UIImage imageNamed:@"icon_back"] forState:UIControlStateNormal];
     [backBtn setTitleColor:COLORHex(@"#828282") forState:UIControlStateNormal];
-    [backBtn setTitle:@"返回" forState:UIControlStateNormal];
+    [backBtn setTitle:@"关闭" forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:backBtn];
 
@@ -80,7 +79,9 @@
 }
 
 - (void)backAction:(UIButton *)btn {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [k_NotificationCenter postNotificationName:k_NOTI_APP_PAGE_REFRESH object:nil];
+    }];
 }
 
 - (void)pulishAction:(UIButton *)btn {

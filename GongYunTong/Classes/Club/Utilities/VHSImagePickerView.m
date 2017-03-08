@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSMutableArray *photos;
 
 @end
-
+const NSInteger PICKER_IMAGE_WIDTH = 248;    // 图片宽度
 const NSInteger MAX_ALLOWED_COUNT = 9;      // 最多允许选中的图片数量
 const NSInteger H_MAX_COUNT = 4;            // 一行最多显示数量
 static NSString *reuseIdentifier = @"VHSImagePickerCollectionCell";
@@ -147,14 +147,14 @@ static NSString *reuseIdentifier = @"VHSImagePickerCollectionCell";
 #pragma mark - HUImagePickerViewControllerDelegate
 
 - (void)imagePickerController:(HUImagePickerViewController *)picker didFinishPickingImagesWithInfo:(NSDictionary *)info{
-    NSLog(@"images info: %@", info);
     NSArray *thumbnailImages = info[kHUImagePickerOriginalImage];
     // 移除最后一张占位符图片
     [self.photos removeLastObject];
     
     for (UIImage *img in thumbnailImages) {
         MomentPhotoModel *model = [[MomentPhotoModel alloc] init];
-        model.photoImage = [VHSUtils image:img scaleToSize:CGSizeMake(124, 124)];
+        CGSize imgSize = img.size;
+        model.photoImage = [VHSUtils image:img scaleToSize:CGSizeMake(PICKER_IMAGE_WIDTH, PICKER_IMAGE_WIDTH * imgSize.height / imgSize.width)];
         model.imageType = VHSImagePickerOfImageAlbumType;
         
         [self.photos addObject:model];

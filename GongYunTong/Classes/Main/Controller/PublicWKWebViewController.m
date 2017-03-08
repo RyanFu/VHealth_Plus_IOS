@@ -192,6 +192,7 @@
     // 监听支付宝支付回调通知
     [k_NotificationCenter addObserver:self selector:@selector(handleAlipayInfo:) name:k_NOTI_ALIPAY_CALLBACK_INFO object:nil];
     [k_NotificationCenter addObserver:self selector:@selector(appEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [k_NotificationCenter addObserver:self selector:@selector(refreshAppPage) name:k_NOTI_APP_PAGE_REFRESH object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -515,6 +516,13 @@
     } else {
         [self closeWebView];
     }
+}
+
+// 刷新Web Url
+- (void)refreshAppPage {
+    [self.contentWKWebView evaluateJavaScript:@"refreshAppPage()" completionHandler:^(id _Nullable res, NSError * _Nullable error) {
+        CLog(@"evaluateJavaScript success");
+    }];
 }
 
 - (void)dealloc {
