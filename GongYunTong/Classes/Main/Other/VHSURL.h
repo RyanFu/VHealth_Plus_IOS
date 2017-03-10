@@ -112,5 +112,7 @@ static NSString * const URL_UP_CLUB_NOTICE          = @"/upClubNotice.htm";
 static NSString * const URL_GET_CLUB_MORE           = @"/getClubMore.htm";
 /// 获取最新的公告列表
 static NSString * const URL_GET_NEW_CLUB_NOTICE     = @"/getNewClubNotice.htm";
+/// 获取推送消息列表信息
+static NSString * const URL_GET_MESSAGE_QUEUE       = @"/getMessageQueue.htm";
 
 #endif /* VHSURL_h */

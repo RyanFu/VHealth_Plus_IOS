@@ -49,13 +49,8 @@ CGFloat const settingFooterHeight=106;
     self.unbindBtn.layer.cornerRadius = 5;
     self.unbindBtn.layer.masksToBounds = YES;
     
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(0, 0, 44, 30);
-    [backBtn setTitle:@"返回" forState:UIControlStateNormal];
-    [backBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(popUpViewController) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *backBarItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
-    self.navigationItem.leftBarButtonItem = backBarItem;
+    UIBarButtonItem *backBarI = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(popUpViewController)];
+    self.navigationItem.leftBarButtonItem = backBarI;
 }
 
 - (void)viewDidAppear:(BOOL)animated {

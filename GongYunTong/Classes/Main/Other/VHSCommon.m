@@ -503,8 +503,10 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
 }
 
 + (void)showADPageWithUrl:(NSString *)adUrl duration:(NSInteger)duration {
-
+    
     if (duration == 0) return;
+    
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
     
     UIImageView *adImageView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [[UIApplication sharedApplication].keyWindow addSubview:adImageView];

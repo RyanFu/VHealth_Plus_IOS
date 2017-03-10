@@ -91,11 +91,14 @@
 }
 
 - (void)confirmBtn:(UIButton *)btn {
+
+    VHSMessageQueueController *msgQueueVC = [[VHSMessageQueueController alloc] init];
+    [self.navigationController pushViewController:msgQueueVC animated:YES];
     
-    VHSTimingTasker *tasker = [[VHSTimingTasker alloc] init];
-    tasker.startTime = @"2017-03-01 00:00:00";
-    tasker.endTime = [VHSCommon getDate:[NSDate date]];
-    [tasker startTimingTask];
+//    VHSTimingTasker *tasker = [[VHSTimingTasker alloc] init];
+//    tasker.startTime = @"2017-03-01 00:00:00";
+//    tasker.endTime = [VHSCommon getDate:[NSDate date]];
+//    [tasker startTimingTask];
     
 //    SFSafariViewController *sfvc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://www.baidu.com/"]];
 //    [self presentViewController:sfvc animated:YES completion:nil];

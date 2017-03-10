@@ -52,9 +52,9 @@
     self.headerViewLineHeight.constant = 0.5;
     // 获取版本信息
     self.copyright.text = [NSString stringWithFormat:@"版本%@ 由好人生集团提供", [VHSCommon appVersion]];
-    
     [self getMemberStep];
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"消息" style:UIBarButtonItemStylePlain target:self action:@selector(btnClickToMessage:)];
     // 先从缓存中读取数据
     self.userDetail = [VHSCommon userDetailInfo];
     self.userScore = [UserScoreModel yy_modelWithDictionary:[VHSCommon getUserDefautForKey:Cache_Me_UserScore]];
@@ -79,6 +79,13 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [[BaiduMobStat defaultStat] pageviewEndWithName:[NSString stringWithFormat:@"%@", @"我"]];
+}
+
+- (void)btnClickToMessage:(UIButton *)btn {
+    VHSMessageQueueController *msgQueueVC = [[VHSMessageQueueController alloc] init];
+    msgQueueVC.title = @"消息";
+    msgQueueVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:msgQueueVC animated:YES];
 }
 
 #pragma mark - download data 

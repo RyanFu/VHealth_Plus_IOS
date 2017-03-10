@@ -49,7 +49,7 @@
     
     UILabel *backLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(backImage.frame), 0, 40, 30)];
     backLabel.text = @"返回";
-    backLabel.textColor = [UIColor colorWithHexString:@"#828282"];
+    backLabel.textColor = COLORHex(@"#828282");
     backLabel.font = [UIFont systemFontOfSize:14.0];
     
     self.backBarView = backView;

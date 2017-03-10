@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = COLORHex(@"#EFEFF4");
     
     [self pretendNavigationBar];
     [self initCommentView];
@@ -54,18 +54,20 @@
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.textColor = [UIColor blackColor];
     self.titleLabel.text = self.title;
-    self.titleLabel.font = [UIFont boldSystemFontOfSize:19];
+    self.titleLabel.font = [UIFont boldSystemFontOfSize:17];
     [bgView addSubview:self.titleLabel];
     
-    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, 30, 60, 24)];
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(5, 30, 50, 24)];
     [backBtn setTitleColor:COLORHex(@"#828282") forState:UIControlStateNormal];
     [backBtn setTitle:@"关闭" forState:UIControlStateNormal];
+    backBtn.titleLabel.font = [UIFont systemFontOfSize:17];
     [backBtn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:backBtn];
 
-    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREENW - 15 - 60, 30, 60, 24)];
+    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREENW - 5 - 50, 30, 50, 24)];
     [rightBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    if (self.commentType == VHSCommentOfMomentAnnouncementType) {
+    rightBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+    if (self.commentType == VHSCommentOfMomentAnnouncementType || self.commentType == VHSCommentOfMomentUpdateAnnouncementType) {
         [rightBtn setTitle:@"发布" forState:UIControlStateNormal];
     } else if (self.commentType == VHSCommentOfMomentReplyPostType) {
         [rightBtn setTitle:@"发送" forState:UIControlStateNormal];
@@ -79,6 +81,10 @@
 }
 
 - (void)backAction:(UIButton *)btn {
+    [self dismissController];
+}
+
+- (void)dismissController {
     [self dismissViewControllerAnimated:YES completion:^{
         [k_NotificationCenter postNotificationName:k_NOTI_APP_PAGE_REFRESH object:nil];
     }];
@@ -119,7 +125,7 @@
         [MBProgressHUD hiddenHUD];
         [VHSToast toast:result[@"info"]];
         
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissController];
     } fail:^(NSError *error) {
         CLog(@"%@", error.description);
     }];
@@ -128,29 +134,37 @@
 #pragma mark - 文本编辑框
 
 - (void)initCommentView {
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, NAVIAGTION_HEIGHT, SCREENW, 120)];
+    bgView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:bgView];
+    
     CGFloat marginx = 10.0;
     
-    UITextView *commentTextView = [[UITextView alloc] initWithFrame:CGRectMake(marginx, NAVIAGTION_HEIGHT, SCREENW - marginx * 2, 200)];
+    UITextView *commentTextView = [[UITextView alloc] initWithFrame:CGRectMake(marginx, 0, bgView.frame.size.width - marginx * 2, CGRectGetHeight(bgView.frame))];
     commentTextView.delegate = self;
     commentTextView.font = [UIFont systemFontOfSize:17];
     commentTextView.returnKeyType = UIReturnKeyDone;
     commentTextView.showsVerticalScrollIndicator = NO;
-    [commentTextView becomeFirstResponder];
     
-    [self.view addSubview:commentTextView];
+    [bgView addSubview:commentTextView];
     
-    commentTextView.text = CONST_CLUB_MOMENT_POST_PLACEHOLDER;
-    commentTextView.textColor = COLOR_TEXT_PLACEHOLDER;
+    if (self.content) {
+        commentTextView.text = self.content;
+    } else {
+        commentTextView.text = CONST_CLUB_MOMENT_POST_PLACEHOLDER;
+        commentTextView.textColor = COLOR_TEXT_PLACEHOLDER;
+    }
 }
 
 - (void)initImagePickerView {
     __weak typeof(self) weakSelf = self;
     // 自定义封装的图片选择器
-    VHSImagePickerView *imagePickerView = [[VHSImagePickerView alloc] initWithFrame:CGRectMake(0, 210, SCREENW, 300)];
+    VHSImagePickerView *imagePickerView = [[VHSImagePickerView alloc] initWithFrame:CGRectMake(0, NAVIAGTION_HEIGHT + 140, SCREENW, 300)];
     imagePickerView.fatherController = self;
     imagePickerView.imagePickerCompletionHandler = ^(NSArray *photoMomentItems){
         weakSelf.photosMomentItems = photoMomentItems;
     };
+    imagePickerView.backgroundColor = [UIColor yellowColor];
     [self.view addSubview:imagePickerView];
     
     UIButton *publishBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, SCREENH - 50, SCREENW, 50)];
@@ -184,7 +198,7 @@
         
         if ([result[@"result"] integerValue] != 200) return;
         
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissController];
     } fail:^(NSError *error) {
         CLog(@"%@", error.description);
     }];

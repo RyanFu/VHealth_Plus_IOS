@@ -70,6 +70,16 @@ static NSInteger load_club_numbers = 0;
     [self remoteUserClubsWithClubType:VHSClubOfOtherType];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[BaiduMobStat defaultStat] pageviewStartWithName:VC_TITLE_CLUB];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[BaiduMobStat defaultStat] pageviewEndWithName:VC_TITLE_CLUB];
+}
+
 #pragma mark - 初始化试图
 
 - (void)setupTableView {
@@ -238,6 +248,9 @@ static NSInteger load_club_numbers = 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 1) {
+        return 0;
+    }
     return 12.0;
 }
 

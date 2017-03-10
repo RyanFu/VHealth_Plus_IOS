@@ -8,11 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		19097B366133A5163133F1D2 /* libPods-GongYunTong.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0588B8F6140A1C3DC0DA81A6 /* libPods-GongYunTong.a */; };
-		3301A7D11E2868CA0035CDA3 /* VHSClubSessionCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 3301A7CE1E2868CA0035CDA3 /* VHSClubSessionCell.h */; };
-		3301A7D21E2868CA0035CDA3 /* VHSClubSessionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3301A7CF1E2868CA0035CDA3 /* VHSClubSessionCell.m */; };
-		3301A7D31E2868CA0035CDA3 /* VHSClubSessionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3301A7D01E2868CA0035CDA3 /* VHSClubSessionCell.xib */; };
-		3301A7D61E2886DB0035CDA3 /* VHSReddotButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 3301A7D41E2886DB0035CDA3 /* VHSReddotButton.h */; };
-		3301A7D71E2886DB0035CDA3 /* VHSReddotButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3301A7D51E2886DB0035CDA3 /* VHSReddotButton.m */; };
 		3302FF7F1E275A7000295493 /* Emoji.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3302FF751E275A7000295493 /* Emoji.plist */; };
 		3302FF801E275A7000295493 /* RongCloudKit.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3302FF761E275A7000295493 /* RongCloudKit.strings */; };
 		3302FF811E275A7000295493 /* RongCloud.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3302FF781E275A7000295493 /* RongCloud.bundle */; };
@@ -29,10 +24,6 @@
 		3302FF931E275C9400295493 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3302FF921E275C9400295493 /* MapKit.framework */; };
 		3302FF951E275CC300295493 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3302FF941E275CC300295493 /* Photos.framework */; };
 		3302FF971E275CCC00295493 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3302FF961E275CCC00295493 /* SafariServices.framework */; };
-		3302FF9A1E27643E00295493 /* VHSClubController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3302FF981E27643E00295493 /* VHSClubController.h */; };
-		3302FF9B1E27643E00295493 /* VHSClubController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3302FF991E27643E00295493 /* VHSClubController.m */; };
-		3302FF9E1E276DD900295493 /* ClubModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3302FF9C1E276DD900295493 /* ClubModel.h */; };
-		3302FF9F1E276DD900295493 /* ClubModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3302FF9D1E276DD900295493 /* ClubModel.m */; };
 		33030A771E66ADD300892792 /* VHSTabConfigurationItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 3304BB611DED63FB00EDBC6B /* VHSTabConfigurationItem.h */; };
 		3304BB5C1DED62F600EDBC6B /* UserInfoModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3304BB5A1DED62F600EDBC6B /* UserInfoModel.h */; };
 		3304BB5D1DED62F600EDBC6B /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304BB5B1DED62F600EDBC6B /* UserInfoModel.m */; };
@@ -49,6 +40,8 @@
 		3325E09D1D6AA9F00045AC33 /* BalanceItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3325E09C1D6AA9F00045AC33 /* BalanceItemModel.m */; };
 		3325E0A01D6C2EFF0045AC33 /* MeSumScoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3325E09F1D6C2EFF0045AC33 /* MeSumScoreModel.m */; };
 		332758701DA8D49D00C285DB /* VHSAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3327586F1DA8D49D00C285DB /* VHSAlertController.m */; };
+		333AB3F31E70E6FF004608E3 /* VHSMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333AB3F21E70E6FF004608E3 /* VHSMessageCell.swift */; };
+		333AB3F51E70F8DE004608E3 /* VHSMessageDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333AB3F41E70F8DE004608E3 /* VHSMessageDetailController.swift */; };
 		333F396C1DFBD52C005A43AA /* OneAlertCaller.h in Headers */ = {isa = PBXBuildFile; fileRef = 333F396A1DFBD52C005A43AA /* OneAlertCaller.h */; };
 		333F396D1DFBD52C005A43AA /* OneAlertCaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 333F396B1DFBD52C005A43AA /* OneAlertCaller.m */; };
 		334038F91D8175F800202DDD /* TransferStepModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 334038F81D8175F800202DDD /* TransferStepModel.m */; };
@@ -73,43 +66,11 @@
 		3353B9C31D781A2500335815 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3353B9C21D781A2500335815 /* AVFoundation.framework */; };
 		3353B9C61D782A8400335815 /* VHSMeScoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3353B9C51D782A8400335815 /* VHSMeScoreCell.m */; };
 		3360B6641D894045005BDB77 /* VHSNoStypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3360B6631D894045005BDB77 /* VHSNoStypeCell.m */; };
-		3362F2FE1E309D6400F69477 /* ChatMoreModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3362F2FC1E309D6400F69477 /* ChatMoreModel.h */; };
-		3362F2FF1E309D6400F69477 /* ChatMoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3362F2FD1E309D6400F69477 /* ChatMoreModel.m */; };
-		3362F3021E30BC9D00F69477 /* VHSMoreMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 3362F3001E30BC9D00F69477 /* VHSMoreMenu.h */; };
-		3362F3031E30BC9D00F69477 /* VHSMoreMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 3362F3011E30BC9D00F69477 /* VHSMoreMenu.m */; };
 		3362F3061E30CAF500F69477 /* UIView+extension.h in Headers */ = {isa = PBXBuildFile; fileRef = 3362F3041E30CAF500F69477 /* UIView+extension.h */; };
 		3362F3071E30CAF500F69477 /* UIView+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3362F3051E30CAF500F69477 /* UIView+extension.m */; };
 		33640B5E1D9224BC00B34C8B /* KeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 33640B5D1D9224BC00B34C8B /* KeyChainStore.m */; };
-		3364900D1E484AE5006F0570 /* VHSCommentController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3364900B1E484AE5006F0570 /* VHSCommentController.h */; };
-		3364900E1E484AE5006F0570 /* VHSCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3364900C1E484AE5006F0570 /* VHSCommentController.m */; };
-		3364904D1E4874BC006F0570 /* HUAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = 336490391E4874BC006F0570 /* HUAlbum.h */; };
-		3364904E1E4874BC006F0570 /* HUAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 3364903A1E4874BC006F0570 /* HUAlbum.m */; };
-		3364904F1E4874BC006F0570 /* HUAlbumCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 3364903B1E4874BC006F0570 /* HUAlbumCell.h */; };
-		336490501E4874BC006F0570 /* HUAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3364903C1E4874BC006F0570 /* HUAlbumCell.m */; };
-		336490511E4874BC006F0570 /* HUAlbumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3364903D1E4874BC006F0570 /* HUAlbumCell.xib */; };
-		336490521E4874BC006F0570 /* HUAlbumsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 3364903E1E4874BC006F0570 /* HUAlbumsViewController.h */; };
-		336490531E4874BC006F0570 /* HUAlbumsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3364903F1E4874BC006F0570 /* HUAlbumsViewController.m */; };
-		336490541E4874BC006F0570 /* HUImageItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 336490401E4874BC006F0570 /* HUImageItem.h */; };
-		336490551E4874BC006F0570 /* HUImageItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 336490411E4874BC006F0570 /* HUImageItem.m */; };
-		336490561E4874BC006F0570 /* HUImagePickerCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 336490421E4874BC006F0570 /* HUImagePickerCell.h */; };
-		336490571E4874BC006F0570 /* HUImagePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 336490431E4874BC006F0570 /* HUImagePickerCell.m */; };
-		336490581E4874BC006F0570 /* HUImagePickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 336490441E4874BC006F0570 /* HUImagePickerCell.xib */; };
-		336490591E4874BC006F0570 /* HUImagePickerRootViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 336490451E4874BC006F0570 /* HUImagePickerRootViewController.h */; };
-		3364905A1E4874BC006F0570 /* HUImagePickerRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 336490461E4874BC006F0570 /* HUImagePickerRootViewController.m */; };
-		3364905B1E4874BC006F0570 /* HUImagePickerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 336490471E4874BC006F0570 /* HUImagePickerViewController.h */; };
-		3364905C1E4874BC006F0570 /* HUImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 336490481E4874BC006F0570 /* HUImagePickerViewController.m */; };
-		3364905D1E4874BC006F0570 /* HUPhotoHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 336490491E4874BC006F0570 /* HUPhotoHelper.h */; };
-		3364905E1E4874BC006F0570 /* HUPhotoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3364904A1E4874BC006F0570 /* HUPhotoHelper.m */; };
-		3364905F1E4874BC006F0570 /* pick_checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3364904B1E4874BC006F0570 /* pick_checked@2x.png */; };
-		336490601E4874BC006F0570 /* pick_checked@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3364904C1E4874BC006F0570 /* pick_checked@3x.png */; };
-		336490631E48777C006F0570 /* VHSImagePickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 336490611E48777C006F0570 /* VHSImagePickerView.h */; };
-		336490641E48777C006F0570 /* VHSImagePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 336490621E48777C006F0570 /* VHSImagePickerView.m */; };
-		336490671E49ACD0006F0570 /* MomentPhotoModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 336490651E49ACD0006F0570 /* MomentPhotoModel.h */; };
-		336490681E49ACD0006F0570 /* MomentPhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 336490661E49ACD0006F0570 /* MomentPhotoModel.m */; };
 		3364D1EC1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3364D1EA1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m */; };
 		3364D1ED1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3364D1EB1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib */; };
-		33661D141E51766F00B38D8B /* ClubMember.h in Headers */ = {isa = PBXBuildFile; fileRef = 33661D121E51766F00B38D8B /* ClubMember.h */; };
-		33661D151E51766F00B38D8B /* ClubMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 33661D131E51766F00B38D8B /* ClubMember.m */; };
 		3371B3801E1B6265007A285A /* AES128Util.h in Headers */ = {isa = PBXBuildFile; fileRef = 3371B37E1E1B6265007A285A /* AES128Util.h */; };
 		3371B3811E1B6265007A285A /* AES128Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 3371B37F1E1B6265007A285A /* AES128Util.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		337E0BB61E64144400C31C43 /* VHSGlobalDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 337E0BB41E64144400C31C43 /* VHSGlobalDataManager.h */; };
@@ -144,8 +105,55 @@
 		339E5A151E69521D002F1F4D /* VHSTimingTasker.m in Sources */ = {isa = PBXBuildFile; fileRef = 339E5A131E69521D002F1F4D /* VHSTimingTasker.m */; };
 		33A59E191E10EC0300D7BED4 /* DBSafetyCoordinator.h in Headers */ = {isa = PBXBuildFile; fileRef = 33A59E171E10EC0300D7BED4 /* DBSafetyCoordinator.h */; };
 		33A59E1A1E10EC0300D7BED4 /* DBSafetyCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 33A59E181E10EC0300D7BED4 /* DBSafetyCoordinator.m */; };
+		33B1EB471E6FD61000B74CA8 /* GongYunTong-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB461E6FD61000B74CA8 /* GongYunTong-Bridging-Header.h */; };
+		33B1EB511E6FD9FF00B74CA8 /* VHSMessageQueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB501E6FD9FF00B74CA8 /* VHSMessageQueueController.swift */; };
+		33B1EB831E6FF1A000B74CA8 /* VHSChatController.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB541E6FF1A000B74CA8 /* VHSChatController.h */; };
+		33B1EB841E6FF1A000B74CA8 /* VHSChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB551E6FF1A000B74CA8 /* VHSChatController.m */; };
+		33B1EB851E6FF1A000B74CA8 /* VHSClubController.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB561E6FF1A000B74CA8 /* VHSClubController.h */; };
+		33B1EB861E6FF1A000B74CA8 /* VHSClubController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB571E6FF1A000B74CA8 /* VHSClubController.m */; };
+		33B1EB871E6FF1A000B74CA8 /* VHSCommentController.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB581E6FF1A000B74CA8 /* VHSCommentController.h */; };
+		33B1EB881E6FF1A000B74CA8 /* VHSCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB591E6FF1A000B74CA8 /* VHSCommentController.m */; };
+		33B1EB891E6FF1A000B74CA8 /* ChatMoreModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB5B1E6FF1A000B74CA8 /* ChatMoreModel.h */; };
+		33B1EB8A1E6FF1A000B74CA8 /* ChatMoreModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB5C1E6FF1A000B74CA8 /* ChatMoreModel.m */; };
+		33B1EB8B1E6FF1A000B74CA8 /* ClubMember.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB5D1E6FF1A000B74CA8 /* ClubMember.h */; };
+		33B1EB8C1E6FF1A000B74CA8 /* ClubMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB5E1E6FF1A000B74CA8 /* ClubMember.m */; };
+		33B1EB8D1E6FF1A000B74CA8 /* ClubModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB5F1E6FF1A000B74CA8 /* ClubModel.h */; };
+		33B1EB8E1E6FF1A000B74CA8 /* ClubModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB601E6FF1A000B74CA8 /* ClubModel.m */; };
+		33B1EB8F1E6FF1A000B74CA8 /* MomentPhotoModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB611E6FF1A000B74CA8 /* MomentPhotoModel.h */; };
+		33B1EB901E6FF1A000B74CA8 /* MomentPhotoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB621E6FF1A000B74CA8 /* MomentPhotoModel.m */; };
+		33B1EB911E6FF1A000B74CA8 /* HUAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB651E6FF1A000B74CA8 /* HUAlbum.h */; };
+		33B1EB921E6FF1A000B74CA8 /* HUAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB661E6FF1A000B74CA8 /* HUAlbum.m */; };
+		33B1EB931E6FF1A000B74CA8 /* HUAlbumCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB671E6FF1A000B74CA8 /* HUAlbumCell.h */; };
+		33B1EB941E6FF1A000B74CA8 /* HUAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB681E6FF1A000B74CA8 /* HUAlbumCell.m */; };
+		33B1EB951E6FF1A000B74CA8 /* HUAlbumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33B1EB691E6FF1A000B74CA8 /* HUAlbumCell.xib */; };
+		33B1EB961E6FF1A000B74CA8 /* HUAlbumsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB6A1E6FF1A000B74CA8 /* HUAlbumsViewController.h */; };
+		33B1EB971E6FF1A000B74CA8 /* HUAlbumsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB6B1E6FF1A000B74CA8 /* HUAlbumsViewController.m */; };
+		33B1EB981E6FF1A000B74CA8 /* HUImageItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB6C1E6FF1A000B74CA8 /* HUImageItem.h */; };
+		33B1EB991E6FF1A000B74CA8 /* HUImageItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB6D1E6FF1A000B74CA8 /* HUImageItem.m */; };
+		33B1EB9A1E6FF1A000B74CA8 /* HUImagePickerCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB6E1E6FF1A000B74CA8 /* HUImagePickerCell.h */; };
+		33B1EB9B1E6FF1A000B74CA8 /* HUImagePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB6F1E6FF1A000B74CA8 /* HUImagePickerCell.m */; };
+		33B1EB9C1E6FF1A000B74CA8 /* HUImagePickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33B1EB701E6FF1A000B74CA8 /* HUImagePickerCell.xib */; };
+		33B1EB9D1E6FF1A000B74CA8 /* HUImagePickerRootViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB711E6FF1A000B74CA8 /* HUImagePickerRootViewController.h */; };
+		33B1EB9E1E6FF1A000B74CA8 /* HUImagePickerRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB721E6FF1A000B74CA8 /* HUImagePickerRootViewController.m */; };
+		33B1EB9F1E6FF1A000B74CA8 /* HUImagePickerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB731E6FF1A000B74CA8 /* HUImagePickerViewController.h */; };
+		33B1EBA01E6FF1A000B74CA8 /* HUImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB741E6FF1A000B74CA8 /* HUImagePickerViewController.m */; };
+		33B1EBA11E6FF1A000B74CA8 /* HUPhotoHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB751E6FF1A000B74CA8 /* HUPhotoHelper.h */; };
+		33B1EBA21E6FF1A000B74CA8 /* HUPhotoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB761E6FF1A000B74CA8 /* HUPhotoHelper.m */; };
+		33B1EBA31E6FF1A000B74CA8 /* pick_checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 33B1EB771E6FF1A000B74CA8 /* pick_checked@2x.png */; };
+		33B1EBA41E6FF1A000B74CA8 /* pick_checked@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 33B1EB781E6FF1A000B74CA8 /* pick_checked@3x.png */; };
+		33B1EBA51E6FF1A000B74CA8 /* VHSImagePickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB791E6FF1A000B74CA8 /* VHSImagePickerView.h */; };
+		33B1EBA61E6FF1A000B74CA8 /* VHSImagePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB7A1E6FF1A000B74CA8 /* VHSImagePickerView.m */; };
+		33B1EBA71E6FF1A000B74CA8 /* VHSMoreMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB7B1E6FF1A000B74CA8 /* VHSMoreMenu.h */; };
+		33B1EBA81E6FF1A000B74CA8 /* VHSMoreMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB7C1E6FF1A000B74CA8 /* VHSMoreMenu.m */; };
+		33B1EBA91E6FF1A000B74CA8 /* VHSClubSessionCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB7E1E6FF1A000B74CA8 /* VHSClubSessionCell.h */; };
+		33B1EBAA1E6FF1A000B74CA8 /* VHSClubSessionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB7F1E6FF1A000B74CA8 /* VHSClubSessionCell.m */; };
+		33B1EBAB1E6FF1A000B74CA8 /* VHSClubSessionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 33B1EB801E6FF1A000B74CA8 /* VHSClubSessionCell.xib */; };
+		33B1EBAC1E6FF1A000B74CA8 /* VHSReddotButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B1EB811E6FF1A000B74CA8 /* VHSReddotButton.h */; };
+		33B1EBAD1E6FF1A000B74CA8 /* VHSReddotButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB821E6FF1A000B74CA8 /* VHSReddotButton.m */; };
+		33B1EBAF1E6FF1D300B74CA8 /* VHSMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EBAE1E6FF1D300B74CA8 /* VHSMessageModel.swift */; };
 		33B460201E6D3CB200E38860 /* VHSBraceletCoodinator.h in Headers */ = {isa = PBXBuildFile; fileRef = 33B4601E1E6D3CB200E38860 /* VHSBraceletCoodinator.h */; };
 		33B460211E6D3CB200E38860 /* VHSBraceletCoodinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B4601F1E6D3CB200E38860 /* VHSBraceletCoodinator.m */; };
+		33B658EF1E715D39008CC05E /* String+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B658EE1E715D39008CC05E /* String+Size.swift */; };
 		33C5E97E1D94F4D3004814BA /* libBPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C5E97C1D94F4D3004814BA /* libBPush.a */; };
 		33C5E97F1D94F4D3004814BA /* test.caf in Resources */ = {isa = PBXBuildFile; fileRef = 33C5E97D1D94F4D3004814BA /* test.caf */; };
 		33C5E9811D98C272004814BA /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C5E9801D98C272004814BA /* libsqlite3.tbd */; };
@@ -156,8 +164,6 @@
 		33CBF32D1D73C9B500D39452 /* UIButton+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF32C1D73C9B500D39452 /* UIButton+extension.m */; };
 		33CBF3301D73D81400D39452 /* PublicWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF32F1D73D81400D39452 /* PublicWKWebViewController.m */; };
 		33CBF3351D755A5E00D39452 /* UILabel+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33CBF3341D755A5E00D39452 /* UILabel+extension.m */; };
-		33D073721E2784BF00A89E0E /* VHSChatController.h in Headers */ = {isa = PBXBuildFile; fileRef = 33D073701E2784BF00A89E0E /* VHSChatController.h */; };
-		33D073731E2784BF00A89E0E /* VHSChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33D073711E2784BF00A89E0E /* VHSChatController.m */; };
 		33D097621E695B9E00B57648 /* VHSTestController.h in Headers */ = {isa = PBXBuildFile; fileRef = 33D097601E695B9E00B57648 /* VHSTestController.h */; };
 		33D097631E695B9E00B57648 /* VHSTestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33D097611E695B9E00B57648 /* VHSTestController.m */; };
 		33E14E1B1DFA7D760021688D /* DynamicItemModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 33E14E191DFA7D760021688D /* DynamicItemModel.h */; };
@@ -288,11 +294,6 @@
 
 /* Begin PBXFileReference section */
 		0588B8F6140A1C3DC0DA81A6 /* libPods-GongYunTong.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GongYunTong.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3301A7CE1E2868CA0035CDA3 /* VHSClubSessionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSClubSessionCell.h; sourceTree = "<group>"; };
-		3301A7CF1E2868CA0035CDA3 /* VHSClubSessionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSClubSessionCell.m; sourceTree = "<group>"; };
-		3301A7D01E2868CA0035CDA3 /* VHSClubSessionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VHSClubSessionCell.xib; sourceTree = "<group>"; };
-		3301A7D41E2886DB0035CDA3 /* VHSReddotButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSReddotButton.h; sourceTree = "<group>"; };
-		3301A7D51E2886DB0035CDA3 /* VHSReddotButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSReddotButton.m; sourceTree = "<group>"; };
 		3302FF751E275A7000295493 /* Emoji.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Emoji.plist; sourceTree = "<group>"; };
 		3302FF771E275A7000295493 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/RongCloudKit.strings; sourceTree = "<group>"; };
 		3302FF781E275A7000295493 /* RongCloud.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = RongCloud.bundle; sourceTree = "<group>"; };
@@ -310,10 +311,6 @@
 		3302FF921E275C9400295493 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3302FF941E275CC300295493 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		3302FF961E275CCC00295493 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
-		3302FF981E27643E00295493 /* VHSClubController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSClubController.h; sourceTree = "<group>"; };
-		3302FF991E27643E00295493 /* VHSClubController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSClubController.m; sourceTree = "<group>"; };
-		3302FF9C1E276DD900295493 /* ClubModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClubModel.h; sourceTree = "<group>"; };
-		3302FF9D1E276DD900295493 /* ClubModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClubModel.m; sourceTree = "<group>"; };
 		3304BB5A1DED62F600EDBC6B /* UserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = "<group>"; };
 		3304BB5B1DED62F600EDBC6B /* UserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
 		3304BB5F1DED63FB00EDBC6B /* ShortcutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShortcutItem.h; sourceTree = "<group>"; };
@@ -338,6 +335,8 @@
 		3325E09F1D6C2EFF0045AC33 /* MeSumScoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeSumScoreModel.m; sourceTree = "<group>"; };
 		3327586E1DA8D49D00C285DB /* VHSAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSAlertController.h; sourceTree = "<group>"; };
 		3327586F1DA8D49D00C285DB /* VHSAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSAlertController.m; sourceTree = "<group>"; };
+		333AB3F21E70E6FF004608E3 /* VHSMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VHSMessageCell.swift; sourceTree = "<group>"; };
+		333AB3F41E70F8DE004608E3 /* VHSMessageDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VHSMessageDetailController.swift; sourceTree = "<group>"; };
 		333F396A1DFBD52C005A43AA /* OneAlertCaller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneAlertCaller.h; sourceTree = "<group>"; };
 		333F396B1DFBD52C005A43AA /* OneAlertCaller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneAlertCaller.m; sourceTree = "<group>"; };
 		334038F71D8175F800202DDD /* TransferStepModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransferStepModel.h; sourceTree = "<group>"; };
@@ -370,45 +369,13 @@
 		3353B9C51D782A8400335815 /* VHSMeScoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSMeScoreCell.m; sourceTree = "<group>"; };
 		3360B6621D894045005BDB77 /* VHSNoStypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSNoStypeCell.h; sourceTree = "<group>"; };
 		3360B6631D894045005BDB77 /* VHSNoStypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSNoStypeCell.m; sourceTree = "<group>"; };
-		3362F2FC1E309D6400F69477 /* ChatMoreModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMoreModel.h; sourceTree = "<group>"; };
-		3362F2FD1E309D6400F69477 /* ChatMoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMoreModel.m; sourceTree = "<group>"; };
-		3362F3001E30BC9D00F69477 /* VHSMoreMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSMoreMenu.h; sourceTree = "<group>"; };
-		3362F3011E30BC9D00F69477 /* VHSMoreMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSMoreMenu.m; sourceTree = "<group>"; };
 		3362F3041E30CAF500F69477 /* UIView+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+extension.h"; sourceTree = "<group>"; };
 		3362F3051E30CAF500F69477 /* UIView+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+extension.m"; sourceTree = "<group>"; };
 		33640B5C1D9224BC00B34C8B /* KeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyChainStore.h; sourceTree = "<group>"; };
 		33640B5D1D9224BC00B34C8B /* KeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainStore.m; sourceTree = "<group>"; };
-		3364900B1E484AE5006F0570 /* VHSCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSCommentController.h; sourceTree = "<group>"; };
-		3364900C1E484AE5006F0570 /* VHSCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSCommentController.m; sourceTree = "<group>"; };
-		336490391E4874BC006F0570 /* HUAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbum.h; sourceTree = "<group>"; };
-		3364903A1E4874BC006F0570 /* HUAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUAlbum.m; sourceTree = "<group>"; };
-		3364903B1E4874BC006F0570 /* HUAlbumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbumCell.h; sourceTree = "<group>"; };
-		3364903C1E4874BC006F0570 /* HUAlbumCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUAlbumCell.m; sourceTree = "<group>"; };
-		3364903D1E4874BC006F0570 /* HUAlbumCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HUAlbumCell.xib; sourceTree = "<group>"; };
-		3364903E1E4874BC006F0570 /* HUAlbumsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbumsViewController.h; sourceTree = "<group>"; };
-		3364903F1E4874BC006F0570 /* HUAlbumsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUAlbumsViewController.m; sourceTree = "<group>"; };
-		336490401E4874BC006F0570 /* HUImageItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUImageItem.h; sourceTree = "<group>"; };
-		336490411E4874BC006F0570 /* HUImageItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUImageItem.m; sourceTree = "<group>"; };
-		336490421E4874BC006F0570 /* HUImagePickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUImagePickerCell.h; sourceTree = "<group>"; };
-		336490431E4874BC006F0570 /* HUImagePickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUImagePickerCell.m; sourceTree = "<group>"; };
-		336490441E4874BC006F0570 /* HUImagePickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HUImagePickerCell.xib; sourceTree = "<group>"; };
-		336490451E4874BC006F0570 /* HUImagePickerRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUImagePickerRootViewController.h; sourceTree = "<group>"; };
-		336490461E4874BC006F0570 /* HUImagePickerRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUImagePickerRootViewController.m; sourceTree = "<group>"; };
-		336490471E4874BC006F0570 /* HUImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUImagePickerViewController.h; sourceTree = "<group>"; };
-		336490481E4874BC006F0570 /* HUImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUImagePickerViewController.m; sourceTree = "<group>"; };
-		336490491E4874BC006F0570 /* HUPhotoHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUPhotoHelper.h; sourceTree = "<group>"; };
-		3364904A1E4874BC006F0570 /* HUPhotoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUPhotoHelper.m; sourceTree = "<group>"; };
-		3364904B1E4874BC006F0570 /* pick_checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_checked@2x.png"; sourceTree = "<group>"; };
-		3364904C1E4874BC006F0570 /* pick_checked@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_checked@3x.png"; sourceTree = "<group>"; };
-		336490611E48777C006F0570 /* VHSImagePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSImagePickerView.h; sourceTree = "<group>"; };
-		336490621E48777C006F0570 /* VHSImagePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSImagePickerView.m; sourceTree = "<group>"; };
-		336490651E49ACD0006F0570 /* MomentPhotoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentPhotoModel.h; sourceTree = "<group>"; };
-		336490661E49ACD0006F0570 /* MomentPhotoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MomentPhotoModel.m; sourceTree = "<group>"; };
 		3364D1E91DC7668D00E8A3FF /* VHSFitBraceletHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSFitBraceletHelpController.h; sourceTree = "<group>"; };
 		3364D1EA1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSFitBraceletHelpController.m; sourceTree = "<group>"; };
 		3364D1EB1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VHSFitBraceletHelpController.xib; sourceTree = "<group>"; };
-		33661D121E51766F00B38D8B /* ClubMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClubMember.h; sourceTree = "<group>"; };
-		33661D131E51766F00B38D8B /* ClubMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClubMember.m; sourceTree = "<group>"; };
 		3371B37E1E1B6265007A285A /* AES128Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AES128Util.h; sourceTree = "<group>"; };
 		3371B37F1E1B6265007A285A /* AES128Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AES128Util.m; sourceTree = "<group>"; };
 		337408171DE5405900D142DA /* GongYunTong.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = GongYunTong.entitlements; sourceTree = "<group>"; };
@@ -462,8 +429,55 @@
 		339E5A131E69521D002F1F4D /* VHSTimingTasker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSTimingTasker.m; sourceTree = "<group>"; };
 		33A59E171E10EC0300D7BED4 /* DBSafetyCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBSafetyCoordinator.h; sourceTree = "<group>"; };
 		33A59E181E10EC0300D7BED4 /* DBSafetyCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBSafetyCoordinator.m; sourceTree = "<group>"; };
+		33B1EB461E6FD61000B74CA8 /* GongYunTong-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GongYunTong-Bridging-Header.h"; sourceTree = "<group>"; };
+		33B1EB501E6FD9FF00B74CA8 /* VHSMessageQueueController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VHSMessageQueueController.swift; sourceTree = "<group>"; };
+		33B1EB541E6FF1A000B74CA8 /* VHSChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSChatController.h; sourceTree = "<group>"; };
+		33B1EB551E6FF1A000B74CA8 /* VHSChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSChatController.m; sourceTree = "<group>"; };
+		33B1EB561E6FF1A000B74CA8 /* VHSClubController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSClubController.h; sourceTree = "<group>"; };
+		33B1EB571E6FF1A000B74CA8 /* VHSClubController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSClubController.m; sourceTree = "<group>"; };
+		33B1EB581E6FF1A000B74CA8 /* VHSCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSCommentController.h; sourceTree = "<group>"; };
+		33B1EB591E6FF1A000B74CA8 /* VHSCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSCommentController.m; sourceTree = "<group>"; };
+		33B1EB5B1E6FF1A000B74CA8 /* ChatMoreModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatMoreModel.h; sourceTree = "<group>"; };
+		33B1EB5C1E6FF1A000B74CA8 /* ChatMoreModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatMoreModel.m; sourceTree = "<group>"; };
+		33B1EB5D1E6FF1A000B74CA8 /* ClubMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClubMember.h; sourceTree = "<group>"; };
+		33B1EB5E1E6FF1A000B74CA8 /* ClubMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClubMember.m; sourceTree = "<group>"; };
+		33B1EB5F1E6FF1A000B74CA8 /* ClubModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClubModel.h; sourceTree = "<group>"; };
+		33B1EB601E6FF1A000B74CA8 /* ClubModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClubModel.m; sourceTree = "<group>"; };
+		33B1EB611E6FF1A000B74CA8 /* MomentPhotoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MomentPhotoModel.h; sourceTree = "<group>"; };
+		33B1EB621E6FF1A000B74CA8 /* MomentPhotoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MomentPhotoModel.m; sourceTree = "<group>"; };
+		33B1EB651E6FF1A000B74CA8 /* HUAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbum.h; sourceTree = "<group>"; };
+		33B1EB661E6FF1A000B74CA8 /* HUAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUAlbum.m; sourceTree = "<group>"; };
+		33B1EB671E6FF1A000B74CA8 /* HUAlbumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbumCell.h; sourceTree = "<group>"; };
+		33B1EB681E6FF1A000B74CA8 /* HUAlbumCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUAlbumCell.m; sourceTree = "<group>"; };
+		33B1EB691E6FF1A000B74CA8 /* HUAlbumCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HUAlbumCell.xib; sourceTree = "<group>"; };
+		33B1EB6A1E6FF1A000B74CA8 /* HUAlbumsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbumsViewController.h; sourceTree = "<group>"; };
+		33B1EB6B1E6FF1A000B74CA8 /* HUAlbumsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUAlbumsViewController.m; sourceTree = "<group>"; };
+		33B1EB6C1E6FF1A000B74CA8 /* HUImageItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUImageItem.h; sourceTree = "<group>"; };
+		33B1EB6D1E6FF1A000B74CA8 /* HUImageItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUImageItem.m; sourceTree = "<group>"; };
+		33B1EB6E1E6FF1A000B74CA8 /* HUImagePickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUImagePickerCell.h; sourceTree = "<group>"; };
+		33B1EB6F1E6FF1A000B74CA8 /* HUImagePickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUImagePickerCell.m; sourceTree = "<group>"; };
+		33B1EB701E6FF1A000B74CA8 /* HUImagePickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HUImagePickerCell.xib; sourceTree = "<group>"; };
+		33B1EB711E6FF1A000B74CA8 /* HUImagePickerRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUImagePickerRootViewController.h; sourceTree = "<group>"; };
+		33B1EB721E6FF1A000B74CA8 /* HUImagePickerRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUImagePickerRootViewController.m; sourceTree = "<group>"; };
+		33B1EB731E6FF1A000B74CA8 /* HUImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUImagePickerViewController.h; sourceTree = "<group>"; };
+		33B1EB741E6FF1A000B74CA8 /* HUImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUImagePickerViewController.m; sourceTree = "<group>"; };
+		33B1EB751E6FF1A000B74CA8 /* HUPhotoHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUPhotoHelper.h; sourceTree = "<group>"; };
+		33B1EB761E6FF1A000B74CA8 /* HUPhotoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUPhotoHelper.m; sourceTree = "<group>"; };
+		33B1EB771E6FF1A000B74CA8 /* pick_checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_checked@2x.png"; sourceTree = "<group>"; };
+		33B1EB781E6FF1A000B74CA8 /* pick_checked@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_checked@3x.png"; sourceTree = "<group>"; };
+		33B1EB791E6FF1A000B74CA8 /* VHSImagePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSImagePickerView.h; sourceTree = "<group>"; };
+		33B1EB7A1E6FF1A000B74CA8 /* VHSImagePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSImagePickerView.m; sourceTree = "<group>"; };
+		33B1EB7B1E6FF1A000B74CA8 /* VHSMoreMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSMoreMenu.h; sourceTree = "<group>"; };
+		33B1EB7C1E6FF1A000B74CA8 /* VHSMoreMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSMoreMenu.m; sourceTree = "<group>"; };
+		33B1EB7E1E6FF1A000B74CA8 /* VHSClubSessionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSClubSessionCell.h; sourceTree = "<group>"; };
+		33B1EB7F1E6FF1A000B74CA8 /* VHSClubSessionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSClubSessionCell.m; sourceTree = "<group>"; };
+		33B1EB801E6FF1A000B74CA8 /* VHSClubSessionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VHSClubSessionCell.xib; sourceTree = "<group>"; };
+		33B1EB811E6FF1A000B74CA8 /* VHSReddotButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSReddotButton.h; sourceTree = "<group>"; };
+		33B1EB821E6FF1A000B74CA8 /* VHSReddotButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSReddotButton.m; sourceTree = "<group>"; };
+		33B1EBAE1E6FF1D300B74CA8 /* VHSMessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VHSMessageModel.swift; sourceTree = "<group>"; };
 		33B4601E1E6D3CB200E38860 /* VHSBraceletCoodinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSBraceletCoodinator.h; sourceTree = "<group>"; };
 		33B4601F1E6D3CB200E38860 /* VHSBraceletCoodinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSBraceletCoodinator.m; sourceTree = "<group>"; };
+		33B658EE1E715D39008CC05E /* String+Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Size.swift"; sourceTree = "<group>"; };
 		33C5E97B1D94F4D3004814BA /* BPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPush.h; sourceTree = "<group>"; };
 		33C5E97C1D94F4D3004814BA /* libBPush.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBPush.a; sourceTree = "<group>"; };
 		33C5E97D1D94F4D3004814BA /* test.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.caf; sourceTree = "<group>"; };
@@ -481,8 +495,6 @@
 		33CBF32F1D73D81400D39452 /* PublicWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicWKWebViewController.m; sourceTree = "<group>"; };
 		33CBF3331D755A5E00D39452 /* UILabel+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+extension.h"; sourceTree = "<group>"; };
 		33CBF3341D755A5E00D39452 /* UILabel+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+extension.m"; sourceTree = "<group>"; };
-		33D073701E2784BF00A89E0E /* VHSChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSChatController.h; sourceTree = "<group>"; };
-		33D073711E2784BF00A89E0E /* VHSChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSChatController.m; sourceTree = "<group>"; };
 		33D097601E695B9E00B57648 /* VHSTestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSTestController.h; sourceTree = "<group>"; };
 		33D097611E695B9E00B57648 /* VHSTestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSTestController.m; sourceTree = "<group>"; };
 		33E14E191DFA7D760021688D /* DynamicItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicItemModel.h; sourceTree = "<group>"; };
@@ -782,77 +794,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3301A7D81E28B1270035CDA3 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				336490381E4874BC006F0570 /* HUPhotoPicker */,
-				3362F3001E30BC9D00F69477 /* VHSMoreMenu.h */,
-				3362F3011E30BC9D00F69477 /* VHSMoreMenu.m */,
-				336490611E48777C006F0570 /* VHSImagePickerView.h */,
-				336490621E48777C006F0570 /* VHSImagePickerView.m */,
-			);
-			path = Utilities;
-			sourceTree = "<group>";
-		};
-		3302FF6D1E27573A00295493 /* Club */ = {
-			isa = PBXGroup;
-			children = (
-				3301A7D81E28B1270035CDA3 /* Utilities */,
-				3302FF721E2757F800295493 /* Message */,
-				3302FF6F1E2757B000295493 /* Model */,
-				3302FF701E2757B000295493 /* View */,
-				3302FF6E1E2757B000295493 /* Controller */,
-			);
-			path = Club;
-			sourceTree = "<group>";
-		};
-		3302FF6E1E2757B000295493 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				3302FF981E27643E00295493 /* VHSClubController.h */,
-				3302FF991E27643E00295493 /* VHSClubController.m */,
-				33D073701E2784BF00A89E0E /* VHSChatController.h */,
-				33D073711E2784BF00A89E0E /* VHSChatController.m */,
-				3364900B1E484AE5006F0570 /* VHSCommentController.h */,
-				3364900C1E484AE5006F0570 /* VHSCommentController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		3302FF6F1E2757B000295493 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				3302FF9C1E276DD900295493 /* ClubModel.h */,
-				3302FF9D1E276DD900295493 /* ClubModel.m */,
-				3362F2FC1E309D6400F69477 /* ChatMoreModel.h */,
-				3362F2FD1E309D6400F69477 /* ChatMoreModel.m */,
-				336490651E49ACD0006F0570 /* MomentPhotoModel.h */,
-				336490661E49ACD0006F0570 /* MomentPhotoModel.m */,
-				33661D121E51766F00B38D8B /* ClubMember.h */,
-				33661D131E51766F00B38D8B /* ClubMember.m */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		3302FF701E2757B000295493 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				3301A7CE1E2868CA0035CDA3 /* VHSClubSessionCell.h */,
-				3301A7CF1E2868CA0035CDA3 /* VHSClubSessionCell.m */,
-				3301A7D01E2868CA0035CDA3 /* VHSClubSessionCell.xib */,
-				3301A7D41E2886DB0035CDA3 /* VHSReddotButton.h */,
-				3301A7D51E2886DB0035CDA3 /* VHSReddotButton.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		3302FF721E2757F800295493 /* Message */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Message;
-			sourceTree = "<group>";
-		};
 		3302FF731E275A7000295493 /* RongCloud */ = {
 			isa = PBXGroup;
 			children = (
@@ -938,6 +879,7 @@
 		33506DBA1E5EF572006B1909 /* OC_Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				33B1EB521E6FF1A000B74CA8 /* Club */,
 				33D0975F1E695B3F00B57648 /* Test */,
 			);
 			path = OC_Scenes;
@@ -949,33 +891,6 @@
 				33514BDF1D5B034200ECDEA5 /* VeryfitSDK.framework */,
 			);
 			path = FitSDK;
-			sourceTree = "<group>";
-		};
-		336490381E4874BC006F0570 /* HUPhotoPicker */ = {
-			isa = PBXGroup;
-			children = (
-				336490391E4874BC006F0570 /* HUAlbum.h */,
-				3364903A1E4874BC006F0570 /* HUAlbum.m */,
-				3364903B1E4874BC006F0570 /* HUAlbumCell.h */,
-				3364903C1E4874BC006F0570 /* HUAlbumCell.m */,
-				3364903D1E4874BC006F0570 /* HUAlbumCell.xib */,
-				3364903E1E4874BC006F0570 /* HUAlbumsViewController.h */,
-				3364903F1E4874BC006F0570 /* HUAlbumsViewController.m */,
-				336490401E4874BC006F0570 /* HUImageItem.h */,
-				336490411E4874BC006F0570 /* HUImageItem.m */,
-				336490421E4874BC006F0570 /* HUImagePickerCell.h */,
-				336490431E4874BC006F0570 /* HUImagePickerCell.m */,
-				336490441E4874BC006F0570 /* HUImagePickerCell.xib */,
-				336490451E4874BC006F0570 /* HUImagePickerRootViewController.h */,
-				336490461E4874BC006F0570 /* HUImagePickerRootViewController.m */,
-				336490471E4874BC006F0570 /* HUImagePickerViewController.h */,
-				336490481E4874BC006F0570 /* HUImagePickerViewController.m */,
-				336490491E4874BC006F0570 /* HUPhotoHelper.h */,
-				3364904A1E4874BC006F0570 /* HUPhotoHelper.m */,
-				3364904B1E4874BC006F0570 /* pick_checked@2x.png */,
-				3364904C1E4874BC006F0570 /* pick_checked@3x.png */,
-			);
-			path = HUPhotoPicker;
 			sourceTree = "<group>";
 		};
 		337408161DE5405900D142DA /* Resource */ = {
@@ -1074,6 +989,148 @@
 				339E5A0F1E695126002F1F4D /* VHSStepAlgorithm.m */,
 			);
 			path = RegularTask;
+			sourceTree = "<group>";
+		};
+		33B1EB3B1E6FB72000B74CA8 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				33B658ED1E715D1A008CC05E /* Extension */,
+				33B1EB481E6FD6A900B74CA8 /* Invitation */,
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
+		33B1EB481E6FD6A900B74CA8 /* Invitation */ = {
+			isa = PBXGroup;
+			children = (
+				33B1EB491E6FD6A900B74CA8 /* Controller */,
+				33B1EB4A1E6FD6A900B74CA8 /* Model */,
+				33B1EB4B1E6FD6A900B74CA8 /* View */,
+			);
+			path = Invitation;
+			sourceTree = "<group>";
+		};
+		33B1EB491E6FD6A900B74CA8 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				33B1EB501E6FD9FF00B74CA8 /* VHSMessageQueueController.swift */,
+				333AB3F41E70F8DE004608E3 /* VHSMessageDetailController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		33B1EB4A1E6FD6A900B74CA8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				33B1EBAE1E6FF1D300B74CA8 /* VHSMessageModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		33B1EB4B1E6FD6A900B74CA8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				333AB3F21E70E6FF004608E3 /* VHSMessageCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		33B1EB521E6FF1A000B74CA8 /* Club */ = {
+			isa = PBXGroup;
+			children = (
+				33B1EB531E6FF1A000B74CA8 /* Controller */,
+				33B1EB5A1E6FF1A000B74CA8 /* Model */,
+				33B1EB631E6FF1A000B74CA8 /* Utilities */,
+				33B1EB7D1E6FF1A000B74CA8 /* View */,
+			);
+			path = Club;
+			sourceTree = "<group>";
+		};
+		33B1EB531E6FF1A000B74CA8 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				33B1EB541E6FF1A000B74CA8 /* VHSChatController.h */,
+				33B1EB551E6FF1A000B74CA8 /* VHSChatController.m */,
+				33B1EB561E6FF1A000B74CA8 /* VHSClubController.h */,
+				33B1EB571E6FF1A000B74CA8 /* VHSClubController.m */,
+				33B1EB581E6FF1A000B74CA8 /* VHSCommentController.h */,
+				33B1EB591E6FF1A000B74CA8 /* VHSCommentController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		33B1EB5A1E6FF1A000B74CA8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				33B1EB5B1E6FF1A000B74CA8 /* ChatMoreModel.h */,
+				33B1EB5C1E6FF1A000B74CA8 /* ChatMoreModel.m */,
+				33B1EB5D1E6FF1A000B74CA8 /* ClubMember.h */,
+				33B1EB5E1E6FF1A000B74CA8 /* ClubMember.m */,
+				33B1EB5F1E6FF1A000B74CA8 /* ClubModel.h */,
+				33B1EB601E6FF1A000B74CA8 /* ClubModel.m */,
+				33B1EB611E6FF1A000B74CA8 /* MomentPhotoModel.h */,
+				33B1EB621E6FF1A000B74CA8 /* MomentPhotoModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		33B1EB631E6FF1A000B74CA8 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				33B1EB641E6FF1A000B74CA8 /* HUPhotoPicker */,
+				33B1EB791E6FF1A000B74CA8 /* VHSImagePickerView.h */,
+				33B1EB7A1E6FF1A000B74CA8 /* VHSImagePickerView.m */,
+				33B1EB7B1E6FF1A000B74CA8 /* VHSMoreMenu.h */,
+				33B1EB7C1E6FF1A000B74CA8 /* VHSMoreMenu.m */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		33B1EB641E6FF1A000B74CA8 /* HUPhotoPicker */ = {
+			isa = PBXGroup;
+			children = (
+				33B1EB651E6FF1A000B74CA8 /* HUAlbum.h */,
+				33B1EB661E6FF1A000B74CA8 /* HUAlbum.m */,
+				33B1EB671E6FF1A000B74CA8 /* HUAlbumCell.h */,
+				33B1EB681E6FF1A000B74CA8 /* HUAlbumCell.m */,
+				33B1EB691E6FF1A000B74CA8 /* HUAlbumCell.xib */,
+				33B1EB6A1E6FF1A000B74CA8 /* HUAlbumsViewController.h */,
+				33B1EB6B1E6FF1A000B74CA8 /* HUAlbumsViewController.m */,
+				33B1EB6C1E6FF1A000B74CA8 /* HUImageItem.h */,
+				33B1EB6D1E6FF1A000B74CA8 /* HUImageItem.m */,
+				33B1EB6E1E6FF1A000B74CA8 /* HUImagePickerCell.h */,
+				33B1EB6F1E6FF1A000B74CA8 /* HUImagePickerCell.m */,
+				33B1EB701E6FF1A000B74CA8 /* HUImagePickerCell.xib */,
+				33B1EB711E6FF1A000B74CA8 /* HUImagePickerRootViewController.h */,
+				33B1EB721E6FF1A000B74CA8 /* HUImagePickerRootViewController.m */,
+				33B1EB731E6FF1A000B74CA8 /* HUImagePickerViewController.h */,
+				33B1EB741E6FF1A000B74CA8 /* HUImagePickerViewController.m */,
+				33B1EB751E6FF1A000B74CA8 /* HUPhotoHelper.h */,
+				33B1EB761E6FF1A000B74CA8 /* HUPhotoHelper.m */,
+				33B1EB771E6FF1A000B74CA8 /* pick_checked@2x.png */,
+				33B1EB781E6FF1A000B74CA8 /* pick_checked@3x.png */,
+			);
+			path = HUPhotoPicker;
+			sourceTree = "<group>";
+		};
+		33B1EB7D1E6FF1A000B74CA8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				33B1EB7E1E6FF1A000B74CA8 /* VHSClubSessionCell.h */,
+				33B1EB7F1E6FF1A000B74CA8 /* VHSClubSessionCell.m */,
+				33B1EB801E6FF1A000B74CA8 /* VHSClubSessionCell.xib */,
+				33B1EB811E6FF1A000B74CA8 /* VHSReddotButton.h */,
+				33B1EB821E6FF1A000B74CA8 /* VHSReddotButton.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		33B658ED1E715D1A008CC05E /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				33B658EE1E715D39008CC05E /* String+Size.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		33C5E97A1D94F4D3004814BA /* normalversion */ = {
@@ -1294,6 +1351,7 @@
 			isa = PBXGroup;
 			children = (
 				6730196E1D3C6651004A3320 /* Main */,
+				33B1EB3B1E6FB72000B74CA8 /* Swift */,
 				33506DBA1E5EF572006B1909 /* OC_Scenes */,
 				673019761D3C67A9004A3320 /* Storyboards */,
 				67B4F8E41D3CB2D000F933F0 /* Login */,
@@ -1302,7 +1360,6 @@
 				671217E71D3F4B0F004CFD14 /* Shop */,
 				671217E91D3F4B2B004CFD14 /* Discover */,
 				671217EA1D3F4B35004CFD14 /* Me */,
-				3302FF6D1E27573A00295493 /* Club */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1550,6 +1607,7 @@
 				67B4F8C81D3CA4B200F933F0 /* VHS_Header.h */,
 				67C7AE371D38D41D0091F669 /* PrefixHeader.pch */,
 				33E5B8C41DDB122800E52A11 /* vplus_https.cer */,
+				33B1EB461E6FD61000B74CA8 /* GongYunTong-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1740,43 +1798,44 @@
 				334F602D1E0BBABD000F06B0 /* ThirdPartyCoordinator.h in Headers */,
 				33098DA71E110BA900751A38 /* VHSActionData.h in Headers */,
 				339E5A141E69521D002F1F4D /* VHSTimingTasker.h in Headers */,
+				33B1EBA71E6FF1A000B74CA8 /* VHSMoreMenu.h in Headers */,
+				33B1EB871E6FF1A000B74CA8 /* VHSCommentController.h in Headers */,
+				33B1EBA91E6FF1A000B74CA8 /* VHSClubSessionCell.h in Headers */,
+				33B1EBA51E6FF1A000B74CA8 /* VHSImagePickerView.h in Headers */,
+				33B1EB911E6FF1A000B74CA8 /* HUAlbum.h in Headers */,
+				33B1EB9A1E6FF1A000B74CA8 /* HUImagePickerCell.h in Headers */,
+				33B1EB981E6FF1A000B74CA8 /* HUImageItem.h in Headers */,
 				337E0BB61E64144400C31C43 /* VHSGlobalDataManager.h in Headers */,
 				33E14E1F1DFA82CA0021688D /* IconItem.h in Headers */,
+				33B1EBA11E6FF1A000B74CA8 /* HUPhotoHelper.h in Headers */,
 				33D097621E695B9E00B57648 /* VHSTestController.h in Headers */,
-				3364904D1E4874BC006F0570 /* HUAlbum.h in Headers */,
 				33030A771E66ADD300892792 /* VHSTabConfigurationItem.h in Headers */,
+				33B1EB8F1E6FF1A000B74CA8 /* MomentPhotoModel.h in Headers */,
+				33B1EB961E6FF1A000B74CA8 /* HUAlbumsViewController.h in Headers */,
 				33F6FAC51DF7E2D9005510D4 /* VHSDynamicConfigurationCell.h in Headers */,
-				3362F3021E30BC9D00F69477 /* VHSMoreMenu.h in Headers */,
 				33A59E191E10EC0300D7BED4 /* DBSafetyCoordinator.h in Headers */,
-				3301A7D61E2886DB0035CDA3 /* VHSReddotButton.h in Headers */,
-				336490541E4874BC006F0570 /* HUImageItem.h in Headers */,
 				334A9B501E1513FF008969E4 /* GTMDefines.h in Headers */,
-				33661D141E51766F00B38D8B /* ClubMember.h in Headers */,
-				3362F2FE1E309D6400F69477 /* ChatMoreModel.h in Headers */,
-				3364905D1E4874BC006F0570 /* HUPhotoHelper.h in Headers */,
-				3302FF9A1E27643E00295493 /* VHSClubController.h in Headers */,
-				3301A7D11E2868CA0035CDA3 /* VHSClubSessionCell.h in Headers */,
+				33B1EB8D1E6FF1A000B74CA8 /* ClubModel.h in Headers */,
+				33B1EB9F1E6FF1A000B74CA8 /* HUImagePickerViewController.h in Headers */,
 				339E5A101E695126002F1F4D /* VHSStepAlgorithm.h in Headers */,
-				3364905B1E4874BC006F0570 /* HUImagePickerViewController.h in Headers */,
+				33B1EB471E6FD61000B74CA8 /* GongYunTong-Bridging-Header.h in Headers */,
+				33B1EB931E6FF1A000B74CA8 /* HUAlbumCell.h in Headers */,
 				337E0BBE1E65882700C31C43 /* VHSAccountNiceView.h in Headers */,
-				3302FF9E1E276DD900295493 /* ClubModel.h in Headers */,
-				3364900D1E484AE5006F0570 /* VHSCommentController.h in Headers */,
-				336490591E4874BC006F0570 /* HUImagePickerRootViewController.h in Headers */,
-				336490631E48777C006F0570 /* VHSImagePickerView.h in Headers */,
 				33B460201E6D3CB200E38860 /* VHSBraceletCoodinator.h in Headers */,
-				336490521E4874BC006F0570 /* HUAlbumsViewController.h in Headers */,
-				3364904F1E4874BC006F0570 /* HUAlbumCell.h in Headers */,
-				336490561E4874BC006F0570 /* HUImagePickerCell.h in Headers */,
 				3304BB5C1DED62F600EDBC6B /* UserInfoModel.h in Headers */,
+				33B1EB9D1E6FF1A000B74CA8 /* HUImagePickerRootViewController.h in Headers */,
+				33B1EBAC1E6FF1A000B74CA8 /* VHSReddotButton.h in Headers */,
 				337E0BBA1E656D4100C31C43 /* VHSInvitationController.h in Headers */,
 				33E14E1B1DFA7D760021688D /* DynamicItemModel.h in Headers */,
 				33F6FAC11DF7DE29005510D4 /* VHSEnterpriseDynamicCell.h in Headers */,
+				33B1EB8B1E6FF1A000B74CA8 /* ClubMember.h in Headers */,
 				333F396C1DFBD52C005A43AA /* OneAlertCaller.h in Headers */,
-				33D073721E2784BF00A89E0E /* VHSChatController.h in Headers */,
 				334A9B4E1E1513FF008969E4 /* GTMBase64.h in Headers */,
 				3371B3801E1B6265007A285A /* AES128Util.h in Headers */,
+				33B1EB851E6FF1A000B74CA8 /* VHSClubController.h in Headers */,
+				33B1EB891E6FF1A000B74CA8 /* ChatMoreModel.h in Headers */,
+				33B1EB831E6FF1A000B74CA8 /* VHSChatController.h in Headers */,
 				3304BB631DED63FB00EDBC6B /* ShortcutItem.h in Headers */,
-				336490671E49ACD0006F0570 /* MomentPhotoModel.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1847,12 +1906,13 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = VHS;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = vhs_health;
 				TargetAttributes = {
 					67C7ADFD1D38AB2A0091F669 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = C76485U944;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -1905,35 +1965,35 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3364905F1E4874BC006F0570 /* pick_checked@2x.png in Resources */,
 				334F601E1E0A5939000F06B0 /* main.js in Resources */,
 				33CB6EB61DDEEF28001E470A /* public_key.der in Resources */,
 				671217F21D3F4C71004CFD14 /* Shop.storyboard in Resources */,
 				67C7AE0E1D38AB2A0091F669 /* Assets.xcassets in Resources */,
+				33B1EBAB1E6FF1A000B74CA8 /* VHSClubSessionCell.xib in Resources */,
 				671217F01D3F4C65004CFD14 /* Activity.storyboard in Resources */,
 				338C61C11D59D2BE004CFE18 /* VHSScanNoDevice.xib in Resources */,
+				33B1EB951E6FF1A000B74CA8 /* HUAlbumCell.xib in Resources */,
 				CA4C0A991D5034140039765C /* SimplePassword.txt in Resources */,
 				671217EE1D3F4C53004CFD14 /* Dynamic.storyboard in Resources */,
 				3302FF7F1E275A7000295493 /* Emoji.plist in Resources */,
-				336490581E4874BC006F0570 /* HUImagePickerCell.xib in Resources */,
 				CAD91A4C1D5DB69B00AEF2FB /* AlipaySDK.bundle in Resources */,
 				33E7F55D1DC7272700642D5D /* ScanNoDevice.xib in Resources */,
 				671217F41D3F4C81004CFD14 /* Discover.storyboard in Resources */,
 				33E5B8C51DDB122800E52A11 /* vplus_https.cer in Resources */,
 				67C7AE0C1D38AB2A0091F669 /* Main.storyboard in Resources */,
 				338C61BF1D59D2BE004CFE18 /* VHSScanDeviceCell.xib in Resources */,
+				33B1EB9C1E6FF1A000B74CA8 /* HUImagePickerCell.xib in Resources */,
 				3302FF811E275A7000295493 /* RongCloud.bundle in Resources */,
+				33B1EBA41E6FF1A000B74CA8 /* pick_checked@3x.png in Resources */,
 				33C5E97F1D94F4D3004814BA /* test.caf in Resources */,
 				3302FF801E275A7000295493 /* RongCloudKit.strings in Resources */,
 				338C61C31D59D2BE004CFE18 /* VHSSettingBraceletCell.xib in Resources */,
 				338C61C61D59D2BE004CFE18 /* VHSTimeToast.xib in Resources */,
-				3301A7D31E2868CA0035CDA3 /* VHSClubSessionCell.xib in Resources */,
 				CA7F12211D42025D00C7F145 /* Login.storyboard in Resources */,
 				6704636C1D40C56B0051A9F6 /* placeholder@2x.png in Resources */,
 				3302FF841E275A7000295493 /* RCConfig.plist in Resources */,
-				336490511E4874BC006F0570 /* HUAlbumCell.xib in Resources */,
+				33B1EBA31E6FF1A000B74CA8 /* pick_checked@2x.png in Resources */,
 				3364D1ED1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib in Resources */,
-				336490601E4874BC006F0570 /* pick_checked@3x.png in Resources */,
 				67E13FC41D460C54001C58D7 /* Me.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2013,15 +2073,16 @@
 				334038F91D8175F800202DDD /* TransferStepModel.m in Sources */,
 				CA254EC21D4AEB1500853D3C /* VHSLoginPersonCell.m in Sources */,
 				338C61BE1D59D2BE004CFE18 /* VHSScanDeviceCell.m in Sources */,
+				33B1EB881E6FF1A000B74CA8 /* VHSCommentController.m in Sources */,
+				33B1EB971E6FF1A000B74CA8 /* HUAlbumsViewController.m in Sources */,
 				334F602E1E0BBABD000F06B0 /* ThirdPartyCoordinator.m in Sources */,
 				33E5B8C01DD9A43200E52A11 /* NSArray+VHSExtension.m in Sources */,
 				33ED43171D4F47B3007B0F30 /* VHSPaymentsDetailCell.m in Sources */,
 				33ED43141D4F33B5007B0F30 /* VHSSettingCell.m in Sources */,
-				336490681E49ACD0006F0570 /* MomentPhotoModel.m in Sources */,
+				33B1EBA61E6FF1A000B74CA8 /* VHSImagePickerView.m in Sources */,
 				33F2BA3F1D648C6C00928976 /* UserDetailModel.m in Sources */,
 				67B4F8D11D3CA8EC00F933F0 /* UIBarButtonItem+VHS_extension.m in Sources */,
 				67B4F8E71D3CC2A900F933F0 /* UIView+animation.m in Sources */,
-				336490571E4874BC006F0570 /* HUImagePickerCell.m in Sources */,
 				3317AFE71DD5C294003CFEBB /* MBProgressHUD+VHS.m in Sources */,
 				CA7F122D1D42028C00C7F145 /* VHSPasswordCell.m in Sources */,
 				33514CD61D64708200ECDEA5 /* VHSAllStepCell.m in Sources */,
@@ -2029,33 +2090,38 @@
 				33CB6EAE1DDEB1E2001E470A /* RSAEncryptor.m in Sources */,
 				33F2BA401D648C6C00928976 /* UserScoreModel.m in Sources */,
 				33CB6EB41DDEE294001E470A /* NSString+extension.m in Sources */,
+				33B1EBAF1E6FF1D300B74CA8 /* VHSMessageModel.swift in Sources */,
 				6793203E1D41E406004B0CEA /* VHSDiscoverCell.m in Sources */,
 				33514CD31D646A9100ECDEA5 /* VHSAllStepsController.m in Sources */,
 				33F2BA521D658E7300928976 /* VHSModifyNormalCell.m in Sources */,
 				33E7F55B1DC7270C00642D5D /* ScanNoDevice.m in Sources */,
 				338171891DAC985A00ACB4A0 /* TAPageControl.m in Sources */,
+				33B1EB8C1E6FF1A000B74CA8 /* ClubMember.m in Sources */,
 				33F2BA551D658E8900928976 /* VHSModifyMobileCell.m in Sources */,
-				3362F2FF1E309D6400F69477 /* ChatMoreModel.m in Sources */,
 				339E5A151E69521D002F1F4D /* VHSTimingTasker.m in Sources */,
 				67B4F8D41D3CA96900F933F0 /* UINavigationController+XLShouldPopExtention.m in Sources */,
 				3317AFE41DD5C1B0003CFEBB /* VHSRequestMessage.m in Sources */,
 				3371B3811E1B6265007A285A /* AES128Util.m in Sources */,
 				33F6FAC61DF7E2D9005510D4 /* VHSDynamicConfigurationCell.m in Sources */,
+				33B1EB861E6FF1A000B74CA8 /* VHSClubController.m in Sources */,
 				6704636F1D40C56B0051A9F6 /* UIView+SDExtension.m in Sources */,
 				671217DA1D3F3F99004CFD14 /* VHSCommon.m in Sources */,
 				33640B5E1D9224BC00B34C8B /* KeyChainStore.m in Sources */,
+				33B1EBAD1E6FF1A000B74CA8 /* VHSReddotButton.m in Sources */,
+				33B1EB511E6FD9FF00B74CA8 /* VHSMessageQueueController.swift in Sources */,
+				33B1EB841E6FF1A000B74CA8 /* VHSChatController.m in Sources */,
 				337E0BBF1E65882700C31C43 /* VHSAccountNiceView.m in Sources */,
-				336490501E4874BC006F0570 /* HUAlbumCell.m in Sources */,
 				338171871DAC985A00ACB4A0 /* TAAnimatedDotView.m in Sources */,
 				33CBF3351D755A5E00D39452 /* UILabel+extension.m in Sources */,
 				CA254ECC1D4B5D4A00853D3C /* VHSActivityRewardCell.m in Sources */,
 				33514BE31D5B848900ECDEA5 /* VHSFitBraceletSettingController.m in Sources */,
 				334A9B4F1E1513FF008969E4 /* GTMBase64.m in Sources */,
 				33E14E201DFA82CA0021688D /* IconItem.m in Sources */,
-				336490641E48777C006F0570 /* VHSImagePickerView.m in Sources */,
+				333AB3F31E70E6FF004608E3 /* VHSMessageCell.swift in Sources */,
 				33CB6EB11DDEC7D4001E470A /* VHSSecurityUtil.m in Sources */,
+				33B1EB8A1E6FF1A000B74CA8 /* ChatMoreModel.m in Sources */,
 				6704636E1D40C56B0051A9F6 /* SDCycleScrollView.m in Sources */,
-				3302FF9B1E27643E00295493 /* VHSClubController.m in Sources */,
+				33B658EF1E715D39008CC05E /* String+Size.swift in Sources */,
 				67AD03A51D40E0B700246667 /* VHSMoreIgvCell.m in Sources */,
 				CAD91A521D5DB69B00AEF2FB /* payRequsestHandler.mm in Sources */,
 				339E5A111E695126002F1F4D /* VHSStepAlgorithm.m in Sources */,
@@ -2064,9 +2130,9 @@
 				3362F3071E30CAF500F69477 /* UIView+extension.m in Sources */,
 				CAD91A531D5DB69B00AEF2FB /* WXUtil.mm in Sources */,
 				333F396D1DFBD52C005A43AA /* OneAlertCaller.m in Sources */,
+				33B1EBA81E6FF1A000B74CA8 /* VHSMoreMenu.m in Sources */,
 				33E5B8CF1DDBFEA800E52A11 /* VHSLoginPersonalViewController.m in Sources */,
 				CA254EC61D4B5CEB00853D3C /* VHSActivityTitleCell.m in Sources */,
-				3364905A1E4874BC006F0570 /* HUImagePickerRootViewController.m in Sources */,
 				33E5B8DD1DDC54AA00E52A11 /* VHSShopController.m in Sources */,
 				CA7F122E1D42028C00C7F145 /* VHSPhoneNumberCell.m in Sources */,
 				338171861DAC985A00ACB4A0 /* TAAbstractDotView.m in Sources */,
@@ -2076,23 +2142,22 @@
 				33A59E1A1E10EC0300D7BED4 /* DBSafetyCoordinator.m in Sources */,
 				33CBF3301D73D81400D39452 /* PublicWKWebViewController.m in Sources */,
 				338C61C51D59D2BE004CFE18 /* VHSTimeToast.m in Sources */,
-				33661D151E51766F00B38D8B /* ClubMember.m in Sources */,
-				3302FF9F1E276DD900295493 /* ClubModel.m in Sources */,
 				3353B9C61D782A8400335815 /* VHSMeScoreCell.m in Sources */,
 				33F2BA491D65671D00928976 /* VHSLaunchViewController.m in Sources */,
 				670463781D40C8140051A9F6 /* VHSDynamicBannerCell.m in Sources */,
 				67B4F8DD1D3CAAB900F933F0 /* VHSBaseViewController.m in Sources */,
-				3362F3031E30BC9D00F69477 /* VHSMoreMenu.m in Sources */,
+				33B1EBA21E6FF1A000B74CA8 /* HUPhotoHelper.m in Sources */,
 				33ED431D1D4F4A88007B0F30 /* VHSMyScoreController.m in Sources */,
 				673248321D46F1C200194DE3 /* XLAlertManager.m in Sources */,
 				33ED430E1D4F296F007B0F30 /* VHSSettingController.m in Sources */,
 				67E13FCA1D460E6E001C58D7 /* VHSMeController.m in Sources */,
 				33E14E1C1DFA7D760021688D /* DynamicItemModel.m in Sources */,
 				33E5B8D61DDC543100E52A11 /* VHSActivityController.m in Sources */,
+				33B1EB921E6FF1A000B74CA8 /* HUAlbum.m in Sources */,
 				3304BB641DED63FB00EDBC6B /* ShortcutItem.m in Sources */,
+				33B1EBA01E6FF1A000B74CA8 /* HUImagePickerViewController.m in Sources */,
 				33B460211E6D3CB200E38860 /* VHSBraceletCoodinator.m in Sources */,
 				33F2BA461D65506B00928976 /* VHSPersonInfoController.m in Sources */,
-				336490531E4874BC006F0570 /* HUAlbumsViewController.m in Sources */,
 				3304BB661DED63FB00EDBC6B /* VHSTabConfigurationItem.m in Sources */,
 				3325E0A01D6C2EFF0045AC33 /* MeSumScoreModel.m in Sources */,
 				67E13FD31D460E81001C58D7 /* UserInfoCell.m in Sources */,
@@ -2102,51 +2167,51 @@
 				33E5B8C11DD9A43200E52A11 /* NSDate+VHSExtension.m in Sources */,
 				33ED43201D502A43007B0F30 /* VHSFeedbackController.m in Sources */,
 				67B4F8DA1D3CAA8300F933F0 /* VHSTabBarController.m in Sources */,
+				33B1EB9B1E6FF1A000B74CA8 /* HUImagePickerCell.m in Sources */,
 				3364D1EC1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m in Sources */,
+				33B1EB991E6FF1A000B74CA8 /* HUImageItem.m in Sources */,
 				33ED43291D503106007B0F30 /* VHSQuestionPhoneCell.m in Sources */,
 				33120C8E1D79738000A006C9 /* VHSLocatServicer.m in Sources */,
 				330C9DF91D90DE25005875FE /* VHSToast.m in Sources */,
 				338C61C01D59D2BE004CFE18 /* VHSScanNoDevice.m in Sources */,
 				338C61D11D59E06C004CFE18 /* VHSScanBraceletController.m in Sources */,
-				3364905C1E4874BC006F0570 /* HUImagePickerViewController.m in Sources */,
 				6730197C1D3C6850004A3320 /* AppDelegate.m in Sources */,
 				3304BB5D1DED62F600EDBC6B /* UserInfoModel.m in Sources */,
 				337E0BB71E64144400C31C43 /* VHSGlobalDataManager.m in Sources */,
 				CA254EC91D4B5D1800853D3C /* VHSActivityNoticeCell.m in Sources */,
 				33FB4B251D52EA3C00AB8086 /* BannerItemModel.m in Sources */,
-				336490551E4874BC006F0570 /* HUImageItem.m in Sources */,
 				33F2BA431D648CB700928976 /* EveryDayStepModel.m in Sources */,
+				33B1EB941E6FF1A000B74CA8 /* HUAlbumCell.m in Sources */,
 				33ED43111D4F3075007B0F30 /* StoryboardHelper.m in Sources */,
 				33E5B8CD1DDBFEA800E52A11 /* VHSForgetPasswordViewController.m in Sources */,
+				33B1EB9E1E6FF1A000B74CA8 /* HUImagePickerRootViewController.m in Sources */,
 				3360B6641D894045005BDB77 /* VHSNoStypeCell.m in Sources */,
 				33FB4B1C1D51E4C300AB8086 /* VHSUtils.m in Sources */,
 				338C61B91D59D2BE004CFE18 /* VHSFitBraceletSettingModel.m in Sources */,
 				67B4F8E31D3CAB1800F933F0 /* GlassView.m in Sources */,
+				33B1EB901E6FF1A000B74CA8 /* MomentPhotoModel.m in Sources */,
 				670463751D40C7940051A9F6 /* VHSDynamicHomeController.m in Sources */,
-				3301A7D21E2868CA0035CDA3 /* VHSClubSessionCell.m in Sources */,
 				338C61571D59837F004CFE18 /* VHSDataBaseManager.m in Sources */,
 				337E0BBB1E656D4100C31C43 /* VHSInvitationController.m in Sources */,
 				CA58AAC21D586C3B0076BA42 /* ActivityIndicatorView.m in Sources */,
 				338C61BA1D59D2BE004CFE18 /* VHSFitBraceletStateManager.m in Sources */,
 				6793203B1D41D1A5004B0CEA /* VHSDiscoverController.m in Sources */,
 				67E13FD21D460E81001C58D7 /* UserHeadCell.m in Sources */,
+				33B1EB8E1E6FF1A000B74CA8 /* ClubModel.m in Sources */,
 				6704636D1D40C56B0051A9F6 /* SDCollectionViewCell.m in Sources */,
 				33E5B8C21DD9A43200E52A11 /* NSDictionary+VHSExtension.m in Sources */,
-				3364904E1E4874BC006F0570 /* HUAlbum.m in Sources */,
 				3325E09D1D6AA9F00045AC33 /* BalanceItemModel.m in Sources */,
 				CAD91A501D5DB69B00AEF2FB /* ApiXml.mm in Sources */,
 				33CBF32D1D73C9B500D39452 /* UIButton+extension.m in Sources */,
-				33D073731E2784BF00A89E0E /* VHSChatController.m in Sources */,
 				332758701DA8D49D00C285DB /* VHSAlertController.m in Sources */,
+				333AB3F51E70F8DE004608E3 /* VHSMessageDetailController.swift in Sources */,
 				338171881DAC985A00ACB4A0 /* TADotView.m in Sources */,
 				33ED43231D502EF1007B0F30 /* VHSFeedbackCell.m in Sources */,
-				3364900E1E484AE5006F0570 /* VHSCommentController.m in Sources */,
 				3343A3251DAC89C900DEF1C2 /* UIColor+extension.m in Sources */,
+				33B1EBAA1E6FF1A000B74CA8 /* VHSClubSessionCell.m in Sources */,
 				33D097631E695B9E00B57648 /* VHSTestController.m in Sources */,
-				3301A7D71E2886DB0035CDA3 /* VHSReddotButton.m in Sources */,
 				33FB4B101D50843E00AB8086 /* LoginModel.m in Sources */,
 				33098DA81E110BA900751A38 /* VHSActionData.m in Sources */,
-				3364905E1E4874BC006F0570 /* HUPhotoHelper.m in Sources */,
 				67E13F561D45D77D001C58D7 /* XLAlertController.m in Sources */,
 				67AD039F1D40DDE200246667 /* VHSDynamicBigIgvCell.m in Sources */,
 			);
@@ -2307,6 +2372,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "be5b5ac8-115c-4676-b671-dc6113482fcc";
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2316,8 +2382,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7997BBEE031D9D0035CBC8BF /* Pods-GongYunTong.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_VPLUS;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage_VPLUS;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = /Users/pingjunlin/Documents/VHealth_Plus_IOS/GongYunTong/Resource/GongYunTong.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2348,6 +2416,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "GongYunTong/GongYunTong-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
@@ -2357,8 +2428,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 98B1E91F032D2652494B1BF7 /* Pods-GongYunTong.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_VPLUS;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage_VPLUS;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = /Users/pingjunlin/Documents/VHealth_Plus_IOS/GongYunTong/Resource/GongYunTong.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2389,6 +2462,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "GongYunTong/GongYunTong-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
@@ -2397,6 +2472,7 @@
 		67C7AE2F1D38AB2A0091F669 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
@@ -2413,6 +2489,7 @@
 		67C7AE301D38AB2A0091F669 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
@@ -2429,6 +2506,7 @@
 		67C7AE321D38AB2A0091F669 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = GongYunTongUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.GongYunTongUITests;
@@ -2440,6 +2518,7 @@
 		67C7AE331D38AB2A0091F669 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = GongYunTongUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.GongYunTongUITests;

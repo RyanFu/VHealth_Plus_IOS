@@ -69,20 +69,18 @@
     return UIStatusBarStyleDefault;
 }
 //是否隐藏状态栏
-- (BOOL)prefersStatusBarHidden
-{
+- (BOOL)prefersStatusBarHidde {
     return NO;
 }
-- (GlassView *)glassView
-{
-    if (!_glassView)
-    {
+
+- (GlassView *)glassView {
+    if (!_glassView) {
         _glassView = [[GlassView alloc] initWithFrame:CGRectMake(0, 64, SCREENW, SCREENH- 64)];
     }
     return _glassView;
 }
+
 -(void)setNextVcBackTitle:(NSString *)nextVcBackTitle {
-    
     _nextVcBackTitle = nextVcBackTitle;
     UIBarButtonItem *item = [[UIBarButtonItem alloc]init];
     item.title = nextVcBackTitle;

@@ -14,8 +14,6 @@
 
 
 #ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-    #import <Foundation/Foundation.h>
     #import <UIImageView+WebCache.h>
     #import <AlipaySDK/AlipaySDK.h>
     #import "AppDelegate.h"
@@ -36,6 +34,7 @@
     #import "VHSURL.h"
     #import "VHSGlobalDataManager.h"
     #import "VHSBraceletCoodinator.h"
+    #import "GongYunTong-Swift.h"
 #endif
 
 

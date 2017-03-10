@@ -22,6 +22,8 @@
 
 @property (nonatomic, strong) VHSMoreMenu *moreMenu;
 
+@property (nonatomic, strong) UIView *noticeBoardBg; // 显示最新公告
+
 @end
 
 @implementation VHSChatController
@@ -51,18 +53,28 @@
     [self setupPluginBoardView];
     /// 自定义导航栏
     [self setupNavigationBarBtn];
-
-//    [self registerClass:[SimpleMessageCell class] forMessageClass:[SimpleMessage class]];
-//    [self registerClass:[SimpleMessageCell class] forCellWithReuseIdentifier:@"SimpleMessageCell"];
-    
-    /// 显示聊天上方的公告栏
-//    [self showLatestNotice];
     
     /// 获取俱乐部成员列表
     [self remoteClubMemberList];
     /// 获取更多列表
     [self remoteMoreInfo];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    // 获取最新公告
     [self remoteLatestNotice];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[BaiduMobStat defaultStat] pageviewStartWithName:VC_TITLE_CHAT];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[BaiduMobStat defaultStat] pageviewEndWithName:VC_TITLE_CHAT];
 }
 
 /// 获取俱乐部成员列表
@@ -224,37 +236,67 @@
         [self.latestNoticeMsg setObject:result[@"noticeContent"] forKey:@"noticeContent"];
         [self.latestNoticeMsg setObject:result[@"noticeUrl"] forKey:@"noticeUrl"];
         
-        [self showLatestNotice];
+        if (!result[@"noticeContent"]) {
+            [self latestNotice:NO];
+        } else {
+            [self latestNotice:YES];
+        }
     } fail:^(NSError *error) {
         
     }];
 }
 
-/// 显示最新公告
-- (void)showLatestNotice {
-    UIView *noticeBoardBg = [[UIView alloc] initWithFrame:CGRectMake(0, NAVIAGTION_HEIGHT, SCREENW, 35)];
-    noticeBoardBg.backgroundColor = COLORHex(@"#99d5fd");
-    noticeBoardBg.userInteractionEnabled = YES;
-    [self.view addSubview:noticeBoardBg];
-    
-    UILabel *noticeBoardLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, CGRectGetWidth(noticeBoardBg.frame) - 44 - 10, CGRectGetHeight(noticeBoardBg.frame))];
-    NSString *noticeContent = self.latestNoticeMsg[@"noticeContent"];
-    if (noticeContent) {
-        noticeContent = [NSString stringWithFormat:@"公告: %@", noticeContent];
-    } else {
-        noticeContent = [NSString stringWithFormat:@"公告: 无"];
+- (UIView *)noticeBoardBg {
+    if (!_noticeBoardBg) {
+        _noticeBoardBg = [[UIView alloc] initWithFrame:CGRectMake(0, NAVIAGTION_HEIGHT, SCREENW, 35)];;
     }
-    noticeBoardLabel.text = noticeContent;
-    [noticeBoardBg addSubview:noticeBoardLabel];
-    
-    UIImageView *noticeBoardNav = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(noticeBoardLabel.frame) + 10, (CGRectGetHeight(noticeBoardBg.frame) - 24) / 2.0, 24, 24)];
-    noticeBoardNav.image = [UIImage imageNamed:@"discover_club_navigation_arrow_right"];
-    [noticeBoardBg addSubview:noticeBoardNav];
+    return _noticeBoardBg;
+}
 
-    [self.view bringSubviewToFront:noticeBoardBg];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapLatestNotice:)];
-    [noticeBoardBg addGestureRecognizer:tap];
+/// 显示最新公告
+- (void)latestNotice:(BOOL)isShow {
+    if (isShow) {
+        self.noticeBoardBg.backgroundColor = COLORHex(@"#99d5fd");
+        self.noticeBoardBg.userInteractionEnabled = YES;
+        [self.view addSubview:self.noticeBoardBg];
+        
+        UILabel *noticeBoardLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, CGRectGetWidth(_noticeBoardBg.frame) - 44 - 10, CGRectGetHeight(self.noticeBoardBg.frame))];
+        NSString *noticeContent = self.latestNoticeMsg[@"noticeContent"];
+        if (noticeContent) {
+            noticeContent = [NSString stringWithFormat:@"公告: %@", noticeContent];
+        } else {
+            noticeContent = [NSString stringWithFormat:@"公告: 暂无"];
+        }
+        noticeBoardLabel.text = noticeContent;
+        [self.noticeBoardBg addSubview:noticeBoardLabel];
+        
+        UIImageView *noticeBoardNav = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(noticeBoardLabel.frame) + 10, (CGRectGetHeight(self.noticeBoardBg.frame) - 24) / 2.0, 24, 24)];
+        noticeBoardNav.image = [UIImage imageNamed:@"discover_club_navigation_arrow_right"];
+        [self.noticeBoardBg addSubview:noticeBoardNav];
+        
+        [self.view bringSubviewToFront:self.noticeBoardBg];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapLatestNotice:)];
+        [self.noticeBoardBg addGestureRecognizer:tap];
+        
+        CGRect frame = self.conversationMessageCollectionView.frame;
+        CGFloat nowY = NAVIAGTION_HEIGHT + 35;
+        CGFloat nowX = frame.origin.x;
+        CGFloat nowW = frame.size.width;
+        CGFloat nowH = SCREENH - NAVIAGTION_HEIGHT - 35 - TABBAR_HEIGHT;
+        
+        self.conversationMessageCollectionView.frame = CGRectMake(nowX, nowY, nowW, nowH);
+    } else {
+        [self.noticeBoardBg removeFromSuperview];
+        
+        CGRect frame = self.conversationMessageCollectionView.frame;
+        CGFloat nowX = frame.origin.x;
+        CGFloat nowY = NAVIAGTION_HEIGHT;
+        CGFloat nowW = frame.size.width;
+        CGFloat nowH = SCREENH - NAVIAGTION_HEIGHT - TABBAR_HEIGHT;
+        
+        self.conversationMessageCollectionView.frame = CGRectMake(nowX, nowY, nowW, nowH);
+    }
 }
 
 // 公告列表 -> 编辑公告

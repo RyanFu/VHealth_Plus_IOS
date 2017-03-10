@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GongYunTong/Classes/Main/Step/TimingTask/VHSTimingTasker.m"
-            timestampString = "510474887.563122"
+            filePath = "GongYunTong/Classes/Club/Utilities/VHSMoreMenu.m"
+            timestampString = "510630690.58476"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "-startTimingTask"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "-dealloc"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

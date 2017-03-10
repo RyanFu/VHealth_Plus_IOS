@@ -182,16 +182,8 @@ static BOOL isBackGroundActivateApplication;
             CLog(@"Channel_id == %@",[BPush getChannelId]);
             [VHSCommon saveBPushChannelId:[BPush getChannelId]];
             
-            [BPush listTagsWithCompleteHandler:^(id result, NSError *error) {
-                if (result) {
-                    CLog(@"result ============== %@",result);
-                }
-            }];
-            [BPush setTag:@"vhs_gyt_tags" withCompleteHandler:^(id result, NSError *error) {
-                if (result) {
-                    CLog(@"设置tag成功");
-                }
-            }];
+            [BPush listTagsWithCompleteHandler:^(id result, NSError *error) {}];
+            [BPush setTag:@"vhs_gyt_tags" withCompleteHandler:^(id result, NSError *error) {}];
         }
     }];
 }

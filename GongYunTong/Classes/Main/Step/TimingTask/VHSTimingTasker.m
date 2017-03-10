@@ -18,8 +18,8 @@
 @implementation VHSTimingTasker
 
 - (void)startTimingTask {
-    NSDate *startDate = [VHSCommon dateWithDateStr:self.startTime];
-    NSDate *endDate = [VHSCommon dateWithDateStr:self.endTime];
+//    NSDate *startDate = [VHSCommon dateWithDateStr:self.startTime];
+//    NSDate *endDate = [VHSCommon dateWithDateStr:self.endTime];
     
     [[VHSDataBaseManager shareInstance] createTimingTaskTable];
     

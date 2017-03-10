@@ -24,12 +24,11 @@
     if (_club != club) {
         _club = club;
         
-        [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:_club.coverUrl]
-                                placeholderImage:[UIImage imageNamed:@"icon_onlogin"]];
+        [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:_club.coverUrl] placeholderImage:[UIImage imageNamed:@"icon_onlogin"]];
         self.titleLabel.text = _club.clubName;
         self.reddot.hidden = !_club.newMsg;
         self.describeLabel.text = _club.slogan;
-        self.peopleLabel.text = _club.memberCount;
+        self.peopleLabel.text = [NSString stringWithFormat:@"已有%@人", _club.memberCount];
     }
 }
 
