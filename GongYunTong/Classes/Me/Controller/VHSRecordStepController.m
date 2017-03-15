@@ -56,7 +56,10 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    [self sumStepsFromDB];
+    if (!self.sumSteps) {
+        self.sumSteps = [self getStepsFromDB];
+    }
+    [VHSGlobalDataManager shareGlobalDataManager].recordAllSteps = self.sumSteps;
     
     [self initUI];
     
@@ -64,7 +67,10 @@
     self.kilometre = [[VHSCommon getUserDefautForKey:k_Steps_To_Kilometre_Ratio] doubleValue] * self.sumSteps;
     [self setLabel:_stepsLabel labelText:_stepsLabel.text attriText:[NSString stringWithFormat:@"%ld", (long)self.sumSteps]];
     // 步数同步到云端
-    [k_NotificationCenter addObserver:self selector:@selector(autosyncStepsToCloud) name:k_NOTI_SYNCSTEPS_TO_NET object:nil];
+    [k_NotificationCenter addObserver:self
+                             selector:@selector(autosyncStepsToCloud)
+                                 name:k_NOTI_SYNCSTEPS_TO_NET
+                               object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -78,8 +84,7 @@
 }
 
 //设置状态栏中字体颜色为白色
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
+- (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
 
@@ -96,7 +101,7 @@
         self.lastTimeLabel.text = @"未绑定";
     } else {
         // 显示上一次同步时间
-        self.lastTimeLabel.text = [NSString stringWithFormat:@"上次获取手环数据-%@",[VHSCommon timeInfoWithDateString:[VHSCommon getShouHuanLastTimeSync]]];
+        self.lastTimeLabel.text = [NSString stringWithFormat:@"上次获取手环数据%@",[VHSCommon timeInfoWithDateString:[VHSCommon getShouHuanLastTimeSync]]];
     }
     
     // 开启同步数据定时器，30秒检测一次数据是否同步
@@ -305,7 +310,7 @@
         scanVC.topVC = self;
         __weak typeof(self)weakSelf = self;
         scanVC.getDataBaseDataBlock = ^(){
-            weakSelf.sumStepsOnDB = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userDetailInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
+            weakSelf.sumStepsOnDB = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
         };
         [self.navigationController pushViewController:scanVC animated:YES];
     }
@@ -314,7 +319,6 @@
 - (void)stepsTap:(UIGestureRecognizer *)tap {
     VHSAllStepsController *stepsVC = (VHSAllStepsController *)[StoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSAllStepsController"];
     [self.navigationController pushViewController:stepsVC animated:YES];
-    CLog(@"点击了所有步数");
 }
 
 #pragma mark - kvo
@@ -322,7 +326,7 @@
 /// 手环数据变化
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"step"]) {
-        NSInteger dbSteps = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userDetailInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
+        NSInteger dbSteps = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
         NSString *realtimeSteps = [VHSStepAlgorithm shareAlgorithm].stepsData.step;
         NSInteger lastSyncSteps = [VHSCommon getShouHuanLastStepsSync];
         
@@ -330,30 +334,27 @@
         // 手环跨天时候，可能在获取实时手环数据未获取，但是上次同步数据有，导致了负数
         self.sumSteps = self.sumSteps > 0 ? self.sumSteps : 0;
         
-        CLog(@"--real-%@--db-%ld--last-%ld--sum-%ld", realtimeSteps, (long)dbSteps, (long)lastSyncSteps, (long)self.sumSteps);
+        [VHSGlobalDataManager shareGlobalDataManager].recordAllSteps = self.sumSteps;
         
         NSString *stepTotal = [NSString stringWithFormat:@"%@", @(self.sumSteps)];
-        // 步数转为公里数据
-        self.kilometre = [[VHSCommon getUserDefautForKey:k_Steps_To_Kilometre_Ratio] doubleValue] * self.sumSteps;
-       
+        self.kilometre = [[VHSCommon getUserDefautForKey:k_Steps_To_Kilometre_Ratio] doubleValue] * self.sumSteps; // 步数转为公里数据
         _stepsLabel.text =  [NSString stringWithFormat:@"%@步",stepTotal];
 
         [self setLabel:_stepsLabel labelText:_stepsLabel.text attriText:stepTotal];
+        
+        CLog(@"--real-%@--db-%ld--last-%ld--sum-%ld", realtimeSteps, (long)dbSteps, (long)lastSyncSteps, (long)self.sumSteps);
     }
 }
 
 /// 从谐处理器中获取数据
 - (void)stepLabelDataChange {
-    NSInteger steps = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue]
-                                                                                date:[VHSCommon getYmdFromDate:[NSDate date]]];
+    NSInteger steps = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
+    [VHSGlobalDataManager shareGlobalDataManager].recordAllSteps = steps;
     self.sumSteps = steps;
     // 步数转为公里数据
     self.kilometre = [[VHSCommon getUserDefautForKey:k_Steps_To_Kilometre_Ratio] doubleValue] * self.sumSteps;
-
-    NSString *str = [NSString stringWithFormat:@"%ld",(long)self.sumSteps];
-    _stepsLabel.text =  [NSString stringWithFormat:@"%@步",str];
-
-    [self setLabel:_stepsLabel labelText:_stepsLabel.text attriText:str];
+    _stepsLabel.text =  [NSString stringWithFormat:@"%@步",@(self.sumSteps)];
+    [self setLabel:_stepsLabel labelText:_stepsLabel.text attriText:[@(self.sumSteps) stringValue]];
 }
 /// 设置label的属性化
 - (void)setLabel:(UILabel *)label labelText:(NSString *)text attriText:(NSString *)attriText {
@@ -371,8 +372,9 @@
 
 #pragma mark - 从本地获取一天的的所有步数
 
-- (void)sumStepsFromDB {
-    self.sumStepsOnDB = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userDetailInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
+- (NSInteger)getStepsFromDB {
+    self.sumStepsOnDB = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
+    return self.sumStepsOnDB;
 }
 
 #pragma mark - 手动同步到服务段

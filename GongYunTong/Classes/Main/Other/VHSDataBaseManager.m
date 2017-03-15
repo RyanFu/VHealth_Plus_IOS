@@ -38,13 +38,17 @@
 
 // 用户数据库创建处理
 - (void)createDB {
-    // 用户数据库不存在时，新建
+    // 用户数据库不存在时，新建 - 第一次安装
     if (![[NSFileManager defaultManager] fileExistsAtPath:[self dbPath]]) {
+        [self createTable];
         [VHSCommon saveDataBaseVersion];
     } else {
+        // 覆盖安装
         NSInteger version = [VHSCommon getDatabaseVersion];
-        // 当前数据库版本和定义的数据库版本不一致
-        if (version != k_VHS_DataBase_Version) {}
+        if (version == k_VHS_DataBase_Version) return;
+        
+        [self alterTableToAddColumn];
+        [VHSCommon saveDataBaseVersion];
     }
 }
 
@@ -54,35 +58,43 @@
 }
 
 - (void)createTable {
-    
+    [self createTableOfActionList];
+}
+
+- (void)createTableOfActionList {
     FMDatabase *db = [self getFmdb];
     [db open];
     //  创建 运动信息一览表
     NSString *createSportTableSql = @"CREATE TABLE IF NOT EXISTS 'action_lst' \
     (   'action_id'             VARCHAR(36), \
-        'member_id'             VARCHAR(36),\
-        'action_mode'           VARCHAR(8),\
-        'action_type'           VARCHAR(8),\
-        'distance'              VARCHAR(36),\
-        'seconds'               VARCHAR(36),\
-        'calorie'               VARCHAR(36),\
-        'step'                  VARCHAR(36),\
-        'start_time'            VARCHAR(36),\
-        'end_time'              VARCHAR(36),\
-        'record_time'           VARCHAR(36),\
-        'score'                 VARCHAR(36),\
-        'upload'                INTEGER,\
-        'mac_address'           VARCHAR(36)\
+    'member_id'             VARCHAR(36),\
+    'action_mode'           VARCHAR(8),\
+    'action_type'           VARCHAR(8),\
+    'distance'              VARCHAR(36),\
+    'seconds'               VARCHAR(36),\
+    'calorie'               VARCHAR(36),\
+    'step'                  VARCHAR(36),\
+    'start_time'            VARCHAR(36),\
+    'end_time'              VARCHAR(36),\
+    'record_time'           VARCHAR(36),\
+    'score'                 VARCHAR(36),\
+    'upload'                INTEGER,\
+    'mac_address'           VARCHAR(36),\
+    'floor_asc'             VARCHAR(36),\
+    'floor_des'             VARCHAR(36)\
     )";
+    [db executeUpdate:createSportTableSql];
+    [db close];
+}
+
+- (void)alterTableToAddColumn {
+    NSString *alterAddFloorAscSql = @"alter table action_lst add floor_asc varchar(36);";
+    NSString *alterAddFloorDesSql = @"alter table action_lst add floor_des varchar(36);";
     
-    BOOL flag = [db executeUpdate:createSportTableSql];
-    
-    if (flag) {
-        CLog(@"创建－－－运动信息一览表－－－成功");
-    } else {
-        CLog(@"创建－－－运动信息一览表－－－失败");
-    }
-    
+    FMDatabase *db = [self getFmdb];
+    [db open];
+    [db executeUpdate:alterAddFloorAscSql];
+    [db executeUpdate:alterAddFloorDesSql];
     [db close];
 }
 
@@ -96,9 +108,9 @@
     
     BOOL res = [db executeUpdate:sql];
     if (res) {
-        DLog(@"更新－－－运动信息一览表－－－状态－－－成功");
+        CLog(@"更新－－－运动信息一览表－－－状态－－－成功");
     } else {
-        DLog(@"更新－－－运动信息一览表－－－状态－－－失败");
+        CLog(@"更新－－－运动信息一览表－－－状态－－－失败");
     }
     
     [db close];
@@ -108,20 +120,16 @@
 
 - (BOOL)insertNewAction:(VHSActionData *)action {
     
-        if (!action.actionId.length || !action.actionId) {
+        if (!action.actionId.length || !action.actionId || !action.memberId.length || !action.memberId) {
             return NO;
         }
-        else if (!action.memberId.length || !action.memberId) {
-            return NO;
-        }
-    
         BOOL flag = NO;
     
         // 获取DB对象
         FMDatabase *db = [self getFmdb];
         [db open];
     
-        NSString *insertSql = @"INSERT INTO action_lst (action_id, member_id, action_mode, action_type, distance, seconds, calorie, step, start_time, end_time, record_time, score, upload, mac_address) VALUES (? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        NSString *insertSql = @"INSERT INTO action_lst (action_id, member_id, action_mode, action_type, distance, seconds, calorie, step, start_time, end_time, record_time, score, upload, mac_address, floor_asc, floor_des) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
         flag = [db executeUpdate:insertSql,
                 action.actionId,
@@ -137,7 +145,9 @@
                 action.recordTime,
                 action.score,
                 @(action.upload),
-                action.macAddress];
+                action.macAddress,
+                action.floorAsc,
+                action.floorDes];
         
         [db close];
         
@@ -275,12 +285,64 @@
         action.recordTime = record_time;
         action.score = score;
         action.upload = upload;
+        // 没有mac地址，表示手机
+        if ([VHSCommon isNullString:mac_address]) mac_address = @"0";
         action.macAddress = mac_address;
         
         [arr addObject:action];
     }
     
     return arr;
+}
+
+#pragma mark - 定时任务 任务表
+
+- (void)createTimingTaskTable {
+    FMDatabase *db = [self getFmdb];
+    [db open];
+    NSString *sql = @"create table if not exists 't_action_timing_task'(\
+    a_id varchar(36),\
+    member_id varchar(36),\
+    task_type varchar(36),\
+    action_type varchar(36),\
+    record_time varchar(36),\
+    start_time varchar(36),\
+    end_time varchar(36),\
+    step varchar(36),\
+    distance varchar(10),\
+    floor_asc varchar(10),\
+    floor_des varchar(10),\
+    upload varchar(10)\
+    )";
+    [db executeUpdate:sql];
+    [db close];
+}
+
+- (void)insertTimingTaskWith:(VHSActionData *)action {
+    if (!action.actionId || !action.memberId || !action.taskType) return;
+    
+    FMDatabase *db = [self getFmdb];
+    [db open];
+    
+    NSString *sql = @"insert into t_action_timing_task(a_id, member_id, task_type, action_type, record_time, start_time, end_time, step, distance, floor_asc, floor_des, upload) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    BOOL flag = [db executeUpdate:sql,
+         action.actionId,
+         action.memberId,
+         action.taskType,
+         action.actionType,
+         action.recordTime,
+         action.startTime,
+         action.endTime,
+         action.step,
+         action.distance,
+         action.floorAsc,
+         action.floorDes,
+         @(action.upload).stringValue];
+    if (flag) {
+        CLog(@"---->>>>定时任务完成数据插入完成");
+    } else {
+        CLog(@"---->>>>定时任务插入数据失败");
+    }
 }
 
 @end

@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @class VHSFitBraceletSettingModel;
+
 @interface VHSSettingBraceletCell : UITableViewCell
 
 
 @property(nonatomic,strong)VHSFitBraceletSettingModel *model;
 @property(nonatomic)BOOL isDisBinding;  //正在解绑
+
+
 @end

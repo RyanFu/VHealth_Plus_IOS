@@ -10,7 +10,7 @@
 #import "RSAEncryptor.h"
 #import "NSArray+VHSExtension.h"
 #import "NSDictionary+VHSExtension.h"
-#import "NSString+VHSExtension.h"
+#import "NSString+extension.h"
 #import "AES128Util.h"
 
 /**

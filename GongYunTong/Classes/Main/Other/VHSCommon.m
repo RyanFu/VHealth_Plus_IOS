@@ -14,12 +14,16 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "KeyChainStore.h"
 
-NSString *const DeviceDidScanBLEsNotification = @"DeviceDidScanBLEsNotificationKey";
 NSString *const DeviceDidScanBLEsUserInfoKey = @"DeviceDidScanBLEsUserInfoKey";
 NSString *const DeviceDidConnectedBLEsNotification = @"DeviceDidConnectedBLEsNotificationKey";
 NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedBLEsUserInfoPeripheral";
 
 @implementation VHSCommon
+
++ (NSString *)appName {
+    NSString *appName = [NSString stringWithFormat:@"%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"]];
+    return appName;
+}
 
 + (NSString *)appVersion {
     return [NSString stringWithFormat:@"%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
@@ -65,11 +69,20 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
     return phoneModel;
 }
 
-+ (void)toAppStoreForUpgrade {
++ (void)toAppStore {
     // 应用ID信息可以直接从AppStore拿到
     NSURL *url = [NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id1084589981"];
     if ([[UIApplication sharedApplication] canOpenURL:url]) {
         [[UIApplication sharedApplication] openURL:url];
+    }
+}
+
++ (void)toSafariWithUrl:(NSString *)urlAddress {
+    if (!urlAddress) return;
+    
+    BOOL isExsit = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:urlAddress]];
+    if(isExsit) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlAddress]];
     }
 }
 
@@ -99,6 +112,11 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
 
 + (void)saveUserDefault:(id)value forKey:(NSString *)key {
     [k_UserDefaults setObject:value forKey:key];
+    [k_UserDefaults synchronize];
+}
+
++ (void)removeUserDefaultForKey:(NSString *)key {
+    [k_UserDefaults removeObjectForKey:key];
     [k_UserDefaults synchronize];
 }
 
@@ -178,12 +196,11 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
  *  @return YES-allowed,otherwise,NO.
  */
 + (BOOL)isAllowedNotification {
-    //iOS8 check if user allow notification
-    if (iOS8) {// system is iOS8
-        UIUserNotificationSettings *setting = [[UIApplication sharedApplication] currentUserNotificationSettings];
-        if (UIUserNotificationTypeNone != setting.types) {
-            return YES;
-        }
+    if (!iOS8) return NO;
+    
+    UIUserNotificationSettings *setting = [[UIApplication sharedApplication] currentUserNotificationSettings];
+    if (UIUserNotificationTypeNone != setting.types) {
+        return YES;
     }
     return NO;
 }
@@ -483,6 +500,22 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
         return YES;
     }
     return NO;
+}
+
++ (void)showADPageWithUrl:(NSString *)adUrl duration:(NSInteger)duration {
+    
+    if (duration == 0) return;
+    
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
+    
+    UIImageView *adImageView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [[UIApplication sharedApplication].keyWindow addSubview:adImageView];
+    
+    [adImageView sd_setImageWithURL:[NSURL URLWithString:adUrl]];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [adImageView removeFromSuperview];
+    });
 }
 
 @end

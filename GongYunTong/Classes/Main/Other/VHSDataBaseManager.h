@@ -19,7 +19,6 @@
 
 /// 创建数据库
 - (void)createDB;
-
 /// 创建表
 - (void)createTable;
 
@@ -44,5 +43,9 @@
 
 - (NSArray *)oneUserActionListWithMemberId:(NSString *)memberId upload:(NSString *)isUpload;
 
+#pragma mark - 定时任务数据表处理
+
+- (void)createTimingTaskTable;
+- (void)insertTimingTaskWith:(VHSActionData *)action;
 
 @end

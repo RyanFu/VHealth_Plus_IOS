@@ -16,7 +16,7 @@
 - (instancetype)initWithPhone:(NSString *)phone title:(NSString *)title content:(NSString *)content;
 
 /// 检查更新
-- (instancetype)initWithContent:(NSString *)content forceUpgrade:(BOOL)isForce;
+- (instancetype)initWithContent:(NSString *)content forceUpgrade:(BOOL)isForce downloadUrl:(NSString *)loadUrl;
 
 /// 联系客服，一般的电话呼叫
 - (instancetype)initWithNormalPhone:(NSString *)phone;

@@ -13,9 +13,11 @@
 #import "BannerItemModel.h"
 #import "PublicWKWebViewController.h"
 #import "OneAlertCaller.h"
+#import "VHSClubController.h"
 
-//一行显示的个数
-NSInteger const ROWCOUNT = 3;
+// 一行显示的个数
+NSInteger const ROW_COUNT = 3;
+
 @interface VHSDiscoverController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UICollectionViewFlowLayout *flowLayout;
@@ -36,9 +38,10 @@ NSInteger const ROWCOUNT = 3;
     return _bannerList;
 }
 
+#pragma mark - Controller 生命周期函数
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.navigationItem.title = @"发现";
     
     // 防止navigationBar挡住tableView/scrollView
     self.automaticallyAdjustsScrollViewInsets = false;
@@ -52,10 +55,17 @@ NSInteger const ROWCOUNT = 3;
     
     // 初始化flowLayout
     [self setupFlowLayout];
-    [self getIconFromServer];
+    [self downloadDiscoverItem];
     
     // 观察系统通知 - UIApplicationWillResignActiveNotification
-    [k_NotificationCenter addObserver:self selector:@selector(appWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
+    [k_NotificationCenter addObserver:self
+                             selector:@selector(appWillResignActive)
+                                 name:UIApplicationWillResignActiveNotification
+                               object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -68,73 +78,78 @@ NSInteger const ROWCOUNT = 3;
     [[BaiduMobStat defaultStat] pageviewEndWithName:[NSString stringWithFormat:@"%@", @"发现"]];
 }
 
--(void)setupFlowLayout {
-    self.flowLayout.itemSize = CGSizeMake(SCREENW / ROWCOUNT, 101.0 / 375 * SCREENW);
+- (void)setupFlowLayout {
+    self.flowLayout.itemSize = CGSizeMake(SCREENW / ROW_COUNT, 0.8 * SCREENW / ROW_COUNT);
     self.flowLayout.minimumLineSpacing = 0.0f;
     self.flowLayout.minimumInteritemSpacing = 0.0f;
     self.flowLayout.headerReferenceSize = CGSizeMake(self.view.bounds.size.width, 12);
 }
 
-- (void)getIconFromServer{
+#pragma mark - 获取服务端数据
+
+- (void)downloadDiscoverItem{
     
-    if (![VHSCommon isNetworkAvailable]) {
-        return;
-    }
+    if (![VHSCommon isNetworkAvailable]) return;
     
-    [self.bannerList removeAllObjects];
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     message.path = URL_GET_DISCOVERY;
     message.httpMethod = VHSNetworkPOST;
-    
-    [[VHSHttpEngine sharedInstance] sendMessage:message success:^(id resultObject) {
-        NSDictionary *dict = resultObject;
-        NSArray *bannerList = dict[@"bannerList"];
+
+    [self.bannerList removeAllObjects];
+    [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
+        NSArray *bannerList = result[@"bannerList"];
+        if (![bannerList isKindOfClass:[NSArray class]]) return;
         
-        if ([bannerList isKindOfClass:[NSArray class]]) {
-            for (NSDictionary *itemDict in bannerList) {
-                BannerItemModel *model = [BannerItemModel yy_modelWithDictionary:itemDict];
+        for (NSDictionary *itemDict in bannerList) {
+            BannerItemModel *model = [BannerItemModel yy_modelWithDictionary:itemDict];
+            [self.bannerList addObject:model];
+        }
+        
+        //  补齐collection中cell
+        NSInteger surplus = [self.bannerList count] % ROW_COUNT;
+        if (surplus) {
+            NSInteger completionNums = ROW_COUNT - surplus;
+            for (NSInteger i = 0; i < completionNums; i++) {
+                BannerItemModel *model = [[BannerItemModel alloc] init];
                 [self.bannerList addObject:model];
             }
-            
-            //  补齐collection中cell
-            NSInteger m = [self.bannerList count] % 3;
-            if (m) {
-                NSInteger needAdd = 3 - m;
-                for (NSInteger i = 0; i < needAdd; i++) {
-                    BannerItemModel *model = [[BannerItemModel alloc] init];
-                    [self.bannerList addObject:model];
-                }
-            }
-            
-            [self.collectionView reloadData];
         }
+        
+        [self.collectionView reloadData];
         
     } fail:^(NSError *error) {
         CLog(@"%@",error);
     }];
 
 }
-#pragma mark -UICollectionViewDataSource
+#pragma mark - UICollectionViewDataSource
 
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return [self.bannerList count];
 }
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    VHSDiscoverCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([VHSDiscoverCell class]) forIndexPath:indexPath];
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    VHSDiscoverCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([VHSDiscoverCell class])
+                                                                      forIndexPath:indexPath];
     cell.bannerItem = self.bannerList[indexPath.row];
     return cell;
 }
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     
     BannerItemModel *model = self.bannerList[indexPath.row];
-    // discoveryType : 1 链接 2 电话
+    // discoveryType : 1 链接 2 电话 3: 原生模块
     if (model.discoveryType == 2) {
         //一键呼
         OneAlertCaller *caller = [[OneAlertCaller alloc] initWithPhone:model.hrefUrl];
         [caller call];
+    }
+    else if ([model.title isEqualToString:@"俱乐部"]) {
+        VHSClubController *clubVC = [[VHSClubController alloc] init];
+        clubVC.hidesBottomBarWhenPushed = YES;
+        clubVC.title = model.title;
+        [self.navigationController pushViewController:clubVC animated:YES];
     }
     else if (model.hrefUrl) {
         PublicWKWebViewController *publicWebVC = [[PublicWKWebViewController alloc] init];

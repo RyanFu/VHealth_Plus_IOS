@@ -22,4 +22,7 @@
 /// 百度推送
 - (void)startBaiDuPush:(UIApplication *)application launchingWithOptions:(NSDictionary *)launchOptions;
 
+/// 融云
+- (void)setupRCKit;
+
 @end

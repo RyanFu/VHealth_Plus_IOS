@@ -10,6 +10,7 @@
 #import "VHSLocatServicer.h"
 #import "MBProgressHUD+VHS.h"
 #import "OneAlertCaller.h"
+#import "VHSCommentController.h"
 
 @interface PublicWKWebViewController ()
 
@@ -48,7 +49,7 @@
     
     UILabel *backLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(backImage.frame), 0, 40, 30)];
     backLabel.text = @"返回";
-    backLabel.textColor = [UIColor colorWithHexString:@"#828282"];
+    backLabel.textColor = COLORHex(@"#828282");
     backLabel.font = [UIFont systemFontOfSize:14.0];
     
     self.backBarView = backView;
@@ -191,6 +192,7 @@
     // 监听支付宝支付回调通知
     [k_NotificationCenter addObserver:self selector:@selector(handleAlipayInfo:) name:k_NOTI_ALIPAY_CALLBACK_INFO object:nil];
     [k_NotificationCenter addObserver:self selector:@selector(appEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [k_NotificationCenter addObserver:self selector:@selector(refreshAppPage) name:k_NOTI_APP_PAGE_REFRESH object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -282,6 +284,7 @@
 
 #pragma mark - WKScriptMessageHandler
 
+/// JS和Native之间的调用
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     NSDictionary *bodyDict = (NSDictionary<NSString *, NSString *> *)message.body;
     NSString *method = bodyDict[@"method"];
@@ -295,9 +298,7 @@
         __weak typeof(self) weakSelf = self;
         [self getTokenSuccess:^(NSString *token) {
             NSString *jsMethod = [NSString stringWithFormat:@"%@('%@')", backMethod, token];
-            [weakSelf.contentWKWebView evaluateJavaScript:jsMethod completionHandler:^(id _Nullable any, NSError * _Nullable error) {
-                CLog(@"成功");
-            }];
+            [weakSelf.contentWKWebView evaluateJavaScript:jsMethod completionHandler:^(id _Nullable any, NSError * _Nullable error) {}];
         }];
     }
     else if ([method isEqualToString:@"getLocation"]) {
@@ -329,6 +330,42 @@
         NSString *content = bodyDict[@"content"];
         OneAlertCaller *caller = [[OneAlertCaller alloc] initWithPhone:phone title:title content:content];
         [caller call];
+    }
+    else if ([method isEqualToString:@"addClubNote"]) {
+        self.shouldCloseBGMusic = NO;
+        // 俱乐部发帖子
+        NSString *clubId = bodyDict[@"clubId"];
+        VHSCommentController *commentVC = [[VHSCommentController alloc] init];
+        commentVC.title = CONST_CLUB_ADD_BBS;
+        commentVC.clubId = clubId;
+        commentVC.commentType = VHSCommentOfMomentPublishPostType;
+        [self presentViewController:commentVC animated:YES completion:nil];
+    }
+    else if ([method isEqualToString:@"addClubbbsReply"]) {
+        self.shouldCloseBGMusic = NO;
+        // 帖子回复
+        NSString *clubId = bodyDict[@"clubId"];
+        NSString *bbsId = bodyDict[@"bbsId"];
+        VHSCommentController *commentVC = [[VHSCommentController alloc] init];
+        commentVC.title = CONST_REPLY;
+        commentVC.clubId = clubId;
+        commentVC.bbsId = bbsId;
+        commentVC.commentType = VHSCommentOfMomentReplyPostType;
+        [self presentViewController:commentVC animated:YES completion:nil];
+    }
+    else if ([method isEqualToString:@"editClubNotice"]) {
+        self.shouldCloseBGMusic = NO;
+        // 编辑公告
+        NSString *clubId = bodyDict[@"clubId"];
+        NSString *noticeId = bodyDict[@"noticeId"];
+        NSString *noticeContent = bodyDict[@"noticeContent"];
+        VHSCommentController *commentVC = [[VHSCommentController alloc] init];
+        commentVC.title = CONST_EDIT_NOTICE;
+        commentVC.clubId = clubId;
+        commentVC.noticeId = noticeId;
+        commentVC.content = noticeContent;
+        commentVC.commentType = VHSCommentOfMomentUpdateAnnouncementType;
+        [self presentViewController:commentVC animated:YES completion:nil];
     }
 }
 
@@ -407,13 +444,13 @@
     //应用注册scheme,在Info.plist定义URL types
     NSString *appScheme = ALIPAY_APP_SCHEME;
     
-    if (signUrl && signUrl.length > 0) {
-        [[AlipaySDK defaultService] payOrder:signUrl fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-            if (6001 == [[resultDic objectForKey:@"resultStatus"] intValue]) {}
-            else if (9000 == [[resultDic objectForKey:@"resultStatus"] intValue]) {}
-            else {}
-        }];
-    }
+    if (!signUrl || !signUrl.length) return;
+    
+    [[AlipaySDK defaultService] payOrder:signUrl fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+        if (6001 == [[resultDic objectForKey:@"resultStatus"] intValue]) {}
+        else if (9000 == [[resultDic objectForKey:@"resultStatus"] intValue]) {}
+        else {}
+    }];
 }
 
 #pragma mark - 支付信息回调处理
@@ -447,7 +484,7 @@
     }
     else if (status == 9000) {
         [self.contentWKWebView evaluateJavaScript:@"backPay('支付成功')" completionHandler:^(id _Nullable any, NSError * _Nullable error) {
-            CLog(@"调用成功");
+            CLog(@"支付宝支付成功");
         }];
     }
 }
@@ -479,6 +516,13 @@
     } else {
         [self closeWebView];
     }
+}
+
+// 刷新Web Url
+- (void)refreshAppPage {
+    [self.contentWKWebView evaluateJavaScript:@"refreshAppPage()" completionHandler:^(id _Nullable res, NSError * _Nullable error) {
+        CLog(@"evaluateJavaScript success");
+    }];
 }
 
 - (void)dealloc {

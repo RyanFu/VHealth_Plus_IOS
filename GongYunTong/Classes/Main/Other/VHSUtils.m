@@ -27,7 +27,7 @@
 + (NSString *)md5_base64:(NSString *)str {
     const char *cStr = [str UTF8String];
     unsigned char digest[CC_MD5_DIGEST_LENGTH];
-    CC_MD5( cStr, strlen(cStr), digest );
+    CC_MD5( cStr, (int)strlen(cStr), digest );
     
     NSData * base64 = [[NSData alloc] initWithBytes:digest length:CC_MD5_DIGEST_LENGTH];
     base64 = [GTMBase64 encodeData:base64];
@@ -111,7 +111,7 @@
 }
 
 + (NSString *)absolutelyString:(NSString *)originString {
-    return [originString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    return [NSString stringWithFormat:@"%@", [originString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
 }
 
 + (UIImage *)imageFromColor:(UIColor *)color {
@@ -130,7 +130,7 @@
  *  UIImage image 原始的图片
  *  CGSize size 要缩放到的大小
  */
-+(UIImage *)image:(UIImage *)image scaleToSize:(CGSize)size {
++ (UIImage *)image:(UIImage *)image scaleToSize:(CGSize)size {
     // 得到图片上下文，指定绘制范围，会导致图片的的分辨率出现问题
 //    UIGraphicsBeginImageContext(size);
     // 下面方法，第一个参数表示区域大小。第二个参数表示是否是非透明的。如果需要显示半透明效果，需要传NO，否则传YES。第三个参数就是屏幕密度了

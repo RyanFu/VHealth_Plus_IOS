@@ -20,38 +20,66 @@
 
 #pragma mark - Toast -=========================Toast 提示语===================
 
-#define TOAST_NO_NETWORK                                @"网络未连接"
-#define TOAST_NETWORK_SUSPEND                           @"连接超时，请重试"
-#define TOAST_NOMORE_DATA                               @"已全部显示"
-#define TOAST_UPLOAD_STEPS_SUCCESS                      @"同步成功"
-#define TOAST_UPLOAD_SETPS_FAIL                         @"同步失败"
-#define TOAST_BLE_BIND_NO_NOTWORK                       @"绑定手环需要网络"
-#define TOAST_BLE_BIND_SUCCESS                          @"绑定成功"
-#define TOAST_BLE_BIND_FAIL                             @"绑定失败，请重试"
-#define TOAST_BLE_UNBIND_SUCCESS                        @"解绑成功"
-#define TOAST_BLE_UNBIND_FAIL                           @"解绑失败"
-#define TOAST_UNFINISH_USER_INFO                        @"请完善所有信息"
-#define TOAST_UNFINISH_FEEDBACK_INFO                    @"请填写您的反馈内容"
-#define TOAST_SIGN_SUCCESS                              @"签到成功"
-#define TOAST_SIGN_FAILURE                              @"签到失败"
+static NSString * const TOAST_NO_NETWORK                            = @"网络未连接";
+static NSString * const TOAST_NETWORK_SUSPEND                       = @"连接超时，请重试";
+static NSString * const TOAST_NOMORE_DATA                           = @"已全部显示";
+static NSString * const TOAST_UPLOAD_STEPS_SUCCESS                  = @"同步成功";
+static NSString * const TOAST_UPLOAD_SETPS_FAIL                     = @"同步失败";
+static NSString * const TOAST_BLE_BIND_NO_NOTWORK                   = @"绑定手环需要网络";
+static NSString * const TOAST_BLE_BIND_SUCCESS                      = @"绑定成功";
+static NSString * const TOAST_BLE_BIND_FAIL                         = @"绑定失败，请重试";
+static NSString * const TOAST_BLE_UNBIND_SUCCESS                    = @"解绑成功";
+static NSString * const TOAST_BLE_UNBIND_FAIL                       = @"解绑失败";
+static NSString * const TOAST_UNFINISH_USER_INFO                    = @"请完善所有信息";
+static NSString * const TOAST_UNFINISH_FEEDBACK_INFO                = @"请填写您的反馈内容";
+static NSString * const TOAST_SIGN_SUCCESS                          = @"签到成功";
+static NSString * const TOAST_SIGN_FAILURE                          = @"签到失败";
+static NSString * const TOAST_CLUB_BBS_POSTING                      = @"帖子发送中";
+static NSString * const TOAST_CLUB_NOTICE_POSTING                   = @"公告发布中";
+static NSString * const TOAST_CLUB_REPLYING                         = @"回复中";
+static NSString * const TOAST_NEED_INPUT_MOBILE                     = @"请输入手机号";
+static NSString * const TOAST_NEED_INPUT_VERCODE                    = @"请输入验证码";
+static NSString * const TOAST_LOGIN_OUTING                          = @"注销中...";
+static NSString * const TOAST_BLE_UNBINDING                         = @"正在解绑...";
+
+#pragma mark - 全局使用的汉字文本
+
+static NSString * const CONST_CLUB_MOMENT_POST_PLACEHOLDER          = @"说点什么吧...";
+static NSString * const CONST_CLUB_CONFIRM_DO_QUIT                  = @"确定退出俱乐部";
+static NSString * const CONST_PROMPT_MESSAGE                        = @"提示";
+static NSString * const CONST_CONFIRM                               = @"确定";
+static NSString * const CONST_CANCLE                                = @"取消";
+static NSString * const CONST_CLUB_ADD_BBS                          = @"发帖子";
+static NSString * const CONST_CLUB_ADD_NOTICE                       = @"发公告";
+static NSString * const CONST_REPLY                                 = @"回复";
+static NSString * const CONST_EDIT_NOTICE                           = @"编辑公告";
+static NSString * const CONST_OPEN_ACCOUNT_SUCCESS                  = @"开通账号成功";
+
+#pragma mark - App中的常量
+
+static NSString *const CONST_GET_DATA_FROM_BRACELET                 = @"获取设备数据到手机";
+static NSString *const CONST_BRACELTE_BIND_SUCESS_TIP               = @"绑定手环后，手环数据将作为计步数据的唯一来源";
 
 
 #pragma mark - 状态码的定义 ==============================状态码=====================================
 
-#define GYT_CODE_SUCCESS                            200
-#define GYT_CODE_TOKEN_INVALID                      4000
+static NSInteger const GYT_CODE_SUCCESS                             = 200;
+static NSInteger const GYT_CODE_TOKEN_INVALID                       = 4000;
 
 #pragma mark - APP全局字段 ==============================字段=====================================
 
-#define k_VHS_DataBase_Version_Key                      @"database_version"
-#define k_VHS_DataBase_Version                          1
-#define k_LATITUDE_LONGITUDE                            @"k_LATITUDE_LONGITUDE"             // 经纬度
-#define k_Launch_Time                                   @"k_Launch_Time"                    // 记录启动的时间
-#define k_Late_Duration(x)                              x * 3600                                    
-#define k_Late_Show_Dynamic_Time                        @"k_Late_Show_Dynamic_Time"         // 动态上次显示时间
-#define k_Late_Show_Activity_Time                       @"k_Late_Show_Activity_Time"        // 活动上次显示时间
-#define k_Late_Show_Shop_Time                           @"k_Late_Show_Shop_Time"            // 福利上次显示时间
-#define k_REFRESH_TIME_OUT                              10                                  // 下拉刷新超时时间
+static NSString *const k_VHS_DataBase_Version_Key                   = @"database_version";
+static NSInteger const k_VHS_DataBase_Version                       = 2;
+#define k_LATITUDE_LONGITUDE                                        @"k_LATITUDE_LONGITUDE"             // 经纬度
+#define k_Launch_Time                                               @"k_Launch_Time"                    // 记录启动的时间
+#define k_Late_Duration(x)                                          x * 3600
+#define k_Late_Show_Dynamic_Time                                    @"k_Late_Show_Dynamic_Time"         // 动态上次显示时间
+#define k_Late_Show_Activity_Time                                   @"k_Late_Show_Activity_Time"        // 活动上次显示时间
+#define k_Late_Show_Shop_Time                                       @"k_Late_Show_Shop_Time"            // 福利上次显示时间
+#define k_REFRESH_TIME_OUT                                          10                                  // 下拉刷新超时时间
+
+/// 俱乐部
+#define k_CLUB_MEMBERS_LIST                             @"k_CLUB_MEMBERS_LIST"              // 俱乐部成员列表
 
 #pragma mark - URL =====================================HTML的URL===============================
 
@@ -60,11 +88,13 @@
 
 #pragma mark - NSNotification ============================通知=====================================
 
-#define k_NOTIFICATION_TOKEN_INVALID                    @"k_NOTIFICATION_TOKEN_INVALID"         // token 失效通知
-#define k_NOTI_ALIPAY_CALLBACK_INFO                     @"k_NOTIFICATION_ALIPAY_CALLBACK_INFO"  // 调用支付客户端后的回调信息
-#define k_NOTI_WXPAY_CALLBACK_INFO                      @"k_NOTI_WXPAY_CALLBACK_INFO"           // 微信支付后回调信息
-#define k_NOTI_DIDBINDED_BLE                            @"k_NOTI_DIDBINDED_BLE"                 // 手机已经绑定手环
-#define k_NOTI_SYNCSTEPS_TO_NET                         @"k_NOTI_SYNCSTEPS_TO_NET"              // 自动同步步数数据到云端
+static NSString * const k_NOTIFICATION_TOKEN_INVALID    = @"k_NOTIFICATION_TOKEN_INVALID";          // token 失效通知
+static NSString * const k_NOTI_ALIPAY_CALLBACK_INFO     = @"k_NOTIFICATION_ALIPAY_CALLBACK_INFO";   // 调用支付客户端后的回调信息
+static NSString * const k_NOTI_WXPAY_CALLBACK_INFO      = @"k_NOTI_WXPAY_CALLBACK_INFO";            // 微信支付后回调信息
+static NSString * const k_NOTI_DIDBINDED_BLE            = @"k_NOTI_DIDBINDED_BLE";                  // 手机已经绑定手环
+static NSString * const k_NOTI_SYNCSTEPS_TO_NET         = @"k_NOTI_SYNCSTEPS_TO_NET";               // 自动同步步数数据到云端
+static NSString * const k_NOTI_DOUBLE_CLICK_TABBAR      = @"k_NOTI_DOUBLE_CLICK_TABBAR";            // 双击tabbar的item
+static NSString * const k_NOTI_APP_PAGE_REFRESH         = @"k_NOTI_APP_PAGE_REFRESH";               // 用于刷新H5刷新
 
 
 #pragma mark - NSUserDefault =============================本地存储=================================
@@ -98,6 +128,15 @@
 
 #define k_BPush_Channel_id                              @"k_BPush_Channel_id"               /// 百度推送的channel id
 
+#define k_TIMETASK_START_DAY                            @"k_TIMETASK_START_DAY"             /// 开始日期
+#define k_TIMETASK_END_DAY                              @"k_TIMETASK_END_DAY"               /// 结束日期
+#define k_TIMETASK_START_TIME                           @"k_TIMETASK_START_TIME"            /// 每天开始的时间
+#define k_TIMETASK_END_TIME                             @"k_TIMETASK_END_TIME"              /// 每天结束的时间
 
+#pragma mark - View Controller Title
+
+static NSString * const VC_TITLE_CLUB                   = @"俱乐部";
+static NSString * const VC_TITLE_CHAT                   = @"俱乐部聊天室";
+static NSString * const VC_TITLE_INVITATION             = @"邀请开通";
 
 #endif /* VHSDefinition_h */

@@ -61,20 +61,28 @@
 }
 
 + (NSInteger)pastOfNowWithPastDateStr:(NSString *)pastDateStr {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *nowComps = [calendar components:NSCalendarUnitSecond | NSCalendarUnitMinute | NSCalendarUnitHour| NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
-    NSDateComponents *lastComps = [calendar components:NSCalendarUnitSecond | NSCalendarUnitMinute | NSCalendarUnitHour |NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[VHSCommon dateWithDateStr:pastDateStr]];
+    //获得当前时间
+    NSDate *now = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *oldDate = [dateFormatter dateFromString:pastDateStr];
     
-    NSInteger pastDays = nowComps.day - lastComps.day;
-    if (nowComps.month == lastComps.month && nowComps.year == lastComps.year) {
-        // 同月
-        pastDays = nowComps.day - lastComps.day;
-    } else if (nowComps.month != lastComps.month) {
-        // 跨月
-        NSUInteger days = [self daysForMonthDateStr:pastDateStr];
-        pastDays = nowComps.day + days - lastComps.day;
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    unsigned int unitFlags = NSCalendarUnitDay;
+    NSDateComponents *comps = [gregorian components:unitFlags fromDate:oldDate toDate:now options:0];
+    
+    NSDateComponents *oldComponent = [gregorian components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:oldDate];
+    NSInteger overOldSecond = (24 - oldComponent.hour) * 3600 + (60 - oldComponent.minute) * 60 + (60 - oldComponent.second);
+    NSDateComponents *nowComponent = [gregorian components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:now];
+    NSInteger overNowSecond = (24 - nowComponent.hour) * 3600 + (60 - nowComponent.minute) * 60 + (60 - nowComponent.second);
+ 
+    NSInteger day = comps.day;
+    
+    if (overNowSecond > overOldSecond) {
+        day = day + 1;
     }
-    return pastDays;
+    
+    return day;
 }
 
 + (NSString *)yyyymmddByPastDays:(NSInteger)pastDays {
@@ -94,6 +102,24 @@
     NSDate *date = [calendar dateFromComponents:cmps];
     NSString *ymd = [VHSCommon getYmdFromDate:date];
     return ymd;
+}
+
++ (NSString *)yyyymmddhhmmssPastDay:(NSInteger)pastDays {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *cmps = [calendar components:NSCalendarUnitSecond | NSCalendarUnitMinute | NSCalendarUnitHour | NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
+    cmps.day = cmps.day - pastDays;
+    NSDate *date = [calendar dateFromComponents:cmps];
+    NSString *ymd = [VHSCommon getDate:date];
+    return ymd;
+}
+
++ (NSDate *)designatDate:(NSString *)date hour:(NSString *)hour minute:(NSString *)minute {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *cmps = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[VHSCommon dateWithDateStr:date]];
+    cmps.hour = hour.integerValue;
+    cmps.minute = minute.integerValue;
+    NSDate *designatDate = [calendar dateFromComponents:cmps];
+    return designatDate;
 }
 
 + (NSString *)yyyymmddhhmmssEndByPastDays:(NSInteger)pastDays {

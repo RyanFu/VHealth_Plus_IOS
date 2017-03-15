@@ -9,7 +9,7 @@
 #import "VHSHttpEngine.h"
 #import "AFNetworking.h"
 #import "VHSSecurityUtil.h"
-#import "NSString+VHSExtension.h"
+#import "NSString+extension.h"
 
 @interface VHSHttpEngine ()
 
@@ -17,9 +17,13 @@
 
 @end
 
+// 加密开关
+static BOOL Switch_Encrypted_Is_Open = YES;
+
 //连接超时秒
 double const CONNECT_TIMEOUT = 10;
 static VHSHttpEngine *_instance = nil;
+
 @implementation VHSHttpEngine
 
 
@@ -60,6 +64,8 @@ static VHSHttpEngine *_instance = nil;
     return self;
 }
 
+#pragma mark - Get, Post, Upload Request Method
+
 - (void)getRequestWithResquestMessage:(VHSRequestMessage *)message success:(RequestSuccess)success failure:(RequestFailure)failure {
     
     if (![VHSCommon isNetworkAvailable]) {
@@ -76,7 +82,7 @@ static VHSHttpEngine *_instance = nil;
    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSString *urlString = [NSString stringWithFormat:@"%@%@", kServerURL, message.path];
-    DLog(@"URL %@", urlString);
+    CLog(@"URL %@", urlString);
     
     [_manager GET:urlString parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
@@ -116,7 +122,7 @@ static VHSHttpEngine *_instance = nil;
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:message.params];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSString *urlString = [NSString stringWithFormat:@"%@%@", kServerURL, message.path];
-    DLog(@"URL %@", urlString);
+    CLog(@"URL %@", urlString);
     
     [_manager POST:urlString parameters:dict progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -164,21 +170,20 @@ static VHSHttpEngine *_instance = nil;
              */
             
             //多张图片
-            for(NSInteger i = 0; i < [message.imageArray count]; i++)
-            {
+            for(NSInteger i = 0; i < [message.imageArray count]; i++) {
                 // 取出图片
                 UIImage *image = [message.imageArray objectAtIndex:i];
                 // 转成二进制
                 NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
                 // 上传的参数名
-                NSString * name = [NSString stringWithFormat:@"pictureFile%ld", (long)i];
+                NSString * name = [NSString stringWithFormat:@"pictrueFile%ld", (long)i];
                 // 上传fileName
                 NSString * fileName = [NSString stringWithFormat:@"%@.jpg", name];
                 
                 [formData appendPartWithFileData:imageData name:name fileName:fileName mimeType:@"image/jpeg"];
             }
             
-        } else {
+        } else if ([message.imageArray count] == 1){
             
             //单张图片
             UIImage *image = [message.imageArray firstObject];//获得一张Image
@@ -238,15 +243,19 @@ static VHSHttpEngine *_instance = nil;
     [_manager.requestSerializer setValue:[VHSCommon appVersion] forHTTPHeaderField:@"appversion"];
     [_manager.requestSerializer setValue:[VHSCommon phoneModel] forHTTPHeaderField:@"model"];
     
-    if (message.httpMethod != VHSNetworkUpload) {
+    if (message.httpMethod != VHSNetworkUpload && Switch_Encrypted_Is_Open) {
         [_manager.requestSerializer setValue:@"ios" forHTTPHeaderField:@"encrypt"];
     }
     
     CLog(@"vhstoken = %@", [VHSCommon vhstoken]);
 }
 
+#pragma mark - 加密和解密服务器数据
+
 /// 加密传输给服务器的数据
 - (void)encryptedMessage:(VHSRequestMessage *)message {
+    if (!Switch_Encrypted_Is_Open) return;
+        
     NSString *aesKey = [VHSUtils generateRandomStr16];
     message.aesKey = aesKey;
     
@@ -260,6 +269,8 @@ static VHSHttpEngine *_instance = nil;
 
 /// 解密服务器返回的加密数据
 - (NSDictionary *)sessionWithNetResponse:(NSDictionary *)netResponse message:(VHSRequestMessage *)message {
+    if (!Switch_Encrypted_Is_Open) return netResponse;
+    
     // 解密服务器返回值
     NSString *sessionStream = netResponse[@"data"];
     NSString *response = [[VHSSecurityUtil share] aesDecryptStr:sessionStream pwd:message.aesKey];

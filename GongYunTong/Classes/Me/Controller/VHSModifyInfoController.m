@@ -84,12 +84,13 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    __weak typeof(self) weakSelf = self;
     if (self.modifyType == VHSModifyInfoNormalType) {
         VHSModifyNormalCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VHSModifyNormalCell"];
         self.didSelectedCell = cell;
         cell.content = self.contentStr;
         cell.callback = ^(NSString *destStr) {
-            self.contentStr = destStr;
+            weakSelf.contentStr = destStr;
         };
         return cell;
     }
@@ -102,7 +103,7 @@
             cell.contentStr = self.contentDict[@"mobile"];
             cell.callback = ^(NSString *phoneNumberStr) {
                 if (![VHSCommon isNullString:phoneNumberStr]) {
-                    [self.contentDict setObject:phoneNumberStr forKey:@"mobile"];
+                    [weakSelf.contentDict setObject:phoneNumberStr forKey:@"mobile"];
                 }
             };
         }
@@ -111,7 +112,7 @@
             cell.titleStr = @"验证码:";
             cell.callback = ^(NSString *vCode) {
                 if (![VHSCommon isNullString:vCode]) {
-                    [self.contentDict setObject:vCode forKey:@"verCode"];
+                    [weakSelf.contentDict setObject:vCode forKey:@"verCode"];
                 }
             };
         }

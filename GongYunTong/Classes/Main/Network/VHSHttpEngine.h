@@ -10,7 +10,7 @@
 #import "VHSRequestMessage.h"
 
 //请求成功block
-typedef void(^RequestSuccess)(id result);
+typedef void(^RequestSuccess)(NSDictionary *result);
 //请求失败block
 typedef void(^RequestFailure)(NSError *error);
 

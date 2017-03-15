@@ -7,32 +7,25 @@
 //
 
 #import "VHSLaunchViewController.h"
-#import "VHSStartController.h"
 #import "VHSTabBarController.h"
 #import "MBProgressHUD+VHS.h"
 
 @interface VHSLaunchViewController ()
 
-@property (nonatomic, strong) NSString *startUrl;
-@property (nonatomic, assign) NSInteger startTime;
-
 @end
 
 @implementation VHSLaunchViewController
-
-- (void)setStartUrl:(NSString *)startUrl {
-    if (_startUrl != startUrl) {
-        _startUrl = startUrl;
-        // 本地化保存启动连接
-        [VHSCommon saveLaunchUrl:_startUrl];
-    }
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     // 加载广告页
     [self downloadADPage];
+}
+
+/// 隐藏状态栏
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 - (void)downloadADPage {
@@ -58,15 +51,15 @@
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         
-        if ([result[@"result"] integerValue] != 200) {
-            [self setupRootController];
-            return;
-        }
+        NSString *startUrl = result[@"startUrl"];
+        NSInteger duration = [result[@"startTime"] integerValue];
+        // 保存广告页的地址
+        [VHSCommon saveLaunchUrl:startUrl];
         
-        self.startUrl = result[@"startUrl"];
-        self.startTime = [result[@"startTime"] integerValue];
-        [self setupLanuchWithUrl:self.startUrl duration:self.startTime];
+        [self setupLanuchWithUrl:startUrl duration:duration];
         
+        [self performSelector:@selector(setupRootController) withObject:nil afterDelay:duration - 0.2];
+
     } fail:^(NSError *error) {
         [self setupRootController];
     }];
@@ -78,15 +71,9 @@
 
 - (void)setupLanuchWithUrl:(NSString *)startUrl duration:(NSInteger)durationTime {
     
-    if ([VHSCommon isNullString:startUrl]) {
-        [self setupRootController];
-        return;
-    }
+    if ([VHSCommon isNullString:startUrl]) return;
     
-    [self showADPageWithUrl:startUrl duration:durationTime];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(durationTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self setupRootController];
-    });
+    [VHSCommon showADPageWithUrl:startUrl duration:durationTime];
 }
 
 /// 设置项目的根视图
@@ -104,13 +91,6 @@
     UIViewController *vc = [storyboard instantiateInitialViewController];
     UIWindow *wind = [UIApplication sharedApplication].delegate.window;
     wind.rootViewController = vc;
-}
-
-- (void)showADPageWithUrl:(NSString *)url duration:(NSInteger)duration {
-    VHSStartController *startController = (VHSStartController *)[StoryboardHelper controllerWithStoryboardName:@"Main" controllerId:@"VHSStartController"];
-    startController.launchUrl = url;
-    startController.durationTime = duration;
-    [self presentViewController:startController animated:NO completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

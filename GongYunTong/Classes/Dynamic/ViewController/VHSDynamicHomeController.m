@@ -18,11 +18,10 @@
 #import "VHSFitBraceletStateManager.h"
 #import "VHSStepAlgorithm.h"
 #import "PublicWKWebViewController.h"
-#import "SharePeripheral.h"
 #import "VHSEnterpriseDynamicCell.h"
 #import "VHSDynamicConfigurationCell.h"
 #import "IconItem.h"
-#import "NSString+VHSExtension.h"
+#import "NSString+extension.h"
 #import "OneAlertCaller.h"
 #import "VHSRecordStepController.h"
 #import "VHSMyScoreController.h"
@@ -107,6 +106,10 @@
     [k_NotificationCenter addObserver:self
                              selector:@selector(relogin:)
                                  name:k_NOTIFICATION_TOKEN_INVALID
+                               object:nil];
+    [k_NotificationCenter addObserver:self
+                             selector:@selector(doubleClickTabbarItemAction)
+                                 name:k_NOTI_DOUBLE_CLICK_TABBAR
                                object:nil];
 }
 
@@ -257,10 +260,12 @@
         BOOL isForceUpgrade = [result[@"isForce"] boolValue];
         float serverVersion = [result[@"upgradeVersion"] floatValue];
         float appVersion = [[VHSCommon appVersion] floatValue];
+        NSString *loadUrl = result[@"url"];
+        loadUrl = @"http://download.mbesthealth.com/cdn/vhealthZXYH1.74.ipa";
         
         if (serverVersion <= appVersion) return;
         
-        OneAlertCaller *caller = [[OneAlertCaller alloc] initWithContent:content forceUpgrade:isForceUpgrade];
+        OneAlertCaller *caller = [[OneAlertCaller alloc] initWithContent:content forceUpgrade:isForceUpgrade downloadUrl:loadUrl];
         [caller call];
         
     } fail:^(NSError *error) {}];
@@ -423,6 +428,7 @@
             else if (item.iconType == 6) {
                 // 计步更新
                 VHSRecordStepController *stepVC = [[VHSRecordStepController alloc] init];
+                stepVC.sumSteps = [VHSGlobalDataManager shareGlobalDataManager].recordAllSteps;
                 stepVC.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:stepVC animated:YES];
             }
@@ -484,7 +490,27 @@
     [self.navigationController pushViewController:publicWebVC animated:YES];
 }
 
-#pragma mark - UIApplicationWillResignActiveNotification
+#pragma mark - Notification
+
+/// token 失效 重新登录
+- (void)relogin:(NSNotification *)noti {
+    if (self.isRelogining) {
+        return;
+    }
+    self.isRelogining = YES;
+    // 先注销信息
+    // 用户信息清除
+    [VHSCommon removeLocationUserInfo];
+    
+    [VHSToast toast:[noti.userInfo objectForKey:@"info"]];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
+        UIViewController *vc = [storyboard instantiateInitialViewController];
+        UIWindow *wind = [UIApplication sharedApplication].delegate.window;
+        wind.rootViewController = vc;
+    });
+}
 
 - (void)appWillResignActive {
     // 缓存列表信息
@@ -510,26 +536,12 @@
     [self tableViewIfNeededRefresh];
 }
 
-#pragma mark - token 失效 重新登录
-
-- (void)relogin:(NSNotification *)noti {
-    if (self.isRelogining) {
-        return;
+- (void)doubleClickTabbarItemAction {
+    if (self.isVisible) {
+        [self.dynamicHomeTable setContentOffset:CGPointZero animated:YES];
     }
-    self.isRelogining = YES;
-    // 先注销信息
-    // 用户信息清除
-    [VHSCommon removeLocationUserInfo];
-    
-    [VHSToast toast:[noti.userInfo objectForKey:@"info"]];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
-        UIViewController *vc = [storyboard instantiateInitialViewController];
-        UIWindow *wind = [UIApplication sharedApplication].delegate.window;
-        wind.rootViewController = vc;
-    });
 }
+
 
 - (void)dealloc {
     CLog(@"dynamic - dealloc");

@@ -19,5 +19,7 @@
 
 /// label 宽高自适应，需开始先设置好label对应的frame
 - (CGSize)sizeFit;
+/// 确定行间距
+- (void)lineSpacingWithSpace:(CGFloat)space;
 
 @end

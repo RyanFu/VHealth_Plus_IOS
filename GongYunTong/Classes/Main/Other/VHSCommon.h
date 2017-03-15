@@ -36,13 +36,14 @@
 #define APP_DELEGATE (AppDelegate *)[[UIApplication sharedApplication] delegate]
 
 ///const 通知key
-extern NSString *const DeviceDidScanBLEsNotification;    //扫描到手环通知
 extern NSString *const DeviceDidScanBLEsUserInfoKey;     //扫描到手环通知里userinfo的key
 extern NSString *const DeviceDidConnectedBLEsNotification;   //与手环连接成功通知
 extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环连接成功通知里userinfo的key
 
 @interface VHSCommon : NSObject
 
+/// app的应用名称
++ (NSString *)appName;
 ///  app 版本
 + (NSString *)appVersion;
 /// 系统版本
@@ -57,8 +58,10 @@ extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环�
 + (NSString *)deviceToken;
 /// 获取手机型号
 + (NSString *)phoneModel;
-/// AppStore更新应用
-+ (void)toAppStoreForUpgrade;
+/// 跳转AppStore
++ (void)toAppStore;
+/// 跳转到Safari
++ (void)toSafariWithUrl:(NSString *)urlAddress;
 /// 获取vhstoken
 + (NSString *)vhstoken;
 /// 获取本地经纬度
@@ -70,6 +73,8 @@ extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环�
 + (void)saveUserDefault:(id)value forKey:(NSString *)key;
 /// 从UserDefault中获取信息
 + (id)getUserDefautForKey:(NSString *)key;
+/// 从NSUserDefault中移除为key的数据
++ (void)removeUserDefaultForKey:(NSString *)key;
 
 // 校验简单密码
 + (BOOL)validatePassword:(NSString *)passWord;
@@ -153,5 +158,7 @@ extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环�
 + (NSString *)getChannelId;
 /// 用户是否登陆
 + (BOOL)isLogined;
+/// 广告页展示
++ (void)showADPageWithUrl:(NSString *)adUrl duration:(NSInteger)duration;
 
 @end

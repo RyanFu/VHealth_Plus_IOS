@@ -22,6 +22,7 @@
 #import "VHSMeScoreCell.h"
 #import "VHSNoStypeCell.h"
 #import "OneAlertCaller.h"
+#import "VHSInvitationController.h"
 
 @interface VHSMeController ()<UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
@@ -33,31 +34,33 @@
 @property (nonatomic, strong) UserScoreModel                *userScore;
 @property (nonatomic, strong) UserDetailModel               *userDetail;
 
-@property (nonatomic, assign) NSInteger                     todaySteps;
+@property (nonatomic, assign) NSInteger                     recordAllSteps;
 @property (nonatomic, strong) NSMutableDictionary           *feedbackDict;
 
 @end
 
 @implementation VHSMeController
 
-- (NSInteger)todaySteps {
-    return [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
+/// 数据库用户的步数
+- (void)getMemberStep {
+    self.recordAllSteps = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    self.navigationItem.title = @"我";
     self.headerViewLineHeight.constant = 0.5;
     // 获取版本信息
     self.copyright.text = [NSString stringWithFormat:@"版本%@ 由好人生集团提供", [VHSCommon appVersion]];
-    
+    [self getMemberStep];
     // 先从缓存中读取数据
     self.userDetail = [VHSCommon userDetailInfo];
     self.userScore = [UserScoreModel yy_modelWithDictionary:[VHSCommon getUserDefautForKey:Cache_Me_UserScore]];
     
     [self getMemberScore];
     [self downloadUserInfo];
+    
+    [self customConfigNavigationBar];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -76,6 +79,23 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [[BaiduMobStat defaultStat] pageviewEndWithName:[NSString stringWithFormat:@"%@", @"我"]];
+}
+
+#pragma mark - 消息列表
+
+- (void)customConfigNavigationBar {
+    UIButton *msgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    msgBtn.frame = CGRectMake(0, 0, 48, 36);
+    [msgBtn setImage:[UIImage imageNamed:@"me_have_message_tip"] forState:UIControlStateNormal];
+    [msgBtn addTarget:self action:@selector(btnClickToMessage:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:msgBtn];
+}
+
+- (void)btnClickToMessage:(UIButton *)btn {
+    VHSMessageQueueController *msgQueueVC = [[VHSMessageQueueController alloc] init];
+    msgQueueVC.title = @"消息";
+    msgQueueVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:msgQueueVC animated:YES];
 }
 
 #pragma mark - download data 
@@ -146,7 +166,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 3) {
+    if (section == 3 || section == 2) {
         return 2;
     } else {
         return 1;
@@ -155,7 +175,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENW, 15)];
-    view.backgroundColor = [UIColor colorWithHexString:@"efeff4"];
+    view.backgroundColor = [UIColor colorWithHexString:@"#efeff4"];
     
     UIView *headline = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENW, 0.5)];
     headline.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
@@ -185,12 +205,22 @@
         return cell;
     }
     else if (indexPath.section == 2) {
-        UserInfoCell *cell = (UserInfoCell *)[tableView dequeueReusableCellWithIdentifier:@"UserInfoCell" forIndexPath:indexPath];
-        cell.headerImageUrl = @"icon_steps";
-        cell.cellTitle = @"计步";
-        cell.cellInfo = [NSString stringWithFormat:@"今日%@步", @(self.todaySteps)];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        return cell;
+        if (indexPath.row == 0) {
+            UserInfoCell *cell = (UserInfoCell *)[tableView dequeueReusableCellWithIdentifier:@"UserInfoCell" forIndexPath:indexPath];
+            cell.headerImageUrl = @"icon_steps";
+            cell.cellTitle = @"计步";
+            cell.cellInfo = [NSString stringWithFormat:@"今日%@步", @(self.recordAllSteps)];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            return cell;
+        }
+        else if (indexPath.row == 1) {
+            UserInfoCell *cell = (UserInfoCell *)[tableView dequeueReusableCellWithIdentifier:@"UserInfoCell" forIndexPath:indexPath];
+            cell.headerImageUrl = @"vhs_me_invation";
+            cell.cellTitle = @"邀请开通";
+            cell.cellInfo = @"";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            return cell;
+        }
     }
     else if (indexPath.section == 3) {
         if (indexPath.row == 0) {
@@ -252,18 +282,26 @@
         };
         [self.navigationController pushViewController:scoreVC animated:YES];
     }
-    else if (indexPath.section == 2 && indexPath.row == 0) {
+    else if (indexPath.section == 2) {
         // 计步
-        __weak __typeof(self)weakSelf = self;
-        VHSRecordStepController *recordStepVC = [[VHSRecordStepController alloc] init];
-        recordStepVC.hidesBottomBarWhenPushed = YES;
-        recordStepVC.callback = ^(NSInteger steps) {
-            UserInfoCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-            cell.cellInfo = [NSString stringWithFormat:@"今日%ld步", (long)steps];
-            weakSelf.todaySteps = steps;
-        };
-        recordStepVC.sumSteps = self.todaySteps;
-        [self.navigationController pushViewController:recordStepVC animated:YES];
+        if (indexPath.row == 0) {
+            __weak __typeof(self)weakSelf = self;
+            VHSRecordStepController *recordStepVC = [[VHSRecordStepController alloc] init];
+            recordStepVC.hidesBottomBarWhenPushed = YES;
+            recordStepVC.callback = ^(NSInteger steps) {
+                UserInfoCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                cell.cellInfo = [NSString stringWithFormat:@"今日%ld步", (long)steps];
+                weakSelf.recordAllSteps = steps;
+            };
+            recordStepVC.sumSteps = self.recordAllSteps;
+            [self.navigationController pushViewController:recordStepVC animated:YES];
+        }
+        else if (indexPath.row == 1) {
+            // 邀请开通
+            VHSInvitationController *invitationVC = [[VHSInvitationController alloc] init];
+            invitationVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:invitationVC animated:YES];
+        }
     }
     else if (indexPath.section == 3) {
         if (indexPath.row == 0) {
