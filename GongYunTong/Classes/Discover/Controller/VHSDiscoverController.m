@@ -91,14 +91,13 @@ NSInteger const ROW_COUNT = 3;
     
     if (![VHSCommon isNetworkAvailable]) return;
     
-    [self.bannerList removeAllObjects];
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     message.path = URL_GET_DISCOVERY;
     message.httpMethod = VHSNetworkPOST;
-    
+
+    [self.bannerList removeAllObjects];
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         NSArray *bannerList = result[@"bannerList"];
-        
         if (![bannerList isKindOfClass:[NSArray class]]) return;
         
         for (NSDictionary *itemDict in bannerList) {
@@ -140,7 +139,7 @@ NSInteger const ROW_COUNT = 3;
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     
     BannerItemModel *model = self.bannerList[indexPath.row];
-    // discoveryType : 1 链接 2 电话
+    // discoveryType : 1 链接 2 电话 3: 原生模块
     if (model.discoveryType == 2) {
         //一键呼
         OneAlertCaller *caller = [[OneAlertCaller alloc] initWithPhone:model.hrefUrl];

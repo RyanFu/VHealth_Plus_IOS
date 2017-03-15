@@ -359,6 +359,9 @@
     NSMutableArray *jsonStepsList = [NSMutableArray new];
     for (VHSActionData *action in unuploadList) {
         VHSActionData *ac = [[DBSafetyCoordinator shareDBCoordinator] decryptAction:action];
+        if ([ac.step integerValue] == 0) {
+            continue;
+        }
         NSDictionary *actionDict = @{@"sportDate" : ac.recordTime , @"step" : ac.step, @"handMac" : ac.macAddress};
         [jsonStepsList addObject:actionDict];
     }
@@ -410,6 +413,7 @@
                                                    actionType:action.actionType];
         [safety decryptAction:dbAction];
         dbAction.step = [NSString stringWithFormat:@"%@", @([dbAction.step integerValue] + [[safety decryptStep:action.step] integerValue])];
+        dbAction.macAddress = action.macAddress;
         [safety encryptAction:dbAction];
         
         [manager updateNewAction:dbAction];

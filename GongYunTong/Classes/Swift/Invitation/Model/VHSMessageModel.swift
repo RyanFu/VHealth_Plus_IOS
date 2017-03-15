@@ -13,4 +13,5 @@ class VHSMessageModel: NSObject {
     public var imgUrl: String = ""
     public var time: String = ""
     public var content: String = ""
+    public var type: String = ""
 }

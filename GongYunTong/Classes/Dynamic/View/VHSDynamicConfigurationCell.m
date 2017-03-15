@@ -97,7 +97,7 @@
     _iconItem = iconItem;
     
     [_iconImgView sd_setImageWithURL:[NSURL URLWithString:_iconItem.imgUrl]
-                    placeholderImage:[UIImage imageNamed:@"pic_dynamic_default200_120"]];
+                    placeholderImage:[UIImage imageNamed:@"dynamic_configration_item_placehold"]];
 }
 
 @end

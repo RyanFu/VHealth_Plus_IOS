@@ -63,15 +63,26 @@
 + (NSInteger)pastOfNowWithPastDateStr:(NSString *)pastDateStr {
     //获得当前时间
     NSDate *now = [NSDate date];
-    //实例化一个NSDateFormatter对象
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    //设定时间格式
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSDate *oldDate = [dateFormatter dateFromString:pastDateStr];
+    
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     unsigned int unitFlags = NSCalendarUnitDay;
-    NSDateComponents *comps = [gregorian components:unitFlags fromDate:oldDate  toDate:now  options:0];
-    return [comps day];
+    NSDateComponents *comps = [gregorian components:unitFlags fromDate:oldDate toDate:now options:0];
+    
+    NSDateComponents *oldComponent = [gregorian components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:oldDate];
+    NSInteger overOldSecond = (24 - oldComponent.hour) * 3600 + (60 - oldComponent.minute) * 60 + (60 - oldComponent.second);
+    NSDateComponents *nowComponent = [gregorian components:NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond fromDate:now];
+    NSInteger overNowSecond = (24 - nowComponent.hour) * 3600 + (60 - nowComponent.minute) * 60 + (60 - nowComponent.second);
+ 
+    NSInteger day = comps.day;
+    
+    if (overNowSecond > overOldSecond) {
+        day = day + 1;
+    }
+    
+    return day;
 }
 
 + (NSString *)yyyymmddByPastDays:(NSInteger)pastDays {

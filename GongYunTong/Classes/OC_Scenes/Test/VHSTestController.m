@@ -91,9 +91,10 @@
 }
 
 - (void)confirmBtn:(UIButton *)btn {
-
-    VHSMessageQueueController *msgQueueVC = [[VHSMessageQueueController alloc] init];
-    [self.navigationController pushViewController:msgQueueVC animated:YES];
+    
+    NSString *oldDay = @"2017-03-13 09:34:00";
+    NSInteger pastDay = [NSDate pastOfNowWithPastDateStr:oldDay];
+    CLog(@"--->>>%@", @(pastDay));
     
 //    VHSTimingTasker *tasker = [[VHSTimingTasker alloc] init];
 //    tasker.startTime = @"2017-03-01 00:00:00";

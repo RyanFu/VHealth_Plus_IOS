@@ -23,7 +23,7 @@
     _dynamicItem = dynamicItem;
     
     if (_dynamicItem.urls) {
-        [self.bigImageview sd_setImageWithURL:[NSURL URLWithString:_dynamicItem.urls] placeholderImage:[UIImage imageNamed:@"pic_dynamic_default750_320"]];
+        [self.bigImageview sd_setImageWithURL:[NSURL URLWithString:_dynamicItem.urls] placeholderImage:[UIImage imageNamed:@"dynamic_list_big_placehold"]];
     }
     self.title.text = _dynamicItem.title;
     self.time.text = _dynamicItem.pubTime;

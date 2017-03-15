@@ -53,14 +53,14 @@
     // 获取版本信息
     self.copyright.text = [NSString stringWithFormat:@"版本%@ 由好人生集团提供", [VHSCommon appVersion]];
     [self getMemberStep];
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"消息" style:UIBarButtonItemStylePlain target:self action:@selector(btnClickToMessage:)];
     // 先从缓存中读取数据
     self.userDetail = [VHSCommon userDetailInfo];
     self.userScore = [UserScoreModel yy_modelWithDictionary:[VHSCommon getUserDefautForKey:Cache_Me_UserScore]];
     
     [self getMemberScore];
     [self downloadUserInfo];
+    
+    [self customConfigNavigationBar];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -79,6 +79,16 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [[BaiduMobStat defaultStat] pageviewEndWithName:[NSString stringWithFormat:@"%@", @"我"]];
+}
+
+#pragma mark - 消息列表
+
+- (void)customConfigNavigationBar {
+    UIButton *msgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    msgBtn.frame = CGRectMake(0, 0, 48, 36);
+    [msgBtn setImage:[UIImage imageNamed:@"me_have_message_tip"] forState:UIControlStateNormal];
+    [msgBtn addTarget:self action:@selector(btnClickToMessage:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:msgBtn];
 }
 
 - (void)btnClickToMessage:(UIButton *)btn {
@@ -165,7 +175,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENW, 15)];
-    view.backgroundColor = [UIColor colorWithHexString:@"efeff4"];
+    view.backgroundColor = [UIColor colorWithHexString:@"#efeff4"];
     
     UIView *headline = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENW, 0.5)];
     headline.backgroundColor = [UIColor colorWithHexString:@"cccccc"];

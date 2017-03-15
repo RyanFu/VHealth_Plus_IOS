@@ -54,7 +54,7 @@
         self.disvoverNameLabel.hidden = YES;
     }
     if (_bannerItem.hrefUrl) {
-        [self.discoverIgv sd_setImageWithURL:[NSURL URLWithString:_bannerItem.iconUrl] placeholderImage:[UIImage imageNamed:@"300_icon_julebu"] options:SDWebImageRetryFailed];
+        [self.discoverIgv sd_setImageWithURL:[NSURL URLWithString:_bannerItem.iconUrl] placeholderImage:[UIImage imageNamed:@"discover_item_placehold"] options:SDWebImageRetryFailed];
     } else {
         self.discoverIgv.hidden = YES;
     }

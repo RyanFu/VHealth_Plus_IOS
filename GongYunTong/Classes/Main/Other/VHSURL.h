@@ -32,9 +32,9 @@ static NSString * const kServerURL          = @"http://118.242.18.199:10000/oaut
 static NSString * const MAIN_SHOP_URL       = @"http://118.242.18.199:10000/index.php"; // 福利地址
 static NSString * const ACTIVITY_MAIN_URL   = @"http://118.242.18.199:10000/client/activity/index.htm";  // 活动地址
 
-//#define kServerURL @"http://192.168.2.24:8000/oauth2"
-//static NSString *MAIN_SHOP_URL = @"http://192.168.2.24:8000/index.php"; // 福利地址
-//static NSString *ACTIVITY_MAIN_URL = @"http://192.168.2.24:8000/client/activity/index.htm";  // 活动地址
+//#define kServerURL @"http://172.17.21.103:8080/oauth2"
+//static NSString *MAIN_SHOP_URL = @"http://172.17.21.103:8000/index.php"; // 福利地址
+//static NSString *ACTIVITY_MAIN_URL = @"http://172.17.21.103:8000/client/activity/index.htm";  // 活动地址
 
 #endif
 

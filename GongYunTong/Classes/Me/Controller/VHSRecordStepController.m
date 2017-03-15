@@ -310,7 +310,7 @@
         scanVC.topVC = self;
         __weak typeof(self)weakSelf = self;
         scanVC.getDataBaseDataBlock = ^(){
-            weakSelf.sumStepsOnDB = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userDetailInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
+            weakSelf.sumStepsOnDB = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
         };
         [self.navigationController pushViewController:scanVC animated:YES];
     }
@@ -326,7 +326,7 @@
 /// 手环数据变化
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"step"]) {
-        NSInteger dbSteps = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userDetailInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
+        NSInteger dbSteps = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
         NSString *realtimeSteps = [VHSStepAlgorithm shareAlgorithm].stepsData.step;
         NSInteger lastSyncSteps = [VHSCommon getShouHuanLastStepsSync];
         
@@ -373,7 +373,7 @@
 #pragma mark - 从本地获取一天的的所有步数
 
 - (NSInteger)getStepsFromDB {
-    self.sumStepsOnDB = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userDetailInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
+    self.sumStepsOnDB = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
     return self.sumStepsOnDB;
 }
 

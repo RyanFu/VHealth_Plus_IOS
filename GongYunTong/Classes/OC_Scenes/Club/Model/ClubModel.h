@@ -22,4 +22,7 @@
 /// 目标会话的ID，单聊为toUserId,讨论组为DiscusstionId
 @property (nonatomic, strong) NSString *rongGroupId;
 
+/// 用于控制试图列表
+@property (assign, nonatomic) BOOL haveFooter;
+
 @end

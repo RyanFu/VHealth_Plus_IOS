@@ -66,7 +66,7 @@
 
     
     CGFloat confirmBtnW = containW  * 0.35;
-    UIButton *confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake((CGRectGetWidth(bgContainView.frame) - confirmBtnW) / 2, CGRectGetMaxY(contentlabel.frame), confirmBtnW, 0.15 * containH)];
+    UIButton *confirmBtn = [[UIButton alloc] initWithFrame:CGRectMake((CGRectGetWidth(bgContainView.frame) - confirmBtnW) / 2, CGRectGetMaxY(contentlabel.frame), confirmBtnW, 0.2 * containH)];
     [confirmBtn setTitle:CONST_CONFIRM forState:UIControlStateNormal];
     [confirmBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [confirmBtn setBackgroundColor:COLORHex(@"#e65248")];

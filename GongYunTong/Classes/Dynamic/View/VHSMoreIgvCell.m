@@ -31,13 +31,13 @@
     for (NSInteger i = 0; i < [urls count]; i++) {
         NSURL *url = url = [NSURL URLWithString:urls[i]];
         if (i == 0) {
-            [self.firstImageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"pic_dynamic_default200_120"]];
+            [self.firstImageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"dynamic_list_three_placehold"]];
         }
         else if (i == 1) {
-            [self.secondImageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"pic_dynamic_default200_120"]];
+            [self.secondImageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"dynamic_list_three_placehold"]];
         }
         else if (i == 2) {
-            [self.thirdImageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"pic_dynamic_default200_120"]];
+            [self.thirdImageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"dynamic_list_three_placehold"]];
         }
     }
     self.title.text = _dynamicItem.title;

@@ -39,6 +39,8 @@ static NSString * const TOAST_CLUB_NOTICE_POSTING                   = @"公告�
 static NSString * const TOAST_CLUB_REPLYING                         = @"回复中";
 static NSString * const TOAST_NEED_INPUT_MOBILE                     = @"请输入手机号";
 static NSString * const TOAST_NEED_INPUT_VERCODE                    = @"请输入验证码";
+static NSString * const TOAST_LOGIN_OUTING                          = @"注销中...";
+static NSString * const TOAST_BLE_UNBINDING                         = @"正在解绑...";
 
 #pragma mark - 全局使用的汉字文本
 
@@ -135,5 +137,6 @@ static NSString * const k_NOTI_APP_PAGE_REFRESH         = @"k_NOTI_APP_PAGE_REFR
 
 static NSString * const VC_TITLE_CLUB                   = @"俱乐部";
 static NSString * const VC_TITLE_CHAT                   = @"俱乐部聊天室";
+static NSString * const VC_TITLE_INVITATION             = @"邀请开通";
 
 #endif /* VHSDefinition_h */

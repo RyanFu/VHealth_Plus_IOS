@@ -32,6 +32,7 @@
 		3304BB661DED63FB00EDBC6B /* VHSTabConfigurationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304BB621DED63FB00EDBC6B /* VHSTabConfigurationItem.m */; };
 		33098DA71E110BA900751A38 /* VHSActionData.h in Headers */ = {isa = PBXBuildFile; fileRef = 33098DA51E110BA900751A38 /* VHSActionData.h */; };
 		33098DA81E110BA900751A38 /* VHSActionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 33098DA61E110BA900751A38 /* VHSActionData.m */; };
+		3309F4761E76A92200DB7B20 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3309F4751E76A92200DB7B20 /* UIColor+Extension.swift */; };
 		330C9DF91D90DE25005875FE /* VHSToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 330C9DF81D90DE25005875FE /* VHSToast.m */; };
 		33120C8E1D79738000A006C9 /* VHSLocatServicer.m in Sources */ = {isa = PBXBuildFile; fileRef = 33120C8D1D79738000A006C9 /* VHSLocatServicer.m */; };
 		33120C901D7973A500A006C9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33120C8F1D7973A500A006C9 /* CoreLocation.framework */; };
@@ -319,6 +320,7 @@
 		3304BB621DED63FB00EDBC6B /* VHSTabConfigurationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSTabConfigurationItem.m; sourceTree = "<group>"; };
 		33098DA51E110BA900751A38 /* VHSActionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSActionData.h; sourceTree = "<group>"; };
 		33098DA61E110BA900751A38 /* VHSActionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSActionData.m; sourceTree = "<group>"; };
+		3309F4751E76A92200DB7B20 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		330C9DF71D90DE25005875FE /* VHSToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSToast.h; sourceTree = "<group>"; };
 		330C9DF81D90DE25005875FE /* VHSToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSToast.m; sourceTree = "<group>"; };
 		33120C8C1D79738000A006C9 /* VHSLocatServicer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSLocatServicer.h; sourceTree = "<group>"; };
@@ -1129,6 +1131,7 @@
 			isa = PBXGroup;
 			children = (
 				33B658EE1E715D39008CC05E /* String+Size.swift */,
+				3309F4751E76A92200DB7B20 /* UIColor+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2210,6 +2213,7 @@
 				3343A3251DAC89C900DEF1C2 /* UIColor+extension.m in Sources */,
 				33B1EBAA1E6FF1A000B74CA8 /* VHSClubSessionCell.m in Sources */,
 				33D097631E695B9E00B57648 /* VHSTestController.m in Sources */,
+				3309F4761E76A92200DB7B20 /* UIColor+Extension.swift in Sources */,
 				33FB4B101D50843E00AB8086 /* LoginModel.m in Sources */,
 				33098DA81E110BA900751A38 /* VHSActionData.m in Sources */,
 				67E13F561D45D77D001C58D7 /* XLAlertController.m in Sources */,

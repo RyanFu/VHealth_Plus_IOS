@@ -15,7 +15,7 @@
     
     self.backgroundColor = [UIColor colorWithHexString:@"#efeff4"];
     
-    self.bannerView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREENW, self.contentView.frame.size.height) delegate:nil placeholderImage:[UIImage imageNamed:@"pic_dynamic_default750_350"]];
+    self.bannerView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, SCREENW, self.contentView.frame.size.height) delegate:nil placeholderImage:[UIImage imageNamed:@"dynamic_banner_placehold"]];
     self.bannerView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     self.bannerView.pageDotColor = RGBACOLOR(245, 245, 245, 0.5);
     self.bannerView.currentPageDotColor = COLORHex(@"#dc3c38");

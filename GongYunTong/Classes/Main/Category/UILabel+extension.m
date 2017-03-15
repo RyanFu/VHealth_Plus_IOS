@@ -43,7 +43,7 @@
     
     CGRect fitRect = [text boundingRectWithSize:CGSizeMake(frame.size.width, MAXFLOAT)
                                          options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                      attributes:@{NSFontAttributeName : self.font}
+                                     attributes:@{NSFontAttributeName : self.font}
                                          context:nil];
     
     CGSize fitSize = fitRect.size;
@@ -58,6 +58,21 @@
     self.frame = frame;
     
     return fitRect.size;
+}
+
+- (void)lineSpacingWithSpace:(CGFloat)space {
+    NSString *text = self.text;
+    if (!text || !text.length) return;
+    
+    NSMutableAttributedString *attributedContent = [[NSMutableAttributedString alloc] initWithString:text attributes:@{NSFontAttributeName:self.font}];
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineSpacing:space];
+    [paragraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
+    [paragraphStyle setAlignment:NSTextAlignmentLeft];
+    [attributedContent addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, text.length)];
+    
+    self.attributedText = attributedContent;
 }
 
 @end

@@ -136,12 +136,8 @@ static NSInteger load_club_numbers = 0;
                 [self.allClubList addObject:club];
             }
         }
-        
-        if (VHSClubOfMeType == type) {
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-        } else if (VHSClubOfOtherType == type) {
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
-        }
+    
+        [self.tableView reloadData];
         
     } fail:^(NSError *error) {
         CLog(@"error - %@", error.description);
@@ -182,8 +178,12 @@ static NSInteger load_club_numbers = 0;
                                                                     owner:self
                                                                   options:nil] lastObject];
     }
-    cell.club = club;
+    // section最后一行显示分割视图
+    if (indexPath.section == 0 && ([self.myClubList count] - 1) == indexPath.row) {
+        club.haveFooter = YES;
+    }
     
+    cell.club = club;
     return cell;
 }
 
@@ -218,6 +218,10 @@ static NSInteger load_club_numbers = 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    // section最后一行显示分割视图
+    if (indexPath.section == 0 && ([self.myClubList count] - 1) == indexPath.row) {
+        return 99 + 15;
+    }
     return 99;
 }
 
@@ -243,28 +247,6 @@ static NSInteger load_club_numbers = 0;
     else if (1 == section) {
         headerLabel.text = @"所有俱乐部";
     }
-    
-    return bgView;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (section == 1) {
-        return 0;
-    }
-    return 12.0;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENW, 12)];
-    bgView.backgroundColor = COLORHex(@"EFEFF4");
-    
-    UIView *topline = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENW, 1.0)];
-    topline.backgroundColor = COLORHex(@"#E1E1E1");
-    [bgView addSubview:topline];
-    
-    UIView *footline = [[UIView alloc] initWithFrame:CGRectMake(0, bgView.frame.size.height - 1, SCREENW, 1.0)];
-    footline.backgroundColor = COLORHex(@"#E1E1E1");
-    [bgView addSubview:footline];
     
     return bgView;
 }

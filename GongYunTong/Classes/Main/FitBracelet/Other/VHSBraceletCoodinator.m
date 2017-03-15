@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) NSMutableArray<PeripheralModel *> *peripherals;
 // 扫描结束成功回调 - 多次，每扫描到一个设备，回调一次
-@property (nonatomic, copy, nullable) void (^scanBleCompletionHandler)(NSArray *braceletorList);
+@property (nonatomic, copy, nonnull) void (^scanBleCompletionHandler)(NSArray *braceletorList);
 
 @end
 
@@ -120,6 +120,9 @@ static VHSBraceletCoodinator *sharePeripheral = nil;
 
 - (void)braceletorGotoUnbindWithCallBack:(void (^)(int errorCode))resultBlock {
     [self.bleSetter ASDKSendDeviceBindingWithCMDType:ASDKDeviceUnbundling withUpdateBlock:^(int errorCode) {
+        if ([ShareDataSdk shareInstance].peripheral.state == CBPeripheralStateConnected) {
+            [[VHSBraceletCoodinator sharePeripheral] disconnectBraceletorWithPeripheral:[ShareDataSdk shareInstance].peripheral];
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
             if (resultBlock) resultBlock(errorCode);
         });
@@ -235,6 +238,11 @@ static VHSBraceletCoodinator *sharePeripheral = nil;
     
     NSString *uuid = [k_UserDefaults objectForKey:k_SHOUHUAN_UUID];
     NSString *name = [k_UserDefaults objectForKey:k_SHOUHUAN_NAME];
+    if ([VHSCommon isNullString:uuid]) {
+        [[VHSBraceletCoodinator sharePeripheral].bleMolue ASDKSendDisConnectDevice:[ShareDataSdk shareInstance].peripheral];
+        return;
+    }
+    
     [[VHSBraceletCoodinator sharePeripheral].bleMolue ASDKSendConnectDevice:uuid];
     [VHSBraceletCoodinator sharePeripheral].bleName = name;
 }

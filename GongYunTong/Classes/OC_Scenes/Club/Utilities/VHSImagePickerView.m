@@ -17,7 +17,7 @@
 
 @end
 const NSInteger PICKER_IMAGE_WIDTH = 248;    // 图片宽度
-const NSInteger MAX_ALLOWED_COUNT = 9;      // 最多允许选中的图片数量
+const NSInteger MAX_ALLOWED_COUNT = 6;      // 最多允许选中的图片数量
 const NSInteger H_MAX_COUNT = 4;            // 一行最多显示数量
 static NSString *reuseIdentifier = @"VHSImagePickerCollectionCell";
 

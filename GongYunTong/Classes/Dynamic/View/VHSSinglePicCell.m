@@ -24,7 +24,7 @@
     _dynamicItem = dynamicItem;
     
     if (_dynamicItem.urls) {
-        [self.titleImageView sd_setImageWithURL:[NSURL URLWithString:_dynamicItem.urls] placeholderImage:[UIImage imageNamed:@"pic_dynamic_default200_120"]];
+        [self.titleImageView sd_setImageWithURL:[NSURL URLWithString:_dynamicItem.urls] placeholderImage:[UIImage imageNamed:@"dynamic_list_single_placehold"]];
     }
     self.contentLabel.text = _dynamicItem.title;
     self.timelabel.text = _dynamicItem.pubTime;

@@ -17,9 +17,13 @@
 
 @end
 
+// 加密开关
+static BOOL Switch_Encrypted_Is_Open = YES;
+
 //连接超时秒
 double const CONNECT_TIMEOUT = 10;
 static VHSHttpEngine *_instance = nil;
+
 @implementation VHSHttpEngine
 
 
@@ -239,7 +243,7 @@ static VHSHttpEngine *_instance = nil;
     [_manager.requestSerializer setValue:[VHSCommon appVersion] forHTTPHeaderField:@"appversion"];
     [_manager.requestSerializer setValue:[VHSCommon phoneModel] forHTTPHeaderField:@"model"];
     
-    if (message.httpMethod != VHSNetworkUpload) {
+    if (message.httpMethod != VHSNetworkUpload && Switch_Encrypted_Is_Open) {
         [_manager.requestSerializer setValue:@"ios" forHTTPHeaderField:@"encrypt"];
     }
     
@@ -250,6 +254,8 @@ static VHSHttpEngine *_instance = nil;
 
 /// 加密传输给服务器的数据
 - (void)encryptedMessage:(VHSRequestMessage *)message {
+    if (!Switch_Encrypted_Is_Open) return;
+        
     NSString *aesKey = [VHSUtils generateRandomStr16];
     message.aesKey = aesKey;
     
@@ -263,6 +269,8 @@ static VHSHttpEngine *_instance = nil;
 
 /// 解密服务器返回的加密数据
 - (NSDictionary *)sessionWithNetResponse:(NSDictionary *)netResponse message:(VHSRequestMessage *)message {
+    if (!Switch_Encrypted_Is_Open) return netResponse;
+    
     // 解密服务器返回值
     NSString *sessionStream = netResponse[@"data"];
     NSString *response = [[VHSSecurityUtil share] aesDecryptStr:sessionStream pwd:message.aesKey];

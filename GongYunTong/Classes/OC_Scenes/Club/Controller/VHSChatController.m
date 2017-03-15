@@ -22,7 +22,8 @@
 
 @property (nonatomic, strong) VHSMoreMenu *moreMenu;
 
-@property (nonatomic, strong) UIView *noticeBoardBg; // 显示最新公告
+@property (nonatomic, strong) UIView *noticeBoardBg;    // 显示最新公告
+@property (nonatomic, assign) BOOL showNotice;         // 点击公告列表
 
 @end
 
@@ -58,13 +59,12 @@
     [self remoteClubMemberList];
     /// 获取更多列表
     [self remoteMoreInfo];
+    // 获取最新公告
+    [self remoteLatestNotice];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    // 获取最新公告
-    [self remoteLatestNotice];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -188,9 +188,14 @@
     [VHSMoreMenu showMoreMenuWithMenuList:self.moreMenuItems tapItemBlock:^(ChatMoreModel *model) {
         if ([model.moreType isEqualToString:@"url"]) {
             PublicWKWebViewController *webVC = [[PublicWKWebViewController alloc] init];
-            webVC.title = model.moreName;
             webVC.urlString = model.url;
+            webVC.showTitle = YES;
             [weakSelf.navigationController pushViewController:webVC animated:YES];
+            
+            if ([webVC.title isEqualToString:@"公告"]) {
+                weakSelf.showNotice = NO;
+                [weakSelf judgeNeedShowLatestNotice];
+            }
         }
         else if ([model.moreType isEqualToString:@"localQuit"]) {
             [VHSAlertController alertMessage:CONST_CLUB_CONFIRM_DO_QUIT title:CONST_PROMPT_MESSAGE confirmHandler:^(UIAlertAction *action) {
@@ -236,14 +241,12 @@
         [self.latestNoticeMsg setObject:result[@"noticeContent"] forKey:@"noticeContent"];
         [self.latestNoticeMsg setObject:result[@"noticeUrl"] forKey:@"noticeUrl"];
         
-        if (!result[@"noticeContent"]) {
-            [self latestNotice:NO];
-        } else {
-            [self latestNotice:YES];
+        if ([VHSCommon isNullString:result[@"noticeContent"]]) {
+            self.showNotice = NO;
         }
-    } fail:^(NSError *error) {
         
-    }];
+        [self judgeNeedShowLatestNotice];
+    } fail:^(NSError *error) {}];
 }
 
 - (UIView *)noticeBoardBg {
@@ -254,8 +257,8 @@
 }
 
 /// 显示最新公告
-- (void)latestNotice:(BOOL)isShow {
-    if (isShow) {
+- (void)judgeNeedShowLatestNotice {
+    if (self.showNotice) {
         self.noticeBoardBg.backgroundColor = COLORHex(@"#99d5fd");
         self.noticeBoardBg.userInteractionEnabled = YES;
         [self.view addSubview:self.noticeBoardBg];
@@ -303,6 +306,8 @@
 - (void)tapLatestNotice:(UIGestureRecognizer *)tap {
     PublicWKWebViewController *webVC = [[PublicWKWebViewController alloc] init];
     webVC.urlString = self.latestNoticeMsg[@"noticeUrl"];
+    self.showNotice = NO;
+    [self judgeNeedShowLatestNotice];
     [self.navigationController pushViewController:webVC animated:YES];
 }
 
