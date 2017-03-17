@@ -140,23 +140,34 @@ NSInteger const ROW_COUNT = 3;
     
     BannerItemModel *model = self.bannerList[indexPath.row];
     // discoveryType : 1 链接 2 电话 3: 原生模块
-    if (model.discoveryType == 2) {
-        //一键呼
-        OneAlertCaller *caller = [[OneAlertCaller alloc] initWithPhone:model.hrefUrl];
-        [caller call];
-    }
-    else if ([model.title isEqualToString:@"俱乐部"]) {
-        VHSClubController *clubVC = [[VHSClubController alloc] init];
-        clubVC.hidesBottomBarWhenPushed = YES;
-        clubVC.title = model.title;
-        [self.navigationController pushViewController:clubVC animated:YES];
-    }
-    else if (model.hrefUrl) {
-        PublicWKWebViewController *publicWebVC = [[PublicWKWebViewController alloc] init];
-        publicWebVC.urlString = model.hrefUrl;
-        publicWebVC.showTitle = YES;
-        publicWebVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:publicWebVC animated:YES];
+    switch (model.discoveryType) {
+        case 1:
+        {
+            PublicWKWebViewController *publicWebVC = [[PublicWKWebViewController alloc] init];
+            publicWebVC.urlString = model.hrefUrl;
+            publicWebVC.showTitle = YES;
+            publicWebVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:publicWebVC animated:YES];
+        }
+            break;
+        case 2:
+        {
+            OneAlertCaller *caller = [[OneAlertCaller alloc] initWithPhone:model.hrefUrl];
+            [caller call];
+        }
+            break;
+        case 3:
+        {
+            if ([model.hrefUrl isEqualToString:@"club"]) {
+                VHSClubController *clubVC = [[VHSClubController alloc] init];
+                clubVC.hidesBottomBarWhenPushed = YES;
+                clubVC.title = model.title;
+                [self.navigationController pushViewController:clubVC animated:YES];
+            }
+        }
+            break;
+        default:
+            break;
     }
 }
 

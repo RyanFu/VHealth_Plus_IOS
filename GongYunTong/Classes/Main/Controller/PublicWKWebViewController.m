@@ -251,6 +251,8 @@
         // 只有在一级界面显示title
         if (![VHSCommon isNullString:webTitle] && ![backList count]) {
             self.navigationItem.title = webTitle;
+        } else if (--self.showTitleLevel == [backList count]) {
+            self.navigationItem.title = webTitle;
         } else {
             self.navigationItem.title = @"";
         }
@@ -347,7 +349,7 @@
         NSString *clubId = bodyDict[@"clubId"];
         NSString *bbsId = bodyDict[@"bbsId"];
         VHSCommentController *commentVC = [[VHSCommentController alloc] init];
-        commentVC.title = CONST_REPLY;
+        commentVC.title = CONST_COMMENT;
         commentVC.clubId = clubId;
         commentVC.bbsId = bbsId;
         commentVC.commentType = VHSCommentOfMomentReplyPostType;

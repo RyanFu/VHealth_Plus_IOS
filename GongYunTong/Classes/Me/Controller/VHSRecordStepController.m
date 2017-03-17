@@ -412,19 +412,20 @@
         } else {
             // 直接获取手环实时数据到自建数据表中
             NSInteger lastSyncSteps = [VHSCommon getShouHuanLastStepsSync];
-            // 同步数据到本地
-            VHSActionData *action = [[VHSActionData alloc] init];
-            action.actionId = [VHSCommon getTimeStamp];
-            action.memberId = [[VHSCommon userInfo].memberId stringValue];
-            action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
-            action.actionType = @"1";
             NSInteger step = [[VHSStepAlgorithm shareAlgorithm].stepsData.step integerValue] - lastSyncSteps;
-            action.step = [@(step) stringValue];
-            action.upload = 0;
-            action.endTime = [VHSCommon getDate:[NSDate date]];
-            action.macAddress = [VHSCommon getShouHuanMacSddress];
-            [[VHSStepAlgorithm shareAlgorithm] insertOrUpdateBleAction:action];
-            
+            if (step > 0) {
+                // 同步数据到本地
+                VHSActionData *action = [[VHSActionData alloc] init];
+                action.actionId = [VHSCommon getTimeStamp];
+                action.memberId = [[VHSCommon userInfo].memberId stringValue];
+                action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
+                action.actionType = @"1";
+                action.step = [@(step) stringValue];
+                action.upload = 0;
+                action.endTime = [VHSCommon getDate:[NSDate date]];
+                action.macAddress = [VHSCommon getShouHuanMacSddress];
+                [[VHSStepAlgorithm shareAlgorithm] insertOrUpdateBleAction:action];
+            }
             // 更新本地的标志信息
             [VHSCommon setShouHuanLastTimeSync:[VHSCommon getDate:[NSDate date]]];
             [VHSCommon setShouHuanLastStepsSync:[VHSStepAlgorithm shareAlgorithm].stepsData.step];

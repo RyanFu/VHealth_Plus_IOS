@@ -46,24 +46,31 @@ class VHSMessageDetailController: VHSBaseViewController {
     }
     
     private func initUI() {
-        let marginLeft = CGFloat(15)
+        let marginLeft = CGFloat(10)
         let marginTop = CGFloat(20)
-        let marginRight = CGFloat(20)
-        let imgW = CGFloat(80)
+        let imgW = CGFloat(66)
+        let imgH = CGFloat(72)
         
-        titleLabel.frame = CGRect(x: marginLeft, y: marginTop, width: screenW - marginLeft - marginRight, height: 20)
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 17.0)
+        imageView.frame = CGRect(x: marginLeft, y: 5, width: imgW, height: imgH)
+        imageView.image = UIImage(named: "me_msg_list_msg_push")
+        scrollView.addSubview(imageView)
+        
+        titleLabel.frame = CGRect(x: imageView.frame.maxX + marginLeft, y: marginTop, width: screenW - imageView.frame.maxX - marginLeft, height: 20)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        titleLabel.textColor = UIColor.hex("#3a8fb7")
         scrollView.addSubview(titleLabel)
         
-        imageView.frame = CGRect(x: marginLeft, y: titleLabel.frame.maxY + marginTop, width: imgW, height: imgW)
-        scrollView.addSubview(imageView)
-        imageView.sd_setImage(with: URL.init(string: messageModel.imgUrl), placeholderImage: UIImage.init(named: "icon_onlogin"))
+        timeLabel.frame = CGRect(x: titleLabel.frame.minX, y: titleLabel.frame.maxY + 10, width: 150, height: 16)
+        timeLabel.textAlignment = .left
+        timeLabel.font = UIFont.systemFont(ofSize: 14.0)
+        timeLabel.textColor = UIColor.hex("#a7999b")
+        scrollView.addSubview(timeLabel)
         
-        contentLabel.frame = CGRect(x: imageView.frame.maxX + marginLeft, y: imageView.frame.minY - 7, width: screenW - (imageView.frame.maxX + marginLeft) - marginRight, height: 300)
+        contentLabel.frame = CGRect(x: marginLeft, y: imageView.frame.maxY, width: screenW - 2 * marginLeft, height: 300)
         contentLabel.numberOfLines = 0
         contentLabel.textAlignment = .left
+        contentLabel.textColor = UIColor.hex("#443d3d")
         contentLabel.font = UIFont.systemFont(ofSize: 16.0)
-        contentLabel.backgroundColor = UIColor.yellow
         
         let height = messageModel.content.heightWithFont(font: contentLabel.font, fixedWidth: contentLabel.frame.width)
         var frame = contentLabel.frame
@@ -72,12 +79,11 @@ class VHSMessageDetailController: VHSBaseViewController {
         
         scrollView.addSubview(contentLabel)
         
-        timeLabel.frame = CGRect(x: contentLabel.frame.minX, y: contentLabel.frame.maxY + 50, width: 200, height: 20)
-        timeLabel.textAlignment = .left
-        timeLabel.font = UIFont.systemFont(ofSize: 14.0)
-        scrollView.addSubview(timeLabel)
-        
-        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: scrollView.frame.size.height + CGFloat(10))
+        if height > (scrollView.frame.size.height + CGFloat(10)) {
+            scrollView.contentSize = CGSize(width: scrollView.frame.width, height: height + imgH + 5)
+        } else {
+            scrollView.contentSize = CGSize(width: scrollView.frame.width, height: scrollView.frame.size.height + CGFloat(10))
+        }
     }
 
     override func didReceiveMemoryWarning() {

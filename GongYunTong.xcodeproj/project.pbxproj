@@ -24,7 +24,6 @@
 		3302FF931E275C9400295493 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3302FF921E275C9400295493 /* MapKit.framework */; };
 		3302FF951E275CC300295493 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3302FF941E275CC300295493 /* Photos.framework */; };
 		3302FF971E275CCC00295493 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3302FF961E275CCC00295493 /* SafariServices.framework */; };
-		33030A771E66ADD300892792 /* VHSTabConfigurationItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 3304BB611DED63FB00EDBC6B /* VHSTabConfigurationItem.h */; };
 		3304BB5C1DED62F600EDBC6B /* UserInfoModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3304BB5A1DED62F600EDBC6B /* UserInfoModel.h */; };
 		3304BB5D1DED62F600EDBC6B /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304BB5B1DED62F600EDBC6B /* UserInfoModel.m */; };
 		3304BB631DED63FB00EDBC6B /* ShortcutItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 3304BB5F1DED63FB00EDBC6B /* ShortcutItem.h */; };
@@ -1814,7 +1813,6 @@
 				3304BB651DED63FB00EDBC6B /* VHSTabConfigurationItem.h in Headers */,
 				33B1EBA11E6FF1A000B74CA8 /* HUPhotoHelper.h in Headers */,
 				33D097621E695B9E00B57648 /* VHSTestController.h in Headers */,
-				33030A771E66ADD300892792 /* VHSTabConfigurationItem.h in Headers */,
 				33B1EB8F1E6FF1A000B74CA8 /* MomentPhotoModel.h in Headers */,
 				33B1EB961E6FF1A000B74CA8 /* HUAlbumsViewController.h in Headers */,
 				33F6FAC51DF7E2D9005510D4 /* VHSDynamicConfigurationCell.h in Headers */,
@@ -1916,7 +1914,7 @@
 				TargetAttributes = {
 					67C7ADFD1D38AB2A0091F669 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = C76485U944;
+						DevelopmentTeam = 2JGJK49F2H;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -2395,7 +2393,7 @@
 				CODE_SIGN_ENTITLEMENTS = /Users/pingjunlin/Documents/VHealth_Plus_IOS/GongYunTong/Resource/GongYunTong.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = C76485U944;
+				DEVELOPMENT_TEAM = 2JGJK49F2H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/FitSDK",
@@ -2418,7 +2416,7 @@
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/RongCloud/IMLib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.gongyuntong;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.appstore.gongyuntong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2441,7 +2439,7 @@
 				CODE_SIGN_ENTITLEMENTS = /Users/pingjunlin/Documents/VHealth_Plus_IOS/GongYunTong/Resource/GongYunTong.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = C76485U944;
+				DEVELOPMENT_TEAM = 2JGJK49F2H;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/FitSDK",
@@ -2464,7 +2462,7 @@
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/RongCloud/IMLib",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.gongyuntong;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.appstore.gongyuntong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -60,7 +60,9 @@
     [self getMemberScore];
     [self downloadUserInfo];
     
-    [self customConfigNavigationBar];
+    if (!VHEALTH_BUILD_FOR_RELEASE) {
+        [self customConfigNavigationBar];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -146,13 +148,6 @@
     return 5;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section != 0) {
-        return 15;
-    }
-    return 0;
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         return 176 / 2.0;
@@ -166,25 +161,19 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 3 || section == 2) {
-        return 2;
+    if (!VHEALTH_BUILD_FOR_RELEASE) {
+        if (section == 2 || section == 3) {
+            return 2;
+        } else {
+            return 1;
+        }
     } else {
-        return 1;
+        if (section == 3) {
+            return 2;
+        } else {
+            return 1;
+        }
     }
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENW, 15)];
-    view.backgroundColor = [UIColor colorWithHexString:@"#efeff4"];
-    
-    UIView *headline = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENW, 0.5)];
-    headline.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
-    [view addSubview:headline];
-    
-    UIView *bottomline = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(view.frame) - 0.5, SCREENW, 0.5)];
-    bottomline.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
-    [view addSubview:bottomline];
-    return view;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -327,6 +316,27 @@
         [self.navigationController pushViewController:settingVC animated:YES];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section != 0) {
+        return 15;
+    }
+    return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENW, 15)];
+    view.backgroundColor = [UIColor colorWithHexString:@"#efeff4"];
+    
+    UIView *headline = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENW, 0.5)];
+    headline.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
+    [view addSubview:headline];
+    
+    UIView *bottomline = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(view.frame) - 0.5, SCREENW, 0.5)];
+    bottomline.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
+    [view addSubview:bottomline];
+    return view;
 }
 
 @end

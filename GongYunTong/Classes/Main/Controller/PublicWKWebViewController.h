@@ -14,5 +14,6 @@
 @property (nonatomic, strong) NSString *urlString;      // url地址
 @property (nonatomic, assign) BOOL shouldToken;         // url连接token
 @property (nonatomic, assign) BOOL showTitle;           // 显示title
+@property (nonatomic, assign) NSInteger showTitleLevel; // 需要显示的title
 
 @end

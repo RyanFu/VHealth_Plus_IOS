@@ -52,6 +52,7 @@ static NSString * const CONST_CANCLE                                = @"取消";
 static NSString * const CONST_CLUB_ADD_BBS                          = @"发帖子";
 static NSString * const CONST_CLUB_ADD_NOTICE                       = @"发公告";
 static NSString * const CONST_REPLY                                 = @"回复";
+static NSString * const CONST_COMMENT                               = @"评论";
 static NSString * const CONST_EDIT_NOTICE                           = @"编辑公告";
 static NSString * const CONST_OPEN_ACCOUNT_SUCCESS                  = @"开通账号成功";
 

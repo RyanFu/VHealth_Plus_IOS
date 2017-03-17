@@ -132,23 +132,26 @@ CGFloat const settingFooterHeight=106;
         
         NSInteger lastSyncSteps = [VHSCommon getShouHuanLastStepsSync];
         [[VHSBraceletCoodinator sharePeripheral] getBraceletorRealtimeDataWithCallBack:^(ProtocolLiveDataModel *liveData, int errorCode) {
-            // 同步数据到本地
-            VHSActionData *action = [[VHSActionData alloc] init];
-            action.actionId = [VHSCommon getTimeStamp];
-            action.memberId = [[VHSCommon userInfo].memberId stringValue];
-            action.actionType = @"1";
-            action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
-            action.step = [NSString stringWithFormat:@"%@", @(liveData.step - lastSyncSteps)];
-            action.upload = 0;
-            action.endTime = [VHSCommon getDate:[NSDate date]];
-            [[VHSStepAlgorithm shareAlgorithm] insertOrUpdateBleAction:action];
+            NSInteger step = liveData.step - lastSyncSteps;
+            if (step > 0) {
+                // 同步数据到本地
+                VHSActionData *action = [[VHSActionData alloc] init];
+                action.actionId = [VHSCommon getTimeStamp];
+                action.memberId = [[VHSCommon userInfo].memberId stringValue];
+                action.actionType = @"1";
+                action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
+                action.step = [NSString stringWithFormat:@"%@", @(step)];
+                action.upload = 0;
+                action.endTime = [VHSCommon getDate:[NSDate date]];
+                action.macAddress = liveData.smart_device_id;
+                [[VHSStepAlgorithm shareAlgorithm] insertOrUpdateBleAction:action];
+            }
             
             [[VHSBraceletCoodinator sharePeripheral] braceletorGotoUnbindWithCallBack:^(int errorCode) {
                 [MBProgressHUD hiddenHUD];
                 if (errorCode == SUCCESS) {
                     [VHSToast toast:TOAST_BLE_UNBIND_SUCCESS];
                     [VHSFitBraceletStateManager BLEUnbindSuccess]; // 解绑成功后本地存储
-                    [weakSelf disconnectBraceletor];  // 解除设备连接
                     [weakSelf popUpViewController]; // 返回到前一个页面
                     // 解绑后开启手机记步服务
                     [[VHSStepAlgorithm shareAlgorithm] setupStepRecorder];
@@ -159,13 +162,6 @@ CGFloat const settingFooterHeight=106;
         }];
     } else {
         [self popUpViewController];
-    }
-}
-
-- (void)disconnectBraceletor {
-    if ([ShareDataSdk shareInstance].peripheral.state == CBPeripheralStateConnected) {
-        [[VHSBraceletCoodinator sharePeripheral] disconnectBraceletorWithPeripheral:[ShareDataSdk shareInstance].peripheral];
-        [self disconnectBraceletor];
     }
 }
 

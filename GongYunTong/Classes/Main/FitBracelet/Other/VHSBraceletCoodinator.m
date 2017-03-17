@@ -58,10 +58,11 @@ static VHSBraceletCoodinator *sharePeripheral = nil;
 #pragma mark - 手环操作
 
 - (void)scanBraceletorDuration:(NSTimeInterval)time process:(void (^)())processHandler completion:(void (^)(NSArray<PeripheralModel *> *braceletorList))completionHandler {
-    self.peripherals = [NSMutableArray new];
-    self.scanBleCompletionHandler = completionHandler;
     // 绑定手环前先断开手环连接信息
     [[VHSBraceletCoodinator sharePeripheral] disconnectBraceletorWithPeripheral:[ShareDataSdk shareInstance].peripheral];
+    
+    self.peripherals = [NSMutableArray new];
+    self.scanBleCompletionHandler = completionHandler;
     
     if (processHandler) processHandler();
     
@@ -120,6 +121,7 @@ static VHSBraceletCoodinator *sharePeripheral = nil;
 
 - (void)braceletorGotoUnbindWithCallBack:(void (^)(int errorCode))resultBlock {
     [self.bleSetter ASDKSendDeviceBindingWithCMDType:ASDKDeviceUnbundling withUpdateBlock:^(int errorCode) {
+        // 断开设备与手环的链接
         if ([ShareDataSdk shareInstance].peripheral.state == CBPeripheralStateConnected) {
             [[VHSBraceletCoodinator sharePeripheral] disconnectBraceletorWithPeripheral:[ShareDataSdk shareInstance].peripheral];
         }

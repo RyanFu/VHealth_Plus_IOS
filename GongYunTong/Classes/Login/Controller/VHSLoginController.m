@@ -103,6 +103,8 @@
     [MBProgressHUD showMessage:nil];
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary * result) {
+        // 登陆成功后重置融云初始化
+        [VHSGlobalDataManager shareGlobalDataManager].loadClubNumbers = @(0);
         
         [MBProgressHUD hiddenHUD];
         if ([result[@"result"] integerValue] != 200) {

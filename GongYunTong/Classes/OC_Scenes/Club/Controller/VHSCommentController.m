@@ -164,7 +164,6 @@
     imagePickerView.imagePickerCompletionHandler = ^(NSArray *photoMomentItems){
         weakSelf.photosMomentItems = photoMomentItems;
     };
-    imagePickerView.backgroundColor = [UIColor yellowColor];
     [self.view addSubview:imagePickerView];
     
     UIButton *publishBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, SCREENH - 50, SCREENW, 50)];

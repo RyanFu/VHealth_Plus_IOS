@@ -28,7 +28,6 @@ typedef NS_ENUM(NSUInteger, VHSClubType) {
 @end
 
 static NSString *reuse_identifier = @"VHSClubSessionCell";
-static NSInteger load_club_numbers = 0;
 
 @implementation VHSClubController
 
@@ -55,9 +54,9 @@ static NSInteger load_club_numbers = 0;
     self.view.backgroundColor = [UIColor whiteColor];
     
     // 没有初始化过融云SDK
-    if (load_club_numbers == 0) {
+    if ([VHSGlobalDataManager shareGlobalDataManager].loadClubNumbers.integerValue == 0) {
         [[ThirdPartyCoordinator shareCoordinator] setupRCKit];
-        load_club_numbers = 1;
+        [VHSGlobalDataManager shareGlobalDataManager].loadClubNumbers = @(1);
     }
     
     [self.tableView registerNib:[UINib nibWithNibName:@"VHSClubSessionCell" bundle:nil] forCellReuseIdentifier:reuse_identifier];

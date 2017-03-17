@@ -184,15 +184,18 @@
 }
 
 - (void)showMoreMenu {
+    [self.view endEditing:YES];
+    
     __weak typeof(self) weakSelf = self;
     [VHSMoreMenu showMoreMenuWithMenuList:self.moreMenuItems tapItemBlock:^(ChatMoreModel *model) {
         if ([model.moreType isEqualToString:@"url"]) {
             PublicWKWebViewController *webVC = [[PublicWKWebViewController alloc] init];
             webVC.urlString = model.url;
             webVC.showTitle = YES;
+            webVC.showTitleLevel = 2;
             [weakSelf.navigationController pushViewController:webVC animated:YES];
             
-            if ([webVC.title isEqualToString:@"公告"]) {
+            if ([model.moreName isEqualToString:@"公告"]) {
                 weakSelf.showNotice = NO;
                 [weakSelf judgeNeedShowLatestNotice];
             }
@@ -241,8 +244,8 @@
         [self.latestNoticeMsg setObject:result[@"noticeContent"] forKey:@"noticeContent"];
         [self.latestNoticeMsg setObject:result[@"noticeUrl"] forKey:@"noticeUrl"];
         
-        if ([VHSCommon isNullString:result[@"noticeContent"]]) {
-            self.showNotice = NO;
+        if (![VHSCommon isNullString:result[@"noticeContent"]]) {
+            self.showNotice = YES;
         }
         
         [self judgeNeedShowLatestNotice];
@@ -273,7 +276,7 @@
         noticeBoardLabel.text = noticeContent;
         [self.noticeBoardBg addSubview:noticeBoardLabel];
         
-        UIImageView *noticeBoardNav = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(noticeBoardLabel.frame) + 10, (CGRectGetHeight(self.noticeBoardBg.frame) - 24) / 2.0, 24, 24)];
+        UIImageView *noticeBoardNav = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(noticeBoardLabel.frame) + 20, (CGRectGetHeight(self.noticeBoardBg.frame) - 20) / 2.0, 11, 20)];
         noticeBoardNav.image = [UIImage imageNamed:@"discover_club_navigation_arrow_right"];
         [self.noticeBoardBg addSubview:noticeBoardNav];
         

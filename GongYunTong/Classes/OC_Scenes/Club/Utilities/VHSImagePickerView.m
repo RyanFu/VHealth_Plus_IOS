@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSMutableArray *photos;
 
 @end
-const NSInteger PICKER_IMAGE_WIDTH = 248;    // 图片宽度
+const NSInteger PICKER_IMAGE_WIDTH = 150;    // 图片宽度
 const NSInteger MAX_ALLOWED_COUNT = 6;      // 最多允许选中的图片数量
 const NSInteger H_MAX_COUNT = 4;            // 一行最多显示数量
 static NSString *reuseIdentifier = @"VHSImagePickerCollectionCell";
@@ -92,11 +92,15 @@ static NSString *reuseIdentifier = @"VHSImagePickerCollectionCell";
     cell.removeSelectedImageBlock = ^(){
         [weakSelf.photos removeObjectAtIndex:indexPath.row];
         
+        MomentPhotoModel *model = [weakSelf.photos lastObject];
+        
+        if (model.imageType == VHSImagePickerOfImagePlaceHolderType) {
+            [weakSelf.photos removeLastObject];
+        }
         // 回调，将数据传父组件
         if (weakSelf.imagePickerCompletionHandler) weakSelf.imagePickerCompletionHandler(weakSelf.photos);
         
-        MomentPhotoModel *model = [weakSelf.photos lastObject];
-        if (model.imageType != VHSImagePickerOfImagePlaceHolderType) {
+        if ([weakSelf.photos count] < MAX_ALLOWED_COUNT) {
             MomentPhotoModel *moment = [[MomentPhotoModel alloc] init];
             moment.photoImage = [UIImage imageNamed:@"club_moment_photo_add"];
             moment.imageType = VHSImagePickerOfImagePlaceHolderType;

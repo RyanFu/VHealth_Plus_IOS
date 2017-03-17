@@ -234,18 +234,15 @@ static NSString * const kOriginalImages = @"";
             
             for (PHAsset *asset in assets) {
                 // 是否要原图
-                CGSize size = original ? CGSizeMake(asset.pixelWidth, asset.pixelHeight) : CGSizeZero;
+                CGSize size = original ? CGSizeMake(asset.pixelWidth, asset.pixelHeight) : CGSizeMake(0, 0.0 * asset.pixelHeight / asset.pixelWidth);
                 // 从asset中获得图片
                 [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:size contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage * result, NSDictionary * info) {
                     if (result) {
-                        
                         [images addObject:result];
                     }
                 }];
-                
                 [self.photos addObject:asset];
             }
-           
         }
         else {
             
@@ -253,12 +250,10 @@ static NSString * const kOriginalImages = @"";
             localizedTitle = [group valueForProperty:ALAssetsGroupPropertyName];
             images = [NSMutableArray arrayWithCapacity:group.numberOfAssets];
             [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                
                 if (result) {
                     [images addObject:[UIImage imageWithCGImage:result.thumbnail]];
                     [self.photos addObject:result];
                 }
-                
             }];
             
             
