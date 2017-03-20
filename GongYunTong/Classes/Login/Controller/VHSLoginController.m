@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.topSpace.constant = top_space_ratio * SCREENH;
-    
+    self.title = @"登录";
     // username
     NSString *username = [VHSCommon getUserDefautForKey:k_User_Name];;
     // 默认密码和账户
@@ -179,12 +179,10 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[BaiduMobStat defaultStat] pageviewStartWithName:@"登录"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[BaiduMobStat defaultStat] pageviewEndWithName:@"登录"];
 }
 
 - (void)didReceiveMemoryWarning {

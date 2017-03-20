@@ -75,12 +75,10 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [[BaiduMobStat defaultStat] pageviewStartWithName:@"忘记密码"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[BaiduMobStat defaultStat] pageviewEndWithName:@"忘记密码"];
 }
 
 - (void)didReceiveMemoryWarning {

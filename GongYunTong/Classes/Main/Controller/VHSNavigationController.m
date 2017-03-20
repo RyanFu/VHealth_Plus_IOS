@@ -61,19 +61,18 @@
     //    UIImage *backButtonImage_OFF = [[UIImage imageNamed:@"navigationbar_back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
     //    [item setBackButtonBackgroundImage:backButtonImage_OFF forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
+    // 设置返回按钮的样式
+    UIBarButtonItem *item = [UIBarButtonItem appearance];
+    [item setStyle:UIBarButtonItemStylePlain];
+    [item setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16]} forState:UIControlStateNormal];
+    
     UINavigationBar *navBar = [UINavigationBar appearance];
     //设置导航栏返回按钮箭头的颜色（若不实现setTitleTextAttributes: forState方法，可同时改变字体颜色)
     [navBar setTintColor:[UIColor blackColor]];
-    
     //导航栏背景颜色
     [navBar setBarTintColor:[UIColor whiteColor]];
-    
     //导航栏标题样式
-    [navBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
-                                    [UIColor blackColor],
-                                    NSForegroundColorAttributeName,
-                                    [UIFont boldSystemFontOfSize:17],
-                                    NSFontAttributeName, nil]];
+    [navBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont boldSystemFontOfSize:17]}];
 }
 
 //实现此方法，可在NavigationController的栈顶视图里设置信号栏字体颜色

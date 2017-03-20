@@ -129,13 +129,11 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[BaiduMobStat defaultStat] pageviewStartWithName:[NSString stringWithFormat:@"%@", @"活动"]];
     [self webViewIfNeededRefresh];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[BaiduMobStat defaultStat] pageviewEndWithName:[NSString stringWithFormat:@"%@", @"活动"]];
 }
 
 - (void)webViewIfNeededRefresh {

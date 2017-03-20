@@ -75,12 +75,10 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[BaiduMobStat defaultStat] pageviewStartWithName:[NSString stringWithFormat:@"%@", @"我"]];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[BaiduMobStat defaultStat] pageviewEndWithName:[NSString stringWithFormat:@"%@", @"我"]];
 }
 
 #pragma mark - 消息列表

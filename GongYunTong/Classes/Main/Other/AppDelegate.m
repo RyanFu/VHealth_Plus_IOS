@@ -11,7 +11,6 @@
 #import "VHSFitBraceletStateManager.h"
 #import "MBProgressHUD+VHS.h"
 #import "NSDate+VHSExtension.h"
-#import "BaiduMobStat.h"
 #import "ShortcutItem.h"
 #import "VHSTabBarController.h"
 #import "ThirdPartyCoordinator.h"

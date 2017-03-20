@@ -119,13 +119,11 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[BaiduMobStat defaultStat] pageviewStartWithName:@"动态"];
     [self tableViewIfNeededRefresh];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[BaiduMobStat defaultStat] pageviewEndWithName:@"动态"];
     
     [VHSCommon saveDynamicTime:[VHSCommon getDate:[NSDate date]]];
 }

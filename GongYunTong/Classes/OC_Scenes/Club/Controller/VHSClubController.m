@@ -71,12 +71,10 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[BaiduMobStat defaultStat] pageviewStartWithName:VC_TITLE_CLUB];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[BaiduMobStat defaultStat] pageviewEndWithName:VC_TITLE_CLUB];
 }
 
 #pragma mark - 初始化试图

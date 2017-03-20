@@ -93,13 +93,15 @@
     _tabConfigurationItem = tabConfigurationItem;
     
     // 0: 图片 1: 文字
-    self.navigationController.navigationBarHidden = ![_tabConfigurationItem.topType boolValue];
-    if ([_tabConfigurationItem.topType integerValue] == 0) {
+    // 图片
+    if (_tabConfigurationItem.topType.integerValue == 0) {
+        self.navigationController.navigationBarHidden = YES;
+        
         // 使用ImageView替代导航栏
         [self.view addSubview:self.navigationBar];
         [self.navigationBar sd_setImageWithURL:[NSURL URLWithString:_tabConfigurationItem.topUrl]];
-        
     } else {
+        self.navigationController.navigationBarHidden = NO;
         self.navigationItem.title = _tabConfigurationItem.topUrl;
     }
     

@@ -9,6 +9,7 @@
 #import "ThirdPartyCoordinator.h"
 #import <JSPatchPlatform/JSPatch.h>
 #import "BPush.h"
+#import "BaiduMobStat.h"
 #import <UserNotifications/UserNotifications.h>
 #import <RongIMKit/RongIMKit.h>
 

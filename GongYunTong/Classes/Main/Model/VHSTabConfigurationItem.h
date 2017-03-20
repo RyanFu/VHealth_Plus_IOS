@@ -11,7 +11,7 @@
 @interface VHSTabConfigurationItem : NSObject
 
 @property (nonatomic, strong) NSString *topUrl;
-@property (nonatomic, strong) NSNumber *topType;
+@property (nonatomic, strong) NSNumber *topType;        // 0: 图片 1: 文字
 @property (nonatomic, strong) NSString *nindex;
 @property (nonatomic, strong) NSString *footerName;
 

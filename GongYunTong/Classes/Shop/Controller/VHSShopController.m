@@ -232,7 +232,6 @@ static NSString * const VHSTOKEN = @"vhstoken";
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[BaiduMobStat defaultStat] pageviewStartWithName:@"福利"];
     [self webViewIfNeededRefresh];
 }
 
@@ -251,7 +250,6 @@ static NSString * const VHSTOKEN = @"vhstoken";
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[BaiduMobStat defaultStat] pageviewEndWithName:@"福利"];
 }
 
 - (UIView *)noContentView {
@@ -350,11 +348,11 @@ static NSString * const VHSTOKEN = @"vhstoken";
 
 // 页面加载失败时调用
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
-    CLog(@"1error %@",error.description);
+    CLog(@"error %@",error.description);
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error {
-    CLog(@"2error %@",error.description);
+    CLog(@"error %@",error.description);
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {

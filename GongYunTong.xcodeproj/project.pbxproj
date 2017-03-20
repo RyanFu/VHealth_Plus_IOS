@@ -70,6 +70,8 @@
 		3362F3061E30CAF500F69477 /* UIView+extension.h in Headers */ = {isa = PBXBuildFile; fileRef = 3362F3041E30CAF500F69477 /* UIView+extension.h */; };
 		3362F3071E30CAF500F69477 /* UIView+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3362F3051E30CAF500F69477 /* UIView+extension.m */; };
 		33640B5E1D9224BC00B34C8B /* KeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 33640B5D1D9224BC00B34C8B /* KeyChainStore.m */; };
+		33645D061E7BC76F0044F4AF /* UIViewController+Tracking.h in Headers */ = {isa = PBXBuildFile; fileRef = 33645D041E7BC76F0044F4AF /* UIViewController+Tracking.h */; };
+		33645D071E7BC76F0044F4AF /* UIViewController+Tracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 33645D051E7BC76F0044F4AF /* UIViewController+Tracking.m */; };
 		3364D1EC1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3364D1EA1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m */; };
 		3364D1ED1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3364D1EB1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib */; };
 		3371B3801E1B6265007A285A /* AES128Util.h in Headers */ = {isa = PBXBuildFile; fileRef = 3371B37E1E1B6265007A285A /* AES128Util.h */; };
@@ -375,6 +377,8 @@
 		3362F3051E30CAF500F69477 /* UIView+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+extension.m"; sourceTree = "<group>"; };
 		33640B5C1D9224BC00B34C8B /* KeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyChainStore.h; sourceTree = "<group>"; };
 		33640B5D1D9224BC00B34C8B /* KeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainStore.m; sourceTree = "<group>"; };
+		33645D041E7BC76F0044F4AF /* UIViewController+Tracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Tracking.h"; sourceTree = "<group>"; };
+		33645D051E7BC76F0044F4AF /* UIViewController+Tracking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Tracking.m"; sourceTree = "<group>"; };
 		3364D1E91DC7668D00E8A3FF /* VHSFitBraceletHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSFitBraceletHelpController.h; sourceTree = "<group>"; };
 		3364D1EA1DC7668D00E8A3FF /* VHSFitBraceletHelpController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSFitBraceletHelpController.m; sourceTree = "<group>"; };
 		3364D1EB1DC7668D00E8A3FF /* VHSFitBraceletHelpController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VHSFitBraceletHelpController.xib; sourceTree = "<group>"; };
@@ -1411,6 +1415,8 @@
 				33CB6EB31DDEE294001E470A /* NSString+extension.m */,
 				3362F3041E30CAF500F69477 /* UIView+extension.h */,
 				3362F3051E30CAF500F69477 /* UIView+extension.m */,
+				33645D041E7BC76F0044F4AF /* UIViewController+Tracking.h */,
+				33645D051E7BC76F0044F4AF /* UIViewController+Tracking.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1837,6 +1843,7 @@
 				3371B3801E1B6265007A285A /* AES128Util.h in Headers */,
 				33B1EB851E6FF1A000B74CA8 /* VHSClubController.h in Headers */,
 				33B1EB891E6FF1A000B74CA8 /* ChatMoreModel.h in Headers */,
+				33645D061E7BC76F0044F4AF /* UIViewController+Tracking.h in Headers */,
 				33B1EB831E6FF1A000B74CA8 /* VHSChatController.h in Headers */,
 				3304BB631DED63FB00EDBC6B /* ShortcutItem.h in Headers */,
 			);
@@ -1914,7 +1921,7 @@
 				TargetAttributes = {
 					67C7ADFD1D38AB2A0091F669 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 2JGJK49F2H;
+						DevelopmentTeam = C76485U944;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -2199,6 +2206,7 @@
 				CA58AAC21D586C3B0076BA42 /* ActivityIndicatorView.m in Sources */,
 				338C61BA1D59D2BE004CFE18 /* VHSFitBraceletStateManager.m in Sources */,
 				6793203B1D41D1A5004B0CEA /* VHSDiscoverController.m in Sources */,
+				33645D071E7BC76F0044F4AF /* UIViewController+Tracking.m in Sources */,
 				67E13FD21D460E81001C58D7 /* UserHeadCell.m in Sources */,
 				33B1EB8E1E6FF1A000B74CA8 /* ClubModel.m in Sources */,
 				6704636D1D40C56B0051A9F6 /* SDCollectionViewCell.m in Sources */,
@@ -2393,7 +2401,7 @@
 				CODE_SIGN_ENTITLEMENTS = /Users/pingjunlin/Documents/VHealth_Plus_IOS/GongYunTong/Resource/GongYunTong.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 2JGJK49F2H;
+				DEVELOPMENT_TEAM = C76485U944;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/FitSDK",
@@ -2416,7 +2424,7 @@
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/RongCloud/IMLib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.appstore.gongyuntong;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.gongyuntong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2439,7 +2447,7 @@
 				CODE_SIGN_ENTITLEMENTS = /Users/pingjunlin/Documents/VHealth_Plus_IOS/GongYunTong/Resource/GongYunTong.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 2JGJK49F2H;
+				DEVELOPMENT_TEAM = C76485U944;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/FitSDK",
@@ -2462,7 +2470,7 @@
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/RongCloud/IMLib",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.appstore.gongyuntong;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.gongyuntong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

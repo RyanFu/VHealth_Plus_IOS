@@ -47,12 +47,10 @@ static NSString * const Const_Invitation_Explanation = @"邀请须知：\n*邀�
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[BaiduMobStat defaultStat] pageviewStartWithName:VC_TITLE_INVITATION];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[BaiduMobStat defaultStat] pageviewEndWithName:VC_TITLE_INVITATION];
 }
 
 - (void)setupUI {

@@ -33,7 +33,8 @@
 @implementation VHSLoginPersonalViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //     Do any additional setup after loading the view.
+    
+    self.title = @"登录信息页";
     
     self.dicPage = [[NSMutableDictionary alloc] init];
     UIView *headerView= [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tvFirstPerson.bounds.size.width, 70)];
@@ -574,12 +575,10 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [[BaiduMobStat defaultStat] pageviewStartWithName:@"登录信息页"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[BaiduMobStat defaultStat] pageviewEndWithName:@"登录信息页"];
 }
 
 @end
