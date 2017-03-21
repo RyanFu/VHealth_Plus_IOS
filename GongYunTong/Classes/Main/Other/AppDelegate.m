@@ -32,8 +32,6 @@ static BOOL isBackGroundActivateApplication;
     [[ThirdPartyCoordinator shareCoordinator] startBaiduMobileStat];
     // 开启百度推送
     [[ThirdPartyCoordinator shareCoordinator] startBaiDuPush:application launchingWithOptions:launchOptions];
-    // 使用JSPatch
-    [[ThirdPartyCoordinator shareCoordinator] startJSPatch];
     
     // 创建数据库，开启计步模式
     [[VHSStepAlgorithm shareAlgorithm] setupStepRecorder];

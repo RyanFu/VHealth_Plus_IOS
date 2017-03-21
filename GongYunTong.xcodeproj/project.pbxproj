@@ -54,8 +54,6 @@
 		334A9B4E1E1513FF008969E4 /* GTMBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = 334A9B4B1E1513FF008969E4 /* GTMBase64.h */; };
 		334A9B4F1E1513FF008969E4 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 334A9B4C1E1513FF008969E4 /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		334A9B501E1513FF008969E4 /* GTMDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 334A9B4D1E1513FF008969E4 /* GTMDefines.h */; };
-		334F601C1E0A550E000F06B0 /* JSPatchPlatform.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 334F601B1E0A550E000F06B0 /* JSPatchPlatform.framework */; };
-		334F601E1E0A5939000F06B0 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 334F601D1E0A5939000F06B0 /* main.js */; };
 		334F602D1E0BBABD000F06B0 /* ThirdPartyCoordinator.h in Headers */ = {isa = PBXBuildFile; fileRef = 334F602B1E0BBABD000F06B0 /* ThirdPartyCoordinator.h */; };
 		334F602E1E0BBABD000F06B0 /* ThirdPartyCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 334F602C1E0BBABD000F06B0 /* ThirdPartyCoordinator.m */; };
 		33514BE01D5B034200ECDEA5 /* VeryfitSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33514BDF1D5B034200ECDEA5 /* VeryfitSDK.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -355,8 +353,6 @@
 		334A9B4B1E1513FF008969E4 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
 		334A9B4C1E1513FF008969E4 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
 		334A9B4D1E1513FF008969E4 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
-		334F601B1E0A550E000F06B0 /* JSPatchPlatform.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSPatchPlatform.framework; sourceTree = "<group>"; };
-		334F601D1E0A5939000F06B0 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		334F602B1E0BBABD000F06B0 /* ThirdPartyCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdPartyCoordinator.h; sourceTree = "<group>"; };
 		334F602C1E0BBABD000F06B0 /* ThirdPartyCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdPartyCoordinator.m; sourceTree = "<group>"; };
 		33514BDF1D5B034200ECDEA5 /* VeryfitSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VeryfitSDK.framework; sourceTree = "<group>"; };
@@ -722,7 +718,6 @@
 				3342F36C1D9388A300B31317 /* libz.1.2.5.tbd in Frameworks */,
 				334039091D82B40100202DDD /* Security.framework in Frameworks */,
 				3302FF831E275A7000295493 /* libopencore-amrnb.a in Frameworks */,
-				334F601C1E0A550E000F06B0 /* JSPatchPlatform.framework in Frameworks */,
 				CAD91A3A1D5DB5F100AEF2FB /* CoreMotion.framework in Frameworks */,
 				CA8B9F681D644A3A00656BA7 /* JavaScriptCore.framework in Frameworks */,
 				CAD91A4D1D5DB69B00AEF2FB /* AlipaySDK.framework in Frameworks */,
@@ -871,15 +866,6 @@
 				334A9B4D1E1513FF008969E4 /* GTMDefines.h */,
 			);
 			path = GTMBase64;
-			sourceTree = "<group>";
-		};
-		334F601A1E0A550E000F06B0 /* JSPatchPlatform */ = {
-			isa = PBXGroup;
-			children = (
-				334F601B1E0A550E000F06B0 /* JSPatchPlatform.framework */,
-				334F601D1E0A5939000F06B0 /* main.js */,
-			);
-			path = JSPatchPlatform;
 			sourceTree = "<group>";
 		};
 		33506DBA1E5EF572006B1909 /* OC_Scenes */ = {
@@ -1478,7 +1464,6 @@
 			isa = PBXGroup;
 			children = (
 				334A9B4A1E1513FF008969E4 /* GTMBase64 */,
-				334F601A1E0A550E000F06B0 /* JSPatchPlatform */,
 				33CB6EA51DDEB1E2001E470A /* Security */,
 				33514BDE1D5B034200ECDEA5 /* FitSDK */,
 				67E13F541D45D77D001C58D7 /* XLAlertController.h */,
@@ -1975,7 +1960,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				334F601E1E0A5939000F06B0 /* main.js in Resources */,
 				33CB6EB61DDEEF28001E470A /* public_key.der in Resources */,
 				671217F21D3F4C71004CFD14 /* Shop.storyboard in Resources */,
 				67C7AE0E1D38AB2A0091F669 /* Assets.xcassets in Resources */,

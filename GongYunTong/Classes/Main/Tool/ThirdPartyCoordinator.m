@@ -7,7 +7,6 @@
 //
 
 #import "ThirdPartyCoordinator.h"
-#import <JSPatchPlatform/JSPatch.h>
 #import "BPush.h"
 #import "BaiduMobStat.h"
 #import <UserNotifications/UserNotifications.h>
@@ -54,20 +53,6 @@ static NSString * const Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMm
     statTracker.enableExceptionLog = YES;
     statTracker.enableDebugOn = NO;
     [statTracker startWithAppId:BaiduMob_APP_KEY]; // 设置您在mtj网站上添加的app的appkey,此处AppId即为应用的appKey
-}
-
-#pragma mark - JSPatch
-
-/// 开始JSPatch
-- (void)startJSPatch {
-    if (VHEALTH_BUILD_FOR_RELEASE) {
-        // 开启JSPatch
-        [JSPatch startWithAppKey:JSPatch_APPKey];
-        // 同步服务器下发的JS代码
-        [JSPatch sync];
-    } else {
-        [JSPatch testScriptInBundle]; // JS测试，不能startWithAppKey:一起使用
-    }
 }
 
 #pragma mark - 百度推送
