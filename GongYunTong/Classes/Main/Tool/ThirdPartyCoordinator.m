@@ -116,8 +116,8 @@ static NSString * const Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMm
 
 #pragma mark - 融云
 
-static NSString * const RCIM_APPKEY = @"8w7jv4qb7ts0y";
-static NSString * const RCIM_APPSECRET = @"texpEY9NNk2ZT";
+static NSString * const RCIM_APPKEY = @"8brlm7uf8bxo3";
+//static NSString * const RCIM_APPKEY = @"8w7jv4qb7ts0y";
 
 - (void)setupRCKit {
     NSString *rongcloudToken = [VHSCommon userInfo].rongcloudToken;

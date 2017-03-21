@@ -122,7 +122,7 @@ static VHSBraceletCoodinator *sharePeripheral = nil;
 - (void)braceletorGotoUnbindWithCallBack:(void (^)(int errorCode))resultBlock {
     [self.bleSetter ASDKSendDeviceBindingWithCMDType:ASDKDeviceUnbundling withUpdateBlock:^(int errorCode) {
         // 断开设备与手环的链接
-        if ([ShareDataSdk shareInstance].peripheral.state == CBPeripheralStateConnected) {
+        while ([ShareDataSdk shareInstance].peripheral.state == CBPeripheralStateConnected) {
             [[VHSBraceletCoodinator sharePeripheral] disconnectBraceletorWithPeripheral:[ShareDataSdk shareInstance].peripheral];
         }
         dispatch_async(dispatch_get_main_queue(), ^{

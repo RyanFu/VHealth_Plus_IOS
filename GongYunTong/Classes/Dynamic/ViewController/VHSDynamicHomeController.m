@@ -317,56 +317,63 @@
 }
 
 // 将banner放到cell中，单独分区（第0区），剩下的3种样式放到一个区中，建议服务器将3种展示样式的数据放到一个json中，添加区分3种样式的字段
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0) {
-        return SCREENW * 0.4667;
-    }
-    else if (indexPath.section == 1) {
-        NSInteger count = [self.configIconList count];
-        if (count == 0) {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case 0: {
+            return SCREENW * 0.4667;
+        }
+            break;
+        case 1: {
+            NSInteger count = [self.configIconList count];
+            if (count == 0) {
+                return 0;
+            }
+            else if (count % 4 == 0) {
+                return 90 * (count / 4) * ratioW + 15;
+            }
+            else if (count % 4 != 0) {
+                return 90 * (1 + count / 4) * ratioW + 5 * (count / 4) + 15;
+            }
             return 0;
         }
-        else if (count % 4 == 0) {
-            return 90 * (count / 4) * ratioW + 15;
+            break;
+        case 2: {
+            return 49.0 * ratioH;
         }
-        else if (count % 4 != 0) {
-            return 90 * (1 + count / 4) * ratioW + 5 * (count / 4) + 15;
-        }
-        return 0;
-    }
-    else if (indexPath.section == 2) {
-        return 49.0 * ratioH;
-    }
-    else if (indexPath.section == 3) {
-        DynamicItemModel *item = self.dynamicList[indexPath.row];
-        NSString *dynamicZyText = item.dynamicZyText;
-        
-        CGFloat floatHight = [dynamicZyText computerWithSize:CGSizeMake(SCREENW - 40, CGFLOAT_MAX)
-                                                        font:[UIFont systemFontOfSize:15]].height;
-        if ([VHSCommon isNullString:dynamicZyText]) {
-            floatHight = 0;
-        } else if (floatHight > 36) {
-            // 文本超过两行
-            floatHight = 36.0;
-        }
-        
-        if ([item.imgType integerValue] == 1) {
-            // 单图
-            if (floatHight < 18.0) floatHight = 36;
+            break;
+        case 3: {
+            DynamicItemModel *item = self.dynamicList[indexPath.row];
+            NSString *dynamicZyText = item.dynamicZyText;
             
-            return 81.0 + floatHight;
+            CGFloat floatHight = [dynamicZyText computerWithSize:CGSizeMake(SCREENW - 40, CGFLOAT_MAX)
+                                                            font:[UIFont systemFontOfSize:15]].height;
+            if ([VHSCommon isNullString:dynamicZyText]) {
+                floatHight = 0;
+            } else if (floatHight > 36) {
+                // 文本超过两行
+                floatHight = 36.0;
+            }
+            
+            if ([item.imgType integerValue] == 1) {
+                // 单图
+                if (floatHight < 18.0) floatHight = 36;
+                
+                return 81.0 + floatHight;
+            }
+            else if ([item.imgType integerValue] == 2) {
+                // 大图
+                return 60 + 295 * ratioH + floatHight;
+            }
+            else if ([item.imgType integerValue] == 3) {
+                // 三图
+                return 95 + 83 * ratioH + floatHight;
+            }
         }
-        else if ([item.imgType integerValue] == 2) {
-            // 大图
-            return 60 + 295 * ratioH + floatHight;
+        default: {
+            return 0;
         }
-        else if ([item.imgType integerValue] == 3) {
-            // 三图
-            return 95 + 83 * ratioH + floatHight;
-        }
+            break;
     }
-    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

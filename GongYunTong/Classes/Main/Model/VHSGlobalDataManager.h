@@ -12,8 +12,6 @@
 
 @property (nonatomic, assign) NSInteger recordAllSteps;     // 记录的用户的所有步数
 
-@property (nonatomic, strong) NSNumber *phoneAllSteps;
-
 @property (nonatomic, assign) NSNumber *loadClubNumbers;       // 记录当前用户初始化融云次数
 
 + (VHSGlobalDataManager *)shareGlobalDataManager;

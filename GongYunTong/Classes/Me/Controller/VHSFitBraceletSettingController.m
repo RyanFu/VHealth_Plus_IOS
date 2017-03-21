@@ -18,16 +18,13 @@
 CGFloat const settingHeaderHeight=130;
 CGFloat const settingFooterHeight=106;
 
-@interface VHSFitBraceletSettingController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate> {
-    int _networkUnBindCount;      //网络请求解绑次数
-}
+@interface VHSFitBraceletSettingController ()<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *deviceName;
 @property (weak, nonatomic) IBOutlet UIImageView *deviceStatus;
 @property (weak, nonatomic) IBOutlet UILabel *batteryFlow;
 @property (weak, nonatomic) IBOutlet UIButton *unbindBtn;
 @property (weak, nonatomic) IBOutlet UITableView *mainTableView;
-
 
 @end
 
