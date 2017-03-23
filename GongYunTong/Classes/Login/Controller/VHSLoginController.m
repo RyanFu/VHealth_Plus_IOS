@@ -17,6 +17,7 @@
 #import "TransferStepModel.h"
 #import "VHSTabBarController.h"
 #import "VHSSecurityUtil.h"
+#import "ThirdPartyCoordinator.h"
 
 @interface VHSLoginController ()<UITextFieldDelegate>
 
@@ -103,8 +104,6 @@
     [MBProgressHUD showMessage:nil];
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary * result) {
-        // 登陆成功后重置融云初始化
-        [VHSGlobalDataManager shareGlobalDataManager].loadClubNumbers = @(0);
         
         [MBProgressHUD hiddenHUD];
         if ([result[@"result"] integerValue] != 200) {
@@ -139,6 +138,9 @@
             VHSTabBarController *tabBarVC = (VHSTabBarController *)[StoryboardHelper controllerWithStoryboardName:@"Main" controllerId:@"VHSTabBarController"];
             [self.navigationController pushViewController:tabBarVC animated:YES];
         }
+        
+        // 登陆初始化融云SDK
+        [[ThirdPartyCoordinator shareCoordinator] setupRCKit];
         
         [self transferStepData];
     } fail:^(NSError *error) {

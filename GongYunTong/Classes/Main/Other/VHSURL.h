@@ -114,5 +114,7 @@ static NSString * const URL_GET_CLUB_MORE           = @"/getClubMore.htm";
 static NSString * const URL_GET_NEW_CLUB_NOTICE     = @"/getNewClubNotice.htm";
 /// 获取推送消息列表信息
 static NSString * const URL_GET_MESSAGE_QUEUE       = @"/getMessageQueue.htm";
+/// 获取融云token
+static NSString * const URL_GET_RONG_TOKEN          = @"/getRongToken.htm";
 
 #endif /* VHSURL_h */

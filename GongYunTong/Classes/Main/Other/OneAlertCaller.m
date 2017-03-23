@@ -17,7 +17,7 @@
 
 static NSString *const onekeyTitle = @"好人生健康专家热线";
 //static NSString *const onekeyContent = @"饮食 养生 运动 疾病防治 就医 用药 康复";
-static NSString *const onekeyContent = @"由好人生健康风险管理专家解答饮食、养生、运动、疾病防治、就医、用药、康复等方面的健康困惑，或预约好人生心理咨询专家，共同应对职场压力、婚恋情感、情绪管理、人际关系、亲自家庭等各类心理困惑.";
+static NSString *const onekeyContent = @"由好人生健康风险管理专家解答饮食、养生、运动、疾病防治、就医、用药、康复等方面的健康困惑，或预约好人生心理咨询专家，共同应对职场压力、婚恋情感、情绪管理、人际关系、亲子家庭等各类心理困惑。";
 
 @implementation OneAlertCaller
 

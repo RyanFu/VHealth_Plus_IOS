@@ -110,6 +110,29 @@
     }
 }
 
++ (NSString *)formatterMobile:(NSString *)mobile {
+    if (mobile.length != 10) return mobile;
+    
+    NSInteger segments = [[mobile componentsSeparatedByString:@"-"] count];
+    if (segments > 1) return mobile;
+    
+    NSMutableString *formatMobile = [NSMutableString string];
+    
+    NSRange range = NSMakeRange(0, 3);
+    for (NSInteger i = 0; i < 3; i++) {
+        if (i < 2) {
+            [formatMobile appendFormat:@"%@-", [mobile substringWithRange:range]];
+        } else {
+            [formatMobile appendFormat:@"%@", [mobile substringWithRange:range]];
+        }
+        range.location = (i + 1) * 3;
+        if (i == 1) {
+            range.length = 4;
+        }
+    }
+    return [formatMobile copy];
+}
+
 + (NSString *)absolutelyString:(NSString *)originString {
     return [NSString stringWithFormat:@"%@", [originString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
 }

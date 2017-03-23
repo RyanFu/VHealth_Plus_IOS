@@ -411,7 +411,7 @@
             }
             else if (item.iconType == 3) {
                 // 一键呼
-                OneAlertCaller *caller = [[OneAlertCaller alloc] initWithPhone:item.iconHref];
+                OneAlertCaller *caller = [[OneAlertCaller alloc] initWithPhone:[VHSUtils formatterMobile:item.iconHref]];
                 [caller call];
             }
             else if (item.iconType == 4) {

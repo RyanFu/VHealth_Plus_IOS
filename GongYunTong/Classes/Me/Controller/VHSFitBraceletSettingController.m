@@ -120,8 +120,7 @@ CGFloat const settingFooterHeight=106;
 }
 
 - (void)unbindBracelet {
-    __weak VHSFitBraceletSettingController *weakSelf = self;
-
+    @WeakObj(self);
     if ([ShareDataSdk shareInstance].peripheral.state == CBPeripheralStateConnected) {
         [MBProgressHUD showMessage:nil];
         
@@ -147,7 +146,7 @@ CGFloat const settingFooterHeight=106;
                 if (errorCode == SUCCESS) {
                     [VHSToast toast:TOAST_BLE_UNBIND_SUCCESS];
                     [VHSFitBraceletStateManager BLEUnbindSuccess]; // 解绑成功后本地存储
-                    [weakSelf popUpViewController]; // 返回到前一个页面
+                    [selfWeak popUpViewController]; // 返回到前一个页面
                     // 解绑后开启手机记步服务
                     [[VHSStepAlgorithm shareAlgorithm] setupStepRecorder];
                 } else {

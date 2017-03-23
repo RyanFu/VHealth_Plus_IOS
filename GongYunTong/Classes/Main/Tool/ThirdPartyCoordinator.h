@@ -16,9 +16,6 @@
 /// 启动百度移动统计
 - (void)startBaiduMobileStat;
 
-/// 开始JSPatch
-- (void)startJSPatch;
-
 /// 百度推送
 - (void)startBaiDuPush:(UIApplication *)application launchingWithOptions:(NSDictionary *)launchOptions;
 

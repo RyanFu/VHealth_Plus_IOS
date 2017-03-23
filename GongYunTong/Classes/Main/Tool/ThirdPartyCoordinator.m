@@ -12,7 +12,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import <RongIMKit/RongIMKit.h>
 
-@interface ThirdPartyCoordinator ()<RCIMUserInfoDataSource>
+@interface ThirdPartyCoordinator ()<RCIMUserInfoDataSource, RCIMReceiveMessageDelegate, RCIMGroupInfoDataSource>
 
 @end
 
@@ -101,8 +101,11 @@ static NSString * const Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMm
 
 #pragma mark - 融云
 
-static NSString * const RCIM_APPKEY = @"8brlm7uf8bxo3";
-//static NSString * const RCIM_APPKEY = @"8w7jv4qb7ts0y";
+#if VHEALTH_BUILD_FOR_RELEASE
+    static NSString * const RCIM_APPKEY = @"lmxuhwaglmf6d";
+#else
+    static NSString * const RCIM_APPKEY = @"8brlm7uf8bxo3";
+#endif
 
 - (void)setupRCKit {
     NSString *rongcloudToken = [VHSCommon userInfo].rongcloudToken;
@@ -113,16 +116,19 @@ static NSString * const RCIM_APPKEY = @"8brlm7uf8bxo3";
     [[RCIM sharedRCIM] initWithAppKey:RCIM_APPKEY];
     [[RCIM sharedRCIM] connectWithToken:rongcloudToken success:^(NSString *userId) {
         [[RCIM sharedRCIM] setUserInfoDataSource:self];
+        [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
+        [[RCIM sharedRCIM] setGroupInfoDataSource:self];//RCIMGroupInfoDataSource
     } error:^(RCConnectErrorCode status) {
-        NSLog(@"登陆的错误码为:%d", (int)status);
+        CLog(@"登陆的错误码为:%d", (int)status);
     } tokenIncorrect:^{
         //token过期或者不正确。
         //如果设置了token有效期并且token过期，请重新请求您的服务器获取新的token
         //如果没有设置token有效期却提示token错误，请检查您客户端和服务器的appkey是否匹配，还有检查您获取token的流程。
-        NSLog(@"token错误");
+        CLog(@"token错误");
     }];
 }
 
+// 代理用户信息 - 自定义聊天用户信息显示
 - (void)getUserInfoWithUserId:(NSString *)userId
                    completion:(void (^)(RCUserInfo *userInfo))completion{
     
@@ -140,6 +146,23 @@ static NSString * const RCIM_APPKEY = @"8brlm7uf8bxo3";
         }
     }
     return completion(nil);
+}
+
+// 代理-应用在前台时候，取消声音提醒
+- (BOOL)onRCIMCustomAlertSound:(RCMessage*)message {
+    return YES;
+}
+
+// 代理-实现应用在后台2分钟内，实现本地推送
+- (void)getGroupInfoWithGroupId:(NSString *)groupId completion:(void (^)(RCGroup *))completion {
+    NSArray *clubList = [VHSCommon getUserDefautForKey:k_CLUB_MY_TYPE_LIST];
+    for (NSDictionary *dict in clubList) {
+        if ([dict[@"rongGroupId"] isEqualToString:groupId]){
+            RCGroup *group = [[RCGroup alloc] initWithGroupId:groupId groupName:dict[@"clubName"] portraitUri:dict[@"coverUrl"]];
+            completion(group);
+            break;
+        }
+    }
 }
 
 @end

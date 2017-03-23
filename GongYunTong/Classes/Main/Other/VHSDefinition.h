@@ -81,6 +81,7 @@ static NSInteger const k_VHS_DataBase_Version                       = 2;
 
 /// 俱乐部
 #define k_CLUB_MEMBERS_LIST                             @"k_CLUB_MEMBERS_LIST"              // 俱乐部成员列表
+#define k_CLUB_MY_TYPE_LIST                             @"k_CLUB_MY_TYPE_LIST"              // 我的俱乐部列表
 
 #pragma mark - URL =====================================HTML的URL===============================
 

@@ -53,12 +53,6 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    // 没有初始化过融云SDK
-    if ([VHSGlobalDataManager shareGlobalDataManager].loadClubNumbers.integerValue == 0) {
-        [[ThirdPartyCoordinator shareCoordinator] setupRCKit];
-        [VHSGlobalDataManager shareGlobalDataManager].loadClubNumbers = @(1);
-    }
-    
     [self.tableView registerNib:[UINib nibWithNibName:@"VHSClubSessionCell" bundle:nil] forCellReuseIdentifier:reuse_identifier];
     
     [self setupTableView];
@@ -122,14 +116,18 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         if ([result[@"result"] integerValue] != 200) return;
         
-        if (VHSClubOfMeType == type) [self.myClubList removeAllObjects];
+        if (VHSClubOfMeType == type) {
+            [self.myClubList removeAllObjects];
+            
+            [VHSCommon saveUserDefault:result[@"clubList"] forKey:k_CLUB_MY_TYPE_LIST];
+        }
         
         for (NSDictionary *dict in result[@"clubList"]) {
             ClubModel *club = [ClubModel yy_modelWithDictionary:dict];
         
             if (VHSClubOfMeType == type) {
                 [self.myClubList addObject:club];
-            } else if (VHSClubOfOtherType == type) {
+            } else {
                 [self.allClubList addObject:club];
             }
         }

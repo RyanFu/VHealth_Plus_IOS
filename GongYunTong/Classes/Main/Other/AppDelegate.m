@@ -32,6 +32,8 @@ static BOOL isBackGroundActivateApplication;
     [[ThirdPartyCoordinator shareCoordinator] startBaiduMobileStat];
     // 开启百度推送
     [[ThirdPartyCoordinator shareCoordinator] startBaiDuPush:application launchingWithOptions:launchOptions];
+    // 融云SDK初始化
+    [[ThirdPartyCoordinator shareCoordinator] setupRCKit];
     
     // 创建数据库，开启计步模式
     [[VHSStepAlgorithm shareAlgorithm] setupStepRecorder];
@@ -112,31 +114,28 @@ static BOOL isBackGroundActivateApplication;
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [BPush registerDeviceToken:deviceToken];
+    // 需要在绑定成功后进行 settag listtag delete tag unbind 操作否则会失败
     [BPush bindChannelWithCompleteHandler:^(id result, NSError *error) {
-        // 需要在绑定成功后进行 settag listtag delete tag unbind 操作否则会失败
-        // 网络错误
         if (error) return;
-        
         if (result) {
-            // 确认绑定成功
-            if ([result[@"error_code"] intValue] != 0) { return; }
             // 获取channel_id
-            CLog(@"---->>>> Channel_id == %@",[BPush getChannelId]);
             [VHSCommon saveBPushChannelId:[BPush getChannelId]];
-            
             [BPush listTagsWithCompleteHandler:^(id result, NSError *error) {}];
             [BPush setTag:@"vhs_gyt_tags" withCompleteHandler:^(id result, NSError *error) {}];
         }
     }];
+    
+    // 融云消息提醒
+    NSString *token = [[[[deviceToken description] stringByReplacingOccurrencesOfString:@"<" withString:@""] stringByReplacingOccurrencesOfString:@">" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""];
+    [[RCIMClient sharedRCIMClient] setDeviceToken:token];
 }
 
 // 当 DeviceToken 获取失败时，系统会回调此方法
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    CLog(@"DeviceToken 获取失败，原因：%@",error);
+    CLog(@"--->>> deviceToken获取失败%@",error);
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    CLog(@"接收本地通知啦！！！");
     [BPush showLocalNotificationAtFront:notification identifierKey:nil];
 }
 

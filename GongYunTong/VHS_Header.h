@@ -23,6 +23,8 @@
 # define CLog(...);
 #endif
 
+#define WeakObj(o) autoreleasepool{} __weak typeof(o) o##Weak = o;
+
 #define iphone4x_3_5     ([UIScreen mainScreen].bounds.size.height==480.0f)
 
 // 系统版本7.0以后

@@ -24,6 +24,9 @@
 /// 正则判断手机号码格式 - 详细
 + (BOOL)validatePhone:(NSString *)phone;
 
+/// 格式化电话
++ (NSString *)formatterMobile:(NSString *)mobile;
+
 /// 返回去除前后空格和换行符的字符串
 + (NSString *)absolutelyString:(NSString *)originString;
 

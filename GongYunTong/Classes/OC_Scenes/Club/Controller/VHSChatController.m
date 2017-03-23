@@ -50,11 +50,11 @@
     /// 右下角的未读消息数提示
     self.enableNewComingMessageIcon = NO;
     /// 开启消息@提醒功能
-    if (self.conversationType == ConversationType_GROUP || self.conversationType == ConversationType_DISCUSSION) {
-        [RCIM sharedRCIM].enableMessageMentioned = YES;
-    }
+//    if (self.conversationType == ConversationType_GROUP || self.conversationType == ConversationType_DISCUSSION) {
+//        [RCIM sharedRCIM].enableMessageMentioned = YES;
+//    }
     // 消息撤回的功能--默认120s
-    [RCIM sharedRCIM].enableMessageRecall = YES;
+//    [RCIM sharedRCIM].enableMessageRecall = YES;
     
     /// 自定义输入面板
     [self setupPluginBoardView];
