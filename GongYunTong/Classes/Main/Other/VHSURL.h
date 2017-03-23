@@ -18,13 +18,13 @@
 /***网络环境切换总开关***/
 
 //生产环境
-#define VHEALTH_BUILD_FOR_RELEASE 0
+#define VHEALTH_BUILD_FOR_RELEASE 1
 
 #if VHEALTH_BUILD_FOR_RELEASE
 
 static NSString * const kServerURL          = @"https://vhealthplus.valurise.com/oauth2";
 static NSString * const MAIN_SHOP_URL       = @"https://vhealthplus.valurise.com/index.php"; // 福利地址
-static NSString * const ACTIVITY_MAIN_URL   = @"http://vhealthplus.valurise.com/client/activity/index.htm"; // 活动地址
+static NSString * const ACTIVITY_MAIN_URL   = @"https://vhealthplus.valurise.com/client/activity/index.htm"; // 活动地址
 
 #else
 

@@ -62,9 +62,8 @@
     //    [item setBackButtonBackgroundImage:backButtonImage_OFF forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
     // 设置返回按钮的样式
-    UIBarButtonItem *item = [UIBarButtonItem appearance];
-    [item setStyle:UIBarButtonItemStylePlain];
-    [item setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16]} forState:UIControlStateNormal];
+    UIBarButtonItem *baritem = [UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil];
+    [baritem setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16]} forState:UIControlStateNormal];
     
     UINavigationBar *navBar = [UINavigationBar appearance];
     //设置导航栏返回按钮箭头的颜色（若不实现setTitleTextAttributes: forState方法，可同时改变字体颜色)

@@ -92,9 +92,10 @@
 
 - (void)confirmBtn:(UIButton *)btn {
     
-    NSString *oldDay = @"2017-03-13 09:34:00";
-    NSInteger pastDay = [NSDate pastOfNowWithPastDateStr:oldDay];
-    CLog(@"--->>>%@", @(pastDay));
+    PublicWKWebViewController *web = [[PublicWKWebViewController alloc] init];
+    web.urlString = @"https://www.baidu.com/index.php?tn=baidudg";
+    self.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:web animated:YES];
     
 //    VHSTimingTasker *tasker = [[VHSTimingTasker alloc] init];
 //    tasker.startTime = @"2017-03-01 00:00:00";
