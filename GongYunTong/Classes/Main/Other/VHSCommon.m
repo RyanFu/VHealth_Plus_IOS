@@ -383,9 +383,6 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
 + (void)setShouHuanUUID:(NSString *)uuid {
     [self saveUserDefault:uuid forKey:k_SHOUHUAN_UUID];
 }
-+ (void)setShouHuanConnectedTime:(NSString *)time {
-    [self saveUserDefault:time forKey:k_SHOUHUAN_CONNECTED_TIME];
-}
 + (void)setShouHuanBoundTime:(NSString *)time {
     [self saveUserDefault:time forKey:k_SHOUHUAN_BOUND_TIME];
 }
@@ -416,9 +413,6 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
 }
 + (NSString *)getShouHuanUUID {
     return [self getUserDefautForKey:k_SHOUHUAN_UUID];
-}
-+ (NSString *)getShouHuanConnectedTime {
-    return [self getUserDefautForKey:k_SHOUHUAN_CONNECTED_TIME];
 }
 + (NSString *)getShouHuanBoundTime {
     return [self getUserDefautForKey:k_SHOUHUAN_BOUND_TIME];

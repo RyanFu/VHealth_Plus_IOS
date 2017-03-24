@@ -113,7 +113,6 @@ static NSString * const k_NOTI_APP_PAGE_REFRESH         = @"k_NOTI_APP_PAGE_REFR
 #define k_SHOUHUAN_MAC_ADDRESS                          @"k_SHOUHUAN_MAC_ADDRESS"       /// 手环mac地址
 #define k_SHOUHUAN_NAME                                 @"k_SHOUHUAN_NAME"              /// 手环名称
 #define k_SHOUHUAN_UUID                                 @"k_SHOUHUAN_UUID"              /// 手环UUID
-#define k_SHOUHUAN_CONNECTED_TIME                       @"k_SHOUHUAN_CONNECTED_TIME"    /// 手环连接时间
 #define k_SHOUHUAN_BOUND_TIME                           @"k_SHOUHUAN_BOUND_TIME"        /// 手环绑定时间
 #define k_SHOUHUAN_UNBING_TIME                          @"k_SHOUHUAN_UNBING_TIME"       /// 手环解绑时间
 #define k_SHOUHUAN_LAST_TIME_SYNC                       @"k_SHOUHUAN_LAST_TIME_SYNC"    /// 手环最新一次同步的时间

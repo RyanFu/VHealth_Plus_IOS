@@ -160,15 +160,10 @@ static VHSBraceletCoodinator *sharePeripheral = nil;
     if (self.scanBleCompletionHandler) self.scanBleCompletionHandler(self.peripherals);
 }
 
-// 连接外围手环设备回调
+// 连接外围手环设备回调 - 在绑定手环成功回调之前调用
 - (void)ASDKBLEManagerConnectWithState:(BOOL)success andCBCentral:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error{
     if (success) {
         [[VHSBraceletCoodinator sharePeripheral].bleMolue ASDKSendDiscoverServices:peripheral];
-        if (peripheral.state == CBPeripheralStateConnected) {
-            // 本地保存手环连接时间
-            [VHSCommon setShouHuanConnectedTime:[VHSCommon getYmdFromDate:[NSDate date]]];
-            [self upToDateBraceletData];
-        }
     } else {
         CLog(@"连接失败：%@",error);
     }
@@ -194,11 +189,11 @@ static VHSBraceletCoodinator *sharePeripheral = nil;
     if (!success) return;
     
     if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindConnected) {
-        //绑定且连接状态
-        CLog(@"手环链接－－－并且已经绑定");
-        // 证明 - 已经绑定过手环
+        // 证明 - 连接并绑定了手环
         NSString *mac = [k_UserDefaults objectForKey:k_SHOUHUAN_MAC_ADDRESS];
         [ShareDataSdk shareInstance].smart_device_id = mac;
+        // 手环重连时候同步手环步数到手机中
+        [self upToDateBraceletData];
     } else {
         CLog(@"手环链接－－－未绑定  macid====%@",[ShareDataSdk shareInstance].smart_device_id);
     }
@@ -207,13 +202,7 @@ static VHSBraceletCoodinator *sharePeripheral = nil;
 }
 
 /// 外围设备和手机数据交互回调
-- (void)ASDKBLEManagerHaveReceivedData:(BOOL)success Peripheral:(CBPeripheral *)peripheral Characteristic:(CBCharacteristic *)charac error:(NSError *)error{
-    if (success) {
-        CLog(@"手环-手机数据信息--交互成功");
-    } else {
-        CLog(@"手环-手机数据信息--交互失败");
-    }
-}
+- (void)ASDKBLEManagerHaveReceivedData:(BOOL)success Peripheral:(CBPeripheral *)peripheral Characteristic:(CBCharacteristic *)charac error:(NSError *)error{}
 
 // 判断蓝牙是否开启
 - (void)callBackBleManagerState:(CBCentralManagerState)powerState {
@@ -250,7 +239,7 @@ static VHSBraceletCoodinator *sharePeripheral = nil;
 }
 
 #pragma mark - 蓝牙状态切换后同步手环数据
-///  同步手环数据
+///  重新连接时候同步手环数据库到手机中
 - (void)upToDateBraceletData {
     [[VHSStepAlgorithm shareAlgorithm] asynDataFromBraceletToMobileDB:^{
         [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];

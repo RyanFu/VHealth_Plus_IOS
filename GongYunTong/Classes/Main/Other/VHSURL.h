@@ -18,7 +18,7 @@
 /***网络环境切换总开关***/
 
 //生产环境
-#define VHEALTH_BUILD_FOR_RELEASE 1
+#define VHEALTH_BUILD_FOR_RELEASE 0
 
 #if VHEALTH_BUILD_FOR_RELEASE
 

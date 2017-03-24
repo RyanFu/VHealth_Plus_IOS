@@ -117,7 +117,6 @@ extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环�
 + (void)setShouHuanMacAddress:(NSString *)macAddress;
 + (void)setShouHuanName:(NSString *)name;
 + (void)setShouHuanUUID:(NSString *)uuid;
-+ (void)setShouHuanConnectedTime:(NSString *)time;
 + (void)setShouHuanBoundTime:(NSString *)time;
 + (void)setShouHuanUnbingTime:(NSString *)time;
 + (void)setShouHuanLastTimeSync:(NSString *)time;
@@ -129,7 +128,6 @@ extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环�
 + (NSString *)getShouHuanMacSddress;
 + (NSString *)getShouHuanName;
 + (NSString *)getShouHuanUUID;
-+ (NSString *)getShouHuanConnectedTime;
 + (NSString *)getShouHuanBoundTime;
 + (NSString *)getShouHuanUnbingTime;
 + (NSString *)getShouHuanLastTimeSync;
