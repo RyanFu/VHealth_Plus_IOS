@@ -25,7 +25,6 @@
 @property (nonatomic, assign) BOOL      shouldShowCloseBtn;     // 是否显示关闭按钮
 
 @property (nonatomic, copy) NSString    *loadedRequestUrl;      // 加载成功的URL
-@property (nonatomic, assign) BOOL      shouldCloseBGMusic;     // 页面消失关闭背景音乐
 
 @end
 
@@ -149,7 +148,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.shouldCloseBGMusic = YES;
     [self setupWKWebView];
     [self setupRefresh];
     [self customNavigationBar];
@@ -191,7 +189,6 @@
     
     // 监听支付宝支付回调通知
     [k_NotificationCenter addObserver:self selector:@selector(handleAlipayInfo:) name:k_NOTI_ALIPAY_CALLBACK_INFO object:nil];
-    [k_NotificationCenter addObserver:self selector:@selector(appEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [k_NotificationCenter addObserver:self selector:@selector(refreshAppPage) name:k_NOTI_APP_PAGE_REFRESH object:nil];
 }
 
@@ -204,11 +201,6 @@
     
     self.progress.hidden = YES;
     self.navigationController.navigationBarHidden = NO;
-    
-    // 关闭音乐播放
-    if (self.shouldCloseBGMusic) {
-        [self.contentWKWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
-    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -320,7 +312,6 @@
         [[VHSLocatServicer shareLocater] stopUpdatingLocation];
     }
     else if ([method isEqualToString:@"playVideo"]) {
-        self.shouldCloseBGMusic = NO;
         NSString *videoUrl = bodyDict[@"value"];
         PublicWKWebViewController *playVideoVC = [[PublicWKWebViewController alloc] init];
         playVideoVC.urlString = videoUrl;
@@ -334,7 +325,6 @@
         [caller call];
     }
     else if ([method isEqualToString:@"addClubNote"]) {
-        self.shouldCloseBGMusic = NO;
         // 俱乐部发帖子
         NSString *clubId = bodyDict[@"clubId"];
         VHSCommentController *commentVC = [[VHSCommentController alloc] init];
@@ -344,7 +334,6 @@
         [self presentViewController:commentVC animated:YES completion:nil];
     }
     else if ([method isEqualToString:@"addClubbbsReply"]) {
-        self.shouldCloseBGMusic = NO;
         // 帖子回复
         NSString *clubId = bodyDict[@"clubId"];
         NSString *bbsId = bodyDict[@"bbsId"];
@@ -356,7 +345,6 @@
         [self presentViewController:commentVC animated:YES completion:nil];
     }
     else if ([method isEqualToString:@"editClubNotice"]) {
-        self.shouldCloseBGMusic = NO;
         // 编辑公告
         NSString *clubId = bodyDict[@"clubId"];
         NSString *noticeId = bodyDict[@"noticeId"];
@@ -528,14 +516,9 @@
 }
 
 - (void)dealloc {
+    [self.contentWKWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"about:blank"]]];
     CLog(@"----publicWKWebView -------------- dealloc");
 }
 
-#pragma mark - appEnterBackground
-
-- (void)appEnterBackground {
-    self.shouldCloseBGMusic = NO;
-    CLog(@"appEnterBackground------------");
-}
 
 @end

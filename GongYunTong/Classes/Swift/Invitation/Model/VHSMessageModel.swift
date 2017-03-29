@@ -9,9 +9,9 @@
 import UIKit
 
 class VHSMessageModel: NSObject {
-    public var title: String = ""
-    public var imgUrl: String = ""
-    public var time: String = ""
-    public var content: String = ""
-    public var type: String = ""
+    public var msgTitle: String = ""
+    public var url: String = ""
+    public var msgTime: String = ""
+    public var msgContent: String = ""
+    public var sourceType: String = ""
 }

@@ -18,7 +18,7 @@
 /***网络环境切换总开关***/
 
 //生产环境
-#define VHEALTH_BUILD_FOR_RELEASE 1
+#define VHEALTH_BUILD_FOR_RELEASE 0
 
 #if VHEALTH_BUILD_FOR_RELEASE
 
@@ -116,5 +116,7 @@ static NSString * const URL_GET_NEW_CLUB_NOTICE     = @"/getNewClubNotice.htm";
 static NSString * const URL_GET_MESSAGE_QUEUE       = @"/getMessageQueue.htm";
 /// 获取融云token
 static NSString * const URL_GET_RONG_TOKEN          = @"/getRongToken.htm";
+/// 获取消息列表
+static NSString * const URL_GET_MESSAGE_LIST        = @"/getMessageList.htm";
 
 #endif /* VHSURL_h */

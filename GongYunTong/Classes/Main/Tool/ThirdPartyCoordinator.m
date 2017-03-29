@@ -12,7 +12,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import <RongIMKit/RongIMKit.h>
 
-@interface ThirdPartyCoordinator ()<RCIMUserInfoDataSource, RCIMReceiveMessageDelegate, RCIMGroupInfoDataSource>
+@interface ThirdPartyCoordinator ()<RCIMUserInfoDataSource, /*RCIMReceiveMessageDelegate,*/ RCIMGroupInfoDataSource>
 
 @end
 

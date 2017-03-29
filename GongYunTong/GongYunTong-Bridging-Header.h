@@ -18,3 +18,4 @@
 #import "VHSURL.h"
 #import "VHSGlobalDataManager.h"
 #import "NSString+extension.h"
+#import "PublicWKWebViewController.h"

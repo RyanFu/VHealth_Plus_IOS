@@ -8,6 +8,13 @@
 
 import UIKit
 
+enum MessageType: String {
+    case news = "hnews"
+    case meet = "meet"
+    case dynamic = "dynamic"
+    case activity = "activity"
+}
+
 class VHSMessageCell: UITableViewCell {
     
     private let headImageView = UIImageView()
@@ -29,12 +36,24 @@ class VHSMessageCell: UITableViewCell {
             if messageModel != self._messageModel {
                 self._messageModel = messageModel
                 
-                headImageView.image = UIImage(named: "me_msg_list_msg_push")
-                titleLabel.text = self._messageModel?.title
-                timeLabel.text = self._messageModel?.time
-                contentLabel.text = self._messageModel?.content
+                titleLabel.text = self._messageModel?.msgTitle
+                timeLabel.text = self._messageModel?.msgTime
+                contentLabel.text = self._messageModel?.msgContent
                 
-                let contentHeight = self._messageModel?.content.heightWithFont(font: contentLabel.font, fixedWidth: contentLabel.frame.width)
+                // hnews：健康时讯；activity：活动；meet：会议；dynamic:企业动态
+                if self._messageModel?.sourceType == MessageType.news.rawValue {
+                    headImageView.image = UIImage(named: "me_msg_list_health_push")
+                } else if self._messageModel?.sourceType == MessageType.activity.rawValue {
+                    headImageView.image = UIImage(named: "me_msg_list_activity_push")
+                } else if self._messageModel?.sourceType == MessageType.meet.rawValue{
+                    headImageView.image = UIImage(named: "me_msg_list_meeting_push")
+                } else if self._messageModel?.sourceType == MessageType.dynamic.rawValue {
+                    headImageView.image = UIImage(named: "me_msg_list_enterprise_push")
+                } else {
+                    headImageView.image = UIImage(named: "me_msg_list_msg_push")
+                }
+                
+                let contentHeight = self._messageModel?.msgContent.heightWithFont(font: contentLabel.font, fixedWidth: contentLabel.frame.width)
                 contentLabel.frame = CGRect(x: 12.0, y: timeLabel.frame.maxY + 13.0, width: screenW - 12 * 2, height: contentHeight!)
             }
         }

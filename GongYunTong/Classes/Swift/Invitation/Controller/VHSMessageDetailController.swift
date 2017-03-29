@@ -28,9 +28,9 @@ class VHSMessageDetailController: VHSBaseViewController {
             if self._messageModel != messageModel {
                 self._messageModel = messageModel
                 
-                titleLabel.text = messageModel.title
-                timeLabel.text = messageModel.time
-                contentLabel.text = messageModel.content
+                titleLabel.text = messageModel.msgTitle
+                timeLabel.text = messageModel.msgTime
+                contentLabel.text = messageModel.msgContent
             }
         }
     }
@@ -38,6 +38,7 @@ class VHSMessageDetailController: VHSBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
+        self.title = "消息详情"
     
         scrollView.frame = CGRect(x: CGFloat(0), y: CGFloat(NAVIAGTION_HEIGHT), width: screenW, height: screenH - CGFloat(NAVIAGTION_HEIGHT))
         self.view.addSubview(scrollView)
@@ -72,7 +73,7 @@ class VHSMessageDetailController: VHSBaseViewController {
         contentLabel.textColor = UIColor.hex("#443d3d")
         contentLabel.font = UIFont.systemFont(ofSize: 16.0)
         
-        let height = messageModel.content.heightWithFont(font: contentLabel.font, fixedWidth: contentLabel.frame.width)
+        let height = messageModel.msgContent.heightWithFont(font: contentLabel.font, fixedWidth: contentLabel.frame.width)
         var frame = contentLabel.frame
         frame.size.height = height
         contentLabel.frame = frame
