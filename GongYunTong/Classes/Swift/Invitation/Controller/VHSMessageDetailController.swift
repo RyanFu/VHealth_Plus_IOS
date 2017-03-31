@@ -31,6 +31,20 @@ class VHSMessageDetailController: VHSBaseViewController {
                 titleLabel.text = messageModel.msgTitle
                 timeLabel.text = messageModel.msgTime
                 contentLabel.text = messageModel.msgContent
+                
+                // hnews：健康时讯；activity：活动；meet：会议；dynamic:企业动态
+                switch self._messageModel!.sourceType {
+                case MessageType.news.rawValue:
+                    imageView.image = UIImage(named: "me_msg_list_health_push")
+                case MessageType.meet.rawValue:
+                    imageView.image = UIImage(named: "me_msg_list_meeting_push")
+                case MessageType.activity.rawValue:
+                    imageView.image = UIImage(named: "me_msg_list_activity_push")
+                case MessageType.dynamic.rawValue:
+                    imageView.image = UIImage(named: "me_msg_list_enterprise_push")
+                default:
+                    imageView.image = UIImage(named: "me_msg_list_msg_push")
+                }
             }
         }
     }
@@ -53,12 +67,13 @@ class VHSMessageDetailController: VHSBaseViewController {
         let imgH = CGFloat(72)
         
         imageView.frame = CGRect(x: marginLeft, y: 5, width: imgW, height: imgH)
-        imageView.image = UIImage(named: "me_msg_list_msg_push")
         scrollView.addSubview(imageView)
         
         titleLabel.frame = CGRect(x: imageView.frame.maxX + marginLeft, y: marginTop, width: screenW - imageView.frame.maxX - marginLeft, height: 20)
         titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        titleLabel.numberOfLines = 2
         titleLabel.textColor = UIColor.hex("#3a8fb7")
+        titleLabel.autofitByFixedWidth()
         scrollView.addSubview(titleLabel)
         
         timeLabel.frame = CGRect(x: titleLabel.frame.minX, y: titleLabel.frame.maxY + 10, width: 150, height: 16)
@@ -67,7 +82,7 @@ class VHSMessageDetailController: VHSBaseViewController {
         timeLabel.textColor = UIColor.hex("#a7999b")
         scrollView.addSubview(timeLabel)
         
-        contentLabel.frame = CGRect(x: marginLeft, y: imageView.frame.maxY, width: screenW - 2 * marginLeft, height: 300)
+        contentLabel.frame = CGRect(x: marginLeft, y: timeLabel.frame.maxY, width: screenW - 2 * marginLeft, height: 300)
         contentLabel.numberOfLines = 0
         contentLabel.textAlignment = .left
         contentLabel.textColor = UIColor.hex("#443d3d")

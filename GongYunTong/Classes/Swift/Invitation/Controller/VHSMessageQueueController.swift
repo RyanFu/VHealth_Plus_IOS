@@ -46,7 +46,7 @@ class VHSMessageQueueController: VHSBaseViewController {
         let msg: VHSRequestMessage = VHSRequestMessage()
         msg.path = URL_GET_MESSAGE_LIST;
         msg.httpMethod = .POST
-        msg.params = ["" : ""]
+//        msg.params = ["" : ""]
         
         VHSHttpEngine.sharedInstance().send(msg, success: { (response: [AnyHashable : Any]?) in
             let result = response as! [String : Any]
@@ -64,7 +64,7 @@ class VHSMessageQueueController: VHSBaseViewController {
             }
             self.tableView.reloadData()
         }) { (error: Error?) in
-            print("\(msg.path) -->> Error")
+            print("\(msg.path)--->>>\(error)")
         }
     }
     
@@ -102,7 +102,10 @@ extension VHSMessageQueueController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let message = messageQueueList[indexPath.row]
-        let contentHeight = message.msgContent.heightWithFont(font: UIFont.systemFont(ofSize: 16), fixedWidth: UIScreen.main.bounds.size.width - 20)
+        var contentHeight = message.msgContent.heightWithFont(font: UIFont.systemFont(ofSize: 16), fixedWidth: UIScreen.main.bounds.size.width - 20)
+        if contentHeight > 57.5 {
+            contentHeight = 66.0
+        }
         return 75 + contentHeight
     }
     
@@ -111,9 +114,17 @@ extension VHSMessageQueueController: UITableViewDelegate {
         
         let msg = messageQueueList[indexPath.row]
         
+        guard msg.sourceUrl != "" else {
+            let msgDetailVC = VHSMessageDetailController()
+            msgDetailVC.messageModel = msg
+            self.navigationController?.pushViewController(msgDetailVC, animated: true)
+            
+            return
+        }
+        
         if msg.sourceType == MessageType.news.rawValue || msg.sourceType == MessageType.meet.rawValue || msg.sourceType == MessageType.dynamic.rawValue || msg.sourceType == MessageType.activity.rawValue {
             let web = PublicWKWebViewController()
-            web.urlString = msg.url
+            web.urlString = msg.sourceUrl
             self.navigationController?.pushViewController(web, animated: true)
         } else {
             let msgDetailVC = VHSMessageDetailController()

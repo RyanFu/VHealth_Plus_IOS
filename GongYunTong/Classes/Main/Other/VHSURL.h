@@ -118,5 +118,7 @@ static NSString * const URL_GET_MESSAGE_QUEUE       = @"/getMessageQueue.htm";
 static NSString * const URL_GET_RONG_TOKEN          = @"/getRongToken.htm";
 /// 获取消息列表
 static NSString * const URL_GET_MESSAGE_LIST        = @"/getMessageList.htm";
+/// 邀请开通系统账号
+static NSString * const URL_DO_INVATION_MEMBER      = @"/doInvationMember.htm";
 
 #endif /* VHSURL_h */

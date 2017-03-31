@@ -72,7 +72,7 @@ static NSString * const Const_Invitation_Explanation = @"邀请须知：\n*邀�
     openAccountBtn.backgroundColor = COLORHex(@"#e65248");
     [openAccountBtn setTitle:@"开通账号" forState:UIControlStateNormal];
     [openAccountBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [openAccountBtn addTarget:self action:@selector(sendOpenAccountClick:) forControlEvents:UIControlEventTouchUpInside];
+    [openAccountBtn addTarget:self action:@selector(openAccountClick:) forControlEvents:UIControlEventTouchUpInside];
     [scrollView addSubview:openAccountBtn];
     
     openAccountBtn.layer.cornerRadius = 5;
@@ -97,34 +97,7 @@ static NSString * const Const_Invitation_Explanation = @"邀请须知：\n*邀�
 
 #pragma mark - 手势操作
 
-- (void)getVercode:(UIButton *)btn {
-    [btn countdownDonotChangeWithSeconds:120];
-    
-    NSString *mobile = self.inputMobileField.text;
-    if ([VHSCommon isNullString:mobile]) {
-        [VHSToast toast:TOAST_NEED_INPUT_MOBILE];
-        return;
-    }
-    
-    [self.invitationInfoDict setObject:mobile forKey:@"mobile"];
-    
-    [self getServerVercode];
-}
-
-- (void)getServerVercode {
-    VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = @"";
-    message.httpMethod = VHSNetworkPOST;
-    message.params = self.invitationInfoDict;
-    
-    [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
-        
-    } fail:^(NSError *error) {
-        
-    }];
-}
-
-- (void)sendOpenAccountClick:(UIButton *)btn {
+- (void)openAccountClick:(UIButton *)btn {
     [self.view endEditing:YES];
     
     NSString *mobile = self.inputMobileField.text;
@@ -132,23 +105,11 @@ static NSString * const Const_Invitation_Explanation = @"邀请须知：\n*邀�
         [VHSToast toast:TOAST_NEED_INPUT_MOBILE];
         return;
     }
+    [self.invitationInfoDict setObject:mobile forKeyedSubscript:@"mobile"];
     
-    [VHSAccountNiceView showWithMainContent:@"请使用已开通的手机号登陆，初始密码为: 666666"];
-    
-    [self serverOpenAccount];
-}
+    [VHSAccountNiceView share].invitationInfoDict = self.invitationInfoDict;
+    [[VHSAccountNiceView share] alertWithTitle:@"提示" prompt:@"确定开通后，被邀请者可通过该手机号和稍后下发的短信密码登陆平台。确定开通该手机号码为平台体验用户吗?" actions:@[@"确定", @"取消"]];
 
-- (void)serverOpenAccount {
-    VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = @"";
-    message.httpMethod = VHSNetworkPOST;
-    message.params = self.invitationInfoDict;
-    
-    [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
-        
-    } fail:^(NSError *error) {
-        
-    }];
 }
 
 - (void)falldownKeyBoard {

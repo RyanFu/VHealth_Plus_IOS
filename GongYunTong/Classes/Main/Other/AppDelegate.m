@@ -27,7 +27,6 @@ static BOOL isBackGroundActivateApplication;
 #pragma mark - UIApplication Did Finish Launching
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
     // 百度统计
     [[ThirdPartyCoordinator shareCoordinator] startBaiduMobileStat];
     // 开启百度推送
@@ -81,30 +80,40 @@ static BOOL isBackGroundActivateApplication;
 // 此方法是 用户点击了通知，应用在前台 或者开启后台并且应用在后台 时调起
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
-    CLog(@"---->>>> didReceiveRemoteNotification ---->>> %@", userInfo);
-    
     if (completionHandler) {
-        CLog(@"------>>>>> apns-UIBackgroundFetchResultNewData");
         completionHandler(UIBackgroundFetchResultNewData);
     }
     
     // 应用在前台，不跳转页面，让用户选择。
     if (application.applicationState == UIApplicationStateActive) {
-        CLog(@"----->>>>> acitve = %@", userInfo);
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
-    }
-    //杀死状态下，直接跳转到跳转页面。
-    if (application.applicationState == UIApplicationStateInactive && !isBackGroundActivateApplication) {
-        CLog(@"------->>>>> applacation is unactive ===== %@",userInfo);
+    } else if (application.applicationState == UIApplicationStateInactive && !isBackGroundActivateApplication) {
+        // 应用在杀死状态下，直接跳转到跳转页面。
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
-    }
-    // 应用在后台。当后台设置aps字段里的 content-available 值为 1 并开启远程通知激活应用的选项
-    if (application.applicationState == UIApplicationStateBackground) {
-        CLog(@"------->>>>> background is Activated Application - %@", userInfo);
+    } else if (application.applicationState == UIApplicationStateInactive && isBackGroundActivateApplication) {
+        // 应用挂起在后台
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
+    } else if (application.applicationState == UIApplicationStateBackground) {
+        // 应用在后台，只有在静默推送才会激活该选项，后台设置aps字段里的content-available 值为 1
         // 此处可以选择激活应用提前下载邮件图片等内容。
-        isBackGroundActivateApplication = YES;
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
     }
+    
+    // 推送链接是否支持跳转
+    NSString *pushMessage = userInfo[@"aps"][@"alert"];
+    [VHSUtils smartJumpWithUrlString:pushMessage completionHandler:^(NSString *url) {
+        UIViewController *topVC = [VHSUtils getCurrentController];
+        
+        if (application.applicationState == UIApplicationStateInactive && !isBackGroundActivateApplication) {
+            // 应用在杀死状态下，直接跳转到跳转页面。
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self topController:topVC pushWithUrl:url];
+            });
+        } else if (application.applicationState == UIApplicationStateInactive && isBackGroundActivateApplication) {
+            // 应用挂起在后台
+            [self topController:topVC pushWithUrl:url];
+        }
+    }];
 }
 
 // 在 iOS8 系统中，还需要添加这个方法。通过新的 API 注册推送服务
@@ -187,7 +196,7 @@ static BOOL isBackGroundActivateApplication;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-
+    isBackGroundActivateApplication = YES;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -230,6 +239,19 @@ static BOOL isBackGroundActivateApplication;
     }
     
     if (completionHandler) completionHandler(YES);
+}
+
+- (void)topController:(UIViewController *)topVC pushWithUrl:(NSString *)url {
+    if (url) {
+        PublicWKWebViewController *web = [[PublicWKWebViewController alloc] init];
+        web.urlString = url;
+        web.hidesBottomBarWhenPushed = YES;
+        [topVC.navigationController pushViewController:web animated:YES];
+    } else {
+        VHSMessageQueueController *msgQueueVC = [[VHSMessageQueueController alloc] init];
+        msgQueueVC.hidesBottomBarWhenPushed = YES;
+        [topVC.navigationController pushViewController:msgQueueVC animated:YES];
+    }
 }
 
 @end

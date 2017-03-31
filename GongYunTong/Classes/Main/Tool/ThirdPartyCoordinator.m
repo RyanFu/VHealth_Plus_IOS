@@ -46,9 +46,9 @@ static NSString * const Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMm
      NSAllowsArbitraryLoads(Boolen):YES
      详情参考本Demo的BaiduMobStatSample-Info.plist文件中的配置
      */
-    BaiduMobStat* statTracker = [BaiduMobStat defaultStat];
+    BaiduMobStat *statTracker = [BaiduMobStat defaultStat];
     // 此处(startWithAppId之前)可以设置初始化的可选参数，具体有哪些参数，可详见BaiduMobStat.h文件，例如：
-    statTracker.shortAppVersion  = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    statTracker.shortAppVersion  = [VHSCommon appVersion];
     statTracker.channelId = BaiduMob_ChannelId;
     statTracker.enableExceptionLog = YES;
     statTracker.enableDebugOn = NO;
@@ -78,13 +78,16 @@ static NSString * const Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMm
     }
     
     // 在 App 启动时注册百度云推送服务，需要提供 Apikey
+    BPushMode model = BPushModeProduction;
+    if (!VHEALTH_BUILD_FOR_RELEASE) model = BPushModeDevelopment;
+    
     [BPush registerChannel:launchOptions
                     apiKey:Baidu_Push_ApiKey
-                  pushMode:BPushModeProduction
+                  pushMode:model
            withFirstAction:@"打开"
           withSecondAction:@"关闭"
               withCategory:nil
-      useBehaviorTextInput:YES
+      useBehaviorTextInput:NO
                    isDebug:NO];
     
     // 禁用地理位置推送 需要再绑定接口前调用。
@@ -116,7 +119,7 @@ static NSString * const Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMm
     [[RCIM sharedRCIM] initWithAppKey:RCIM_APPKEY];
     [[RCIM sharedRCIM] connectWithToken:rongcloudToken success:^(NSString *userId) {
         [[RCIM sharedRCIM] setUserInfoDataSource:self];
-        [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
+//        [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
         [[RCIM sharedRCIM] setGroupInfoDataSource:self];//RCIMGroupInfoDataSource
     } error:^(RCConnectErrorCode status) {
         CLog(@"登陆的错误码为:%d", (int)status);

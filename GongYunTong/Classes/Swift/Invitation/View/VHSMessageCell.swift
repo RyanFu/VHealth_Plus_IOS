@@ -8,13 +8,6 @@
 
 import UIKit
 
-enum MessageType: String {
-    case news = "hnews"
-    case meet = "meet"
-    case dynamic = "dynamic"
-    case activity = "activity"
-}
-
 class VHSMessageCell: UITableViewCell {
     
     private let headImageView = UIImageView()
@@ -41,20 +34,21 @@ class VHSMessageCell: UITableViewCell {
                 contentLabel.text = self._messageModel?.msgContent
                 
                 // hnews：健康时讯；activity：活动；meet：会议；dynamic:企业动态
-                if self._messageModel?.sourceType == MessageType.news.rawValue {
+                switch self._messageModel!.sourceType {
+                case MessageType.news.rawValue:
                     headImageView.image = UIImage(named: "me_msg_list_health_push")
-                } else if self._messageModel?.sourceType == MessageType.activity.rawValue {
-                    headImageView.image = UIImage(named: "me_msg_list_activity_push")
-                } else if self._messageModel?.sourceType == MessageType.meet.rawValue{
+                case MessageType.meet.rawValue:
                     headImageView.image = UIImage(named: "me_msg_list_meeting_push")
-                } else if self._messageModel?.sourceType == MessageType.dynamic.rawValue {
+                case MessageType.activity.rawValue:
+                    headImageView.image = UIImage(named: "me_msg_list_activity_push")
+                case MessageType.dynamic.rawValue:
                     headImageView.image = UIImage(named: "me_msg_list_enterprise_push")
-                } else {
+                default:
                     headImageView.image = UIImage(named: "me_msg_list_msg_push")
                 }
                 
-                let contentHeight = self._messageModel?.msgContent.heightWithFont(font: contentLabel.font, fixedWidth: contentLabel.frame.width)
-                contentLabel.frame = CGRect(x: 12.0, y: timeLabel.frame.maxY + 13.0, width: screenW - 12 * 2, height: contentHeight!)
+                let contentHeight = contentLabel.height()
+                contentLabel.frame = CGRect(x: 12.0, y: timeLabel.frame.maxY + 13.0, width: screenW - 12 * 2, height: contentHeight)
             }
         }
     }
@@ -82,7 +76,7 @@ class VHSMessageCell: UITableViewCell {
         contentLabel.font = UIFont.systemFont(ofSize: 16)
         contentLabel.textColor = UIColor.hex("#443d3d")
         contentLabel.textAlignment = .left
-        contentLabel.numberOfLines = 0
+        contentLabel.numberOfLines = 3
         contentLabel.frame = CGRect(x: 12.0, y: timeLabel.frame.maxY + 10, width: screenW - 12 * 2, height: 60)
         self.contentView.addSubview(contentLabel)
         

@@ -231,4 +231,62 @@
     return res;
 }
 
++ (void)smartJumpWithUrlString:(NSString *)urlString completionHandler:(void (^)(NSString *url))urlCompletionHandler {
+    NSString *trimmedString = [urlString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if (!trimmedString || !trimmedString.length) {
+        if (urlCompletionHandler) {
+            urlCompletionHandler(nil);
+        }
+        return;
+    }
+    
+    NSURL *result = nil;
+    if ([trimmedString containsString:@"http"] || [trimmedString containsString:@"https"]) {
+        result = [NSURL URLWithString:trimmedString];
+    } else {
+        if (urlCompletionHandler) {
+            urlCompletionHandler(nil);
+        }
+        return;
+    }
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:result];
+    [request setHTTPMethod:@"HEAD"];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (!error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (urlCompletionHandler) urlCompletionHandler(result.absoluteString);
+            });
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (urlCompletionHandler) urlCompletionHandler(nil);
+            });
+        }
+    }];
+    [task resume];
+}
+
++ (UIViewController *)getCurrentController {
+    UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    
+    while (YES) {
+        if ([vc isKindOfClass:[UITabBarController class]]) {
+            vc = ((UITabBarController *)vc).selectedViewController;
+        } else if ([vc isKindOfClass:[UINavigationController class]]) {
+            vc = ((UINavigationController *)vc).visibleViewController;
+        }
+        if ([vc isKindOfClass:[UITabBarController class]] || [vc isKindOfClass:[UINavigationController class]]) {
+            continue;
+        }
+        
+        if (vc.presentedViewController) {
+            vc = vc.presentedViewController;
+        } else {
+            break;
+        }
+    }
+    return vc;
+}
+
 @end

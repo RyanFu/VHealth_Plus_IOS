@@ -50,5 +50,9 @@
 
 /// 生成一个16位数的随机数字符串
 + (NSString *)generateRandomStr16;
+/// 判断一个字符串是否是url，判断能否访问成功
++ (void)smartJumpWithUrlString:(NSString *)urlString completionHandler:(void (^)(NSString *url))urlCompletionHandler;
+/// 获取项目中最顶层的Controller
++ (UIViewController *)getCurrentController;
 
 @end

@@ -10,8 +10,11 @@
 
 @interface VHSAccountNiceView : UIView
 
+@property (strong, nonatomic) NSDictionary *invitationInfoDict;
 
-+ (void)showWithMainContent:(NSString *)mainContent;
++ (VHSAccountNiceView *)share;
+
+- (void)alertWithTitle:(NSString *)title prompt:(NSString *)prompt actions:(NSArray *)actions;
 
 
 @end

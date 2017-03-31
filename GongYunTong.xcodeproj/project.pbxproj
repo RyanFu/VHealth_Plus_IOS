@@ -54,6 +54,7 @@
 		334A9B4E1E1513FF008969E4 /* GTMBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = 334A9B4B1E1513FF008969E4 /* GTMBase64.h */; };
 		334A9B4F1E1513FF008969E4 /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 334A9B4C1E1513FF008969E4 /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		334A9B501E1513FF008969E4 /* GTMDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 334A9B4D1E1513FF008969E4 /* GTMDefines.h */; };
+		334B912C1E8E4D570068BBCB /* UILabel+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 334B912B1E8E4D570068BBCB /* UILabel+Size.swift */; };
 		334F602D1E0BBABD000F06B0 /* ThirdPartyCoordinator.h in Headers */ = {isa = PBXBuildFile; fileRef = 334F602B1E0BBABD000F06B0 /* ThirdPartyCoordinator.h */; };
 		334F602E1E0BBABD000F06B0 /* ThirdPartyCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 334F602C1E0BBABD000F06B0 /* ThirdPartyCoordinator.m */; };
 		33514BE01D5B034200ECDEA5 /* VeryfitSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33514BDF1D5B034200ECDEA5 /* VeryfitSDK.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -353,6 +354,7 @@
 		334A9B4B1E1513FF008969E4 /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
 		334A9B4C1E1513FF008969E4 /* GTMBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMBase64.m; sourceTree = "<group>"; };
 		334A9B4D1E1513FF008969E4 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		334B912B1E8E4D570068BBCB /* UILabel+Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Size.swift"; sourceTree = "<group>"; };
 		334F602B1E0BBABD000F06B0 /* ThirdPartyCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdPartyCoordinator.h; sourceTree = "<group>"; };
 		334F602C1E0BBABD000F06B0 /* ThirdPartyCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdPartyCoordinator.m; sourceTree = "<group>"; };
 		33514BDF1D5B034200ECDEA5 /* VeryfitSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VeryfitSDK.framework; sourceTree = "<group>"; };
@@ -1122,6 +1124,7 @@
 			children = (
 				33B658EE1E715D39008CC05E /* String+Size.swift */,
 				3309F4751E76A92200DB7B20 /* UIColor+Extension.swift */,
+				334B912B1E8E4D570068BBCB /* UILabel+Size.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1906,7 +1909,7 @@
 				TargetAttributes = {
 					67C7ADFD1D38AB2A0091F669 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 2JGJK49F2H;
+						DevelopmentTeam = C76485U944;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -2186,6 +2189,7 @@
 				33B1EB901E6FF1A000B74CA8 /* MomentPhotoModel.m in Sources */,
 				670463751D40C7940051A9F6 /* VHSDynamicHomeController.m in Sources */,
 				338C61571D59837F004CFE18 /* VHSDataBaseManager.m in Sources */,
+				334B912C1E8E4D570068BBCB /* UILabel+Size.swift in Sources */,
 				337E0BBB1E656D4100C31C43 /* VHSInvitationController.m in Sources */,
 				CA58AAC21D586C3B0076BA42 /* ActivityIndicatorView.m in Sources */,
 				338C61BA1D59D2BE004CFE18 /* VHSFitBraceletStateManager.m in Sources */,
@@ -2385,7 +2389,7 @@
 				CODE_SIGN_ENTITLEMENTS = /Users/pingjunlin/Documents/VHealth_Plus_IOS/GongYunTong/Resource/GongYunTong.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 2JGJK49F2H;
+				DEVELOPMENT_TEAM = C76485U944;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/FitSDK",
@@ -2408,7 +2412,7 @@
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/RongCloud/IMLib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.appstore.gongyuntong;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.gongyuntong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2431,7 +2435,7 @@
 				CODE_SIGN_ENTITLEMENTS = /Users/pingjunlin/Documents/VHealth_Plus_IOS/GongYunTong/Resource/GongYunTong.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 2JGJK49F2H;
+				DEVELOPMENT_TEAM = C76485U944;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/FitSDK",
@@ -2454,7 +2458,7 @@
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/RongCloud/IMLib",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.appstore.gongyuntong;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.gongyuntong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
