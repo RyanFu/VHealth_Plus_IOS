@@ -63,7 +63,7 @@ class VHSMessageCell: UITableViewCell {
         
         titleLabel.frame = CGRect(x: headImageView.frame.maxX + CGFloat(13), y: CGFloat(10), width: screenW - headImageView.frame.width - 50, height: CGFloat(20))
         titleLabel.textAlignment = .left
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 17)
         titleLabel.textColor = UIColor.hex("#3a8fb7")
         self.contentView.addSubview(titleLabel)
         

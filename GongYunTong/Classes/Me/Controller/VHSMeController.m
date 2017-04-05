@@ -59,14 +59,12 @@
     
     [self getMemberScore];
     [self downloadUserInfo];
-    
-    if (!VHEALTH_BUILD_FOR_RELEASE) {
-        [self customConfigNavigationBar];
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    [self customConfigNavigationBar];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -86,7 +84,11 @@
 - (void)customConfigNavigationBar {
     UIButton *msgBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     msgBtn.frame = CGRectMake(0, 0, 48, 36);
-    [msgBtn setImage:[UIImage imageNamed:@"me_have_message_tip"] forState:UIControlStateNormal];
+    if ([VHSGlobalDataManager shareGlobalDataManager].messageCounter.messageAllNumbers > 0) {
+        [msgBtn setImage:[UIImage imageNamed:@"me_have_message_tip"] forState:UIControlStateNormal];
+    } else {
+        [msgBtn setImage:[UIImage imageNamed:@"me_no_message_tip"] forState:UIControlStateNormal];
+    }
     [msgBtn addTarget:self action:@selector(btnClickToMessage:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:msgBtn];
 }
@@ -96,6 +98,8 @@
     msgQueueVC.title = @"消息";
     msgQueueVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:msgQueueVC animated:YES];
+    
+    [[VHSGlobalDataManager shareGlobalDataManager].messageCounter decrease:MessageCounterTextType];
 }
 
 #pragma mark - download data 
@@ -159,18 +163,10 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (!VHEALTH_BUILD_FOR_RELEASE) {
-        if (section == 2 || section == 3) {
-            return 2;
-        } else {
-            return 1;
-        }
+    if (section == 2 || section == 3) {
+        return 2;
     } else {
-        if (section == 3) {
-            return 2;
-        } else {
-            return 1;
-        }
+        return 1;
     }
 }
 

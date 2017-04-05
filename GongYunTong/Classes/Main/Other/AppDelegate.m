@@ -84,6 +84,9 @@ static BOOL isBackGroundActivateApplication;
         completionHandler(UIBackgroundFetchResultNewData);
     }
     
+    // 消息计数器计数
+    [[VHSGlobalDataManager shareGlobalDataManager].messageCounter increase:MessageCounterTextType];
+    
     // 应用在前台，不跳转页面，让用户选择。
     if (application.applicationState == UIApplicationStateActive) {
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:1];
