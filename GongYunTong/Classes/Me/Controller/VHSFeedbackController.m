@@ -95,12 +95,12 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    __weak typeof(self) weakSelf = self;
+    @WeakObj(self);
     if (indexPath.section == 0 && indexPath.row == 0) {
         VHSFeedbackCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VHSFeedbackCell"];
         cell.content = [self.feedbackDict objectForKey:@"suggestion"];
         cell.callBack = ^(NSString *feedbackDesc) {
-            [weakSelf.feedbackDict setObject:feedbackDesc forKey:@"suggestion"];
+            [selfWeak.feedbackDict setObject:feedbackDesc forKey:@"suggestion"];
         };
         return cell;
     }
@@ -108,7 +108,7 @@
         VHSQuestionPhoneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VHSQuestionPhoneCell"];
         cell.phoneNumberStr = [self.feedbackDict objectForKey:@"mobile"];
         cell.callBack = ^(NSString *phoneNumber) {
-            [weakSelf.feedbackDict setObject:phoneNumber forKey:@"mobile"];
+            [selfWeak.feedbackDict setObject:phoneNumber forKey:@"mobile"];
         };
         return cell;
     }

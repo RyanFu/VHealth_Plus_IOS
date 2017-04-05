@@ -190,23 +190,23 @@
 - (void)showMoreMenu {
     [self.view endEditing:YES];
     
-    __weak typeof(self) weakSelf = self;
+    @WeakObj(self);
     [VHSMoreMenu showMoreMenuWithMenuList:self.moreMenuItems tapItemBlock:^(ChatMoreModel *model) {
         if ([model.moreType isEqualToString:@"url"]) {
             PublicWKWebViewController *webVC = [[PublicWKWebViewController alloc] init];
             webVC.urlString = model.url;
             webVC.showTitle = YES;
             webVC.showTitleLevel = 2;
-            [weakSelf.navigationController pushViewController:webVC animated:YES];
+            [selfWeak.navigationController pushViewController:webVC animated:YES];
             
             if ([model.moreName isEqualToString:@"公告"]) {
-                weakSelf.showNotice = NO;
-                [weakSelf judgeNeedShowLatestNotice];
+                selfWeak.showNotice = NO;
+                [selfWeak judgeNeedShowLatestNotice];
             }
         }
         else if ([model.moreType isEqualToString:@"localQuit"]) {
             [VHSAlertController alertMessage:CONST_CLUB_CONFIRM_DO_QUIT title:CONST_PROMPT_MESSAGE confirmHandler:^(UIAlertAction *action) {
-                [weakSelf doQuitClub];
+                [selfWeak doQuitClub];
             } cancleHandler:^(UIAlertAction *action) {}];
         }
     }];

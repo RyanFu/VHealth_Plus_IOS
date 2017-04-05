@@ -52,16 +52,16 @@ static NSTimeInterval VHS_BLE_BIND_DURATION     = 15;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 
-    __weak VHSScanBraceletController *weakSelf = self;
+    @WeakObj(self);
     [[VHSBraceletCoodinator sharePeripheral] scanBraceletorDuration:5.0 process:^{
-        [weakSelf scanBracelet];
+        [selfWeak scanBracelet];
     } completion:^(NSArray<PeripheralModel *> *braceletorList) {
-        weakSelf.peripheralArray = braceletorList;
-        [weakSelf.tableView reloadData];
+        selfWeak.peripheralArray = braceletorList;
+        [selfWeak.tableView reloadData];
         
-        if ([weakSelf.peripheralArray count] > 0) {
-            weakSelf.footerViewTip.hidden = NO;
-            weakSelf.footerView.hidden = NO;
+        if ([selfWeak.peripheralArray count] > 0) {
+            selfWeak.footerViewTip.hidden = NO;
+            selfWeak.footerView.hidden = NO;
         }
     }];
     
@@ -141,23 +141,23 @@ static NSTimeInterval VHS_BLE_BIND_DURATION     = 15;
         return;
     }
     // 预绑定
-    __weak __typeof(self)weakSelf = self;
+    @WeakObj(self);
     [self bindBleWithActionType:@"2" success:^(NSDictionary *result, BOOL isSuccess) {
         if (isSuccess) {
             // 预绑定成功
-            [weakSelf bindBleWithActionType:@"1" success:^(NSDictionary *result, BOOL isSuccess) {
+            [selfWeak bindBleWithActionType:@"1" success:^(NSDictionary *result, BOOL isSuccess) {
                 if (isSuccess) {
-                    [weakSelf bindBracelet];
+                    [selfWeak bindBracelet];
                 } else {
                     [VHSToast toast:result[@"info"]];
-                    [weakSelf recoverCell];
+                    [selfWeak recoverCell];
                 }
             }];
         } else {
             [[VHSBraceletCoodinator sharePeripheral] disconnectBraceletorWithPeripheral:peripheral];
             [MBProgressHUD hiddenHUD];
             [VHSToast toast:result[@"info"]];
-            [weakSelf recoverCell];
+            [selfWeak recoverCell];
         }
     }];
 }
@@ -166,14 +166,14 @@ static NSTimeInterval VHS_BLE_BIND_DURATION     = 15;
     
     [self recoverCell];
     
-    __weak VHSScanBraceletController *weakSelf = self;
+    @WeakObj(self);
     // 已经连接成功,开始绑定
     [[VHSBraceletCoodinator sharePeripheral] braceletorGotoBindWithCallBack:^(int errorCode) {
         CLog(@"----->>>> 手环绑定成功");
         [MBProgressHUD hiddenHUD];
         if (errorCode == SUCCESS) {
-            [weakSelf.bindCell.bingButton setTitle:@"已绑定" forState:UIControlStateNormal];
-            [weakSelf showAlertAfterBind];
+            [selfWeak.bindCell.bingButton setTitle:@"已绑定" forState:UIControlStateNormal];
+            [selfWeak showAlertAfterBind];
             // 绑定成功后本地存储
             ShareDataSdk *shareData = [ShareDataSdk shareInstance];
             [VHSBraceletCoodinator sharePeripheral].bleName = shareData.peripheral.name;
@@ -186,18 +186,18 @@ static NSTimeInterval VHS_BLE_BIND_DURATION     = 15;
                 [VHSCommon setShouHuanLastTimeSync:[VHSCommon getDate:[NSDate date]]];
             }];
             
-            if (weakSelf.getDataBaseDataBlock) {
-                weakSelf.getDataBaseDataBlock();
+            if (selfWeak.getDataBaseDataBlock) {
+                selfWeak.getDataBaseDataBlock();
             }
             
         } else {
             [VHSToast toast:TOAST_BLE_BIND_FAIL];
             [k_UserDefaults removeObjectForKey:k_SHOUHUAN_UUID];
-            [weakSelf.bindCell.bingButton setTitle:@"点击绑定" forState:UIControlStateNormal];
+            [selfWeak.bindCell.bingButton setTitle:@"点击绑定" forState:UIControlStateNormal];
         }
-        weakSelf.bindCell.waitingIgv.hidden = YES;
-        weakSelf.bindCell.bingButton.hidden = NO;
-        weakSelf.tableView.userInteractionEnabled = YES;
+        selfWeak.bindCell.waitingIgv.hidden = YES;
+        selfWeak.bindCell.bingButton.hidden = NO;
+        selfWeak.tableView.userInteractionEnabled = YES;
     }];
 }
 
@@ -298,10 +298,10 @@ static NSTimeInterval VHS_BLE_BIND_DURATION     = 15;
         [self.view addSubview:self.nodevice];
         self.nodevice.center = self.view.center;
         
-        __weak typeof(self) weakSelf = self;
+        @WeakObj(self);
         self.nodevice.getHelpBlock = ^(){
             VHSFitBraceletHelpController *helpVC = [[VHSFitBraceletHelpController alloc] init];
-            [weakSelf.navigationController pushViewController:helpVC animated:YES];
+            [selfWeak.navigationController pushViewController:helpVC animated:YES];
         };
         
         UITapGestureRecognizer *tapResearch = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(researchBle)];

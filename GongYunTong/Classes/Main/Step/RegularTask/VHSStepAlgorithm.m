@@ -287,12 +287,12 @@
         return;
     }
     
-    __weak typeof(self)weakSelf = self;
+    @WeakObj(self);
     [[VHSBraceletCoodinator sharePeripheral] getBraceletorRealtimeDataWithCallBack:^(ProtocolLiveDataModel *liveData, int errorCode) {
-        weakSelf.stepsData.step = [NSString stringWithFormat:@"%u", liveData.step];
-        weakSelf.stepsData.calorie = [NSString stringWithFormat:@"%u", liveData.calories];
-        weakSelf.stepsData.distance = [NSString stringWithFormat:@"%u", liveData.distances];
-        weakSelf.stepsData.macAddress = liveData.smart_device_id;
+        selfWeak.stepsData.step = [NSString stringWithFormat:@"%u", liveData.step];
+        selfWeak.stepsData.calorie = [NSString stringWithFormat:@"%u", liveData.calories];
+        selfWeak.stepsData.distance = [NSString stringWithFormat:@"%u", liveData.distances];
+        selfWeak.stepsData.macAddress = liveData.smart_device_id;
     }];
 }
 

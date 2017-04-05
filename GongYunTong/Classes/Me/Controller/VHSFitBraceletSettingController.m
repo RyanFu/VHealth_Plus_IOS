@@ -69,18 +69,18 @@ CGFloat const settingFooterHeight=106;
     } else {
         self.deviceStatus.hidden = NO;
     }
-    __weak typeof(self)weakSelf = self;
+    @WeakObj(self);
     // 获取设备信息
     [[VHSBraceletCoodinator sharePeripheral] getBraceletorDeviceInfoWithCallback:^(id object, int errorCode) {
         if (errorCode == SUCCESS) {
             ProtocolDeviceInfoModel *model = object;
             if (model.batt_level) {
-                weakSelf.batteryFlow.text = [NSString stringWithFormat:@"%@%%",model.batt_level];
+                selfWeak.batteryFlow.text = [NSString stringWithFormat:@"%@%%",model.batt_level];
             } else {
-                weakSelf.batteryFlow.text = @"--%";
+                selfWeak.batteryFlow.text = @"--%";
             }
         } else {
-            weakSelf.batteryFlow.text = @"--%";
+            selfWeak.batteryFlow.text = @"--%";
         }
     }];
 }
@@ -107,10 +107,10 @@ CGFloat const settingFooterHeight=106;
     message.path = URL_DO_HAND_MAC;
     message.httpMethod = VHSNetworkPOST;
     
-    __weak __typeof(self)weakSelf = self;
+    @WeakObj(self);
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         if ([result[@"result"] integerValue] == 200) {
-            [weakSelf unbindBracelet];
+            [selfWeak unbindBracelet];
         } else {
             [VHSToast toast:result[@"info"]];
         }

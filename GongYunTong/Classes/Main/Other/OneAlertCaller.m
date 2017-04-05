@@ -84,14 +84,14 @@ static NSString *const onekeyContent = @"由好人生健康风险管理专家解
     
     XLAlertController *alert = [XLAlertController alertControllerWithAttributedTitle:phone attributedMessage:message preferredStyle:UIAlertControllerStyleActionSheet];
     
-    __weak typeof(self) weakSelf = self;
+    @WeakObj(self);
     XLAlertAction *call = [XLAlertAction actionWithTitle:@"呼叫" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UIApplication *app = [UIApplication sharedApplication];
         NSString *telUrl = [NSString stringWithFormat:@"tel://%@", aphone];
         if ([app canOpenURL:[NSURL URLWithString:telUrl]]) {
             [app openURL:[NSURL URLWithString:telUrl]];
             
-            [weakSelf recordWithPhoneNumber:aphone];
+            [selfWeak recordWithPhoneNumber:aphone];
         }
     }];
     XLAlertAction *cancel = [XLAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
@@ -131,13 +131,13 @@ static NSString *const onekeyContent = @"由好人生健康风险管理专家解
                                                                                 message:nil
                                                                          preferredStyle:UIAlertControllerStyleActionSheet];
         
-        __weak typeof(self) weakSelf = self;
+        @WeakObj(self);
         UIAlertAction *callAction = [UIAlertAction actionWithTitle:phone style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             NSURL *servicePhoneUrl = [NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phone]];
             if ([[UIApplication sharedApplication] canOpenURL:servicePhoneUrl]) {
                 [[UIApplication sharedApplication] openURL:servicePhoneUrl];
                 
-                [weakSelf recordWithPhoneNumber:phone];
+                [selfWeak recordWithPhoneNumber:phone];
             }
         }];
         UIAlertAction *cancleActionn = [UIAlertAction actionWithTitle:@"取消"

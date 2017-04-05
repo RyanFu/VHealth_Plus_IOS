@@ -157,12 +157,12 @@
 }
 
 - (void)initImagePickerView {
-    __weak typeof(self) weakSelf = self;
+    @WeakObj(self);
     // 自定义封装的图片选择器
     VHSImagePickerView *imagePickerView = [[VHSImagePickerView alloc] initWithFrame:CGRectMake(0, NAVIAGTION_HEIGHT + 140, SCREENW, 300)];
     imagePickerView.fatherController = self;
     imagePickerView.imagePickerCompletionHandler = ^(NSArray *photoMomentItems){
-        weakSelf.photosMomentItems = photoMomentItems;
+        selfWeak.photosMomentItems = photoMomentItems;
     };
     [self.view addSubview:imagePickerView];
     

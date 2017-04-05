@@ -400,7 +400,7 @@
 		338C61341D543516004CFE18 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		338C613E1D583AFE004CFE18 /* VHSDefinition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VHSDefinition.h; sourceTree = "<group>"; };
 		338C614F1D58BD35004CFE18 /* VHSRecordStepController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSRecordStepController.h; sourceTree = "<group>"; };
-		338C61501D58BD36004CFE18 /* VHSRecordStepController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSRecordStepController.m; sourceTree = "<group>"; };
+		338C61501D58BD36004CFE18 /* VHSRecordStepController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VHSRecordStepController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		338C61551D59837F004CFE18 /* VHSDataBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSDataBaseManager.h; sourceTree = "<group>"; };
 		338C61561D59837F004CFE18 /* VHSDataBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSDataBaseManager.m; sourceTree = "<group>"; };
 		338C615B1D59CE9A004CFE18 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -427,7 +427,7 @@
 		338C61D01D59E06C004CFE18 /* VHSScanBraceletController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSScanBraceletController.m; sourceTree = "<group>"; };
 		338C61D21D59FB47004CFE18 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		339E5A0E1E695126002F1F4D /* VHSStepAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSStepAlgorithm.h; sourceTree = "<group>"; };
-		339E5A0F1E695126002F1F4D /* VHSStepAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSStepAlgorithm.m; sourceTree = "<group>"; };
+		339E5A0F1E695126002F1F4D /* VHSStepAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VHSStepAlgorithm.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		339E5A121E69521D002F1F4D /* VHSTimingTasker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSTimingTasker.h; sourceTree = "<group>"; };
 		339E5A131E69521D002F1F4D /* VHSTimingTasker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSTimingTasker.m; sourceTree = "<group>"; };
 		33A59E171E10EC0300D7BED4 /* DBSafetyCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBSafetyCoordinator.h; sourceTree = "<group>"; };

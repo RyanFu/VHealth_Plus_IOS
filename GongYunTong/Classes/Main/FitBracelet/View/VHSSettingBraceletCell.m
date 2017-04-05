@@ -28,12 +28,12 @@
     UIView *line=[[UIView alloc]init];
     line.backgroundColor=RGBCOLOR(204, 204, 204);
     [self addSubview:line];
-    __weak typeof(self)weakSelf=self;
+    @WeakObj(self);
     [line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(1);
-        make.left.equalTo(weakSelf.mas_left).with.offset(0);
-        make.right.equalTo(weakSelf.mas_right).with.offset(0);
-        make.bottom.equalTo(weakSelf.mas_bottom).with.offset(0);
+        make.left.equalTo(selfWeak.mas_left).with.offset(0);
+        make.right.equalTo(selfWeak.mas_right).with.offset(0);
+        make.bottom.equalTo(selfWeak.mas_bottom).with.offset(0);
     }];
 }
 -(void)setModel:(VHSFitBraceletSettingModel *)model

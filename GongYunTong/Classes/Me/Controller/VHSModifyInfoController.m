@@ -82,13 +82,13 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    __weak typeof(self) weakSelf = self;
+    @WeakObj(self);
     if (self.modifyType == VHSModifyInfoNormalType) {
         VHSModifyNormalCell *cell = [tableView dequeueReusableCellWithIdentifier:@"VHSModifyNormalCell"];
         self.didSelectedCell = cell;
         cell.content = self.contentStr;
         cell.callback = ^(NSString *destStr) {
-            weakSelf.contentStr = destStr;
+            selfWeak.contentStr = destStr;
         };
         return cell;
     }
@@ -101,7 +101,7 @@
             cell.contentStr = self.contentDict[@"mobile"];
             cell.callback = ^(NSString *phoneNumberStr) {
                 if (![VHSCommon isNullString:phoneNumberStr]) {
-                    [weakSelf.contentDict setObject:phoneNumberStr forKey:@"mobile"];
+                    [selfWeak.contentDict setObject:phoneNumberStr forKey:@"mobile"];
                 }
             };
         }
@@ -110,7 +110,7 @@
             cell.titleStr = @"验证码:";
             cell.callback = ^(NSString *vCode) {
                 if (![VHSCommon isNullString:vCode]) {
-                    [weakSelf.contentDict setObject:vCode forKey:@"verCode"];
+                    [selfWeak.contentDict setObject:vCode forKey:@"verCode"];
                 }
             };
         }
@@ -137,25 +137,25 @@
     
     [self.view endEditing:YES];
     
-    __weak __typeof(self)weakSelf = self;
+    @WeakObj(self);
     if ([self.didSelectedCell isKindOfClass:[VHSModifyNormalCell class]]) {
         VHSModifyNormalCell *cell = (VHSModifyNormalCell *)self.didSelectedCell;
 
         NSString *cellContent = cell.content ? cell.content : @"";
         if (self.cellType == VHSCellNickNameType) {
             [self uploadPersonInfo:@{@"nickNamev" : cellContent} uploadSuccess:^{
-                if (weakSelf.callBack) {
-                    weakSelf.callBack(cellContent);
+                if (selfWeak.callBack) {
+                    selfWeak.callBack(cellContent);
                 }
-                [weakSelf.navigationController popViewControllerAnimated:YES];
+                [selfWeak.navigationController popViewControllerAnimated:YES];
             }];
         }
         if (self.cellType == VHSCellEmailType) {
             [self uploadPersonInfo:@{@"emailv" : cellContent} uploadSuccess:^{
-                if (weakSelf.callBack) {
-                    weakSelf.callBack(cellContent);
+                if (selfWeak.callBack) {
+                    selfWeak.callBack(cellContent);
                 }
-                [weakSelf.navigationController popViewControllerAnimated:YES];
+                [selfWeak.navigationController popViewControllerAnimated:YES];
             }];
         }
     }
@@ -172,10 +172,10 @@
         }
         if (self.cellType == VHSCellMobileType) {
             [self uploadPersonInfo:params uploadSuccess:^{
-                if (weakSelf.callBack) {
-                    weakSelf.callBack(weakSelf.contentDict);
+                if (selfWeak.callBack) {
+                    selfWeak.callBack(selfWeak.contentDict);
                 }
-                [weakSelf.navigationController popViewControllerAnimated:YES];
+                [selfWeak.navigationController popViewControllerAnimated:YES];
             }];
         }
     }

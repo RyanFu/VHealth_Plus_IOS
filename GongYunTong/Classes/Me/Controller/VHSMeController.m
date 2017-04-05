@@ -257,10 +257,10 @@
         // 我的积分
         VHSMyScoreController *scoreVC = (VHSMyScoreController *)[StoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSMyScoreController"];
         scoreVC.scoreModel = self.userScore;
-        __weak __typeof(self)weakSelf = self;
+        @WeakObj(self);
         scoreVC.myscoreCallBack = ^(UserScoreModel *scoreModel) {
-            weakSelf.userScore = scoreModel;
-            [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section]
+            selfWeak.userScore = scoreModel;
+            [selfWeak.tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section]
                               withRowAnimation:UITableViewRowAnimationFade];
         };
         [self.navigationController pushViewController:scoreVC animated:YES];
@@ -268,13 +268,13 @@
     else if (indexPath.section == 2) {
         // 计步
         if (indexPath.row == 0) {
-            __weak __typeof(self)weakSelf = self;
+            @WeakObj(self);
             VHSRecordStepController *recordStepVC = [[VHSRecordStepController alloc] init];
             recordStepVC.hidesBottomBarWhenPushed = YES;
             recordStepVC.callback = ^(NSInteger steps) {
                 UserInfoCell *cell = [tableView cellForRowAtIndexPath:indexPath];
                 cell.cellInfo = [NSString stringWithFormat:@"今日%ld步", (long)steps];
-                weakSelf.recordAllSteps = steps;
+                selfWeak.recordAllSteps = steps;
             };
             recordStepVC.sumSteps = self.recordAllSteps;
             [self.navigationController pushViewController:recordStepVC animated:YES];

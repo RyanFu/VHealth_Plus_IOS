@@ -289,10 +289,10 @@
     }
     else if ([method isEqualToString:@"getToken"]) {
         NSString *backMethod = bodyDict[@"backMethod"];
-        __weak typeof(self) weakSelf = self;
+        @WeakObj(self);
         [self getTokenSuccess:^(NSString *token) {
             NSString *jsMethod = [NSString stringWithFormat:@"%@('%@')", backMethod, token];
-            [weakSelf.contentWKWebView evaluateJavaScript:jsMethod completionHandler:^(id _Nullable any, NSError * _Nullable error) {}];
+            [selfWeak.contentWKWebView evaluateJavaScript:jsMethod completionHandler:^(id _Nullable any, NSError * _Nullable error) {}];
         }];
     }
     else if ([method isEqualToString:@"getLocation"]) {
@@ -420,12 +420,12 @@
     }
     message.path = URL_GET_PAY_SIGN;
     message.httpMethod = VHSNetworkPOST;
-    __weak typeof(self) weakSelf = self;
+    @WeakObj(self);
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         if ([result[@"result"] integerValue] == 200) {
             NSString *signUrl = result[@"signUrl"];
             // 启动支付宝
-            [weakSelf setupAlipayWithSignUrl:signUrl];
+            [selfWeak setupAlipayWithSignUrl:signUrl];
         }
     } fail:^(NSError *error) {}];
 }

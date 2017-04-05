@@ -57,15 +57,15 @@
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     message.path = URL_GET_MEMBER_SCORE;
     message.httpMethod = VHSNetworkPOST;
-    __weak __typeof(self)weakSelf = self;
+    @WeakObj(self);
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         if ([result[@"result"] integerValue] == 200) {
-            weakSelf.scoreModel = [UserScoreModel yy_modelWithDictionary:result];
-            if (weakSelf.myscoreCallBack) {
-                weakSelf.myscoreCallBack(weakSelf.scoreModel);
+            selfWeak.scoreModel = [UserScoreModel yy_modelWithDictionary:result];
+            if (selfWeak.myscoreCallBack) {
+                selfWeak.myscoreCallBack(selfWeak.scoreModel);
             }
         }
-        [weakSelf.tableView reloadData];
+        [selfWeak.tableView reloadData];
     } fail:^(NSError *error) {}];
 }
 
@@ -117,12 +117,12 @@
     message.path = URL_GET_COMPANY_COLD_RATE;
     message.httpMethod = VHSNetworkPOST;
     
-    __weak __typeof(self)weakSelf = self;
+    @WeakObj(self);
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         if ([result[@"result"] integerValue] != 200) return;
         
-        weakSelf.goldRate = result[@"goldRate"];
-        [weakSelf.tableView reloadData];
+        selfWeak.goldRate = result[@"goldRate"];
+        [selfWeak.tableView reloadData];
     } fail:^(NSError *error) {}];
 }
 

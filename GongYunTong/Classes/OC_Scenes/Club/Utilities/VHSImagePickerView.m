@@ -88,26 +88,26 @@ static NSString *reuseIdentifier = @"VHSImagePickerCollectionCell";
     MomentPhotoModel *model = self.photos[indexPath.row];
     cell.moment = model;
     
-    __weak typeof(self) weakSelf = self;
+    @WeakObj(self);
     cell.removeSelectedImageBlock = ^(){
-        [weakSelf.photos removeObjectAtIndex:indexPath.row];
+        [selfWeak.photos removeObjectAtIndex:indexPath.row];
         
-        MomentPhotoModel *model = [weakSelf.photos lastObject];
+        MomentPhotoModel *model = [selfWeak.photos lastObject];
         
         if (model.imageType == VHSImagePickerOfImagePlaceHolderType) {
-            [weakSelf.photos removeLastObject];
+            [selfWeak.photos removeLastObject];
         }
         // 回调，将数据传父组件
-        if (weakSelf.imagePickerCompletionHandler) weakSelf.imagePickerCompletionHandler(weakSelf.photos);
+        if (selfWeak.imagePickerCompletionHandler) selfWeak.imagePickerCompletionHandler(selfWeak.photos);
         
-        if ([weakSelf.photos count] < MAX_ALLOWED_COUNT) {
+        if ([selfWeak.photos count] < MAX_ALLOWED_COUNT) {
             MomentPhotoModel *moment = [[MomentPhotoModel alloc] init];
             moment.photoImage = [UIImage imageNamed:@"club_moment_photo_add"];
             moment.imageType = VHSImagePickerOfImagePlaceHolderType;
-            [weakSelf.photos addObject:moment];
+            [selfWeak.photos addObject:moment];
         }
         
-        [weakSelf.photosView reloadData];
+        [selfWeak.photosView reloadData];
     };
     return cell;
 }

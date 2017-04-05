@@ -306,9 +306,9 @@
     } else {
         VHSScanBraceletController *scanVC = (VHSScanBraceletController *)[StoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSScanBraceletController"];
         scanVC.topVC = self;
-        __weak typeof(self)weakSelf = self;
+        @WeakObj(self);
         scanVC.getDataBaseDataBlock = ^(){
-            weakSelf.sumStepsOnDB = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
+            selfWeak.sumStepsOnDB = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
         };
         [self.navigationController pushViewController:scanVC animated:YES];
     }
