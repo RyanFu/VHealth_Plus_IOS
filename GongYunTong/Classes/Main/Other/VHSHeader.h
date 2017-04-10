@@ -9,6 +9,9 @@
 #ifndef VHS_Header_h
 #define VHS_Header_h
 
+/// 配置支付宝相关
+#define ALIPAY_APP_SCHEME     @"VHSgongyuntong"
+
 // detail log
 #ifdef DEBUG
 # define DLog(fmt, ...) NSLog((@"\n[文件名:%s]\n" "[函数名:%s]\n" "[行号:%d]\n" fmt), __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__);
@@ -36,6 +39,7 @@
 #define SCREENH [UIScreen mainScreen].bounds.size.height
 #define NAVIAGTION_HEIGHT 64
 #define TABBAR_HEIGHT 49
+
 // RGB颜色创建
 #define RGBCOLOR(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1]
 #define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
@@ -47,9 +51,17 @@
 #define COLOR_BG_TABLEVIEW      RGBCOLOR(239.0, 239.0, 244.0) // 背景色
 #define COLOR_PROGRESS_BAR      RGBCOLOR(68.0, 187.0, 92.0)   // web的进度条颜色
 
-
 #define k_UserDefaults            [NSUserDefaults standardUserDefaults]     // NSUsetDefault
 #define k_NotificationCenter      [NSNotificationCenter defaultCenter]      // NSNotificationCenter
 
+// 设备iphone4
+#define iPhone4 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO)
+#define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+#define iPhone6 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)
+#define iPhone6Plus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)
+
+// 相对于iPhone6的屏宽高比例
+#define ratioW SCREENW / 375.0
+#define ratioH SCREENH / 667.0
 
 #endif

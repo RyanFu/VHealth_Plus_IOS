@@ -11,30 +11,6 @@
 #import "UserDetailModel.h"
 
 
-/// 配置支付宝相关
-#define ALIPAY_APP_SCHEME     @"VHSgongyuntong"
-
-// 设备iphone4
-#define iPhone4 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 960), [[UIScreen mainScreen] currentMode].size) : NO)
-#define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
-#define iPhone6 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)
-#define iPhone6Plus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)
-
-/// 屏幕宽
-#define SCREEN_WIDTH     [[UIScreen mainScreen] bounds].size.width
-/// 屏幕高
-#define SCREEN_HEIGHT    [[UIScreen mainScreen] bounds].size.height
-
-#define ratioW SCREENW / 375.0
-#define ratioH SCREENH / 667.0
-
-//系统版本
-#define IOS_7 [[UIDevice currentDevice].systemVersion floatValue]>= 7.0
-#define IOS_8 [[UIDevice currentDevice].systemVersion floatValue]>= 8.0
-#define IOS_9 [[UIDevice currentDevice].systemVersion floatValue]>= 9.0
-
-#define APP_DELEGATE (AppDelegate *)[[UIApplication sharedApplication] delegate]
-
 ///const 通知key
 extern NSString *const DeviceDidScanBLEsUserInfoKey;     //扫描到手环通知里userinfo的key
 extern NSString *const DeviceDidConnectedBLEsNotification;   //与手环连接成功通知
@@ -83,6 +59,8 @@ extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环�
 + (UserInfoModel *)userInfo;
 /// 获取用户详细信息
 + (UserDetailModel *)userDetailInfo;
+/// 添加用户信息
++ (void)appendUserInfoWithKey:(NSString *)key value:(NSString *)value;
 
 /// 是否允许开启通知
 + (BOOL)isAllowedNotification;

@@ -138,7 +138,7 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
         
         if ([obj isKindOfClass:[NSString class]]) {
             NSString *objStr = (NSString *)obj;
-            if (IOS_8) {
+            if (iOS8) {
                 if ([objStr containsString:passWord]) {
                     return NO;
                 }
@@ -172,6 +172,14 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
         }
     }
     return YES;
+}
+
++ (void)appendUserInfoWithKey:(NSString *)key value:(NSString *)value {
+    if (!key || !value) return;
+    
+    NSMutableDictionary *userDict = [[k_UserDefaults dictionaryForKey:@"userInfo"] mutableCopy];
+    [userDict setObject:value forKey:key];
+    [VHSCommon saveUserDefault:userDict forKey:@"userInfo"];
 }
 
 + (UserInfoModel *)userInfo {

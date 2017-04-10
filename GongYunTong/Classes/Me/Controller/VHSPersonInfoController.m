@@ -61,7 +61,7 @@
     [self.footerView addSubview:line];
     
     self.ivPhoto = [[UIImageView  alloc] init];
-    self.ivPhoto.frame = CGRectMake(SCREEN_WIDTH - 65, 7, 30, 30);
+    self.ivPhoto.frame = CGRectMake(SCREENW - 65, 7, 30, 30);
     self.ivPhoto.layer.masksToBounds = YES;
     self.ivPhoto.backgroundColor = [UIColor clearColor];
     self.ivPhoto.layer.cornerRadius = 5;
@@ -114,7 +114,7 @@
     
     // 身高选择器
     self.pvHeight = [[UIPickerView alloc] init];
-    self.pvHeight.frame = CGRectMake(0, 37, self.secondaryView.frame.size.width, SCREEN_HEIGHT/2-37);
+    self.pvHeight.frame = CGRectMake(0, 37, self.secondaryView.frame.size.width, SCREENH/2-37);
     self.pvHeight.tag = 10001;
     self.pvHeight.backgroundColor = [UIColor clearColor];
     self.pvHeight.delegate = self;
@@ -126,7 +126,7 @@
     
     // 体重选择器
     self.pvWeight = [[UIPickerView alloc] init];
-    self.pvWeight.frame = CGRectMake(0, 37, self.secondaryView.frame.size.width, SCREEN_HEIGHT/2-37);
+    self.pvWeight.frame = CGRectMake(0, 37, self.secondaryView.frame.size.width, SCREENH/2-37);
     self.pvWeight.tag = 10002;
     self.pvWeight.backgroundColor = [UIColor clearColor];
     self.pvWeight.delegate = self;
@@ -140,7 +140,7 @@
     
     // 出生年月选择器
     self.datePicker = [[UIDatePicker alloc] init];
-    self.datePicker.frame = CGRectMake(0, 37, self.secondaryView.frame.size.width, SCREEN_HEIGHT/2-37);
+    self.datePicker.frame = CGRectMake(0, 37, self.secondaryView.frame.size.width, SCREENH/2-37);
     self.datePicker.datePickerMode = UIDatePickerModeDate;
     self.datePicker.backgroundColor = [UIColor clearColor];
     self.datePicker.hidden = YES;
@@ -411,7 +411,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 20)];
+    UIView *view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENW, 20)];
     view.backgroundColor = [UIColor clearColor];
     
     UIView *headline = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENW, 0.5)];
@@ -532,7 +532,7 @@
                     break;
             }
         }
-        self.secondaryView.frame = CGRectMake(0, self.view.frame.size.height / 2, SCREEN_WIDTH, self.view.frame.size.height / 2);
+        self.secondaryView.frame = CGRectMake(0, self.view.frame.size.height / 2, SCREENW, self.view.frame.size.height / 2);
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.3 animations:^{
             

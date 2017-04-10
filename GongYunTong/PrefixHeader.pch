@@ -18,7 +18,7 @@
     #import <AlipaySDK/AlipaySDK.h>
     #import "AppDelegate.h"
     #import "VHSBaseViewController.h"
-    #import "VHS_Header.h"
+    #import "VHSHeader.h"
     #import "VHSHttpEngine.h"
     #import "VHSCommon.h"
     #import "UIColor+extension.h"

@@ -38,7 +38,7 @@
     butConfirm.layer.cornerRadius = 10;
     butConfirm.layer.masksToBounds = YES;
     butConfirm.frame = CGRectMake(0, 0, 280, 50);
-    butConfirm.center = CGPointMake(SCREEN_WIDTH/2, 55);
+    butConfirm.center = CGPointMake(SCREENW/2, 55);
     butConfirm.backgroundColor = [UIColor colorWithRed:225.0/255.0 green:40.0/255.0 blue:40.0/255.0 alpha:1.0f];
     [butConfirm setTitle:@"确定" forState:UIControlStateNormal];
     [butConfirm addTarget:self action:@selector(confirmBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -46,7 +46,7 @@
     
     UILabel *labphone = [[UILabel alloc] init];
     labphone.frame = CGRectMake(0, 0, 200, 20);
-    labphone.center = CGPointMake(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 84);
+    labphone.center = CGPointMake(SCREENW / 2, SCREENH - 84);
     labphone.text = @"联系客服 400-620-1800";
     labphone.font = [UIFont systemFontOfSize:14];
     labphone.textAlignment = NSTextAlignmentCenter;

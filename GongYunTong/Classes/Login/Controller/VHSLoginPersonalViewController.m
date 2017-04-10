@@ -40,7 +40,7 @@
     UIView *headerView= [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tvFirstPerson.bounds.size.width, 70)];
     headerView.backgroundColor = [UIColor clearColor];
     
-    UILabel *lb = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, SCREEN_WIDTH, 30)];
+    UILabel *lb = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, SCREENW, 30)];
     lb.backgroundColor = [UIColor clearColor];
     lb.text = @"初次使用请完善以下信息";
     lb.textColor = [UIColor colorWithHexString:@"#212121"];
@@ -57,8 +57,8 @@
     UIButton *btnLogin= [UIButton buttonWithType:UIButtonTypeCustom];
     btnLogin.layer.cornerRadius = 6;
     btnLogin.layer.masksToBounds = YES;
-    btnLogin.frame = CGRectMake(10, 10, SCREEN_WIDTH - 100, 50);
-    btnLogin.center = CGPointMake(SCREEN_WIDTH / 2, 30);
+    btnLogin.frame = CGRectMake(10, 10, SCREENW - 100, 50);
+    btnLogin.center = CGPointMake(SCREENW / 2, 30);
     [btnLogin setImage:[UIImage imageNamed:@"btn_startuse_s"] forState:UIControlStateNormal];
     [btnLogin addTarget:self action:@selector(btnLoginClicked) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:btnLogin];
@@ -69,7 +69,7 @@
     [self.tvFirstPerson addGestureRecognizer:tableViewGesture];
     
     // 画面下方视图
-    self.secondaryView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height , SCREEN_WIDTH, self.view.frame.size.height / 2)];
+    self.secondaryView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height , SCREENW, self.view.frame.size.height / 2)];
     self.secondaryView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.secondaryView];
     self.secondaryView.hidden = YES;
@@ -116,7 +116,7 @@
     
     // 身高选择器
     self.pvHeight = [[UIPickerView alloc] init];
-    self.pvHeight.frame = CGRectMake(0, 37, self.secondaryView.frame.size.width, SCREEN_HEIGHT/2-37);
+    self.pvHeight.frame = CGRectMake(0, 37, self.secondaryView.frame.size.width, SCREENH/2-37);
     self.pvHeight.tag = 10001;
     self.pvHeight.backgroundColor = [UIColor clearColor];
     self.pvHeight.delegate = self;
@@ -127,7 +127,7 @@
     
     // 体重选择器
     self.pvWeight = [[UIPickerView alloc] init];
-    self.pvWeight.frame = CGRectMake(0, 37, self.secondaryView.frame.size.width, SCREEN_HEIGHT/2-37);
+    self.pvWeight.frame = CGRectMake(0, 37, self.secondaryView.frame.size.width, SCREENH/2-37);
     self.pvWeight.tag = 10002;
     self.pvWeight.backgroundColor = [UIColor clearColor];
     self.pvWeight.delegate = self;
@@ -141,7 +141,7 @@
     
     // 出生年月选择器
     self.datePicker = [[UIDatePicker alloc] init];
-    self.datePicker.frame = CGRectMake(0, 37, self.secondaryView.frame.size.width, SCREEN_HEIGHT/2-37);
+    self.datePicker.frame = CGRectMake(0, 37, self.secondaryView.frame.size.width, SCREENH/2-37);
     self.datePicker.datePickerMode = UIDatePickerModeDate;
     self.datePicker.backgroundColor = [UIColor clearColor];
     self.datePicker.hidden = YES;
@@ -396,7 +396,7 @@
                     break;
             }
         }
-        self.secondaryView.frame = CGRectMake(0, self.view.frame.size.height / 2, SCREEN_WIDTH, self.view.frame.size.height / 2);
+        self.secondaryView.frame = CGRectMake(0, self.view.frame.size.height / 2, SCREENW, self.view.frame.size.height / 2);
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.3 animations:^{
             

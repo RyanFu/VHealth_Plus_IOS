@@ -5,7 +5,7 @@
 
 #import <UIImageView+WebCache.h>
 #import "VHSBaseViewController.h"
-#import "VHS_Header.h"
+#import "VHSHeader.h"
 #import "VHSHttpEngine.h"
 #import "VHSCommon.h"
 #import "MJRefresh.h"

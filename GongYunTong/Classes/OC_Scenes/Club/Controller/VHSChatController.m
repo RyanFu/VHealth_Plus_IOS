@@ -14,10 +14,10 @@
 #import "VHSCommentController.h"
 #import "ClubMember.h"
 
-@interface VHSChatController ()
+@interface VHSChatController ()<RCIMGroupMemberDataSource>
 
 @property (nonatomic, strong) NSMutableArray<ChatMoreModel *> *moreMenuItems;
-@property (nonatomic, strong) NSMutableArray<ClubMember *> *clubMemberList;
+@property (nonatomic, strong) NSArray<NSDictionary *> *clubMemberList;
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSString *> *latestNoticeMsg;
 
 @property (nonatomic, strong) VHSMoreMenu *moreMenu;
@@ -28,15 +28,6 @@
 @end
 
 @implementation VHSChatController
-
-#pragma mark - override getter or setter method
-
-- (NSMutableArray<ClubMember *> *)clubMemberList {
-    if (!_clubMemberList) {
-        _clubMemberList = [NSMutableArray array];
-    }
-    return _clubMemberList;
-}
 
 #pragma mark - view contrller life cycle
 
@@ -49,12 +40,17 @@
     self.enableUnreadMessageIcon = YES;
     /// 右下角的未读消息数提示
     self.enableNewComingMessageIcon = NO;
+    
     /// 开启消息@提醒功能
-//    if (self.conversationType == ConversationType_GROUP || self.conversationType == ConversationType_DISCUSSION) {
-//        [RCIM sharedRCIM].enableMessageMentioned = YES;
-//    }
+    if (self.conversationType == ConversationType_GROUP || self.conversationType == ConversationType_DISCUSSION) {
+        [RCIM sharedRCIM].enableMessageMentioned = YES;
+        [RCIM sharedRCIM].groupMemberDataSource = self;
+    }
+    
     // 消息撤回的功能--默认120s
 //    [RCIM sharedRCIM].enableMessageRecall = YES;
+    
+    [RCIM sharedRCIM].globalNavigationBarTintColor = [UIColor redColor];
     
     /// 自定义输入面板
     [self setupPluginBoardView];
@@ -94,8 +90,8 @@
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         if ([result[@"result"] integerValue] != 200) return;
         
-        NSArray *clubMemberList = [NSArray arrayWithArray:result[@"clubMemberList"]];
-        [VHSCommon saveUserDefault:clubMemberList forKey:k_CLUB_MEMBERS_LIST];
+        self.clubMemberList = [NSArray arrayWithArray:result[@"clubMemberList"]];
+        [VHSCommon saveUserDefault:self.clubMemberList forKey:k_CLUB_MEMBERS_LIST];
         
     } fail:^(NSError *error) {
         CLog(@"%@", error.description);
@@ -322,6 +318,22 @@
 
 - (void)dealloc {
     CLog(@"\n%@ be dealloc", NSStringFromClass([self class]));
+}
+
+#pragma mark - RCIMGroupMemberDataSource 实现@功能
+
+- (void)getAllMembersOfGroup:(NSString *)groupId result:(void (^)(NSArray<NSString *> *))resultBlock {
+    
+    NSMutableArray<NSString *> *memberIdList = [NSMutableArray arrayWithCapacity:self.clubMemberList.count];
+    
+    for (NSDictionary *userDict in self.clubMemberList) {
+        NSString *memberId = [userDict[@"memberId"] stringValue];
+        [memberIdList addObject:memberId];
+    }
+    
+    if (resultBlock) {
+        resultBlock(memberIdList);
+    }
 }
 
 @end

@@ -61,6 +61,8 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
     
     [self remoteUserClubsWithClubType:VHSClubOfMeType];
     [self remoteUserClubsWithClubType:VHSClubOfOtherType];
+
+    [self getRongToken];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -139,6 +141,26 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
     }];
 }
 
+/// 获取融云token
+- (void)getRongToken {
+    __block NSString *rongToken = [VHSCommon userInfo].rongcloudToken;
+    if (rongToken) return;
+    
+    VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
+    message.path = URL_GET_RONG_TOKEN;
+    message.httpMethod = VHSNetworkPOST;
+    
+    [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
+        rongToken = result[@"rongToken"];
+        
+        [VHSCommon appendUserInfoWithKey:@"rongcloudToken" value:rongToken];
+        
+        [[ThirdPartyCoordinator shareCoordinator] setupRCKit];
+    } fail:^(NSError *error) {
+        CLog(@"-->>%@", error.description);
+    }];
+}
+
 #pragma mark - UITableViewDelegate,Source 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -151,8 +173,7 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
     }
     else if (1 == section) {
         return [self.allClubList count];
-    }
-    else {
+    } else {
         return 0;
     }
 }

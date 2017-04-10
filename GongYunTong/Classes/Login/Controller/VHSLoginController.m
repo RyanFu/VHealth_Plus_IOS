@@ -157,21 +157,6 @@
     
     [userInfo setObject: [VHSUtils absolutelyString:_txtAccount.text] forKey:@"account"];
     [VHSCommon saveUserDefault:userInfo forKey:@"userInfo"];
-
-//    NSMutableDictionary *userInfo = [NSMutableDictionary new];
-//    
-//    [userInfo setObject:[NSNumber numberWithInteger:[userDict[@"gender"] integerValue]] forKey:@"gender"];
-//    [userInfo setObject:[NSNumber numberWithInteger:[userDict[@"height"] integerValue]] forKey:@"height"];
-//    [userInfo setObject:[NSNumber numberWithDouble:[userDict[@"weight"] doubleValue]] forKey:@"weight"];
-//    [userInfo setObject:[NSString stringWithFormat:@"%@", userDict[@"birthday"]] forKey:@"birthday"];
-//    [userInfo setObject:[NSNumber numberWithInteger:[userDict[@"upgrade"] integerValue]] forKey:@"upgrade"];
-//    [userInfo setObject:[NSNumber numberWithInteger:[userDict[@"acceptMsg"] integerValue]] forKey:@"acceptMsg"];
-//    [userInfo setObject:[NSNumber numberWithInteger:[userDict[@"addStepMaxNum"] integerValue]] forKeyedSubscript:@"addStepMaxNum"];
-//    [userInfo setObject:[NSNumber numberWithInteger:[userDict[@"memberId"] integerValue]] forKey:@"memberId"];
-//    [userInfo setObject:[NSString stringWithFormat:@"%@", [VHSUtils absolutelyString:_txtAccount.text]] forKey:@"account"];
-//    [userInfo setObject:[NSNumber numberWithInteger:[userDict[@"companyId"] integerValue]] forKey:@"companyId"];
-    
-//    [VHSCommon saveUserDefault:userInfo forKey:@"userInfo"];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
