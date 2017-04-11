@@ -151,6 +151,8 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
     message.httpMethod = VHSNetworkPOST;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
+        if ([result[@"result"] integerValue] != 200) return;
+        
         rongToken = result[@"rongToken"];
         
         [VHSCommon appendUserInfoWithKey:@"rongcloudToken" value:rongToken];
