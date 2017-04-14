@@ -37,6 +37,12 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = COLORHex(@"#efeff4");
+    
+    [k_NotificationCenter addObserver:self
+                             selector:@selector(doubleClickTabbarItemAction)
+                                 name:k_NOTI_DOUBLE_CLICK_TABBAR
+                               object:nil];
+    [k_NotificationCenter addObserver:self selector:@selector(downloanAdvertisingPage) name:UIApplicationWillResignActiveNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -107,6 +113,41 @@
     
     // 配置TabbarItem
     self.tabBarItem.title = _tabConfigurationItem.footerName;
+}
+
+#pragma mark - 双击tabbar
+
+- (void)doubleClickTabbarItemAction {
+    
+}
+
+#pragma mark - 预缓存广告页
+
+- (void)downloanAdvertisingPage {
+    NSString *companyId = [[VHSCommon userInfo].companyId stringValue];
+    if (!companyId) return;
+    
+    // 缓存缓存广告页
+    VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
+    message.path = URL_GET_APP_START;
+    message.httpMethod = VHSNetworkGET;
+    message.timeout = 2.0;
+    message.params = @{@"companyId" : companyId};
+    
+    [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
+        
+        NSString *startUrl = result[@"startUrl"];
+        NSInteger duration = [result[@"startTime"] integerValue];
+        
+        // 保存广告页的地址
+        [VHSCommon saveLaunchUrl:startUrl];
+        [VHSCommon saveLaunchDuration:duration];
+        
+        [VHSUtils saveImageWithPath:startUrl];
+        
+    } fail:^(NSError *error) {
+        [VHSCommon setupRootController];
+    }];
 }
 
 @end

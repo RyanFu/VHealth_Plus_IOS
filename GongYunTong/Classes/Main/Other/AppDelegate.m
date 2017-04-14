@@ -11,10 +11,11 @@
 #import "VHSFitBraceletStateManager.h"
 #import "MBProgressHUD+VHS.h"
 #import "NSDate+VHSExtension.h"
-#import "ShortcutItem.h"
 #import "VHSTabBarController.h"
 #import "ThirdPartyCoordinator.h"
 #import "BPush.h"
+#import "VHSRecordStepController.h"
+#import "VHSAdvertisingController.h"
 
 static BOOL isBackGroundActivateApplication;
 
@@ -40,10 +41,8 @@ static BOOL isBackGroundActivateApplication;
     // 启动时间
     [VHSCommon saveLaunchTime:[VHSCommon getDate:[NSDate date]]];
     
-    // 设置3D Touch，仅支持iPhone6s之上
-//    if (![application.shortcutItems count]) {
-//        [[ShortcutItem defaultShortcutItem] configShortcutItemApplication:application];
-//    }
+    // 注册ShortCut
+//    [self registerHomeScreenQuickActions];
     
     return YES;
 }
@@ -105,7 +104,7 @@ static BOOL isBackGroundActivateApplication;
     // 推送链接是否支持跳转
     NSString *pushMessage = userInfo[@"aps"][@"alert"];
     [VHSUtils smartJumpWithUrlString:pushMessage completionHandler:^(NSString *url) {
-        UIViewController *topVC = [VHSUtils getCurrentController];
+        UIViewController *topVC = [VHSUtils getTopLevelController];
         
         if (application.applicationState == UIApplicationStateInactive && !isBackGroundActivateApplication) {
             // 应用在杀死状态下，直接跳转到跳转页面。
@@ -166,31 +165,13 @@ static BOOL isBackGroundActivateApplication;
     if (!companyId || [VHSCommon intervalSinceNow:adTime] < k_Late_Duration(1.0)) return;
     
     NSString *luanchUrl = [VHSCommon getUserDefautForKey:k_LaunchUrl];
-    if (!luanchUrl) {
-        [self downloadLaunchUrl:^(NSString *url) {[VHSCommon showADPageWithUrl:url duration:2.0];}];
-    } else {
-        [VHSCommon showADPageWithUrl:luanchUrl duration:2.0];
-    }
-}
-
-- (void)downloadLaunchUrl:(void (^)(NSString *url))success {
-    VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = URL_GET_APP_START;
-    message.httpMethod = VHSNetworkGET;
+    NSUInteger advertisingDuration = [[VHSCommon getUserDefautForKey:K_Launch_Duration] integerValue];
     
-    NSString *companyId = [[VHSCommon userInfo].companyId stringValue];
-    if (![VHSCommon isNullString:companyId]) {
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        [dic setObject:companyId forKey:@"companyId"];
-        message.params = dic;
-    }
-    [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
-        if ([result[@"result"] integerValue] != 200) return;
-        
-        NSString *launchUrl = result[@"startUrl"];
-        [VHSCommon saveLaunchUrl:launchUrl];
-        if (success) success(launchUrl);
-    } fail:^(NSError *error) {}];
+    // 显示广告页
+    UIViewController *topVC = [VHSUtils getTopLevelController];
+    VHSAdvertisingController *adController = [[VHSAdvertisingController alloc] initWithAdUrl:luanchUrl duration:advertisingDuration dismissCallBack:^{}];
+    adController.hidesBottomBarWhenPushed = YES;
+    [topVC.navigationController pushViewController:adController animated:NO];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -230,19 +211,45 @@ static BOOL isBackGroundActivateApplication;
 #pragma mark - UIApplicationShortcut Item Handle
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
-    // 根据不一样的shortcut处理不一样的事件
-    if (shortcutItem) {
-        if ([shortcutItem.type isEqualToString:@"vhealth_plus_share"]) {
-            NSArray *arr = @[@"share"];
-            UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:arr applicationActivities:nil];
-            [self.window.rootViewController presentViewController:activityVC animated:YES completion:nil];
-            
-            if (completionHandler) completionHandler(NO);
+    if (!shortcutItem) return;
+    
+    // 跳转到登陆页面
+    if (![VHSCommon isLogined]) {
+        [VHSCommon setupRootController];
+        return;
+    }
+    
+    __block UIViewController *topVC = [VHSUtils getTopLevelController];
+    if ([topVC isKindOfClass:NSClassFromString(@"VHSLaunchViewController")]) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            topVC = [VHSUtils getTopLevelController];
+            if ([shortcutItem.type isEqualToString:@"com.vhs.vhealthplus.step"]) {
+                VHSRecordStepController *stepVC = [[VHSRecordStepController alloc] init];
+                [topVC.navigationController pushViewController:stepVC animated:YES];
+            }
+        });
+    } else {
+        if ([shortcutItem.type isEqualToString:@"com.vhs.vhealthplus.step"]) {
+            VHSRecordStepController *stepVC = [[VHSRecordStepController alloc] init];
+            [topVC.navigationController pushViewController:stepVC animated:YES];
         }
     }
     
     if (completionHandler) completionHandler(YES);
 }
+
+// 注册ShortCutItem
+
+- (void)registerHomeScreenQuickActions {
+    NSMutableArray<UIApplicationShortcutItem *> *shortcutItems = [[NSMutableArray alloc] init];
+    // 计步快捷入口
+    UIApplicationShortcutItem *stepItem = [[UIApplicationShortcutItem alloc] initWithType:@"com.vhs.vhealthplus.step" localizedTitle:@"手机计步" localizedSubtitle:@"" icon:[UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypeInvitation] userInfo:@{@"message" : @"step"}];
+    [shortcutItems addObject:stepItem];
+    
+    [UIApplication sharedApplication].shortcutItems = shortcutItems;
+}
+
+#pragma mark - 顶层Controller根据url跳转
 
 - (void)topController:(UIViewController *)topVC pushWithUrl:(NSString *)url {
     if (url) {

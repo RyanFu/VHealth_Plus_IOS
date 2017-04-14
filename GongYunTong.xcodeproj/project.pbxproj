@@ -26,14 +26,14 @@
 		3302FF971E275CCC00295493 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3302FF961E275CCC00295493 /* SafariServices.framework */; };
 		3304BB5C1DED62F600EDBC6B /* UserInfoModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 3304BB5A1DED62F600EDBC6B /* UserInfoModel.h */; };
 		3304BB5D1DED62F600EDBC6B /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304BB5B1DED62F600EDBC6B /* UserInfoModel.m */; };
-		3304BB631DED63FB00EDBC6B /* ShortcutItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 3304BB5F1DED63FB00EDBC6B /* ShortcutItem.h */; };
-		3304BB641DED63FB00EDBC6B /* ShortcutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304BB601DED63FB00EDBC6B /* ShortcutItem.m */; };
 		3304BB651DED63FB00EDBC6B /* VHSTabConfigurationItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 3304BB611DED63FB00EDBC6B /* VHSTabConfigurationItem.h */; };
 		3304BB661DED63FB00EDBC6B /* VHSTabConfigurationItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3304BB621DED63FB00EDBC6B /* VHSTabConfigurationItem.m */; };
 		33098DA71E110BA900751A38 /* VHSActionData.h in Headers */ = {isa = PBXBuildFile; fileRef = 33098DA51E110BA900751A38 /* VHSActionData.h */; };
 		33098DA81E110BA900751A38 /* VHSActionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 33098DA61E110BA900751A38 /* VHSActionData.m */; };
 		3309F4761E76A92200DB7B20 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3309F4751E76A92200DB7B20 /* UIColor+Extension.swift */; };
 		330C9DF91D90DE25005875FE /* VHSToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 330C9DF81D90DE25005875FE /* VHSToast.m */; };
+		33105B541EA07065004D8E4D /* VHSAdvertisingController.h in Headers */ = {isa = PBXBuildFile; fileRef = 33105B521EA07065004D8E4D /* VHSAdvertisingController.h */; };
+		33105B551EA07065004D8E4D /* VHSAdvertisingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33105B531EA07065004D8E4D /* VHSAdvertisingController.m */; };
 		33120C8E1D79738000A006C9 /* VHSLocatServicer.m in Sources */ = {isa = PBXBuildFile; fileRef = 33120C8D1D79738000A006C9 /* VHSLocatServicer.m */; };
 		33120C901D7973A500A006C9 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33120C8F1D7973A500A006C9 /* CoreLocation.framework */; };
 		331400431E8F48C900BCE39F /* VHSGlobalDataManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 331400411E8F48C900BCE39F /* VHSGlobalDataManager.h */; };
@@ -315,8 +315,6 @@
 		3302FF961E275CCC00295493 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		3304BB5A1DED62F600EDBC6B /* UserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = "<group>"; };
 		3304BB5B1DED62F600EDBC6B /* UserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
-		3304BB5F1DED63FB00EDBC6B /* ShortcutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShortcutItem.h; sourceTree = "<group>"; };
-		3304BB601DED63FB00EDBC6B /* ShortcutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShortcutItem.m; sourceTree = "<group>"; };
 		3304BB611DED63FB00EDBC6B /* VHSTabConfigurationItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSTabConfigurationItem.h; sourceTree = "<group>"; };
 		3304BB621DED63FB00EDBC6B /* VHSTabConfigurationItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSTabConfigurationItem.m; sourceTree = "<group>"; };
 		33098DA51E110BA900751A38 /* VHSActionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSActionData.h; sourceTree = "<group>"; };
@@ -324,6 +322,8 @@
 		3309F4751E76A92200DB7B20 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		330C9DF71D90DE25005875FE /* VHSToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSToast.h; sourceTree = "<group>"; };
 		330C9DF81D90DE25005875FE /* VHSToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSToast.m; sourceTree = "<group>"; };
+		33105B521EA07065004D8E4D /* VHSAdvertisingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSAdvertisingController.h; sourceTree = "<group>"; };
+		33105B531EA07065004D8E4D /* VHSAdvertisingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSAdvertisingController.m; sourceTree = "<group>"; };
 		33120C8C1D79738000A006C9 /* VHSLocatServicer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSLocatServicer.h; sourceTree = "<group>"; };
 		33120C8D1D79738000A006C9 /* VHSLocatServicer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSLocatServicer.m; sourceTree = "<group>"; };
 		33120C8F1D7973A500A006C9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -829,14 +829,29 @@
 		3304BB5E1DED63FB00EDBC6B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3304BB5F1DED63FB00EDBC6B /* ShortcutItem.h */,
-				3304BB601DED63FB00EDBC6B /* ShortcutItem.m */,
 				3304BB611DED63FB00EDBC6B /* VHSTabConfigurationItem.h */,
 				3304BB621DED63FB00EDBC6B /* VHSTabConfigurationItem.m */,
 				33098DA51E110BA900751A38 /* VHSActionData.h */,
 				33098DA61E110BA900751A38 /* VHSActionData.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		33105B501EA0702C004D8E4D /* Advertising */ = {
+			isa = PBXGroup;
+			children = (
+				33105B511EA0702C004D8E4D /* Controller */,
+			);
+			path = Advertising;
+			sourceTree = "<group>";
+		};
+		33105B511EA0702C004D8E4D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				33105B521EA07065004D8E4D /* VHSAdvertisingController.h */,
+				33105B531EA07065004D8E4D /* VHSAdvertisingController.m */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		3342F3661D9387AE00B31317 /* BaiDu */ = {
@@ -870,6 +885,7 @@
 		33506DBA1E5EF572006B1909 /* OC_Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				33105B501EA0702C004D8E4D /* Advertising */,
 				33B1EB521E6FF1A000B74CA8 /* Club */,
 				33D0975F1E695B3F00B57648 /* Test */,
 			);
@@ -1824,6 +1840,7 @@
 				337E0BBA1E656D4100C31C43 /* VHSInvitationController.h in Headers */,
 				33E14E1B1DFA7D760021688D /* DynamicItemModel.h in Headers */,
 				33F6FAC11DF7DE29005510D4 /* VHSEnterpriseDynamicCell.h in Headers */,
+				33105B541EA07065004D8E4D /* VHSAdvertisingController.h in Headers */,
 				33B1EB8B1E6FF1A000B74CA8 /* ClubMember.h in Headers */,
 				333F396C1DFBD52C005A43AA /* OneAlertCaller.h in Headers */,
 				331400431E8F48C900BCE39F /* VHSGlobalDataManager.h in Headers */,
@@ -1833,7 +1850,6 @@
 				33B1EB891E6FF1A000B74CA8 /* ChatMoreModel.h in Headers */,
 				33645D061E7BC76F0044F4AF /* UIViewController+Tracking.h in Headers */,
 				33B1EB831E6FF1A000B74CA8 /* VHSChatController.h in Headers */,
-				3304BB631DED63FB00EDBC6B /* ShortcutItem.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2088,6 +2104,7 @@
 				33CB6EB41DDEE294001E470A /* NSString+extension.m in Sources */,
 				33B1EBAF1E6FF1D300B74CA8 /* VHSMessageModel.swift in Sources */,
 				6793203E1D41E406004B0CEA /* VHSDiscoverCell.m in Sources */,
+				33105B551EA07065004D8E4D /* VHSAdvertisingController.m in Sources */,
 				33514CD31D646A9100ECDEA5 /* VHSAllStepsController.m in Sources */,
 				33F2BA521D658E7300928976 /* VHSModifyNormalCell.m in Sources */,
 				33E7F55B1DC7270C00642D5D /* ScanNoDevice.m in Sources */,
@@ -2151,7 +2168,6 @@
 				33E14E1C1DFA7D760021688D /* DynamicItemModel.m in Sources */,
 				33E5B8D61DDC543100E52A11 /* VHSActivityController.m in Sources */,
 				33B1EB921E6FF1A000B74CA8 /* HUAlbum.m in Sources */,
-				3304BB641DED63FB00EDBC6B /* ShortcutItem.m in Sources */,
 				33B1EBA01E6FF1A000B74CA8 /* HUImagePickerViewController.m in Sources */,
 				33B460211E6D3CB200E38860 /* VHSBraceletCoodinator.m in Sources */,
 				33F2BA461D65506B00928976 /* VHSPersonInfoController.m in Sources */,
@@ -2393,7 +2409,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/FitSDK",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/AppPay/Alibaba",
-					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/JSPatchPlatform",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/RongCloud/IMKit",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/RongCloud/IMLib",
 				);
@@ -2439,7 +2454,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/FitSDK",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/AppPay/Alibaba",
-					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/JSPatchPlatform",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/RongCloud/IMKit",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/RongCloud/IMLib",
 				);

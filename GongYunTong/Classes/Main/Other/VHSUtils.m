@@ -11,7 +11,7 @@
 
 @implementation VHSUtils
 
-+ (NSString *)md5:(NSString *)str {
++ (NSString *)md5_c:(NSString *)str {
     const char *cStr = [str UTF8String];
     unsigned char digest[CC_MD5_DIGEST_LENGTH];
     CC_MD5( cStr, (unsigned int)strlen(cStr), digest );
@@ -20,6 +20,19 @@
     
     for (int i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
         [output appendFormat:@"%c", digest[i]];
+    }
+    return output;
+}
+
++ (NSString *)md5_hex:(NSString *)str {
+    const char *cStr = [str UTF8String];
+    unsigned char digest[CC_MD5_DIGEST_LENGTH];
+    CC_MD5( cStr, (unsigned int)strlen(cStr), digest );
+    
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    
+    for (int i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
+        [output appendFormat:@"%02X", digest[i]];
     }
     return output;
 }
@@ -171,39 +184,43 @@
 /**
  *  异步下载图片，存储到沙盒路径汇总
  */
-+ (BOOL)saveImageWithPath:(NSString *)urlPath {
-    NSString *keyPath = [VHSUtils md5:urlPath];
++ (void)saveImageWithPath:(NSString *)urlPath {
+    NSString *keyPath = [VHSUtils md5_hex:urlPath];
+    
+    NSArray *pathCompoents = [urlPath componentsSeparatedByString:@"."];
+    NSString *suffix = [pathCompoents lastObject];
     
     // 获取沙盒路径
     NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     
-    NSString *imagePath = [path stringByAppendingPathComponent:keyPath];
+    NSString *imagePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", keyPath, suffix]];
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:imagePath]) {
-        CLog(@"需要下载的图片文件路径已经存在");
-        return YES;
+        return;
     }
     
     // 异步下载图片
-    __block BOOL isSuccess = NO;
     dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(concurrentQueue, ^{
         NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:urlPath]];
         UIImage *image = [UIImage imageWithData:data];
        
-        // 根据图片的地址保存图片
-        isSuccess = [UIImagePNGRepresentation(image) writeToFile:imagePath atomically:YES];
-        
-        CLog(@"下载图片 %@ - %@", isSuccess ? @"成功" : @"失败", imagePath);
+        if ([suffix isEqualToString:@"jpg"] || [suffix isEqualToString:@"jpeg"]) {
+            [UIImageJPEGRepresentation(image, 1.0) writeToFile:imagePath atomically:YES];
+        } else {
+            [UIImagePNGRepresentation(image) writeToFile:imagePath atomically:YES];
+        }
     });
-    return isSuccess;
 }
 
-+ (NSString *)getLocalPathWithPath:(NSString *)urlPath {
-    NSString *keyPath = [VHSUtils md5:urlPath];
++ (NSString *)getLocalImageWithPath:(NSString *)urlPath {
+    NSString *keyPath = [VHSUtils md5_hex:urlPath];
+    
+    NSArray *pathCompoents = [urlPath componentsSeparatedByString:@"."];
+    NSString *suffix = [pathCompoents lastObject];
     
     NSString *sandPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-    NSString *filePath = [sandPath stringByAppendingPathComponent:keyPath];
+    NSString *filePath = [sandPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", keyPath, suffix]];
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
         return filePath;
@@ -267,7 +284,7 @@
     [task resume];
 }
 
-+ (UIViewController *)getCurrentController {
++ (UIViewController *)getTopLevelController {
     UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
     
     while (YES) {

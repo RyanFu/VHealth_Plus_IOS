@@ -13,6 +13,7 @@
 #include <sys/sysctl.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "KeyChainStore.h"
+#import "VHSTabBarController.h"
 
 NSString *const DeviceDidScanBLEsUserInfoKey = @"DeviceDidScanBLEsUserInfoKey";
 NSString *const DeviceDidConnectedBLEsNotification = @"DeviceDidConnectedBLEsNotificationKey";
@@ -463,6 +464,10 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
     [self saveUserDefault:[NSString stringWithFormat:@"%@", defineUrl] forKey:k_LaunchUrl];
 }
 
++ (void)saveLaunchDuration:(NSUInteger)duration {
+    [self saveUserDefault:[NSNumber numberWithUnsignedInteger:duration] forKey:K_Launch_Duration];
+}
+
 + (void)saveLaunchTime:(NSString *)time {
     NSString *defaultTime = time ? time : @"";
     [self saveUserDefault:defaultTime forKey:k_Launch_Time];
@@ -504,20 +509,22 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
     return NO;
 }
 
-+ (void)showADPageWithUrl:(NSString *)adUrl duration:(NSInteger)duration {
-    
-    if (duration == 0) return;
-    
-    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
-    
-    UIImageView *adImageView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    [[UIApplication sharedApplication].keyWindow addSubview:adImageView];
-    
-    [adImageView sd_setImageWithURL:[NSURL URLWithString:adUrl]];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [adImageView removeFromSuperview];
-    });
+/// 设置项目的根视图
++ (void)setupRootController {
+    [VHSCommon isLogined] ? [self rootOfTabbarController] : [self rootOfLoginController];
+}
+
++ (void)rootOfTabbarController {
+    VHSTabBarController *tabBarVC = (VHSTabBarController *)[StoryboardHelper controllerWithStoryboardName:@"Main" controllerId:@"VHSTabBarController"];
+    UIWindow *window = [UIApplication sharedApplication].delegate.window;
+    window.rootViewController = tabBarVC;
+}
+
++ (void)rootOfLoginController {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
+    UIViewController *vc = [storyboard instantiateInitialViewController];
+    UIWindow *wind = [UIApplication sharedApplication].delegate.window;
+    wind.rootViewController = vc;
 }
 
 @end

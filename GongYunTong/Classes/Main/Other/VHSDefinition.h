@@ -86,6 +86,7 @@ static NSInteger const k_VHS_DataBase_Version                       = 2;
 #pragma mark - URL =====================================HTML的URL===============================
 
 #define k_LaunchUrl                                     @"k_LaunchUrl"                      // 启动页的Url
+#define K_Launch_Duration                               @"K_Launch_Duration"                // 启动页显示时长
 
 
 #pragma mark - NSNotification ============================通知=====================================

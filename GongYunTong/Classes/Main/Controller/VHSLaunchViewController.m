@@ -9,6 +9,7 @@
 #import "VHSLaunchViewController.h"
 #import "VHSTabBarController.h"
 #import "MBProgressHUD+VHS.h"
+#import "VHSAdvertisingController.h"
 
 @interface VHSLaunchViewController ()
 
@@ -20,7 +21,7 @@
     [super viewDidLoad];
     
     // 加载广告页
-    [self downloadADPage];
+    [self showAdvertisingPage];
 }
 
 /// 隐藏状态栏
@@ -28,69 +29,40 @@
     return YES;
 }
 
-- (void)downloadADPage {
-    
+- (void)showAdvertisingPage {
     // 无网络
     if (![VHSCommon isNetworkAvailable]) {
-        [self setupRootController];
+        [VHSCommon setupRootController];
         return;
     }
     
     // 根据公司ID返回广告页
     NSString *companyId = [[VHSCommon userInfo].companyId stringValue];
     if ([VHSCommon isNullString:companyId]) {
-        [self setupRootController];
+        [VHSCommon setupRootController];
         return;
     }
     
-    VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    message.path = URL_GET_APP_START;
-    message.httpMethod = VHSNetworkGET;
-    message.timeout = 2.0;
-    message.params = @{@"companyId" : companyId};
+    NSString *adUrl = [VHSCommon getUserDefautForKey:k_LaunchUrl];
+    NSUInteger duration = [[VHSCommon getUserDefautForKey:K_Launch_Duration] integerValue];
     
-    [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
+    if (![VHSCommon isNullString:adUrl] && duration > 0) {
+        VHSAdvertisingController *adVC = [[VHSAdvertisingController alloc] initWithAdUrl:adUrl duration:duration dismissCallBack:^{
+            [self setupRootController];
+        }];
+        [self.navigationController pushViewController:adVC animated:NO];
         
-        NSString *startUrl = result[@"startUrl"];
-        NSInteger duration = [result[@"startTime"] integerValue];
-        // 保存广告页的地址
-        [VHSCommon saveLaunchUrl:startUrl];
-        
-        [self setupLanuchWithUrl:startUrl duration:duration];
-        
-        [self performSelector:@selector(setupRootController) withObject:nil afterDelay:duration - 0.2];
-
-    } fail:^(NSError *error) {
+    } else {
         [self setupRootController];
-    }];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
 
-- (void)setupLanuchWithUrl:(NSString *)startUrl duration:(NSInteger)durationTime {
-    
-    if ([VHSCommon isNullString:startUrl]) return;
-    
-    [VHSCommon showADPageWithUrl:startUrl duration:durationTime];
-}
-
-/// 设置项目的根视图
 - (void)setupRootController {
-    [VHSCommon isLogined] ? [self rootOfTabbarController] : [self rootOfLoginController];
-}
-
-- (void)rootOfTabbarController {
-    VHSTabBarController *tabBarVC = (VHSTabBarController *)[StoryboardHelper controllerWithStoryboardName:@"Main" controllerId:@"VHSTabBarController"];
-    [self.navigationController pushViewController:tabBarVC animated:NO];
-}
-
-- (void)rootOfLoginController {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
-    UIViewController *vc = [storyboard instantiateInitialViewController];
-    UIWindow *wind = [UIApplication sharedApplication].delegate.window;
-    wind.rootViewController = vc;
+    [VHSCommon setupRootController];
 }
 
 - (void)didReceiveMemoryWarning {

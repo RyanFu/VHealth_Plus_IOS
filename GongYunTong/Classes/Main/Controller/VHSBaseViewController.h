@@ -29,4 +29,7 @@
 
 @property (nonatomic, strong) VHSTabConfigurationItem *tabConfigurationItem;
 
+/// 双击tabbarItem触发事件
+- (void)doubleClickTabbarItemAction;
+
 @end

@@ -525,4 +525,12 @@ static NSString * const VHSTOKEN = @"vhstoken";
     [self webViewIfNeededRefresh];
 }
 
+#pragma mark - 双击tabbarItem事件
+
+- (void)doubleClickTabbarItemAction {
+    if (self.isVisible) {
+        [self.contentWKWebView.scrollView setContentOffset:CGPointZero animated:YES];
+    }
+}
+
 @end

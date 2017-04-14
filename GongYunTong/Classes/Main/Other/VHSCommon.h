@@ -120,6 +120,8 @@ extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环�
 
 /// 启动页相关
 + (void)saveLaunchUrl:(NSString *)url;
+/// 启动页显示时间
++ (void)saveLaunchDuration:(NSUInteger)duration;
 /// 启动时间
 + (void)saveLaunchTime:(NSString *)time;
 /// 动态上次显示时间
@@ -134,7 +136,7 @@ extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环�
 + (NSString *)getChannelId;
 /// 用户是否登陆
 + (BOOL)isLogined;
-/// 广告页展示
-+ (void)showADPageWithUrl:(NSString *)adUrl duration:(NSInteger)duration;
+/// 设置当前项目的根视图
++ (void)setupRootController;
 
 @end

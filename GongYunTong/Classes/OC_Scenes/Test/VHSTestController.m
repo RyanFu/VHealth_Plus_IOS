@@ -52,7 +52,7 @@
     [self.view addSubview:_imageView2];
     
     // 下载网络图片
-    NSString *defaultPath = @"http://img.frbiz.com/pic/z70071b-300x300-1/dog.jpg";
+    NSString *defaultPath = @"https://s3-us-west-1.amazonaws.com/powr/defaults/image-slider2.jpg";
     [VHSUtils saveImageWithPath:defaultPath];
 }
 
@@ -105,17 +105,17 @@
 //    SFSafariViewController *sfvc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://www.baidu.com/"]];
 //    [self presentViewController:sfvc animated:YES completion:nil];
     
-//    NSString *defaultPath = @"http://img.frbiz.com/pic/z70071b-300x300-1/dog.jpg";
-//    
-//    NSString *imagePath = [VHSUtils getLocalPathWithPath:defaultPath];
-//    
-//    CLog(@"%@", imagePath);
-//    
-//    if (![VHSCommon isNullString:imagePath]) {
-//        NSData *data = [[NSData alloc] initWithContentsOfFile:imagePath];
-//        _imageView2.image = [UIImage imageWithData:data];
-//    }
-//    
+    NSString *defaultPath = @"https://s3-us-west-1.amazonaws.com/powr/defaults/image-slider2.jpg";
+//
+    NSString *imagePath = [VHSUtils getLocalImageWithPath:defaultPath];
+//
+    CLog(@"%@", imagePath);
+    
+    if (![VHSCommon isNullString:imagePath]) {
+        NSData *data = [[NSData alloc] initWithContentsOfFile:imagePath];
+        _imageView2.image = [UIImage imageWithData:data];
+    }
+//
 //
 //    __block NSInteger ex = 100;
 //    CLog(@"定义block之前的值:%ld，地址 %p", ex, &ex);

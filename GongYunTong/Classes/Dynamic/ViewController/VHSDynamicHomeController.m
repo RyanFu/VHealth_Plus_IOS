@@ -107,10 +107,10 @@
                              selector:@selector(relogin:)
                                  name:k_NOTIFICATION_TOKEN_INVALID
                                object:nil];
-    [k_NotificationCenter addObserver:self
-                             selector:@selector(doubleClickTabbarItemAction)
-                                 name:k_NOTI_DOUBLE_CLICK_TABBAR
-                               object:nil];
+//    [k_NotificationCenter addObserver:self
+//                             selector:@selector(doubleClickTabbarItemAction)
+//                                 name:k_NOTI_DOUBLE_CLICK_TABBAR
+//                               object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -12,7 +12,11 @@
 
 @interface VHSUtils : NSObject
 
-+ (NSString *)md5:(NSString *)str;
+/// md5加密使用C字符加密
++ (NSString *)md5_c:(NSString *)str;
+/// md5加密使用16进制编码
++ (NSString *)md5_hex:(NSString *)str;
+/// md5加密使用base64编码
 + (NSString *)md5_base64:(NSString *)str;
 
 /// 校验电话号码 - 简单
@@ -43,16 +47,16 @@
 /**
  *  异步下载图片，存储到沙盒路径汇总
  */
-+ (BOOL)saveImageWithPath:(NSString *)urlPath;
++ (void)saveImageWithPath:(NSString *)urlPath;
 
 /// 获取本地的图片地址
-+ (NSString *)getLocalPathWithPath:(NSString *)urlPath;
++ (NSString *)getLocalImageWithPath:(NSString *)urlPath;
 
 /// 生成一个16位数的随机数字符串
 + (NSString *)generateRandomStr16;
 /// 判断一个字符串是否是url，判断能否访问成功
 + (void)smartJumpWithUrlString:(NSString *)urlString completionHandler:(void (^)(NSString *url))urlCompletionHandler;
 /// 获取项目中最顶层的Controller
-+ (UIViewController *)getCurrentController;
++ (UIViewController *)getTopLevelController;
 
 @end

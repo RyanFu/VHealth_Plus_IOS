@@ -46,7 +46,6 @@ class VHSMessageQueueController: VHSBaseViewController {
         let msg: VHSRequestMessage = VHSRequestMessage()
         msg.path = URL_GET_MESSAGE_LIST;
         msg.httpMethod = .POST
-//        msg.params = ["" : ""]
         
         VHSHttpEngine.sharedInstance().send(msg, success: { (response: [AnyHashable : Any]?) in
             let result = response as! [String : Any]
@@ -64,7 +63,7 @@ class VHSMessageQueueController: VHSBaseViewController {
             }
             self.tableView.reloadData()
         }) { (error: Error?) in
-            print("\(msg.path)--->>>\(error)")
+            print("\(msg.path)--->>>\(String(describing: error))")
         }
     }
     
