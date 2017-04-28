@@ -18,6 +18,10 @@ extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环�
 
 @interface VHSCommon : NSObject
 
+@property (strong, nonatomic) UserInfoModel *userInfo;
+
++ (instancetype)share;
+
 /// app的应用名称
 + (NSString *)appName;
 ///  app 版本
@@ -103,7 +107,7 @@ extern NSString *const DeviceDidConnectedBLEsUserInfoPeripheral;   //与手环�
 + (void)setShouHuanLastStepsSync:(NSString *)lastSteps;
 + (void)setUploadServerTime:(NSString *)time;
 
-+ (NSString *)getShouHuanMacSddress;
++ (NSString *)getShouHuanMacAddress;
 + (NSString *)getShouHuanName;
 + (NSString *)getShouHuanUUID;
 + (NSString *)getShouHuanBoundTime;

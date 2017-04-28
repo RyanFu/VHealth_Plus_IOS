@@ -348,7 +348,7 @@
 - (void)stepLabelDataChange {
     NSInteger steps = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
     [VHSGlobalDataManager shareGlobalDataManager].recordAllSteps = steps;
-    self.sumSteps = steps;
+    self.sumSteps = steps > 0 ? steps : 0;
     // 步数转为公里数据
     self.kilometre = [[VHSCommon getUserDefautForKey:k_Steps_To_Kilometre_Ratio] doubleValue] * self.sumSteps;
     _stepsLabel.text =  [NSString stringWithFormat:@"%@步",@(self.sumSteps)];
@@ -411,7 +411,10 @@
             // 直接获取手环实时数据到自建数据表中
             NSInteger lastSyncSteps = [VHSCommon getShouHuanLastStepsSync];
             NSInteger step = [[VHSStepAlgorithm shareAlgorithm].stepsData.step integerValue] - lastSyncSteps;
-            if (step > 0) {
+            if (step < 0) step = 0;
+            
+            NSString *macAddress = [VHSCommon getShouHuanMacAddress];
+            if (![VHSCommon isNullString:macAddress]) {
                 // 同步数据到本地
                 VHSActionData *action = [[VHSActionData alloc] init];
                 action.actionId = [VHSCommon getTimeStamp];
@@ -421,9 +424,10 @@
                 action.step = [@(step) stringValue];
                 action.upload = 0;
                 action.endTime = [VHSCommon getDate:[NSDate date]];
-                action.macAddress = [VHSCommon getShouHuanMacSddress];
+                action.macAddress = [VHSCommon getShouHuanMacAddress];
                 [[VHSStepAlgorithm shareAlgorithm] insertOrUpdateBleAction:action];
             }
+    
             // 更新本地的标志信息
             [VHSCommon setShouHuanLastTimeSync:[VHSCommon getDate:[NSDate date]]];
             [VHSCommon setShouHuanLastStepsSync:[VHSStepAlgorithm shareAlgorithm].stepsData.step];

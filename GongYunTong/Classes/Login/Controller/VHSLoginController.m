@@ -204,12 +204,16 @@
         
         for (TransferStepModel *net in netstepList) {
             // 更新数据到本地
+            NSString *handMac = net.handMac;
+            if ([handMac containsString:@"null"] || [VHSCommon isNullString:handMac]) {
+                continue;
+            }
             VHSActionData *ac = [[VHSActionData alloc] init];
             ac.actionId = [VHSCommon getTimeStamp];
             ac.memberId = [[VHSCommon userInfo].memberId stringValue];
-            ac.step = [NSString stringWithFormat:@"%ld", net.step];
+            ac.step = [NSString stringWithFormat:@"%@", @(net.step)];
             ac.recordTime = net.sportDate;
-            ac.macAddress = net.handMac;
+            ac.macAddress = handMac;
             ac.actionType = [net.handMac isEqualToString:@"0"] ? @"2" : @"1";
             ac.endTime = [VHSCommon getDate:[NSDate date]];
             ac.startTime = [VHSCommon getDate:[NSDate date]];

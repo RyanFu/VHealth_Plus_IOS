@@ -19,8 +19,7 @@
 
 @implementation VHSDiscoverCell
 
--(void)awakeFromNib
-{
+- (void)awakeFromNib {
     [super awakeFromNib];
     for (int i = 0; i < 2; i++) {
         CALayer *line = [CALayer layer];
@@ -37,9 +36,10 @@
     selectedView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.15];
     self.selectedBackgroundView = selectedView;
 }
--(void)layoutSubviews
-{
+
+- (void)layoutSubviews {
     [super layoutSubviews];
+    
     self.rightLine.frame = CGRectMake(self.bounds.size.width - 1, 0, 1, self.bounds.size.height);
     self.bottomLine.frame = CGRectMake(0, self.bounds.size.height - 1, self.bounds.size.width, 1);
 }

@@ -151,6 +151,8 @@
             }
             // 用户信息清除
             [VHSCommon removeLocationUserInfo];
+            // 清除用户信息
+            [[VHSCommon share] setUserInfo:nil];
             
             // 注销回到登录页面
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Login" bundle:nil];

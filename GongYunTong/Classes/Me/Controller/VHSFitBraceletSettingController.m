@@ -187,20 +187,23 @@ CGFloat const settingFooterHeight=106;
         NSInteger lastSyncSteps = [VHSCommon getShouHuanLastStepsSync];
         [[VHSBraceletCoodinator sharePeripheral] getBraceletorRealtimeDataWithCallBack:^(ProtocolLiveDataModel *liveData, int errorCode) {
             // 同步数据到本地
-            VHSActionData *action = [[VHSActionData alloc] init];
-            action.actionId = [VHSCommon getTimeStamp];
-            action.memberId = [[VHSCommon userInfo].memberId stringValue];
-            action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
-            action.actionType = @"1";
-            action.step = [NSString stringWithFormat:@"%ld", liveData.step - lastSyncSteps];
-            action.upload = 0;
-            action.endTime = [VHSCommon getDate:[NSDate date]];
-            [[VHSStepAlgorithm shareAlgorithm] insertOrUpdateBleAction:action];
-            
-            // 更新本地的标志信息
-            [VHSCommon setShouHuanLastTimeSync:[VHSCommon getDate:[NSDate date]]];
-            [VHSCommon setShouHuanLastStepsSync:[NSString stringWithFormat:@"%u", liveData.step]];
-            
+            NSInteger step = liveData.step - lastSyncSteps;
+            if (step > 0) {
+                VHSActionData *action = [[VHSActionData alloc] init];
+                action.actionId = [VHSCommon getTimeStamp];
+                action.memberId = [[VHSCommon userInfo].memberId stringValue];
+                action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
+                action.actionType = @"1";
+                action.step = [NSString stringWithFormat:@"%@", @(step)];
+                action.upload = 0;
+                action.endTime = [VHSCommon getDate:[NSDate date]];
+                action.macAddress = liveData.smart_device_id;
+                [[VHSStepAlgorithm shareAlgorithm] insertOrUpdateBleAction:action];
+                
+                // 更新本地的标志信息
+                [VHSCommon setShouHuanLastTimeSync:[VHSCommon getDate:[NSDate date]]];
+                [VHSCommon setShouHuanLastStepsSync:[NSString stringWithFormat:@"%@", @(liveData.step)]];
+            }
             cell.isDisBinding = NO;
             [VHSToast toast:TOAST_UPLOAD_STEPS_SUCCESS];
         }];

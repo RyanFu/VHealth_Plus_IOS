@@ -15,6 +15,6 @@
 
 @interface VHSFitBraceletSettingController : UIViewController
 
-@property (nonatomic, strong) VHSRecordStepController *backVC;
+@property (nonatomic, weak) VHSRecordStepController *backVC;
 
 @end

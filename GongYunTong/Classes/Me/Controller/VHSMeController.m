@@ -43,7 +43,12 @@
 
 /// 数据库用户的步数
 - (void)getMemberStep {
-    self.recordAllSteps = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:[[VHSCommon userInfo].memberId stringValue] date:[VHSCommon getYmdFromDate:[NSDate date]]];
+    NSString *memberId = [[VHSCommon userInfo].memberId stringValue];
+    NSString *ymdDate = [VHSCommon getYmdFromDate:[NSDate date]];
+    self.recordAllSteps = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:memberId date:ymdDate];
+    if (self.recordAllSteps < 0) {
+        self.recordAllSteps = 0;
+    }
 }
 
 - (void)viewDidLoad {
@@ -64,7 +69,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self customConfigNavigationBar];
+//    [self customConfigNavigationBar];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -145,25 +150,14 @@
 }
 
 
-#pragma mark -tableview协议
+#pragma mark - UITableViewDataSource
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 5;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        return 176 / 2.0;
-    }
-    else if (indexPath.section == 1) {
-        return 88;
-    }
-    else {
-        return 44;
-    }
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 2 || section == 3) {
+    if (section == 3) {
         return 2;
     } else {
         return 1;
@@ -178,7 +172,7 @@
         cell.cellInfo = [[self.userDetail.depts lastObject] objectForKey:@"deptName"];    // 获取末级部门名称，多级在具体详情中展示
         return cell;
     }
-    else if (indexPath.section == 1) {        
+    else if (indexPath.section == 1) {
         VHSMeScoreCell *cell = (VHSMeScoreCell *)[tableView dequeueReusableCellWithIdentifier:@"VHSMeScoreCell" forIndexPath:indexPath];
         cell.headerUrl = @"icon_jifen_";
         cell.scoreContent = @"积分";
@@ -232,6 +226,20 @@
         return cell;
     }
     return nil;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return 176 / 2.0;
+    }
+    else if (indexPath.section == 1) {
+        return 88;
+    }
+    else {
+        return 44;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

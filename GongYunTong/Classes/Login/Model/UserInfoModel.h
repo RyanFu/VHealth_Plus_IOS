@@ -24,3 +24,4 @@
 @property (nonatomic, strong) NSString *rongcloudToken;     // 连接融云的token
 
 @end
+

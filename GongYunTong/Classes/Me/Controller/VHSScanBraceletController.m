@@ -178,11 +178,12 @@ static NSTimeInterval VHS_BLE_BIND_DURATION     = 15;
             ShareDataSdk *shareData = [ShareDataSdk shareInstance];
             [VHSBraceletCoodinator sharePeripheral].bleName = shareData.peripheral.name;
             [VHSFitBraceletStateManager BLEbindSuccessWithBLEName:shareData.peripheral.name UUID:shareData.uuidString macAddress:shareData.smart_device_id];
+            [[VHSStepAlgorithm shareAlgorithm] setupStepRecorder];
             
             // 获取绑定时刻手环的数据
             [[VHSBraceletCoodinator sharePeripheral] getBraceletorRealtimeDataWithCallBack:^(ProtocolLiveDataModel *liveData, int errorCode) {
                 [VHSCommon setShouHuanBoundSteps:liveData.step];
-                [VHSCommon setShouHuanLastStepsSync:[NSString stringWithFormat:@"%u", liveData.step]];
+                [VHSCommon setShouHuanLastStepsSync:[NSString stringWithFormat:@"%@", @(liveData.step)]];
                 [VHSCommon setShouHuanLastTimeSync:[VHSCommon getDate:[NSDate date]]];
             }];
             

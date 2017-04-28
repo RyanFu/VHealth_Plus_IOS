@@ -43,8 +43,7 @@
     
     /// 开启消息@提醒功能
     if (self.conversationType == ConversationType_GROUP || self.conversationType == ConversationType_DISCUSSION) {
-        [RCIM sharedRCIM].enableMessageMentioned = YES;
-        [RCIM sharedRCIM].groupMemberDataSource = self;
+        
     }
     
     // 消息撤回的功能--默认120s
@@ -71,6 +70,9 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    [[RCIM sharedRCIM] setGroupMemberDataSource:self];
+    [[RCIM sharedRCIM] setEnableMessageMentioned:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -323,7 +325,6 @@
 #pragma mark - RCIMGroupMemberDataSource 实现@功能
 
 - (void)getAllMembersOfGroup:(NSString *)groupId result:(void (^)(NSArray<NSString *> *))resultBlock {
-    
     NSMutableArray<NSString *> *memberIdList = [NSMutableArray arrayWithCapacity:self.clubMemberList.count];
     
     for (NSDictionary *userDict in self.clubMemberList) {

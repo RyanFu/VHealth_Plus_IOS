@@ -28,9 +28,9 @@ static NSString * const ACTIVITY_MAIN_URL   = @"https://vhealthplus.valurise.com
 
 #else
 
-static NSString * const kServerURL          = @"http://118.242.18.199:10000/oauth2";
-static NSString * const MAIN_SHOP_URL       = @"http://118.242.18.199:10000/index.php"; // 福利地址
-static NSString * const ACTIVITY_MAIN_URL   = @"http://118.242.18.199:10000/client/activity/index.htm";  // 活动地址
+static NSString * const kServerURL          = @"http://shop.valurise.com/oauth2";
+static NSString * const MAIN_SHOP_URL       = @"http://shop.valurise.com/index.php"; // 福利地址
+static NSString * const ACTIVITY_MAIN_URL   = @"http://shop.valurise.com/client/activity/index.htm";  // 活动地址
 
 //#define kServerURL @"http://172.17.21.103:8080/oauth2"
 //static NSString *MAIN_SHOP_URL = @"http://172.17.21.103:8000/index.php"; // 福利地址

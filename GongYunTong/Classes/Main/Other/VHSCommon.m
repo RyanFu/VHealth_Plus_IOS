@@ -14,12 +14,22 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "KeyChainStore.h"
 #import "VHSTabBarController.h"
+#import <sys/utsname.h>
 
 NSString *const DeviceDidScanBLEsUserInfoKey = @"DeviceDidScanBLEsUserInfoKey";
 NSString *const DeviceDidConnectedBLEsNotification = @"DeviceDidConnectedBLEsNotificationKey";
 NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedBLEsUserInfoPeripheral";
 
 @implementation VHSCommon
+
++ (instancetype)share {
+    static VHSCommon *common = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        common = [[VHSCommon alloc] init];
+    });
+    return common;
+}
 
 + (NSString *)appName {
     NSString *appName = [NSString stringWithFormat:@"%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"]];
@@ -31,7 +41,7 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
 }
 
 + (NSString *)osVersion {
-    return [NSString stringWithFormat:@"ios%@", [[UIDevice currentDevice] systemVersion]];
+    return [NSString stringWithFormat:@"%@", [[UIDevice currentDevice] systemVersion]];
 }
 
 + (NSString *)osName {
@@ -66,8 +76,40 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
 
 //手机型号
 + (NSString *)phoneModel{
-    NSString *phoneModel = [[UIDevice currentDevice] model];
-    return phoneModel;
+//    NSString *phoneModel = [[UIDevice currentDevice] model];
+    NSString *deviceModel = [self deviceModelName];
+    return deviceModel;
+}
+
+// 需要#import <sys/utsname.h>
++ (NSString *)deviceModelName {
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    NSString *deviceModel = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+    
+    //iPhone 系列
+    if ([deviceModel isEqualToString:@"iPhone1,1"])    return @"iPhone 1G";
+    if ([deviceModel isEqualToString:@"iPhone1,2"])    return @"iPhone 3G";
+    if ([deviceModel isEqualToString:@"iPhone2,1"])    return @"iPhone 3GS";
+    if ([deviceModel isEqualToString:@"iPhone3,1"])    return @"iPhone 4";
+    if ([deviceModel isEqualToString:@"iPhone3,2"])    return @"Verizon iPhone 4";
+    if ([deviceModel isEqualToString:@"iPhone4,1"])    return @"iPhone 4S";
+    if ([deviceModel isEqualToString:@"iPhone5,1"])    return @"iPhone 5";
+    if ([deviceModel isEqualToString:@"iPhone5,2"])    return @"iPhone 5";
+    if ([deviceModel isEqualToString:@"iPhone5,3"])    return @"iPhone 5C";
+    if ([deviceModel isEqualToString:@"iPhone5,4"])    return @"iPhone 5C";
+    if ([deviceModel isEqualToString:@"iPhone6,1"])    return @"iPhone 5S";
+    if ([deviceModel isEqualToString:@"iPhone6,2"])    return @"iPhone 5S";
+    if ([deviceModel isEqualToString:@"iPhone7,1"])    return @"iPhone 6 Plus";
+    if ([deviceModel isEqualToString:@"iPhone7,2"])    return @"iPhone 6";
+    if ([deviceModel isEqualToString:@"iPhone8,1"])    return @"iPhone 6s";
+    if ([deviceModel isEqualToString:@"iPhone8,2"])    return @"iPhone 6s Plus";
+    if ([deviceModel isEqualToString:@"iPhone9,1"])    return @"iPhone 7 (CDMA)";
+    if ([deviceModel isEqualToString:@"iPhone9,3"])    return @"iPhone 7 (GSM)";
+    if ([deviceModel isEqualToString:@"iPhone9,2"])    return @"iPhone 7 Plus (CDMA)";
+    if ([deviceModel isEqualToString:@"iPhone9,4"])    return @"iPhone 7 Plus (GSM)";
+    
+    return deviceModel;
 }
 
 + (void)toAppStore {
@@ -126,8 +168,7 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
     return value;
 }
 
-+ (BOOL)validatePassword:(NSString *)passWord
-{
++ (BOOL)validatePassword:(NSString *)passWord {
     NSArray *arrPassword; /*将文件转化为一行一行的*/
     NSString * htmlPath = [[NSBundle mainBundle] pathForResource:@"SimplePassword"
                                                           ofType:@"txt"];
@@ -184,10 +225,14 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
 }
 
 + (UserInfoModel *)userInfo {
-    NSMutableDictionary *userDict = [[k_UserDefaults dictionaryForKey:@"userInfo"] mutableCopy];
-    [userDict setObject:[k_UserDefaults objectForKey:k_LOGIN_NUMBERS] forKey:@"loginNum"];
+    if (![VHSCommon share].userInfo) {
+        NSMutableDictionary *userDict = [[k_UserDefaults dictionaryForKey:@"userInfo"] mutableCopy];
+        [userDict setObject:[k_UserDefaults objectForKey:k_LOGIN_NUMBERS] forKey:@"loginNum"];
+        
+        [VHSCommon share].userInfo = [UserInfoModel yy_modelWithDictionary:userDict];
+    }
     
-    UserInfoModel *model = [UserInfoModel yy_modelWithDictionary:userDict];
+    UserInfoModel *model = [VHSCommon share].userInfo;
     return model;
 }
 
@@ -245,7 +290,6 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
     if ([string isKindOfClass:[NSNull class]]) {
         return YES;
     }
-    
     if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] == 0) {
         return YES;
     }
@@ -308,33 +352,21 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
     NSDateFormatter *dateForm = [[NSDateFormatter alloc] init];
     //dateForm.dateFormat = @"MM-dd HH:mm";
     dateForm.dateFormat = @"M月d日";
-    if (months == 0)
-    {
-        if (days == 0)
-        {
-            if (hours == 0)
-            {
-                if (mins == 0)
-                {
+    if (months == 0) {
+        if (days == 0) {
+            if (hours == 0) {
+                if (mins == 0) {
                     return @"刚刚";
-                }
-                else
-                {
+                } else {
                     return [NSString stringWithFormat:@"%ld分钟前",(long)mins];
                 }
-            }
-            else
-            {
+            } else {
                 return [NSString stringWithFormat:@"%ld小时前",(long)hours];
             }
-        }
-        else
-        {
+        } else {
             return [NSString stringWithFormat:@"%@",[dateForm stringFromDate:constDate]];
         }
-    }
-    else
-    {
+    } else {
         return [NSString stringWithFormat:@"%@",[dateForm stringFromDate:constDate]];
     }
 }
@@ -414,7 +446,7 @@ NSString *const DeviceDidConnectedBLEsUserInfoPeripheral = @"DeviceDidConnectedB
     [self saveUserDefault:time forKey:k_UPLOAD_TO_SERVER_TIME];
 }
 
-+ (NSString *)getShouHuanMacSddress {
++ (NSString *)getShouHuanMacAddress {
     return [self getUserDefautForKey:k_SHOUHUAN_MAC_ADDRESS];
 }
 + (NSString *)getShouHuanName {

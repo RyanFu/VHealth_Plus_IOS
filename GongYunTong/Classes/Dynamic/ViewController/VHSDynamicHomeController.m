@@ -207,6 +207,8 @@
     
     if (!isRefresh) {
         self.currentPageNum++;
+    } else {
+        self.currentPageNum = 1;
     }
     
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
