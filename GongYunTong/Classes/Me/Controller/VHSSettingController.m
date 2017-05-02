@@ -14,6 +14,7 @@
 
 @interface VHSSettingController ()<UITableViewDelegate, UITableViewDataSource>
 
+@property (weak, nonatomic) IBOutlet UILabel *settingTipLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -25,6 +26,7 @@
     
     self.title = @"设置";
     self.view.backgroundColor = RGBCOLOR(239.0, 239.0, 239.0);
+    self.settingTipLabel.text = [NSString stringWithFormat:@"如果你要开启或关闭%@的新消息提醒通知，请在iPhone的“设置”-“通知”功能中，找到应用程序“%@”更改", [VHSCommon appName], [VHSCommon appName]];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self; 
