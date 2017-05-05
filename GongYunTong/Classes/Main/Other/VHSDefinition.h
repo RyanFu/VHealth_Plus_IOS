@@ -41,6 +41,7 @@ static NSString * const TOAST_NEED_INPUT_MOBILE                     = @"请输�
 static NSString * const TOAST_NEED_INPUT_VERCODE                    = @"请输入验证码";
 static NSString * const TOAST_LOGIN_OUTING                          = @"注销中...";
 static NSString * const TOAST_BLE_UNBINDING                         = @"正在解绑...";
+static NSString * const TOAST_BLE_DISCONNECTION_CANT_SYNC           = @"手环未连接上，不能同步";
 
 #pragma mark - 全局使用的汉字文本
 
@@ -71,13 +72,15 @@ static NSInteger const GYT_CODE_TOKEN_INVALID                       = 4000;
 
 static NSString *const k_VHS_DataBase_Version_Key                   = @"database_version";
 static NSInteger const k_VHS_DataBase_Version                       = 2;
-#define k_LATITUDE_LONGITUDE                                        @"k_LATITUDE_LONGITUDE"             // 经纬度
-#define k_Launch_Time                                               @"k_Launch_Time"                    // 记录启动的时间
-#define k_Late_Duration(x)                                          x * 3600
-#define k_Late_Show_Dynamic_Time                                    @"k_Late_Show_Dynamic_Time"         // 动态上次显示时间
-#define k_Late_Show_Activity_Time                                   @"k_Late_Show_Activity_Time"        // 活动上次显示时间
-#define k_Late_Show_Shop_Time                                       @"k_Late_Show_Shop_Time"            // 福利上次显示时间
-#define k_REFRESH_TIME_OUT                                          10                                  // 下拉刷新超时时间
+
+#define k_APPVERSION                                    @"k_APPVERSION"         // 记录app版本
+#define k_LATITUDE_LONGITUDE                            @"k_LATITUDE_LONGITUDE"             // 经纬度
+#define k_Launch_Time                                   @"k_Launch_Time"                    // 记录启动的时间
+#define k_Late_Duration(x)                              x * 3600
+#define k_Late_Show_Dynamic_Time                        @"k_Late_Show_Dynamic_Time"         // 动态上次显示时间
+#define k_Late_Show_Activity_Time                       @"k_Late_Show_Activity_Time"        // 活动上次显示时间
+#define k_Late_Show_Shop_Time                           @"k_Late_Show_Shop_Time"            // 福利上次显示时间
+#define k_REFRESH_TIME_OUT                              10                                  // 下拉刷新超时时间
 
 /// 俱乐部
 #define k_CLUB_MEMBERS_LIST                             @"k_CLUB_MEMBERS_LIST"              // 俱乐部成员列表

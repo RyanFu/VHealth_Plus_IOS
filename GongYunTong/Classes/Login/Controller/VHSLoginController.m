@@ -119,10 +119,6 @@
         [VHSCommon saveUserDefault:result[@"stride"] forKey:k_Steps_To_Kilometre_Ratio];
         [VHSCommon saveUserDefault:account forKey:k_User_Name];
         [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]] forKey:k_M7_MOBILE_SYNC_TIME];
-        NSString *macAddress = result[@"handMac"];
-        if (![VHSCommon isNullString:macAddress]) {
-            [VHSCommon saveUserDefault:macAddress forKey:k_SHOUHUAN_MAC_ADDRESS];
-        }
         
         // 保存用户信息到本地
         [self persistentUserInfo:result];
@@ -130,19 +126,23 @@
         // 判断登录次数
         if (loginModel.loginNum == 0) {
             // 第0次登录的时候跳到注册页面
-            VHSLoginPersonalViewController *VC = (VHSLoginPersonalViewController *)[StoryboardHelper controllerWithStoryboardName:@"Login" controllerId:@"VHSLoginPersonalViewController"];
+            VHSLoginPersonalViewController *VC = (VHSLoginPersonalViewController *)[VHSStoryboardHelper controllerWithStoryboardName:@"Login" controllerId:@"VHSLoginPersonalViewController"];
             VC.model = loginModel;
             [self.navigationController pushViewController:VC animated:YES];
         } else {
             // 其他时候登录跳转到主页面
-            VHSTabBarController *tabBarVC = (VHSTabBarController *)[StoryboardHelper controllerWithStoryboardName:@"Main" controllerId:@"VHSTabBarController"];
+            VHSTabBarController *tabBarVC = (VHSTabBarController *)[VHSStoryboardHelper controllerWithStoryboardName:@"Main" controllerId:@"VHSTabBarController"];
             [self.navigationController pushViewController:tabBarVC animated:YES];
         }
         
         // 登陆初始化融云SDK
         [[ThirdPartyCoordinator shareCoordinator] setupRCKit];
-        
-        [self transferStepData];
+        // 删除数据库数据
+        [self deleteAllActionData];
+        // 获取服务端数据
+        [self getMemberStep];
+        // 开始appVersion
+        [VHSCommon saveUserDefault:[VHSCommon appVersion] forKey:k_APPVERSION];
     } fail:^(NSError *error) {
         [MBProgressHUD hiddenHUD];
         [VHSToast toast:TOAST_NETWORK_SUSPEND];
@@ -154,6 +154,8 @@
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:userDict];
     [userInfo removeObjectForKey:@"result"];
     [userInfo removeObjectForKey:@"info"];
+    [userInfo setObject:userDict[@"stride"] forKey:@"stride"];
+    [userInfo setObject:userDict[@"vhstoken"] forKey:@"vhstoken"];
     
     [userInfo setObject: [VHSUtils absolutelyString:_txtAccount.text] forKey:@"account"];
     [VHSCommon saveUserDefault:userInfo forKey:@"userInfo"];
@@ -178,11 +180,6 @@
 }
 
 #pragma mark - 服务器数据迁移至本地
-/// 迁移服务器步数到本地数据表
-- (void)transferStepData {
-    [self getMemberStep];
-}
-
 /// 获取服务器步数
 - (void)getMemberStep {
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
@@ -193,14 +190,10 @@
         if ([result[@"result"] integerValue] != 200) return;
         
         NSMutableArray *netstepList = [NSMutableArray new];
-        if ([result[@"sportList"] isKindOfClass:[NSArray class]]) {
-            for (NSDictionary *dict in result[@"sportList"]) {
-                TransferStepModel *step = [TransferStepModel yy_modelWithDictionary:dict];
-                [netstepList addObject:step];
-            }
+        for (NSDictionary *dict in result[@"sportList"]) {
+            TransferStepModel *step = [TransferStepModel yy_modelWithDictionary:dict];
+            [netstepList addObject:step];
         }
-        //  服务器端无数据，不需要迁移
-        if (![netstepList count]) return;
         
         for (TransferStepModel *net in netstepList) {
             // 更新数据到本地
@@ -208,27 +201,46 @@
             if ([handMac containsString:@"null"] || [VHSCommon isNullString:handMac]) {
                 continue;
             }
-            VHSActionData *ac = [[VHSActionData alloc] init];
-            ac.actionId = [VHSCommon getTimeStamp];
-            ac.memberId = [[VHSCommon userInfo].memberId stringValue];
-            ac.step = [NSString stringWithFormat:@"%@", @(net.step)];
-            ac.recordTime = net.sportDate;
-            ac.macAddress = handMac;
-            ac.actionType = [net.handMac isEqualToString:@"0"] ? @"2" : @"1";
-            ac.endTime = [VHSCommon getDate:[NSDate date]];
-            ac.startTime = [VHSCommon getDate:[NSDate date]];
-            ac.upload = 1;
-            ac.distance = net.km;
-            [[VHSStepAlgorithm shareAlgorithm] updateSportStep:ac];
+            VHSActionData *action = [[VHSActionData alloc] init];
+            action.actionId = [VHSCommon getTimeStamp];
+            action.macAddress = [handMac lowercaseString];
+            action.memberId = [[VHSCommon userInfo].memberId stringValue];
+            action.actionType = [net.handMac isEqualToString:@"0"] ? @"2" : @"1";
+            action.recordTime = net.sportDate;
+            action.upload = 1;
+            action.distance = net.km;
+            action.step = [NSString stringWithFormat:@"%@", @(net.step)];
+            action.startTime = [VHSCommon getDate:[NSDate date]];
+            if ([net.handMac isEqualToString:@"0"]) {
+                action.step = @"0";
+                action.initialStep = [NSString stringWithFormat:@"%@", @(net.step)];
+            } else {
+                action.initialStep = @"0";
+            }
+            action.currentDeviceStep = @"0";
+            
+            [[VHSStepAlgorithm shareAlgorithm] updateSportStep:action];
         }
+        
+        // 开始手机计步
+        [[VHSStepAlgorithm shareAlgorithm] startMobileStepRecord];
     } fail:^(NSError *error) {}];
 }
 
-#pragma mark - Navigation
+#pragma mark - 判断登陆时候是否是绑定了手环
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
+- (void)deleteAllActionData {
+    // 未绑定
+    if ([VHSFitBraceletStateManager nowBLEState] != FitBLEStateDisbind) {
+        // 删除本地手环绑定标示
+        [VHSFitBraceletStateManager bleUnbindSuccess];
+        // 绑定手环前先断开手环连接信息
+        if ([ShareDataSdk shareInstance].peripheral) {
+            [[VHSBraceletCoodinator sharePeripheral] disconnectBraceletorWithPeripheral:[ShareDataSdk shareInstance].peripheral];
+        }
+    }
+    // 删除表中所有的数据
+    [[VHSStepAlgorithm shareAlgorithm] deleteAllAction];
 }
 
 @end

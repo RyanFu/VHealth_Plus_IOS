@@ -36,7 +36,13 @@ static BOOL isBackGroundActivateApplication;
     [[ThirdPartyCoordinator shareCoordinator] setupRCKit];
     
     // 创建数据库，开启计步模式
-    [[VHSStepAlgorithm shareAlgorithm] setupStepRecorder];
+    if ([VHSFitBraceletStateManager nowBLEState] != FitBLEStateDisbind) {
+        // 连接了手环，初始化手环设备
+        [VHSBraceletCoodinator sharePeripheral];
+    } else {
+        // 手机计步
+        [[VHSStepAlgorithm shareAlgorithm] startMobileStepRecord];
+    }
     
     // 启动时间
     [VHSCommon saveLaunchTime:[VHSCommon getDate:[NSDate date]]];
@@ -184,19 +190,10 @@ static BOOL isBackGroundActivateApplication;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindConnected) {
+    if ([VHSCommon userInfo].memberId) {
         // 同步手环数据
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [[VHSStepAlgorithm shareAlgorithm] asynDataFromBraceletToMobileDB:^{
-                [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
-                [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
-            }];
-        });
-    } else {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
-            [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
-        });
+        [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
+        [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
     }
 }
 

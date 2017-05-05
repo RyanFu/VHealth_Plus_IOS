@@ -22,6 +22,8 @@
 @property (nonatomic, strong) NSString *account;            // 用户账户
 @property (nonatomic, strong) NSNumber *companyId;          // 公司ID
 @property (nonatomic, strong) NSString *rongcloudToken;     // 连接融云的token
+@property (nonatomic, strong) NSString *vhstoken;           // 当前用户的登录token
+@property (nonatomic, strong) NSNumber *stride;             // 步幅
 
 @end
 

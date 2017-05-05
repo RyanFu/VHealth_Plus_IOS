@@ -14,7 +14,6 @@
 #import "PublicWKWebViewController.h"
 #import "NSDate+VHSExtension.h"
 #import "MBProgressHUD+VHS.h"
-#import "VHSTimingTasker.h"
 
 @interface VHSTestController ()
 

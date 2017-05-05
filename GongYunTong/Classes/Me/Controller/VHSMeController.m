@@ -45,7 +45,8 @@
 - (void)getMemberStep {
     NSString *memberId = [[VHSCommon userInfo].memberId stringValue];
     NSString *ymdDate = [VHSCommon getYmdFromDate:[NSDate date]];
-    self.recordAllSteps = [[VHSStepAlgorithm shareAlgorithm] selecteSumStepsWithMemberId:memberId date:ymdDate];
+    self.recordAllSteps = [[VHSStepAlgorithm shareAlgorithm] getsDayStepWithMemberId:memberId recordTime:ymdDate];
+                           
     if (self.recordAllSteps < 0) {
         self.recordAllSteps = 0;
     }
@@ -246,7 +247,7 @@
     
     if (indexPath.section == 0) {
         // 个人详情
-        VHSPersonInfoController *personVC = (VHSPersonInfoController *)[StoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSPersonInfoController"];
+        VHSPersonInfoController *personVC = (VHSPersonInfoController *)[VHSStoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSPersonInfoController"];
         personVC.uploadHeadBlock = ^(NSString *headerUrl) {
             UserHeadCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             cell.headerImageUrl = headerUrl;
@@ -263,7 +264,7 @@
     }
     else if (indexPath.section == 1) {
         // 我的积分
-        VHSMyScoreController *scoreVC = (VHSMyScoreController *)[StoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSMyScoreController"];
+        VHSMyScoreController *scoreVC = (VHSMyScoreController *)[VHSStoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSMyScoreController"];
         scoreVC.scoreModel = self.userScore;
         @WeakObj(self);
         scoreVC.myscoreCallBack = ^(UserScoreModel *scoreModel) {
@@ -284,7 +285,7 @@
                 cell.cellInfo = [NSString stringWithFormat:@"今日%ld步", (long)steps];
                 selfWeak.recordAllSteps = steps;
             };
-            recordStepVC.sumSteps = self.recordAllSteps;
+            recordStepVC.todayStep = self.recordAllSteps;
             [self.navigationController pushViewController:recordStepVC animated:YES];
         }
         else if (indexPath.row == 1) {
@@ -297,7 +298,7 @@
     else if (indexPath.section == 3) {
         if (indexPath.row == 0) {
             // 意见反馈
-            VHSFeedbackController *feedbackVC = (VHSFeedbackController *)[StoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSFeedbackController"];
+            VHSFeedbackController *feedbackVC = (VHSFeedbackController *)[VHSStoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSFeedbackController"];
             feedbackVC.callBack = ^(NSMutableDictionary *feedbackDict) {
                 self.feedbackDict = feedbackDict;
             };
@@ -314,7 +315,7 @@
     }
     else if (indexPath.section == 4) {
         // 设置
-        VHSSettingController *settingVC = (VHSSettingController *)[StoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSSettingController"];
+        VHSSettingController *settingVC = (VHSSettingController *)[VHSStoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSSettingController"];
         [self.navigationController pushViewController:settingVC animated:YES];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];

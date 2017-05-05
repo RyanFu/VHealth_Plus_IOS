@@ -115,6 +115,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    float appVersion = [[VHSCommon getUserDefautForKey:k_APPVERSION] floatValue];
+    if (appVersion < [[VHSCommon appVersion] floatValue]) {
+        [VHSAlertController alertMessage:@"当前版本已升级，请重新登陆，已绑定手环需要重新绑定" confirmHandler:^(UIAlertAction *action) {
+            [self relogin:nil];
+        }];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -407,7 +414,7 @@
             }
             else if (item.iconType == 2) {
                 // 我的积分
-                VHSMyScoreController *scoreVC = (VHSMyScoreController *)[StoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSMyScoreController"];
+                VHSMyScoreController *scoreVC = (VHSMyScoreController *)[VHSStoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSMyScoreController"];
                 scoreVC.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:scoreVC animated:YES];
             }
@@ -435,7 +442,7 @@
             else if (item.iconType == 6) {
                 // 计步更新
                 VHSRecordStepController *stepVC = [[VHSRecordStepController alloc] init];
-                stepVC.sumSteps = [VHSGlobalDataManager shareGlobalDataManager].recordAllSteps;
+                stepVC.todayStep = [VHSGlobalDataManager shareGlobalDataManager].recordAllSteps;
                 stepVC.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:stepVC animated:YES];
             }
@@ -509,7 +516,12 @@
     // 用户信息清除
     [VHSCommon removeLocationUserInfo];
     
-    [VHSToast toast:[noti.userInfo objectForKey:@"info"]];
+    NSString *toast = [noti.userInfo objectForKey:@"info"];
+    if (![VHSCommon isNullString:toast]) {
+        [VHSToast toast:toast];
+    } else {
+        [MBProgressHUD show];
+    }
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Login" bundle:nil];

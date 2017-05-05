@@ -171,34 +171,55 @@ static NSTimeInterval VHS_BLE_BIND_DURATION     = 15;
     [[VHSBraceletCoodinator sharePeripheral] braceletorGotoBindWithCallBack:^(int errorCode) {
         CLog(@"----->>>> 手环绑定成功");
         [MBProgressHUD hiddenHUD];
-        if (errorCode == SUCCESS) {
-            [selfWeak.bindCell.bingButton setTitle:@"已绑定" forState:UIControlStateNormal];
-            [selfWeak showAlertAfterBind];
-            // 绑定成功后本地存储
-            ShareDataSdk *shareData = [ShareDataSdk shareInstance];
-            [VHSBraceletCoodinator sharePeripheral].bleName = shareData.peripheral.name;
-            [VHSFitBraceletStateManager BLEbindSuccessWithBLEName:shareData.peripheral.name UUID:shareData.uuidString macAddress:shareData.smart_device_id];
-            [[VHSStepAlgorithm shareAlgorithm] setupStepRecorder];
-            
-            // 获取绑定时刻手环的数据
-            [[VHSBraceletCoodinator sharePeripheral] getBraceletorRealtimeDataWithCallBack:^(ProtocolLiveDataModel *liveData, int errorCode) {
-                [VHSCommon setShouHuanBoundSteps:liveData.step];
-                [VHSCommon setShouHuanLastStepsSync:[NSString stringWithFormat:@"%@", @(liveData.step)]];
-                [VHSCommon setShouHuanLastTimeSync:[VHSCommon getDate:[NSDate date]]];
-            }];
-            
-            if (selfWeak.getDataBaseDataBlock) {
-                selfWeak.getDataBaseDataBlock();
-            }
-            
-        } else {
-            [VHSToast toast:TOAST_BLE_BIND_FAIL];
-            [k_UserDefaults removeObjectForKey:k_SHOUHUAN_UUID];
-            [selfWeak.bindCell.bingButton setTitle:@"点击绑定" forState:UIControlStateNormal];
-        }
         selfWeak.bindCell.waitingIgv.hidden = YES;
         selfWeak.bindCell.bingButton.hidden = NO;
         selfWeak.tableView.userInteractionEnabled = YES;
+        
+        // 手环绑定失败
+        if (errorCode != SUCCESS) {
+            [VHSToast toast:TOAST_BLE_BIND_FAIL];
+            [k_UserDefaults removeObjectForKey:k_SHOUHUAN_UUID];
+            [selfWeak.bindCell.bingButton setTitle:@"点击绑定" forState:UIControlStateNormal];
+            return;
+        }
+        
+        // 手环绑定成功
+        ShareDataSdk *shareData = [ShareDataSdk shareInstance];
+        [VHSFitBraceletStateManager bleBindSuccessWith:shareData];
+        [VHSBraceletCoodinator sharePeripheral].bleName = shareData.peripheral.name;
+        
+        // 停止手机计步，开始手机计步
+        [[VHSStepAlgorithm shareAlgorithm] startBleStepRecord];
+        
+        [selfWeak.bindCell.bingButton setTitle:@"已绑定" forState:UIControlStateNormal];
+        [selfWeak showAlertAfterBind];
+        
+        // 获取绑定时刻手环的数据
+        [[VHSBraceletCoodinator sharePeripheral] getBraceletorRealtimeDataWithCallBack:^(ProtocolLiveDataModel *liveData, int errorCode) {
+            [VHSCommon setShouHuanLastTimeSync:[VHSCommon getDate:[NSDate date]]];
+            
+            // 初始化当前绑定时刻的手环数据到数据库
+            VHSActionData *action = [[VHSActionData alloc] init];
+            action.actionId = [VHSCommon getTimeStamp];
+            action.startTime = [VHSCommon getDate:[NSDate date]];
+            action.initialStep = @(liveData.step).stringValue;
+            action.currentDeviceStep = @(liveData.step).stringValue;
+            action.step = @(0).stringValue;
+            action.memberId = [VHSCommon userInfo].memberId.stringValue;
+            action.actionType = @"1";
+            action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
+            action.upload = 1;
+            action.macAddress = liveData.smart_device_id;
+            action.seconds = @(liveData.active_time).stringValue;
+            action.calorie = @(liveData.calories).stringValue;
+            
+            action.actionMode = @"0";
+            action.distance = @"0";
+            action.endTime = [VHSCommon getDate:[NSDate date]];
+            action.score = @"0";
+            
+            [[VHSStepAlgorithm shareAlgorithm] insertAction:action];
+        }];
     }];
 }
 
@@ -211,7 +232,7 @@ static NSTimeInterval VHS_BLE_BIND_DURATION     = 15;
 
 - (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex {
     //跳转到手环设置页面
-    VHSFitBraceletSettingController *settingVC = (VHSFitBraceletSettingController *)[StoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSFitBraceletSettingController"];
+    VHSFitBraceletSettingController *settingVC = (VHSFitBraceletSettingController *)[VHSStoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSFitBraceletSettingController"];
     settingVC.backVC = self.topVC;
     [self.navigationController pushViewController:settingVC animated:YES];
 }

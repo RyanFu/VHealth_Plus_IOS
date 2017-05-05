@@ -18,9 +18,9 @@
 /***网络环境切换总开关***/
 
 //生产环境
-#define VHEALTH_BUILD_FOR_RELEASE 1
+#define BUILD_FOR_RELEASE 1
 
-#if VHEALTH_BUILD_FOR_RELEASE
+#if BUILD_FOR_RELEASE
 
 static NSString * const kServerURL          = @"https://vhealthplus.valurise.com/oauth2";
 static NSString * const MAIN_SHOP_URL       = @"https://vhealthplus.valurise.com/index.php"; // 福利地址
@@ -28,13 +28,13 @@ static NSString * const ACTIVITY_MAIN_URL   = @"https://vhealthplus.valurise.com
 
 #else
 
-//static NSString * const kServerURL          = @"http://shop.valurise.com/oauth2";
-//static NSString * const MAIN_SHOP_URL       = @"http://shop.valurise.com/index.php"; // 福利地址
-//static NSString * const ACTIVITY_MAIN_URL   = @"http://shop.valurise.com/client/activity/index.htm";  // 活动地址
+static NSString * const kServerURL          = @"https://vtest.valurise.com/oauth2";
+static NSString * const MAIN_SHOP_URL       = @"https://vtest.valurise.com/index.php"; // 福利地址
+static NSString * const ACTIVITY_MAIN_URL   = @"https://vtest.valurise.com/client/activity/index.htm";  // 活动地址
 
-static NSString * const kServerURL              = @"http://172.17.21.118:8080/oauth2";
-static NSString * const MAIN_SHOP_URL           = @"http://172.17.21.118:8080/index.php"; // 福利地址
-static NSString * const ACTIVITY_MAIN_URL       = @"http://172.17.21.118:8080/client/activity/index.htm";  // 活动地址
+//static NSString * const kServerURL              = @"http://172.17.21.118:8080/oauth2";
+//static NSString * const MAIN_SHOP_URL           = @"http://172.17.21.118:8080/index.php"; // 福利地址
+//static NSString * const ACTIVITY_MAIN_URL       = @"http://172.17.21.118:8080/client/activity/index.htm";  // 活动地址
 
 #endif
 

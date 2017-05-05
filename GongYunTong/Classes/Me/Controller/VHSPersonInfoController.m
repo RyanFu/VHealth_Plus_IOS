@@ -342,7 +342,7 @@
             else if (indexPath.row == 1) {
                 // 昵称
                 cell = [tableView cellForRowAtIndexPath:indexPath];
-                VHSModifyInfoController *modifyVC = (VHSModifyInfoController *)[StoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSModifyInfoController"];
+                VHSModifyInfoController *modifyVC = (VHSModifyInfoController *)[VHSStoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSModifyInfoController"];
                 modifyVC.modifyType = VHSModifyInfoNormalType;
                 modifyVC.cellType = VHSCellNickNameType;
                 modifyVC.callBack = ^(NSString *str) {
@@ -357,7 +357,7 @@
             else if (indexPath.row == 2) {
                 // 手机号
                 cell = [tableView cellForRowAtIndexPath:indexPath];
-                VHSModifyInfoController *modifyVC = (VHSModifyInfoController *)[StoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSModifyInfoController"];
+                VHSModifyInfoController *modifyVC = (VHSModifyInfoController *)[VHSStoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSModifyInfoController"];
                 modifyVC.modifyType = VHSModifyInfoMobileType;
                 modifyVC.cellType = VHSCellMobileType;
                 modifyVC.callBack = ^(NSDictionary *dict) {
@@ -373,7 +373,7 @@
             else if (indexPath.row == 3) {
                 // 邮箱
                 cell = [tableView cellForRowAtIndexPath:indexPath];
-                VHSModifyInfoController *modifyVC = (VHSModifyInfoController *)[StoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSModifyInfoController"];
+                VHSModifyInfoController *modifyVC = (VHSModifyInfoController *)[VHSStoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSModifyInfoController"];
                 modifyVC.cellType = VHSCellEmailType;
                 modifyVC.modifyType = VHSModifyInfoNormalType;
                 modifyVC.callBack = ^(NSString *str) {

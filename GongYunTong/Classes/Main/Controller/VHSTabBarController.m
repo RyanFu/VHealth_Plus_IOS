@@ -86,7 +86,7 @@ typedef NS_ENUM(NSInteger, AcceptNotificationStatus)
                                        image:(NSString *)imageName
                               andSelectImage:(NSString *)selectName {
     
-    UIViewController *VC = [StoryboardHelper controllerWithStoryboardName:sb
+    UIViewController *VC = [VHSStoryboardHelper controllerWithStoryboardName:sb
                                                              controllerId:identifier];
     
     VC.tabBarItem = [[UITabBarItem alloc] initWithTitle:title

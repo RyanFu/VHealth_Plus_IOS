@@ -10,7 +10,7 @@
 
 @interface VHSRecordStepController : VHSBaseViewController
 
-@property (nonatomic, assign) NSInteger sumSteps;       // 连接手机或者手环后的总步数
+@property (nonatomic, assign) NSInteger todayStep;       // 连接手机或者手环后的总步数
 @property (nonatomic, copy) void (^callback)(NSInteger steps);
 
 @end

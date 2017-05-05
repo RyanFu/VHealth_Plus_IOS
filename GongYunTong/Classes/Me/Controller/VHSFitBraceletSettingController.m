@@ -124,31 +124,35 @@ CGFloat const settingFooterHeight=106;
     if ([ShareDataSdk shareInstance].peripheral.state == CBPeripheralStateConnected) {
         [MBProgressHUD showMessage:nil];
         
-        NSInteger lastSyncSteps = [VHSCommon getShouHuanLastStepsSync];
         [[VHSBraceletCoodinator sharePeripheral] getBraceletorRealtimeDataWithCallBack:^(ProtocolLiveDataModel *liveData, int errorCode) {
-            NSInteger step = liveData.step - lastSyncSteps;
-            if (step > 0) {
+            NSInteger realStep = liveData.step;
+            if (realStep > 0) {
                 // 同步数据到本地
                 VHSActionData *action = [[VHSActionData alloc] init];
                 action.actionId = [VHSCommon getTimeStamp];
                 action.memberId = [[VHSCommon userInfo].memberId stringValue];
                 action.actionType = @"1";
                 action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
-                action.step = [NSString stringWithFormat:@"%@", @(step)];
+                action.step = [NSString stringWithFormat:@"%@", @(realStep)];
                 action.upload = 0;
                 action.endTime = [VHSCommon getDate:[NSDate date]];
-                action.macAddress = liveData.smart_device_id;
-                [[VHSStepAlgorithm shareAlgorithm] insertOrUpdateBleAction:action];
+                action.macAddress = [VHSCommon getShouHuanMacAddress];
+                action.currentDeviceStep = @(realStep).stringValue;
+                action.seconds = @(liveData.active_time).stringValue;
+                action.distance = @(liveData.distances).stringValue;
+                action.calorie = @(liveData.calories).stringValue;
+                
+                [[VHSStepAlgorithm shareAlgorithm] updateAction:action];
             }
             
             [[VHSBraceletCoodinator sharePeripheral] braceletorGotoUnbindWithCallBack:^(int errorCode) {
                 [MBProgressHUD hiddenHUD];
                 if (errorCode == SUCCESS) {
                     [VHSToast toast:TOAST_BLE_UNBIND_SUCCESS];
-                    [VHSFitBraceletStateManager BLEUnbindSuccess]; // 解绑成功后本地存储
+                    [VHSFitBraceletStateManager bleUnbindSuccess]; // 解绑成功后本地存储
                     [selfWeak popUpViewController]; // 返回到前一个页面
                     // 解绑后开启手机记步服务
-                    [[VHSStepAlgorithm shareAlgorithm] setupStepRecorder];
+                    [[VHSStepAlgorithm shareAlgorithm] startMobileStepRecord];
                 } else {
                     [VHSToast toast:TOAST_BLE_UNBIND_FAIL];
                 }
@@ -180,33 +184,49 @@ CGFloat const settingFooterHeight=106;
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    if ([VHSCommon isBetweenZeroMomentFiveMinute]) {
+        return;
+    }
+    
     if (indexPath.section == 0) {
         VHSSettingBraceletCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         cell.isDisBinding = YES;
+        cell.userInteractionEnabled = NO;
         
-        NSInteger lastSyncSteps = [VHSCommon getShouHuanLastStepsSync];
         [[VHSBraceletCoodinator sharePeripheral] getBraceletorRealtimeDataWithCallBack:^(ProtocolLiveDataModel *liveData, int errorCode) {
             // 同步数据到本地
-            NSInteger step = liveData.step - lastSyncSteps;
-            if (step > 0) {
+            NSInteger realStep = liveData.step;
+            if (realStep > 0) {
                 VHSActionData *action = [[VHSActionData alloc] init];
                 action.actionId = [VHSCommon getTimeStamp];
+                action.startTime = [VHSCommon getDate:[NSDate date]];
                 action.memberId = [[VHSCommon userInfo].memberId stringValue];
                 action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
                 action.actionType = @"1";
-                action.step = [NSString stringWithFormat:@"%@", @(step)];
+                action.step = [NSString stringWithFormat:@"%@", @(realStep)];
                 action.upload = 0;
                 action.endTime = [VHSCommon getDate:[NSDate date]];
-                action.macAddress = liveData.smart_device_id;
-                [[VHSStepAlgorithm shareAlgorithm] insertOrUpdateBleAction:action];
+                action.macAddress = [VHSCommon getShouHuanMacAddress];
+                action.initialStep = @(liveData.step).stringValue;
+                action.currentDeviceStep = @(realStep).stringValue;
+                [[VHSStepAlgorithm shareAlgorithm] updateAction:action];
                 
                 // 更新本地的标志信息
                 [VHSCommon setShouHuanLastTimeSync:[VHSCommon getDate:[NSDate date]]];
-                [VHSCommon setShouHuanLastStepsSync:[NSString stringWithFormat:@"%@", @(liveData.step)]];
             }
             cell.isDisBinding = NO;
             [VHSToast toast:TOAST_UPLOAD_STEPS_SUCCESS];
+            cell.userInteractionEnabled = YES;
         }];
+        
+        // 2秒之后可以同步点击
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (!cell.userInteractionEnabled) {
+                cell.userInteractionEnabled = YES;
+            }
+        });
+    } else {
+        [VHSToast toast:TOAST_BLE_DISCONNECTION_CANT_SYNC];
     }
 }
 

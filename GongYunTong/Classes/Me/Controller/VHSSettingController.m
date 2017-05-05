@@ -11,11 +11,14 @@
 #import "VHSTestController.h"
 #import "VHSFitBraceletStateManager.h"
 #import "MBProgressHUD+VHS.h"
+#import "VHSActionListController.h"
 
 @interface VHSSettingController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UILabel *settingTipLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (assign, nonatomic) NSInteger actionNumber;
 
 @end
 
@@ -38,6 +41,8 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    
+    self.actionNumber = 0;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,10 +69,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (VHEALTH_BUILD_FOR_RELEASE) return;
+//    if (BUILD_FOR_RELEASE) return;
     
-    VHSTestController *testController = [[VHSTestController alloc] init];
-    [self.navigationController pushViewController:testController animated:YES];
+    self.actionNumber++;
+    
+    if (self.actionNumber > 30) {
+        VHSActionListController *actionVC = (VHSActionListController *)[VHSStoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSActionListController"];
+        [self.navigationController pushViewController:actionVC animated:YES];
+    }
+//    VHSTestController *testController = [[VHSTestController alloc] init];
+//    [self.navigationController pushViewController:testController animated:YES];
 }
 
 
@@ -109,17 +120,15 @@
             
             if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindDisConnected) {
                 [MBProgressHUD hiddenHUD];
-                [VHSFitBraceletStateManager BLEUnbindSuccess];
+                [VHSFitBraceletStateManager bleUnbindSuccess];
                 [self doQuit];
                 return;
             }
             
             [[VHSBraceletCoodinator sharePeripheral] braceletorGotoUnbindWithCallBack:^(int errorCode) {
                 [MBProgressHUD hiddenHUD];
-                [VHSFitBraceletStateManager BLEUnbindSuccess]; // 解绑成功后本地存储
-                // 断开手环链接
-//                [[VHSBraceletCoodinator sharePeripheral] disconnectBraceletorWithPeripheral:[ShareDataSdk shareInstance].peripheral];
-                
+                [VHSFitBraceletStateManager bleUnbindSuccess]; // 解绑成功后本地存储
+        
                 [self doQuit];
             }];
         } fail:^(NSError *error) {

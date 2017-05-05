@@ -379,9 +379,9 @@ static NSString * const VHSTOKEN = @"vhstoken";
     }
     else if ([method isEqualToString:@"toScoreItem"]) {
         // 跳转到我的积分
-        VHSMyScoreController *myScore = (VHSMyScoreController *)[StoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSMyScoreController"];
-        myScore.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:myScore animated:YES];
+        VHSMyScoreController *scoreVC = (VHSMyScoreController *)[VHSStoryboardHelper controllerWithStoryboardName:@"Me" controllerId:@"VHSMyScoreController"];
+        scoreVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:scoreVC animated:YES];
     }
 }
 

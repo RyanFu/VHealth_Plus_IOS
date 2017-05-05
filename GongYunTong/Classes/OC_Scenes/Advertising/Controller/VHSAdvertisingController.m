@@ -47,6 +47,12 @@
     [self performSelector:@selector(dismissCurrentVC) withObject:nil afterDelay:self.duration];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

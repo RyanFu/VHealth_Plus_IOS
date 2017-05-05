@@ -535,7 +535,7 @@
 
 - (void)rootOfTabbarController {
     UIWindow *window = [UIApplication sharedApplication].delegate.window;
-    VHSTabBarController *tabBarVC = (VHSTabBarController *)[StoryboardHelper controllerWithStoryboardName:@"Main" controllerId:@"VHSTabBarController"];
+    VHSTabBarController *tabBarVC = (VHSTabBarController *)[VHSStoryboardHelper controllerWithStoryboardName:@"Main" controllerId:@"VHSTabBarController"];
     window.rootViewController = tabBarVC;
 }
 
