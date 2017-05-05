@@ -211,12 +211,8 @@
             action.distance = net.km;
             action.step = [NSString stringWithFormat:@"%@", @(net.step)];
             action.startTime = [VHSCommon getDate:[NSDate date]];
-            if ([net.handMac isEqualToString:@"0"]) {
-                action.step = @"0";
-                action.initialStep = [NSString stringWithFormat:@"%@", @(net.step)];
-            } else {
-                action.initialStep = @"0";
-            }
+            action.initialStep = @"0";
+
             action.currentDeviceStep = @"0";
             
             [[VHSStepAlgorithm shareAlgorithm] updateSportStep:action];

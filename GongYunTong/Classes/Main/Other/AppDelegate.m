@@ -36,12 +36,12 @@ static BOOL isBackGroundActivateApplication;
     [[ThirdPartyCoordinator shareCoordinator] setupRCKit];
     
     // 创建数据库，开启计步模式
-    if ([VHSFitBraceletStateManager nowBLEState] != FitBLEStateDisbind) {
-        // 连接了手环，初始化手环设备
-        [VHSBraceletCoodinator sharePeripheral];
-    } else {
+    if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStateDisbind) {
         // 手机计步
         [[VHSStepAlgorithm shareAlgorithm] startMobileStepRecord];
+    } else {
+        // 连接了手环，初始化手环设备
+        [VHSBraceletCoodinator sharePeripheral];
     }
     
     // 启动时间

@@ -608,7 +608,7 @@
 		3327586E1DA8D49D00C285DB /* VHSAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSAlertController.h; sourceTree = "<group>"; };
 		3327586F1DA8D49D00C285DB /* VHSAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSAlertController.m; sourceTree = "<group>"; };
 		332B909E1EB32B87006858F4 /* GongYunTongYDSN.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GongYunTongYDSN.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		332B90A01EB32DF7006858F4 /* GongYunTongYDSN-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GongYunTongYDSN-Info.plist"; sourceTree = "<group>"; };
+		332B90A01EB32DF7006858F4 /* VJianKangPlusYDSN-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "VJianKangPlusYDSN-Info.plist"; sourceTree = "<group>"; };
 		333AB3F21E70E6FF004608E3 /* VHSMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VHSMessageCell.swift; sourceTree = "<group>"; };
 		333AB3F41E70F8DE004608E3 /* VHSMessageDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VHSMessageDetailController.swift; sourceTree = "<group>"; };
 		333F396A1DFBD52C005A43AA /* OneAlertCaller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneAlertCaller.h; sourceTree = "<group>"; };
@@ -895,7 +895,7 @@
 		67C7ADFE1D38AB2A0091F669 /* GongYunTong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GongYunTong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67C7AE0B1D38AB2A0091F669 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		67C7AE0D1D38AB2A0091F669 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		67C7AE121D38AB2A0091F669 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		67C7AE121D38AB2A0091F669 /* VJianKangPlus-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VJianKangPlus-Info.plist"; sourceTree = "<group>"; };
 		67C7AE171D38AB2A0091F669 /* GongYunTongTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GongYunTongTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		67C7AE1B1D38AB2A0091F669 /* GongYunTongTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GongYunTongTests.m; sourceTree = "<group>"; };
 		67C7AE1D1D38AB2A0091F669 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1951,8 +1951,8 @@
 			isa = PBXGroup;
 			children = (
 				67C7AE0D1D38AB2A0091F669 /* Assets.xcassets */,
-				67C7AE121D38AB2A0091F669 /* Info.plist */,
-				332B90A01EB32DF7006858F4 /* GongYunTongYDSN-Info.plist */,
+				67C7AE121D38AB2A0091F669 /* VJianKangPlus-Info.plist */,
+				332B90A01EB32DF7006858F4 /* VJianKangPlusYDSN-Info.plist */,
 				67C7AE371D38D41D0091F669 /* PrefixHeader.pch */,
 				33E5B8C41DDB122800E52A11 /* vplus_https.cer */,
 				33B1EB461E6FD61000B74CA8 /* GongYunTong-Bridging-Header.h */,
@@ -2937,7 +2937,7 @@
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/RongCloud/IMLib",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GongYunTong/PrefixHeader.pch";
-				INFOPLIST_FILE = "GongYunTong/GongYunTongYDSN-Info.plist";
+				INFOPLIST_FILE = "GongYunTong/VJianKangPlusYDSN-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -2983,7 +2983,7 @@
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/RongCloud/IMLib",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GongYunTong/PrefixHeader.pch";
-				INFOPLIST_FILE = "GongYunTong/GongYunTongYDSN-Info.plist";
+				INFOPLIST_FILE = "GongYunTong/VJianKangPlusYDSN-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -3135,7 +3135,7 @@
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/RongCloud/IMLib",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GongYunTong/PrefixHeader.pch";
-				INFOPLIST_FILE = GongYunTong/Info.plist;
+				INFOPLIST_FILE = "GongYunTong/VJianKangPlus-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
@@ -3180,7 +3180,7 @@
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/RongCloud/IMLib",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GongYunTong/PrefixHeader.pch";
-				INFOPLIST_FILE = GongYunTong/Info.plist;
+				INFOPLIST_FILE = "GongYunTong/VJianKangPlus-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
