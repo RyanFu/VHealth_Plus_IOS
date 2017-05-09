@@ -268,7 +268,6 @@
         float serverVersion = [result[@"upgradeVersion"] floatValue];
         float appVersion = [[VHSCommon appVersion] floatValue];
         NSString *loadUrl = result[@"url"];
-        loadUrl = @"http://download.mbesthealth.com/cdn/vhealthZXYH1.74.ipa";
         
         if (serverVersion <= appVersion) return;
         

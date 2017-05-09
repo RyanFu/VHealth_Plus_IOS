@@ -10,7 +10,7 @@
 #define VHS_Header_h
 
 /// 配置支付宝相关
-#define ALIPAY_APP_SCHEME     @"VHSgongyuntong"
+#define ALIPAY_APP_SCHEME     @"VHSVhealthPlus"
 
 // detail log
 #ifdef DEBUG

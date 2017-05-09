@@ -14,6 +14,5 @@ pod 'MJRefresh'
 pod 'YYModel'
 pod 'Masonry'
 pod 'Base64nl', '~> 1.2'
-pod 'MLeaksFinder'
 
 end

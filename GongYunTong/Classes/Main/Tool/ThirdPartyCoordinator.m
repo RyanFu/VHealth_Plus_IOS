@@ -19,8 +19,6 @@
 /***百度统计***/
 static NSString * const BaiduMob_APP_KEY = @"a3bd4374ec";
 static NSString * const BaiduMob_ChannelId = @"vhs_vhealth_plus_release";
-/***JSPatch热修复***/
-static NSString * const JSPatch_APPKey = @"1b4681673bab1e48";
 /***百度推送相关***/
 static NSString * const Baidu_Push_AppId = @"8661968";
 static NSString * const Baidu_Push_ApiKey = @"VGffpOhKOUU9XHoSms220a93";

@@ -168,21 +168,26 @@ static BOOL isBackGroundActivateApplication;
     
     NSString *companyId = [[VHSCommon userInfo].companyId stringValue];
     // 没有公司编号 显示启动页的时间小于一个小时
-    if (!companyId || [VHSCommon intervalSinceNow:adTime] < k_Late_Duration(1.0)) return;
+    if (companyId && [VHSCommon intervalSinceNow:adTime] >= k_Late_Duration(1.0)) {
+        NSString *luanchUrl = [VHSCommon getUserDefautForKey:k_LaunchUrl];
+        NSUInteger advertisingDuration = [[VHSCommon getUserDefautForKey:K_Launch_Duration] integerValue];
+        
+        // 显示广告页
+        UIViewController *topVC = [VHSUtils getTopLevelController];
+        VHSAdvertisingController *adController = [[VHSAdvertisingController alloc] initWithAdUrl:luanchUrl duration:advertisingDuration dismissCallBack:^{}];
+        adController.hidesBottomBarWhenPushed = YES;
+        [topVC.navigationController pushViewController:adController animated:NO];
+    }
     
-    NSString *luanchUrl = [VHSCommon getUserDefautForKey:k_LaunchUrl];
-    NSUInteger advertisingDuration = [[VHSCommon getUserDefautForKey:K_Launch_Duration] integerValue];
-    
-    // 显示广告页
-    UIViewController *topVC = [VHSUtils getTopLevelController];
-    VHSAdvertisingController *adController = [[VHSAdvertisingController alloc] initWithAdUrl:luanchUrl duration:advertisingDuration dismissCallBack:^{}];
-    adController.hidesBottomBarWhenPushed = YES;
-    [topVC.navigationController pushViewController:adController animated:NO];
+    // 进入前端，开启手机计步
+    [[VHSStepAlgorithm shareAlgorithm] startMobileStepRecord];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // 保存进入应用后台的时间
     [VHSCommon saveLaunchTime:[VHSCommon getDate:[NSDate date]]];
+    // 进入后台状态，停止手机计步
+    [[VHSStepAlgorithm shareAlgorithm] stopPedometerCount];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

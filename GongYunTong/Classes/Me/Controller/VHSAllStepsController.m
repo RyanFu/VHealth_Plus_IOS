@@ -48,6 +48,7 @@
     topLine.backgroundColor = COLORHex(@"#cccccc");
     [footerView addSubview:topLine];
     
+    [self pulldownRefresh];
     [self setupRefresh];
 }
 
@@ -59,15 +60,14 @@
     [super viewDidDisappear:animated];
 }
 
-- (void)setupRefresh
-{
-    MJRefreshNormalHeader *header= [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pulldownRefresh)];
-    header.lastUpdatedTimeLabel.hidden = NO;
-    [header setTitle:@"释放更新" forState:MJRefreshStatePulling];
-    [header setTitle:@"刷新中..." forState:MJRefreshStateRefreshing];
-    [header setTitle:@"下拉刷新" forState:MJRefreshStateIdle];
-    self.tableView.mj_header=header;
-    [self.tableView.mj_header beginRefreshing];
+- (void)setupRefresh {
+//    MJRefreshNormalHeader *header= [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(pulldownRefresh)];
+//    header.lastUpdatedTimeLabel.hidden = NO;
+//    [header setTitle:@"释放更新" forState:MJRefreshStatePulling];
+//    [header setTitle:@"刷新中..." forState:MJRefreshStateRefreshing];
+//    [header setTitle:@"下拉刷新" forState:MJRefreshStateIdle];
+//    self.tableView.mj_header=header;
+//    [self.tableView.mj_header beginRefreshing];
     
     MJRefreshBackStateFooter *footer = [MJRefreshBackStateFooter footerWithRefreshingTarget:self refreshingAction:@selector(pullupLoadMore)];
     [footer setTitle:@"释放加载" forState:MJRefreshStatePulling];

@@ -123,12 +123,10 @@ static NSString * const k_NOTI_APP_PAGE_REFRESH         = @"k_NOTI_APP_PAGE_REFR
 #define k_SHOUHUAN_LAST_STEPS_SYNC                      @"k_SHOUHUAN_LAST_STEPS_SYNC"   /// 手环最新同步时的步数
 #define k_SHOUHUAN_BOUND_STEPS                          @"k_SHOUHUAN_BOUND_STEPS"       /// 手环绑定时步数
 #define k_SHOUHUAN_UNBING_STEPS                         @"k_SHOUHUAN_UNBING_STEPS"      /// 手环解绑时步数
-#define k_SHOUHUAN_IS_BIND                              @"k_SHOUHUAN_IS_BIND"           /// 手环是否绑定
 
 #define k_SHOUHUAN_UNBING_MOBILE_STEPS                  @"k_SHOUHUAN_UNBING_MOBILE_STEPS"   /// 手环解绑时候当是手机的步数
 #define k_UPLOAD_TO_SERVER_TIME                         @"k_UPLOAD_TO_SERVER_TIME"          /// 本地数据同步到服务器时间
 
-#define k_M7_MOBILE_SYNC_STEPS                          @"k_M7_MOBILE_SYNC_STEPS"           /// M7谐处理器同步时候的步数
 #define k_M7_MOBILE_SYNC_TIME                           @"k_M7_MOBILE_SYNC_TIME"            /// M7同步的时间
 
 #define k_BPush_Channel_id                              @"k_BPush_Channel_id"               /// 百度推送的channel id

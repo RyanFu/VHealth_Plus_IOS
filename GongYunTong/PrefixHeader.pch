@@ -14,7 +14,7 @@
 
 
 #ifdef __OBJC__
-    #import <UIImageView+WebCache.h>
+    #import <SDWebImage/UIImageView+WebCache.h>
     #import <AlipaySDK/AlipaySDK.h>
     #import "AppDelegate.h"
     #import "VHSBaseViewController.h"

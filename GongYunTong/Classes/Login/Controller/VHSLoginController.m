@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topSpace;
 @property (strong, nonatomic) IBOutlet UITextField *txtAccount;
 @property (strong, nonatomic) IBOutlet UITextField *txtPassword;
+@property (weak, nonatomic) IBOutlet UIImageView *loginIconImageView;
 
 @end
 
@@ -40,6 +41,13 @@
     // 默认密码和账户
     self.txtAccount.text = username;
 //    self.txtPassword.text = @"123456";
+    
+    // 根据info.plist中的appName判断登陆icon
+    if ([[VHSCommon appName] isEqualToString:@"悦动申能"]) {
+        self.loginIconImageView.image = [UIImage imageNamed:@"ydsn_login_icon"];
+    } else if ([[VHSCommon appName] isEqualToString:@"V健康+"]) {
+        self.loginIconImageView.image = [UIImage imageNamed:@"gongyuntong_login_icon"];
+    }
 }
 
 -(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
