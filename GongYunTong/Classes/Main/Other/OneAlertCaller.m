@@ -112,11 +112,7 @@ static NSString *const onekeyContent = @"由好人生健康风险管理专家解
         }];
         [alertVC addAction:cancelAction];
         UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"马上更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            if (loadUrl) {
-                [VHSCommon toSafariWithUrl:loadUrl];
-            } else {
-                [VHSCommon toAppStore];
-            }
+            [VHSCommon openWindowWithUrl:loadUrl];
         }];
         [alertVC addAction:confirmAction];
         

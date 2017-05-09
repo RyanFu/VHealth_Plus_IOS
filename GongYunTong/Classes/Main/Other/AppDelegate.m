@@ -48,7 +48,7 @@ static BOOL isBackGroundActivateApplication;
     [VHSCommon saveLaunchTime:[VHSCommon getDate:[NSDate date]]];
     
     // 注册ShortCut
-//    [self registerHomeScreenQuickActions];
+    // [self registerHomeScreenQuickActions];
     
     return YES;
 }
@@ -58,7 +58,7 @@ static BOOL isBackGroundActivateApplication;
 /// 处理支付宝或分享结果
 /// iOS4.x - iOS9.0
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    if ([ALIPAY_APP_SCHEME isEqualToString:url.scheme]) {
+    if ([[VHSCommon appSecheme] isEqualToString:url.scheme]) {
         //跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
             [k_NotificationCenter postNotificationName:k_NOTI_ALIPAY_CALLBACK_INFO object:self userInfo:resultDic];
@@ -70,7 +70,7 @@ static BOOL isBackGroundActivateApplication;
 
 // iOS9 之后出现app之间进行跳转到api
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options NS_AVAILABLE_IOS(9_0) {
-    if ([ALIPAY_APP_SCHEME isEqualToString:url.scheme]) {
+    if ([[VHSCommon appSecheme] isEqualToString:url.scheme]) {
         //跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
             [k_NotificationCenter postNotificationName:k_NOTI_ALIPAY_CALLBACK_INFO object:self userInfo:resultDic];

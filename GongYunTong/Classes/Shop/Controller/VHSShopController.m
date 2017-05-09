@@ -459,8 +459,7 @@ static NSString * const VHSTOKEN = @"vhstoken";
 // 发起支付
 - (void)setupAlipayWithSignUrl:(NSString *)signUrl {
     //应用注册scheme,在Info.plist定义URL types
-    NSString *appScheme = ALIPAY_APP_SCHEME;
-    
+    NSString *appScheme = [VHSCommon appSecheme];
     if (signUrl && signUrl.length > 0) {
         [[AlipaySDK defaultService] payOrder:signUrl fromScheme:appScheme callback:^(NSDictionary *resultDic) {
             if (6001 == [[resultDic objectForKey:@"resultStatus"] intValue]) {}

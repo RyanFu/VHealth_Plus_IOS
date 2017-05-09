@@ -20,9 +20,7 @@
 static NSString * const BaiduMob_APP_KEY = @"a3bd4374ec";
 static NSString * const BaiduMob_ChannelId = @"vhs_vhealth_plus_release";
 /***百度推送相关***/
-static NSString * const Baidu_Push_AppId = @"8661968";
 static NSString * const Baidu_Push_ApiKey = @"VGffpOhKOUU9XHoSms220a93";
-static NSString * const Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMmo";
 
 @implementation ThirdPartyCoordinator
 
@@ -47,10 +45,10 @@ static NSString * const Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMm
     BaiduMobStat *statTracker = [BaiduMobStat defaultStat];
     // 此处(startWithAppId之前)可以设置初始化的可选参数，具体有哪些参数，可详见BaiduMobStat.h文件，例如：
     statTracker.shortAppVersion  = [VHSCommon appVersion];
-    statTracker.channelId = BaiduMob_ChannelId;
-    statTracker.enableExceptionLog = YES;
+    statTracker.channelId = [VHSCommon BaiduMobChannelId]; // 统计渠道id
+    statTracker.enableExceptionLog = NO;
     statTracker.enableDebugOn = NO;
-    [statTracker startWithAppId:BaiduMob_APP_KEY]; // 设置您在mtj网站上添加的app的appkey,此处AppId即为应用的appKey
+    [statTracker startWithAppId:[VHSCommon BaiduMobAPPKey]]; // 设置您在mtj网站上添加的app的appkey,此处AppId即为应用的appKey
 }
 
 #pragma mark - 百度推送
@@ -79,8 +77,9 @@ static NSString * const Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMm
     BPushMode model = BPushModeProduction;
     if (!BUILD_FOR_RELEASE) model = BPushModeDevelopment;
     
+    NSString *BPushAPPKey = [VHSCommon BPushAPPKey];
     [BPush registerChannel:launchOptions
-                    apiKey:Baidu_Push_ApiKey
+                    apiKey:BPushAPPKey
                   pushMode:model
            withFirstAction:@"打开"
           withSecondAction:@"关闭"
@@ -114,7 +113,8 @@ static NSString * const Baidu_Push_SecretKey = @"5WQLtDBbk4K2G9fRcR5CNYs3m9kKSMm
         return;
     }
     
-    [[RCIM sharedRCIM] initWithAppKey:RCIM_APPKEY];
+    NSString *RCIMAppKey = [VHSCommon RCIMAppKey];
+    [[RCIM sharedRCIM] initWithAppKey:RCIMAppKey];
     [[RCIM sharedRCIM] connectWithToken:rongcloudToken success:^(NSString *userId) {
         [[RCIM sharedRCIM] setUserInfoDataSource:self];
 //        [[RCIM sharedRCIM] setReceiveMessageDelegate:self];

@@ -35,19 +35,7 @@
 			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>VHSVhealthPlus</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLIconFile</key>
-			<string></string>
-			<key>CFBundleURLName</key>
-			<string>com.vplus.test</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>vplustest</string>
+				<string>VPLUSUrlSechemeType</string>
 			</array>
 		</dict>
 	</array>
@@ -104,5 +92,15 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UserTypeUrlSechemes</key>
+	<string>VPLUSUrlSechemeType</string>
+	<key>UserTypeBPushAPPKey</key>
+	<string>VGffpOhKOUU9XHoSms220a93</string>
+	<key>UserTypeRCIMAPPKEY</key>
+	<string>lmxuhwaglmf6d</string>
+	<key>UserTypeBMobAPPKey</key>
+	<string>a3bd4374ec</string>
+	<key>UserTypeBMobChannelId</key>
+	<string>vhs_vhealth_plus_release</string>
 </dict>
 </plist>

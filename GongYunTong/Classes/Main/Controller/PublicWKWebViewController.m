@@ -431,11 +431,11 @@
 }
 // 发起支付
 - (void)setupAlipayWithSignUrl:(NSString *)signUrl {
-    //应用注册scheme,在Info.plist定义URL types
-    NSString *appScheme = ALIPAY_APP_SCHEME;
-    
+
     if (!signUrl || !signUrl.length) return;
     
+    //应用注册scheme,在Info.plist定义URL types
+    NSString *appScheme = [VHSCommon appSecheme];
     [[AlipaySDK defaultService] payOrder:signUrl fromScheme:appScheme callback:^(NSDictionary *resultDic) {
         if (6001 == [[resultDic objectForKey:@"resultStatus"] intValue]) {}
         else if (9000 == [[resultDic objectForKey:@"resultStatus"] intValue]) {}

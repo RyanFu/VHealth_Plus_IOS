@@ -9,9 +9,6 @@
 #ifndef VHS_Header_h
 #define VHS_Header_h
 
-/// 配置支付宝相关
-#define ALIPAY_APP_SCHEME     @"VHSVhealthPlus"
-
 // detail log
 #ifdef DEBUG
 # define DLog(fmt, ...) NSLog((@"\n[文件名:%s]\n" "[函数名:%s]\n" "[行号:%d]\n" fmt), __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__);
