@@ -40,7 +40,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>29</string>
+	<string>30</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
@@ -92,15 +92,15 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UserTypeUrlSechemes</key>
-	<string>VPLUSUrlSechemeType</string>
-	<key>UserTypeBPushAPPKey</key>
-	<string>VGffpOhKOUU9XHoSms220a93</string>
-	<key>UserTypeRCIMAPPKEY</key>
-	<string>lmxuhwaglmf6d</string>
 	<key>UserTypeBMobAPPKey</key>
 	<string>a3bd4374ec</string>
 	<key>UserTypeBMobChannelId</key>
 	<string>vhs_vhealth_plus_release</string>
+	<key>UserTypeBPushAPPKey</key>
+	<string>VGffpOhKOUU9XHoSms220a93</string>
+	<key>UserTypeRCIMAPPKEY</key>
+	<string>lmxuhwaglmf6d</string>
+	<key>UserTypeUrlSechemes</key>
+	<string>VPLUSUrlSechemeType</string>
 </dict>
 </plist>
