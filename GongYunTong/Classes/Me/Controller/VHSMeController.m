@@ -69,8 +69,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-//    [self customConfigNavigationBar];
+    // 配置消息列表
+    [self customConfigNavigationBar];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

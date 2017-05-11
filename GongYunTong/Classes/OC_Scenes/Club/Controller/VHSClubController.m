@@ -144,7 +144,7 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
 /// 获取融云token
 - (void)getRongToken {
     __block NSString *rongToken = [VHSCommon userInfo].rongcloudToken;
-    if (rongToken) return;
+    if (![VHSCommon isNullString:rongToken]) return;
     
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     message.path = URL_GET_RONG_TOKEN;

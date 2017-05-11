@@ -88,8 +88,7 @@
     
     //  初始化refresh
     [self setupRefresh];
-    
-    // 监测版本升级
+    // 服务端监测版本升级
     [self checkVersion];
     // 获取导航列表
     [self loadIconList];
@@ -266,6 +265,7 @@
         NSString *content = result[@"content"];
         BOOL isForceUpgrade = [result[@"isForce"] boolValue];
         float serverVersion = [result[@"upgradeVersion"] floatValue];
+        
         float appVersion = [[VHSCommon appVersion] floatValue];
         NSString *loadUrl = result[@"url"];
         
@@ -552,6 +552,8 @@
         return;
     }
     [self tableViewIfNeededRefresh];
+    // 每次进入前台需要更新
+    [self checkVersion];
 }
 
 - (void)doubleClickTabbarItemAction {

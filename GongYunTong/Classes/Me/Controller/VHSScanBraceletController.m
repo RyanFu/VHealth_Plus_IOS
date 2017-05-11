@@ -253,7 +253,7 @@ static NSTimeInterval VHS_BLE_BIND_DURATION     = 15;
     // 网络请求绑定 - 告知后台绑定手环
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     message.path = URL_DO_HAND_MAC;
-    NSString *handMac = [ShareDataSdk shareInstance].smart_device_id;
+    NSString *handMac = [ShareDataSdk shareInstance].smart_device_id; // 不能使用[VHSCommon getShouHuanMacAddress]
     NSMutableDictionary *params = [NSMutableDictionary new];
     if (handMac) {
         [params setObject:handMac forKey:@"handMac"];

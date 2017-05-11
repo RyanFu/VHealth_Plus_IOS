@@ -102,7 +102,7 @@ CGFloat const settingFooterHeight=106;
     }
     // 网络请求绑定 - 告知服务器手环解绑
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
-    NSString *handmacId = [VHSCommon getUserDefautForKey:k_SHOUHUAN_MAC_ADDRESS];
+    NSString *handmacId = [VHSCommon getShouHuanMacAddress];
     message.params = @{@"handMac" : handmacId, @"actionType" : @"0"};
     message.path = URL_DO_HAND_MAC;
     message.httpMethod = VHSNetworkPOST;
@@ -141,6 +141,7 @@ CGFloat const settingFooterHeight=106;
                 action.seconds = @(liveData.active_time).stringValue;
                 action.distance = @(liveData.distances).stringValue;
                 action.calorie = @(liveData.calories).stringValue;
+                action.initialStep = @"0";
                 
                 [[VHSStepAlgorithm shareAlgorithm] updateAction:action];
             }
@@ -203,11 +204,11 @@ CGFloat const settingFooterHeight=106;
                 action.memberId = [[VHSCommon userInfo].memberId stringValue];
                 action.recordTime = [VHSCommon getYmdFromDate:[NSDate date]];
                 action.actionType = @"1";
-                action.step = [NSString stringWithFormat:@"%@", @(realStep)];
+                action.step = @(realStep).stringValue;
                 action.upload = 0;
                 action.endTime = [VHSCommon getDate:[NSDate date]];
                 action.macAddress = [VHSCommon getShouHuanMacAddress];
-                action.initialStep = @(liveData.step).stringValue;
+                action.initialStep = @"0";
                 action.currentDeviceStep = @(realStep).stringValue;
                 [[VHSStepAlgorithm shareAlgorithm] updateAction:action];
                 

@@ -131,7 +131,7 @@ static BOOL isBackGroundActivateApplication;
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [BPush registerDeviceToken:deviceToken];
-    // 需要在绑定成功后进行 settag listtag delete tag unbind 操作否则会失败
+    // 需要在绑定成功后进行 set tag listtag delete tag unbind 操作否则会失败
     [BPush bindChannelWithCompleteHandler:^(id result, NSError *error) {
         if (error) return;
         if (result) {
@@ -195,11 +195,19 @@ static BOOL isBackGroundActivateApplication;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    if ([VHSCommon userInfo].memberId) {
-        // 同步手环数据
-        [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
-        [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
-    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if ([VHSCommon userInfo].memberId) {
+            if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindConnected) {
+                [[VHSStepAlgorithm shareAlgorithm] asynDataFromBraceletToMobileDB:^{
+                    [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
+                    [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
+                }];
+            } else {
+                [[VHSStepAlgorithm shareAlgorithm] uploadAllUnuploadActionData:nil];
+                [k_NotificationCenter postNotificationName:k_NOTI_SYNCSTEPS_TO_NET object:self];
+            }
+        }
+    });
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

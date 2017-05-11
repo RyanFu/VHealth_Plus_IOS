@@ -66,8 +66,7 @@ static NSString * const Baidu_Push_ApiKey = @"VGffpOhKOUU9XHoSms220a93";
             }
         }];
 #endif
-    }
-    else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+    } else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
         UIUserNotificationType myTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
@@ -95,8 +94,6 @@ static NSString * const Baidu_Push_ApiKey = @"VGffpOhKOUU9XHoSms220a93";
     if (userInfo) {
         [BPush handleNotification:userInfo];
     }
-    //角标清0
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
 }
 
 #pragma mark - 融云

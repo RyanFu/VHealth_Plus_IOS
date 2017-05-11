@@ -398,15 +398,10 @@
     [self.syncRotate startRotateAnimation];
 
     if ([VHSFitBraceletStateManager nowBLEState] == FitBLEStatebindConnected) {
-        BOOL isToday = [[VHSCommon dateWithDateStr:[VHSCommon getShouHuanBoundTime]] isToday];
-        if (!isToday) {
-            // 先同步手环跨天的数据到自建的数据表中
-            [[VHSStepAlgorithm shareAlgorithm] asynDataFromBraceletToMobileDB:^{
-                [self uploadStepsWithFlagView:self.syncRotate];
-            }];
-        } else {
+        // 先同步手环跨天的数据到自建的数据表中
+        [[VHSStepAlgorithm shareAlgorithm] asynDataFromBraceletToMobileDB:^{
             [self uploadStepsWithFlagView:self.syncRotate];
-        }
+        }];
     } else {
         [self uploadStepsWithFlagView:self.syncRotate];
     }
