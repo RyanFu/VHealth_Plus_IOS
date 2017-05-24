@@ -214,6 +214,8 @@
         if (syncSuccess) {
             syncSuccess();
         }
+        // 更新本地的标志信息
+        [VHSCommon setShouHuanLastTimeSync:[VHSCommon getDate:[NSDate date]]];
         return;
     }
     
@@ -260,11 +262,11 @@
                         action.endTime = [VHSCommon dateStrFromYYYYMMDDToDate:sport.date];
                         
                         [self updateAction:action];
+                        
                     }
+                    // 更新本地的标志信息
+                    [VHSCommon setShouHuanLastTimeSync:[VHSCommon getDate:[NSDate date]]];
                 }
-                
-                // 更新手环绑定时间
-                // [VHSCommon saveUserDefault:[VHSCommon getDate:[NSDate date]] forKey:k_SHOUHUAN_BOUND_TIME];
                 
                 // 同步到自己表中成功后的回调
                 if (syncSuccess) {
@@ -447,20 +449,14 @@
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {
         if ([result[@"result"] integerValue] == 200) {
-            NSArray *kmList = result[@"kmList"];
-            // 更新本地数据库中的上传状态
-            for (NSDictionary *kmDict in kmList) {
-                NSString *sportDate = kmDict[@"sportDate"];
-                NSString *mac = [kmDict[@"handMac"] lowercaseString];
-                NSString *km = kmDict[@"km"];
-                [manager updateActionStatus:sportDate mac:mac distance:km];
-            }
+            [manager updateActionUploadStatusWithMemberId:[VHSCommon userInfo].memberId.stringValue];
             [VHSCommon setUploadServerTime:[VHSCommon getDate:[NSDate date]]];
         }
         if (syncBlock) {
             syncBlock(result);
         }
     } fail:^(NSError *error) {
+        CLog(@"--->>> 🐶🐶🐶🐶: %@", error.description);
         [VHSToast toast:TOAST_NETWORK_SUSPEND];
     }];
 }

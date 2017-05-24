@@ -16,13 +16,13 @@ typedef NS_ENUM(NSInteger, VHSNetworkType) {
 
 @interface VHSRequestMessage : NSObject
 
-@property (nonatomic, copy) NSString            *path;                     // 服务器路径
-@property (nonatomic, assign) VHSNetworkType    httpMethod;                 // 提交服务器方式
-@property (nonatomic, copy) NSArray             *imageArray;               // 上传图片集合
-@property (nonatomic, assign) NSTimeInterval    timeout;                    // 请求服务器超时时间
-@property (nonatomic, strong) NSDictionary      *params;                   // body参数
+@property (nonatomic, copy)     NSString            *path;                      // 服务器路径
+@property (nonatomic, assign)   VHSNetworkType      httpMethod;                 // 提交服务器方式
+@property (nonatomic, copy)     NSDictionary        *imageMap;                  // 上传图片集合
+@property (nonatomic, assign)   NSTimeInterval      timeout;                    // 请求服务器超时时间
+@property (nonatomic, strong)   NSDictionary        *params;                    // body参数
 
-@property (nonatomic, strong) NSString          *sign;                      // 加密，关键参数签名
-@property (nonatomic, strong) NSString          *aesKey;                    // 用于解密服务器返回已经加密的数据
+@property (nonatomic, strong)   NSString            *sign;                      // 加密，关键参数签名
+@property (nonatomic, strong)   NSString            *aesKey;                    // 用于解密服务器返回已经加密的数据
 
 @end

@@ -24,7 +24,7 @@
 - (void)createTable;
 
 /// 更新运动上传状态和公里数
-- (void)updateActionStatus:(NSString *)recordTime mac:(NSString *)mac distance:(NSString *)distance;
+- (void)updateActionUploadStatusWithMemberId:(NSString *)memberId;
 
 ////////////////
 

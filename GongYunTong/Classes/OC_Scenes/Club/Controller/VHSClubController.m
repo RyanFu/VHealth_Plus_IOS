@@ -53,11 +53,13 @@ static NSString *reuse_identifier = @"VHSClubSessionCell";
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
+    // 初始俱乐部列表
+    [self setupTableView];
+    // 注册cell
     [self.tableView registerNib:[UINib nibWithNibName:@"VHSClubSessionCell" bundle:nil] forCellReuseIdentifier:reuse_identifier];
     
-    [self setupTableView];
-    
     self.tableView.tableHeaderView = [self tableHeaderView];
+    self.tableView.tableFooterView = [[UIView alloc] init];
     
     [self remoteUserClubsWithClubType:VHSClubOfMeType];
     [self remoteUserClubsWithClubType:VHSClubOfOtherType];

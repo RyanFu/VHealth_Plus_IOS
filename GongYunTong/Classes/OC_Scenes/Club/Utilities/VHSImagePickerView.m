@@ -8,6 +8,7 @@
 
 #import "VHSImagePickerView.h"
 #import "HUImagePickerViewController.h"
+#import "UIImage+extension.h"
 
 @interface VHSImagePickerView ()<UICollectionViewDelegate, UICollectionViewDataSource, HUImagePickerViewControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -157,8 +158,9 @@ static NSString *reuseIdentifier = @"VHSImagePickerCollectionCell";
     
     for (UIImage *img in thumbnailImages) {
         MomentPhotoModel *model = [[MomentPhotoModel alloc] init];
-        CGSize imgSize = img.size;
-        model.photoImage = [VHSUtils image:img scaleToSize:CGSizeMake(PICKER_IMAGE_WIDTH, PICKER_IMAGE_WIDTH * imgSize.height / imgSize.width)];
+//        CGSize imgSize = img.size;
+//        model.photoImage = [VHSUtils image:img scaleToSize:CGSizeMake(PICKER_IMAGE_WIDTH, PICKER_IMAGE_WIDTH * imgSize.height / imgSize.width)];
+        model.photoImage = [img resetSizeOfImageData:img maxSize:100];
         model.imageType = VHSImagePickerOfImageAlbumType;
         
         [self.photos addObject:model];

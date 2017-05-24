@@ -115,8 +115,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    float appVersion = [[VHSCommon getUserDefautForKey:k_APPVERSION] floatValue];
-    if (appVersion < [[VHSCommon appVersion] floatValue]) {
+    float historyAppVersion = [[VHSCommon getUserDefautForKey:k_APPVERSION] floatValue];
+
+    if (historyAppVersion < [k_MILESTONE_VERSION floatValue]) {
         [VHSAlertController alertMessage:@"当前版本已升级，请重新登陆，已绑定手环需要重新绑定" confirmHandler:^(UIAlertAction *action) {
             [self relogin:nil];
         }];

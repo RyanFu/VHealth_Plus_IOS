@@ -140,19 +140,12 @@ static NSTimeInterval VHS_BLE_BIND_DURATION     = 15;
         [[VHSBraceletCoodinator sharePeripheral] disconnectBraceletorWithPeripheral:peripheral];
         return;
     }
-    // 预绑定
+    // 预绑定(判断能否绑定手环)
     @WeakObj(self);
     [self bindBleWithActionType:@"2" success:^(NSDictionary *result, BOOL isSuccess) {
         if (isSuccess) {
-            // 预绑定成功
-            [selfWeak bindBleWithActionType:@"1" success:^(NSDictionary *result, BOOL isSuccess) {
-                if (isSuccess) {
-                    [selfWeak bindBracelet];
-                } else {
-                    [VHSToast toast:result[@"info"]];
-                    [selfWeak recoverCell];
-                }
-            }];
+            // 绑定手环
+            [selfWeak bindBracelet];
         } else {
             [[VHSBraceletCoodinator sharePeripheral] disconnectBraceletorWithPeripheral:peripheral];
             [MBProgressHUD hiddenHUD];
@@ -193,6 +186,14 @@ static NSTimeInterval VHS_BLE_BIND_DURATION     = 15;
         
         [selfWeak.bindCell.bingButton setTitle:@"已绑定" forState:UIControlStateNormal];
         [selfWeak showAlertAfterBind];
+        
+        // 通知服务器已经绑定成功
+        [selfWeak bindBleWithActionType:@"1" success:^(NSDictionary *result, BOOL isSuccess) {
+            if (!isSuccess) {
+                [VHSToast toast:result[@"info"]];
+                [selfWeak recoverCell];
+            }
+        }];
         
         // 获取绑定时刻手环的数据
         [[VHSBraceletCoodinator sharePeripheral] getBraceletorRealtimeDataWithCallBack:^(ProtocolLiveDataModel *liveData, int errorCode) {
@@ -248,18 +249,18 @@ static NSTimeInterval VHS_BLE_BIND_DURATION     = 15;
 // 绑定 type 1 － 预绑定为yes，去绑定手环
 // 解绑 type 0 － 解除手机和手环绑定
 
+// 绑定手环逻辑: 预绑定(判断手环能否绑定) -> 物理绑定(手环和手机进行蓝牙连接，绑定) -> 服务器绑定(服务器记录手环的mac地址，确定用户已经绑定了手环)
+
 - (void)bindBleWithActionType:(NSString *)type success:(void (^)(id result, BOOL isSuccess))successBlock {
     
     // 网络请求绑定 - 告知后台绑定手环
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     message.path = URL_DO_HAND_MAC;
-    NSString *handMac = [ShareDataSdk shareInstance].smart_device_id; // 不能使用[VHSCommon getShouHuanMacAddress]
+    NSString *handMac = [ShareDataSdk shareInstance].smart_device_id; // 不能使用[VHSCommon getShouHuanMacAddress]，当前还未绑定手环，UserDefault中没有保存手环地址
     NSMutableDictionary *params = [NSMutableDictionary new];
+    [params setObject:type forKey:@"actionType"];
     if (handMac) {
         [params setObject:handMac forKey:@"handMac"];
-    }
-    if (type) {
-        [params setObject:type forKey:@"actionType"];
     }
     message.params = params;
     message.httpMethod = VHSNetworkPOST;

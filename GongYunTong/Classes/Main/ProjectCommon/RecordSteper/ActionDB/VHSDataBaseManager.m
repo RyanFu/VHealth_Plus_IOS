@@ -40,9 +40,9 @@
 // 用户数据库创建处理
 - (void)createDB {
     // 覆盖安装前低于当前版本，修改表结构
-    float appVersion = [[VHSCommon getUserDefautForKey:k_APPVERSION] floatValue];
+    float historyAppVersion = [[VHSCommon getUserDefautForKey:k_APPVERSION] floatValue];
     
-    if (appVersion < [[VHSCommon appVersion] floatValue]) {
+    if (historyAppVersion < [k_MILESTONE_VERSION floatValue]) {
         if ([[NSFileManager defaultManager] fileExistsAtPath:[self dbPath]]) {
             [self dropActionLstTable];
         }
@@ -52,7 +52,6 @@
         [self createTable];
         [self alterActionLstTable];
     }
-    
     // 清空15天以前的数据
     [self deleteBeforeFifteenActionData];
 }
@@ -96,14 +95,14 @@
 }
 
 // 更新用户运动信息的上传状态
-- (void)updateActionStatus:(NSString *)recordTime mac:(NSString *)mac distance:(NSString *)distance {
-    if ([VHSCommon isNullString:recordTime] || [VHSCommon isNullString:mac]) return;
+- (void)updateActionUploadStatusWithMemberId:(NSString *)memberId {
+    if ([VHSCommon isNullString:memberId]) return;
     
     VHSDBSafetyCoordinator *safety = [VHSDBSafetyCoordinator shareDBCoordinator];
-    NSString *encryRecordTime = [safety encryptRecordTime:recordTime];
+    NSString *encryMemberId = [safety encryptMemberId:memberId];
     
-    NSString *sql = @"UPDATE action_lst SET upload = 1, distance = '%@'  where record_time = '%@' and mac_address = '%@';";
-    NSString *updateStatusSql = [NSString stringWithFormat:sql, distance, encryRecordTime, mac];
+    NSString *sql = @"UPDATE action_lst SET upload = 1 where member_id='%@';";
+    NSString *updateStatusSql = [NSString stringWithFormat:sql, encryMemberId];
     
     FMDatabase *db = [self getFmdb];
     [db open];
@@ -178,7 +177,7 @@
             // 手环更新
             validStep = action.step.integerValue - oldActionData.initialStep.integerValue;
             // 更新数据防止误会出错判断，1. 第一次手环摇动步数低于35不计算 2. 要更新的有效步数低于数据库原来存储的的步数，不更新
-            if (validStep < 35 || validStep < oldActionData.step.integerValue) {
+            if (validStep < 35 || validStep <= oldActionData.step.integerValue) {
                 return;
             }
         } else {

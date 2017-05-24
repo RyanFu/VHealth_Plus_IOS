@@ -139,11 +139,12 @@
         NSString *startUrl = result[@"startUrl"];
         NSInteger duration = [result[@"startTime"] integerValue];
         
-        // 保存广告页的地址
-        [VHSCommon saveLaunchUrl:startUrl];
+        if (![VHSCommon isNullString:startUrl]) {
+            // 保存广告页的地址
+            [VHSCommon saveLaunchUrl:startUrl];
+            [VHSUtils saveImageWithPath:startUrl];
+        }
         [VHSCommon saveLaunchDuration:duration];
-        
-        [VHSUtils saveImageWithPath:startUrl];
         
     } fail:^(NSError *error) {
         [VHSCommon setupRootController];

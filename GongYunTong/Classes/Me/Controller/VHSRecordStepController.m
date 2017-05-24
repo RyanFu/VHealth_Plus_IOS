@@ -418,6 +418,7 @@
                 [VHSToast toast:result[@"info"]];
             } else {
                 self.syncTimeLabel.text = [NSString stringWithFormat:@"上次同步：%@", [VHSCommon timeInfoWithDateString:[VHSCommon getUploadServerTime]]];
+                self.lastTimeLabel.text = [NSString stringWithFormat:@"上次获取手环数据%@",[VHSCommon timeInfoWithDateString:[VHSCommon getShouHuanLastTimeSync]]];;
             }
             self.syncTimeLabel.userInteractionEnabled = YES;
             self.syncRotate.userInteractionEnabled = YES;

@@ -679,7 +679,7 @@
         
         VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
         if (photoImage) {
-            message.imageArray = @[photoImage];
+            message.imageMap = @{@"pictrueFile" : photoImage};
         }
         message.path = URL_ADD_HEADER;
         message.httpMethod = VHSNetworkUpload;

@@ -179,16 +179,18 @@
     // 网络请求
     [MBProgressHUD showMessage:TOAST_CLUB_BBS_POSTING];
 
-    NSMutableArray *momentImageArray = [NSMutableArray new];
-    for (MomentPhotoModel *moment in self.photosMomentItems) {
-        [momentImageArray addObject:moment.photoImage];
+    // 给每一张图片取一个名字
+    NSMutableDictionary *momentDict = [NSMutableDictionary dictionaryWithCapacity:self.photosMomentItems.count];
+    for (NSInteger i = 0; i < self.photosMomentItems.count; i++) {
+        MomentPhotoModel *moment = self.photosMomentItems[i];
+        [momentDict setObject:moment.photoImage forKey:[NSString stringWithFormat:@"pictrueFile%@", @(i)]];
     }
     
     VHSRequestMessage *message = [[VHSRequestMessage alloc] init];
     message.path = URL_ADD_CLUB_BBS;
     message.params = @{@"bbsContent" : self.content ? self.content : @"",
                        @"clubId" : self.clubId};
-    message.imageArray = momentImageArray;
+    message.imageMap = momentDict;
     message.httpMethod = VHSNetworkUpload;
     
     [[VHSHttpEngine sharedInstance] sendMessage:message success:^(NSDictionary *result) {

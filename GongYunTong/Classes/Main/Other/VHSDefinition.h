@@ -73,7 +73,8 @@ static NSInteger const GYT_CODE_TOKEN_INVALID                       = 4000;
 static NSString *const k_VHS_DataBase_Version_Key                   = @"database_version";
 static NSInteger const k_VHS_DataBase_Version                       = 2;
 
-#define k_APPVERSION                                    @"k_APPVERSION"         // 记录app版本
+#define k_APPVERSION                                    @"k_APPVERSION"                     // 记录app版本
+#define k_MILESTONE_VERSION                             @"1.39"                             // V健康+1.39版本手环数据库做了变迁，针对该版本之下的需要重新登陆，修改数据库结构
 #define k_LATITUDE_LONGITUDE                            @"k_LATITUDE_LONGITUDE"             // 经纬度
 #define k_Launch_Time                                   @"k_Launch_Time"                    // 记录启动的时间
 #define k_Late_Duration(x)                              x * 3600

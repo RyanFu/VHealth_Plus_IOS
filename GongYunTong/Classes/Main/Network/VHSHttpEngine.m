@@ -79,7 +79,7 @@ static VHSHttpEngine *_instance = nil;
     }
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:message.params];
-   
+    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSString *urlString = [NSString stringWithFormat:@"%@%@", kServerURL, message.path];
     CLog(@"URL %@", urlString);
@@ -99,7 +99,9 @@ static VHSHttpEngine *_instance = nil;
             success(result); //成功回调
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
         DLog(@"%@", task.taskDescription);
         if (failure) {
             failure(error);
@@ -130,7 +132,6 @@ static VHSHttpEngine *_instance = nil;
         
         // 解密服务器返回值
         NSDictionary *result = [self sessionWithNetResponse:responseObject message:message];
-        
         // 后端使token失效,强制重新登录
         if ([result[@"result"] integerValue] == GYT_CODE_TOKEN_INVALID) {
             NSDictionary *userInfo = [NSDictionary dictionaryWithObject:result[@"info"] forKey:@"info"];
@@ -138,11 +139,14 @@ static VHSHttpEngine *_instance = nil;
         }
         
         if (success) success(result); //成功回调
-            
+        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         
-        if (failure) failure(error);
+        DLog(@"%@", task.taskDescription);
+        if (failure) {
+            failure(error);
+        }
     }];
 }
 
@@ -160,36 +164,27 @@ static VHSHttpEngine *_instance = nil;
     //3.发送请求
     [_manager POST:urlString parameters:message.params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
-        if ([message.imageArray count] > 1) {
+        /*
+         Data: 要上传的二进制数据
+         name:保存在服务器上时用的Key值
+         fileName:保存在服务器上时用的文件名,注意要加 .jpg或者.png
+         mimeType:让服务器知道我上传的是哪种类型的文件
+         */
+        
+        //多张图片
+        for(NSInteger i = 0; i < [message.imageMap.allKeys count]; i++) {
+            // 图片的key
+            NSString *imageKey = [message.imageMap.allKeys objectAtIndex:i];
+            // 取出图片
+            UIImage *image = message.imageMap[imageKey];
+            // 转成二进制
+            NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+            // 上传的参数名
+            NSString *name = [NSString stringWithFormat:@"%@", imageKey];
+            // 上传fileName
+            NSString *fileName = [NSString stringWithFormat:@"%@.jpg", name];
             
-            /*
-             Data: 要上传的二进制数据
-             name:保存在服务器上时用的Key值
-             fileName:保存在服务器上时用的文件名,注意要加 .jpg或者.png
-             mimeType:让服务器知道我上传的是哪种类型的文件
-             */
-            
-            //多张图片
-            for(NSInteger i = 0; i < [message.imageArray count]; i++) {
-                // 取出图片
-                UIImage *image = [message.imageArray objectAtIndex:i];
-                // 转成二进制
-                NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
-                // 上传的参数名
-                NSString * name = [NSString stringWithFormat:@"pictrueFile%ld", (long)i];
-                // 上传fileName
-                NSString * fileName = [NSString stringWithFormat:@"%@.jpg", name];
-                
-                [formData appendPartWithFileData:imageData name:name fileName:fileName mimeType:@"image/jpeg"];
-            }
-            
-        } else if ([message.imageArray count] == 1){
-            
-            //单张图片
-            UIImage *image = [message.imageArray firstObject];//获得一张Image
-            NSData *data = UIImageJPEGRepresentation(image, 1.0);//将UIImage转为NSData，1.0表示不压缩图片质量。
-            [formData appendPartWithFileData:data name:@"pictrueFile" fileName:@"pictrueFile.jpg" mimeType:@"image/jpeg"];
-            
+            [formData appendPartWithFileData:imageData name:name fileName:fileName mimeType:@"image/jpeg"];
         }
         
     } progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -198,9 +193,12 @@ static VHSHttpEngine *_instance = nil;
         // 解密服务器返回值
         NSDictionary *result = [self sessionWithNetResponse:response message:message];
         
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         if (success) success(result);
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
         if (failure) failure(error);
     }];
 }
@@ -255,7 +253,7 @@ static VHSHttpEngine *_instance = nil;
 /// 加密传输给服务器的数据
 - (void)encryptedMessage:(VHSRequestMessage *)message {
     if (!Switch_Encrypted_Is_Open) return;
-        
+    
     NSString *aesKey = [VHSUtils generateRandomStr16];
     message.aesKey = aesKey;
     

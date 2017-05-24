@@ -188,6 +188,10 @@
 		33B1EBAD1E6FF1A000B74CA8 /* VHSReddotButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EB821E6FF1A000B74CA8 /* VHSReddotButton.m */; };
 		33B1EBAF1E6FF1D300B74CA8 /* VHSMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B1EBAE1E6FF1D300B74CA8 /* VHSMessageModel.swift */; };
 		33B658EF1E715D39008CC05E /* String+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33B658EE1E715D39008CC05E /* String+Size.swift */; };
+		33BEC9741ED43EE400D774AE /* UIImage+extension.h in Headers */ = {isa = PBXBuildFile; fileRef = 33BEC9721ED43EE400D774AE /* UIImage+extension.h */; };
+		33BEC9751ED43EE400D774AE /* UIImage+extension.h in Headers */ = {isa = PBXBuildFile; fileRef = 33BEC9721ED43EE400D774AE /* UIImage+extension.h */; };
+		33BEC9761ED43EE400D774AE /* UIImage+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33BEC9731ED43EE400D774AE /* UIImage+extension.m */; };
+		33BEC9771ED43EE400D774AE /* UIImage+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 33BEC9731ED43EE400D774AE /* UIImage+extension.m */; };
 		33C56C0A1EBA0CA50017CA04 /* VHSActionCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 33C56C081EBA0CA50017CA04 /* VHSActionCell.h */; };
 		33C56C0C1EBA0CA50017CA04 /* VHSActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 33C56C091EBA0CA50017CA04 /* VHSActionCell.m */; };
 		33C56C101EBA0CE30017CA04 /* VHSActionListController.h in Headers */ = {isa = PBXBuildFile; fileRef = 33C56C0E1EBA0CE30017CA04 /* VHSActionListController.h */; };
@@ -766,6 +770,8 @@
 		33B1EB821E6FF1A000B74CA8 /* VHSReddotButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSReddotButton.m; sourceTree = "<group>"; };
 		33B1EBAE1E6FF1D300B74CA8 /* VHSMessageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VHSMessageModel.swift; sourceTree = "<group>"; };
 		33B658EE1E715D39008CC05E /* String+Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Size.swift"; sourceTree = "<group>"; };
+		33BEC9721ED43EE400D774AE /* UIImage+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+extension.h"; sourceTree = "<group>"; };
+		33BEC9731ED43EE400D774AE /* UIImage+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+extension.m"; sourceTree = "<group>"; };
 		33C56C081EBA0CA50017CA04 /* VHSActionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSActionCell.h; sourceTree = "<group>"; };
 		33C56C091EBA0CA50017CA04 /* VHSActionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VHSActionCell.m; sourceTree = "<group>"; };
 		33C56C0E1EBA0CE30017CA04 /* VHSActionListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VHSActionListController.h; sourceTree = "<group>"; };
@@ -1759,6 +1765,8 @@
 				3362F3051E30CAF500F69477 /* UIView+extension.m */,
 				33645D041E7BC76F0044F4AF /* UIViewController+Tracking.h */,
 				33645D051E7BC76F0044F4AF /* UIViewController+Tracking.m */,
+				33BEC9721ED43EE400D774AE /* UIImage+extension.h */,
+				33BEC9731ED43EE400D774AE /* UIImage+extension.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2114,6 +2122,7 @@
 			files = (
 				3362F3061E30CAF500F69477 /* UIView+extension.h in Headers */,
 				334F602D1E0BBABD000F06B0 /* ThirdPartyCoordinator.h in Headers */,
+				33BEC9741ED43EE400D774AE /* UIImage+extension.h in Headers */,
 				33B1EBA71E6FF1A000B74CA8 /* VHSMoreMenu.h in Headers */,
 				33B1EB871E6FF1A000B74CA8 /* VHSCommentController.h in Headers */,
 				33B1EBA91E6FF1A000B74CA8 /* VHSClubSessionCell.h in Headers */,
@@ -2172,6 +2181,7 @@
 			files = (
 				33C5D4311EC080BF00A4D98B /* UIView+extension.h in Headers */,
 				33C5D4321EC080BF00A4D98B /* ThirdPartyCoordinator.h in Headers */,
+				33BEC9751ED43EE400D774AE /* UIImage+extension.h in Headers */,
 				33C5D4331EC080BF00A4D98B /* VHSMoreMenu.h in Headers */,
 				33C5D4341EC080BF00A4D98B /* VHSCommentController.h in Headers */,
 				33C5D4351EC080BF00A4D98B /* VHSClubSessionCell.h in Headers */,
@@ -2320,7 +2330,7 @@
 					};
 					67C7ADFD1D38AB2A0091F669 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 2JGJK49F2H;
+						DevelopmentTeam = C76485U944;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -2700,6 +2710,7 @@
 				33C5D3DF1EC080BF00A4D98B /* VHSTestController.m in Sources */,
 				33C5D3E01EC080BF00A4D98B /* UIColor+Extension.swift in Sources */,
 				33C5D3E21EC080BF00A4D98B /* LoginModel.m in Sources */,
+				33BEC9771ED43EE400D774AE /* UIImage+extension.m in Sources */,
 				33C5D3E31EC080BF00A4D98B /* XLAlertController.m in Sources */,
 				33C5D3E41EC080BF00A4D98B /* VHSDynamicBigIgvCell.m in Sources */,
 			);
@@ -2852,6 +2863,7 @@
 				33D097631E695B9E00B57648 /* VHSTestController.m in Sources */,
 				3309F4761E76A92200DB7B20 /* UIColor+Extension.swift in Sources */,
 				33FB4B101D50843E00AB8086 /* LoginModel.m in Sources */,
+				33BEC9761ED43EE400D774AE /* UIImage+extension.m in Sources */,
 				67E13F561D45D77D001C58D7 /* XLAlertController.m in Sources */,
 				67AD039F1D40DDE200246667 /* VHSDynamicBigIgvCell.m in Sources */,
 			);
@@ -3119,7 +3131,7 @@
 				CODE_SIGN_ENTITLEMENTS = /Users/pingjunlin/Documents/VHealth_Plus_IOS/GongYunTong/Resource/GongYunTong.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 2JGJK49F2H;
+				DEVELOPMENT_TEAM = C76485U944;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/FitSDK",
@@ -3141,7 +3153,7 @@
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/RongCloud/IMLib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.appstore.gongyuntong;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.gongyuntong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3164,7 +3176,7 @@
 				CODE_SIGN_ENTITLEMENTS = /Users/pingjunlin/Documents/VHealth_Plus_IOS/GongYunTong/Resource/GongYunTong.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 2JGJK49F2H;
+				DEVELOPMENT_TEAM = C76485U944;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/Tool/FitSDK",
@@ -3186,7 +3198,7 @@
 					"$(PROJECT_DIR)/GongYunTong/Classes/Main/ThirdLibrary/RongCloud/IMLib",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.appstore.gongyuntong;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vhs.gongyuntong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
